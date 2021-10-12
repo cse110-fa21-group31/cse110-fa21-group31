@@ -46,7 +46,9 @@ Here at Powell's official fanclub, we value:
    Professional experience: you guys are getting internships?
    Interests/want to learn: webdev, machine learning
  - [Jianghua (Sarah) Lu](https://github.com/Jianghualu/fall21cse110/blob/newBranch/index.md): 4th year Computer Engineer, Warren college.
-  Habit: Camping and kayaking 
+  Habit: Camping and kayaking;
+  Professional experience: Tutor?
+  Interests/want to learn: machine learning
  - [Serina Khanna](https://github.com/helloserina/helloserina/blob/newBranch/index.md): (she/they), 3rd year, math-cs
     hobbies: embroidery, baking, climbing
     prof xp: i was an ios intern this summer . . . rip web dev
