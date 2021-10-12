@@ -1,3 +1,11 @@
+Team Powell's Fanclub:
+Kickoff Meeting
+All members present
+Held in: The CSE Dungeon and through Zoom
+
+Agenda:
+Games and Ideas:
+
 ideas:
 sort by ingredients
 sort by cooking time
@@ -48,4 +56,11 @@ delicious.com
 		reviews need more functionality
 		bad user system
 
+Brand Ideas:
+	Powell is our mascot!
+	Team colors
 
+Reasoning:
+	We love Professor Powell
+
+Meeting finished: 10pm PST
