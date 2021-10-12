@@ -10,4 +10,4 @@ Features that we want to include:
 
 The readme will be updated as we add code, tests, documentation, and other important artifacts.
 
-[team page](admin/team.md)
+[Team Page](admin/team.md)
