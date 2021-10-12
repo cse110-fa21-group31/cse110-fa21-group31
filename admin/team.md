@@ -35,7 +35,8 @@ Here at Powell's official fanclub, we value:
     my hobbies are digital art, league of legends, skiing, and SIMP FOR GOJO 
     professional experience: i do research for computer vision/VR surgery here, and potentially have a job at amazon starting this summer (not that any of that will be useful for this class LOL)
     interests: i want to make Sword Art Online real , also any avenue that leads to getting rich
- - [Eric Filishtiner](https://eric-filishtiner.github.io/my-incomplete-intro/#Pokemon), 
+ - [Eric Filishtiner](https://eric-filishtiner.github.io/my-incomplete-intro/#Pokemon): Eric Filishtiner, 4th year M-CS, Warren
+    Hobbies: tennis, pokemon, arcade games in general but especially SMB.
  - [Euvin Keel](https://euvinkeel.github.io/euvinkeel/): 3rd year, CSE, Warren
     hobbies: digital art/animation
     professional experience: (practically) none
