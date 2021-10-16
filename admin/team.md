@@ -11,7 +11,7 @@ Your team page should have the team name, brand, any values you think are import
 <!-- BRANDING -->
 
 
-![Group Icon](branding/PowellIconRed.png)
+![Group Icon](branding/PowellIconOrange.png)
 
 # VALUES
 Here at Powell's official fanclub, we value: 
