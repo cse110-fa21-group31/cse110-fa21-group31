@@ -1,12 +1,29 @@
 Team Powell's Fanclub:
+Type of meeting:
 Kickoff Meeting
+In attendance:
+Caiwei Xiao
+Bjorn Johnson
+Euvin Keel
+Xin Sheng
+Sarah Lu
+Eric Filishtiner
+Danica Xiong
+Serina Khanna
+Tallis Dawson
+Kian Ezaz
 All members present
+Time:
+10/11/21 until 10pm PST(roughly 2 hour duration)
+Place:
 Held in: The CSE Dungeon and through Zoom
 
 Agenda:
 Games and Ideas:
 
-ideas:
+ideas/items for future investigation:
+
+DECISIONS MADE:
 sort by ingredients
 sort by cooking time
 add pictures of recipes
