@@ -1,5 +1,5 @@
-# Powell's Fan Club
-Greeting here! We are cse110 fa21 team 31. Our team name is Powell's Fan Club. Checkout our details:
+# Powell's Fanclub
+Greeting here! We are cse110 fa21 team 31. Our team name is Powell's Fanclub. Checkout our details:
 
 ## Brand: 
 <!--

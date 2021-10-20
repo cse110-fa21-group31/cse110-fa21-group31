@@ -1,4 +1,4 @@
-# Powell's Fan Club
+# Powell's Fanclub
 
 ## Logo
 
