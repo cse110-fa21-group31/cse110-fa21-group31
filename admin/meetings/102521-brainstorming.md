@@ -54,11 +54,22 @@
 * Scope
 	* College students
 * Languages/Tools
-	* Hard to do without Express.js, Node.js, Angular.js, etc
-	* Front-end
-	* Back-end
+	* Hard to do without Express.js, Angular.js, etc
+	* Front-end (2 people + 1 lead)
+    	* HTML, CSS, Javascript
+    	* UI/UX stuff
+	* Back-end (2 people + 1 lead): extends information from database -> website
+    	* Creates the API
+    	* Node.js
+	* Database (1 person + 1 lead): holds the information
     	* Database of recipes
+    	* MongoDB
     	* Implement searching
         	* Can be easier via tags
         	* Dropdown can be done instead
+      	* Research:
+        	* User table
+        	* Recipe table
+        	* Tag table
+  	* Product Manager (1 person)
 
