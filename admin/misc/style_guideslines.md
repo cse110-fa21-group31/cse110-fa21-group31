@@ -2,7 +2,7 @@ With inspiration from the [W21 CSE 11 Style Guidelines](https://cseweb.ucsd.edu/
 
 ## Formatting
 **Braces**
-- Required for any '''if, else, for, do, while, switch''' statements
+- Required for any ```if, else, for, do, while, switch``` statements
 - Follow the Kernighan and Ritchie style:
   - No line break before the opening brace.
   - Line break after the opening brace.
@@ -24,10 +24,10 @@ With inspiration from the [W21 CSE 11 Style Guidelines](https://cseweb.ucsd.edu/
     - Function call
     - Parameters
     - Number constant
-    ''' meanOfNumbers =
+    ``` meanOfNumbers =
             mean(start + countOfRemainingNumbers *      
                 RemainingNumbersValue) / countOfAll;
-    '''
+    ```
 
 **Comments**
 - Block comments are preferable if comments are 1+ lines
@@ -46,7 +46,7 @@ With inspiration from the [W21 CSE 11 Style Guidelines](https://cseweb.ucsd.edu/
 - Magic numbers, which are any numbers that are not -1, 0, 1 must be stored as a constant
 
 ## Language Features
-- Declare all local variables using '''const''' and '''let'''
+- Declare all local variables using ```const``` and ```let```
 - Every local variable declaration must declare only 1 variable
 
 **String literals**
@@ -56,11 +56,11 @@ With inspiration from the [W21 CSE 11 Style Guidelines](https://cseweb.ucsd.edu/
 **File Headers**
 - Required at the top of every file
 - Must describe the usage of the file
-  ''' 
+  ```
   Filename: filename.languageType
   Date: MM/DD/YR
   Purpose: 1-3 sentences
-  '''
+  ```
 
 **Class Header**
 - Required for every class created
@@ -69,11 +69,11 @@ With inspiration from the [W21 CSE 11 Style Guidelines](https://cseweb.ucsd.edu/
 **Method Headers**
 - Directly above said method itself
 - 1-2 sentence description, along with descriptions of the parameters and return types
- ''' 
+ ```
   1-2 sentence description. Purpose of method.
 
   param {type} nameOfParam1 State what this parameter represents.
   param {type} nameOfParam2 State what this parameter represents.
   @param {type} nameOfParam3 State what this parameter represents.
   @return Specify what the return value represents.
-  '''
+  ```
