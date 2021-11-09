@@ -5,14 +5,89 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>User Info</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <!-- <script src='main.js'></script> -->
+    <style>
+        .userInfoGridContainer {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            padding: 10px;
+        }
+        .userInfoGridItem {
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            line-height: 0px;
+        }
+
+        .myRecipeCardGridContainer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <header> 
         <h1> OLIVE U </h1>
-        <input id="profile" src="../assets/profile.png" />
-        <input id="settings" src="../assets/settings.png" />
+        <img id="profile" src="../assets/profile.png" width=40 height =40/>
+        <img id="settings" src="../assets/settings.png" width=40 height =40/>
     </header>
+    <div class="userInfoGridContainer">
+        <!-- User Profile, left side -->
+        <div class = "userInfoGridItem">
+            <img id="profile" src="../assets/profile.png" width=80 height =80/>
+            <h1 id = "userName"> Name </h1>
+            <h2 id = "userEmail"> Email </h2>
+            <button id = "createRecipe" type = "button"> New Recipe </button>
+            <button id = "userSettings" type = "button"> Account Settings </button>
+            <button id = "logout" type = "button"> Logout </button>
+        </div>
+        <!-- Recipe Section -->
+        <div class = "userInfoGridItem">
+                <h1> My Recipes </h1>
+                <div class = "myRecipeCardGridContainer">
+                    <recipeCard>  
+                        <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                        <p> Title </p>
+                        <customTags> Beef, Easy, Entree </customTags>
+                    </recipeCard>
+                    <recipeCard>  
+                        <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                        <p> Title </p>
+                        <customTags> Beef, Easy, Entree </customTags>
+                    </recipeCard>
+                    <recipeCard>  
+                        <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                        <p> Title </p>
+                        <customTags> Beef, Easy, Entree </customTags>
+                    </recipeCard>
+                </div>
+                <h1> Saved Recipes </h1>
+                <div class = "savedRecipes">
+                    <div class = "myRecipeCardGridContainer">
+                        <recipeCard>  
+                            <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                            <p> Title </p>
+                            <customTags> Beef, Easy, Entree </customTags>
+                        </recipeCard>
+                        <recipeCard>  
+                            <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                            <p> Title </p>
+                            <customTags> Beef, Easy, Entree </customTags>
+                        </recipeCard>
+                        <recipeCard>  
+                            <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                            <p> Title </p>
+                            <customTags> Beef, Easy, Entree </customTags>
+                        </recipeCard>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
