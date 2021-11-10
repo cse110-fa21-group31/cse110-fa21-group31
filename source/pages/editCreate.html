@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit/Create</title>
+        <meta charset="utf-8">
+        <script src="../scripts/editCreate.js"></script>
+    </head>
+    <body>
+        <!-- A complete form for editing a recipe -->
+        <!-- This can probably just be a really basic form -->
+        <!-- 
+            How will data be sent to the server? 
+            Needs:
+            * Name of recipe
+            * Tags to include
+                * Diet (keto/vegetarian/pescatarian/vegan)
+                * Allergies (nut, milk, shellfish)
+                * Country (Italian, Korean, Mexican ...)
+                
+                good question, I think from the miro, we'll have some predefined tags -> but we should ask again 
+            * Prep time + Cook time
+            * Difficulty (5 stars)
+            * Rating (5 stars)
+            * Ingredients
+            * Steps
+            
+            ingredients and steps are like
+            type in something, enter, it adds some item to a list and then the textbox is put on the bottom where you can continue adding
+        --> 
+
+        <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
+        
+        
+        <!-- Generate a complete recipe editing page. -->
+        <div id="recipeEdit">
+            <form id="recipeForm">
+                
+                <div id="name" class="formItem">
+                    <label for="name">Recipe Name:</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                
+                <div id="picture" class="formItem">
+                    <label for="picture">Picture:</label>
+                    <input type="file" name="picture" id="picture">
+                </div>
+
+                <!-- Tags will be sent to the backend as a big comma delimited string -->
+                <div id="tags" class="formItem">
+                    <label for="tags">Tags:</label>
+                    <input type="text" name="tags" id="tags">
+                </div>
+
+                <div id="prepTime" class="formItem">
+                    <label for="prepTime">Prep Time:</label>
+                    <input type="time" name="prepTime" id="prepTime" min="00:00" max="18:00" required>
+                </div>
+
+                <div id="cookTime" class="formItem">
+                    <label for="cookTime">Cook Time:</label>
+                    <input type="time" name="cookTime" id="cookTime" min="00:00" max="18:00" required>
+                </div>
+
+                <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu --> 
+                <div id="difficulty" class="formItem">
+                    <label for="difficulty">Difficulty:</label>
+                    <select name="difficulty" id="difficulty">
+                        <option value="1">1 star</option>
+                        <option value="2">2 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="4">4 stars</option>
+                        <option value="5">5 stars</option>
+                    </select>
+                </div>
+           
+                <div id="ingredients" class="formItem">
+
+                    <label for="ingredients">Ingredients:</label>
+
+                    <div id="addIngredients">
+                        <button onclick ="appendIngredient()" value="Add Ingredient">Add Ingredient</button>
+                        <button onclick ="deleteIngredient()" value="Delete Ingredient">Delete Ingredient</button>
+                    </div>
+                    <div id="addIngredients" class='float-container'>
+                        <div class='float-child'>
+                            <div id="newIngredientId"></div>
+                        </div>
+                        <div class='float-child'></div>
+                            <div id="newIngredientAmountId"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users can add entries into a sorted display list -->
+                <!-- By typing in a specific step and submitting it, it'll add a new entry to the ingredientsBox div --> 
+                <!-- But for this very first draft we're just concerned with giving the backend data to work with -->
+                <!--
+                <div id="newIngredientEntry">
+                    <label for="newIngredientEntry">New Ingredient Entry:</label>
+                    <input type="text" name="newIngredientEntry" id="newIngredientEntry">
+                </div>
+                -->
+
+                <div id="steps" class="formItem">
+                    <label for="steps">Steps:</label>
+                    <div id="addSteps">
+                        <button onclick ="appendStep()" value="Add Step">Add Step</button>
+                        <button onclick ="deleteStep()" value="Delete Step">Delete Step</button>
+                    </div>
+                    <div id="newStepId"></div>
+                </div>
+
+                <div id="submit" class="formItem">
+                    <input type="submit" value="Submit">
+                </div>
+
+            </form>
+        </div>
+    </body>
+</html>
