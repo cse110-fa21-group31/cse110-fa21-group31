@@ -33,7 +33,7 @@
         
         <!-- Generate a complete recipe editing page. -->
         <div id="recipeForm">
-            <form onSubmit=></form>
+            <form onSubmit=formSubmit(event)></form>
                 <div class="name">
                     <label for="name">Recipe Name:</label>
                     <input type="text" name="name" id="name">
@@ -44,8 +44,6 @@
                     <input type="file" name="picture" id="picture">
                 </div>
 
-                that multi cursor shit i did fucked things up damn live share does not like that
-                ur mouse is spazzing out haha
                 <label for="tags">Tags:</label>
                 <input type="text" name="tags" id="tags">
 
@@ -61,9 +59,11 @@
                 <label for="ingredients">Ingredients:</label>
                 <textarea name="ingredients" id="ingredients" rows="10" cols="30"></textarea>
 
+                </div class = "steps">
                 <label for="steps">Steps:</label>
-                <textarea name="steps" id="steps" rows="10" cols="30"></textarea>
+                <textarea name="steps" id="steps" rows="10" cols="40"></textarea>
+                </div>
             </form>
-        </div>
+        </div> 
     </body>
 </html>
