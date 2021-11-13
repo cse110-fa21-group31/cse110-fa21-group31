@@ -1,7 +1,58 @@
+<!DOCTYPE html>
+<html lang= "en">
+<style>
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4E598C;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  
+  li *:not(.logo){
+    float: right;
+    border-left: 1px solid #bbb;
+    font-family: 'OpenSans', sans-serif;
+  }
+
+  li .logo {
+    
+    float: left;
+    color: #FF8C42;
+    font-family: 'Rammetto One', cursive;
+    font-weight: bold;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 18px;
+    text-decoration: none;
+  }
+
+  /* Change the link color to #111 (black) on hover */
+
+  li *:not(.logo):hover {
+    background-color: #F9C784;
+  }
+  li .logo:hover {
+    color: #F9C784;
+  }
+  
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap" rel="stylesheet">
+
 <nav>
     <div class="navbar">
-      <a href="/cse110-fa21-group31/index.html" class="logoName">Olive U</a>
       <ul id="nav" class="topRight">
+        <li><a class="logo" href="/cse110-fa21-group31/index.html">Olive U</a></li>
         <li><a href="/cse110-fa21-group31/source/pages/signup.html">Sign Up</a></li>
         <li><a href="/cse110-fa21-group31/source/pages/login.html">Log In</a></li>
       </ul>
