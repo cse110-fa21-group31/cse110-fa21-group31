@@ -22,8 +22,6 @@
   li .logo {
     
     float: left;
-    border-right: 1px solid #bbb;
-    border-left: 1px solid #bbb;
     color: #FF8C42;
     font-family: 'Rammetto One', cursive;
     font-weight: bold;
@@ -33,14 +31,17 @@
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px 18px;
     text-decoration: none;
   }
 
   /* Change the link color to #111 (black) on hover */
 
-  li a:hover {
+  li *:not(.logo):hover {
     background-color: #F9C784;
+  }
+  li .logo:hover {
+    color: #F9C784;
   }
   
 </style>
