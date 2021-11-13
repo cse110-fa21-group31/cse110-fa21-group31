@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
  <html>
      <head>
         <meta charset='utf-8'>
@@ -8,75 +8,76 @@
         <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
         <!-- <script src='main.js'></script> -->
         <style>
-            .searchBar {
-                display: block;
-                margin: auto;
-                
+            h1 {
+                line-height: 0px;
             }
 
             .myRecipeCardGridContainer {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            padding: 10px;
-            
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                padding: 10px;
+                margin: 20px;
+            }
+
+            .searchBar {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                padding: 10px;
+                margin-left: 60px;
+            }
+
+            .recipeCard {
+                margin-top: 30px;
+                margin-bottom: 30px;
             }
         </style>
-     </head>
-     <body>
-        <div class="navBar"></div>
-
-         <!-- Search Bar -->
-         <div class="searchBar">
-            <form>
-                <label for="search">Search</label>
-                <input type="text" id="search" name="search">
-            </form>
-         </div>
-
-         <!-- Tags Bar -->
-         <div class="tagsBar">
-            <p>Tags:</p>
-            <!-- Use Javascript? -->
-        </div>
-        
-         <!-- Recipe Section -->
-         <div class = "userInfoGridItem">
-            <h1> My Recipes </h1>
-            <div class = "myRecipeCardGridContainer">
-                <recipeCard>  
-                    <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                    <p> Title </p>
-                    <customTags> Beef, Easy, Entree </customTags>
-                </recipeCard>
-                <recipeCard>  
-                    <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                    <p> Title </p>
-                    <customTags> Beef, Easy, Entree </customTags>
-                </recipeCard>
-                <recipeCard>  
-                    <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                    <p> Title </p>
-                    <customTags> Beef, Easy, Entree </customTags>
-                </recipeCard>
-                <recipeCard>  
-                    <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                    <p> Title </p>
-                    <customTags> Beef, Easy, Entree </customTags>
-                </recipeCard>
-                <recipeCard>  
-                    <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                    <p> Title </p>
-                    <customTags> Beef, Easy, Entree </customTags>
-                </recipeCard>
-                <recipeCard>  
-                    <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                    <p> Title </p>
-                    <customTags> Beef, Easy, Entree </customTags>
-                </recipeCard>
+    </head>
+    <body>
+        <header> 
+            <h1> OLIVE U </h1>
+            <img id="profile" src="../assets/profile.png" width=40 height =40/>
+            <img id="settings" src="../assets/settings.png" width=40 height =40/>
+        </header>
+        <div class = "searchBar">
+            <div id="keyword" class="formItem">
+                <label for="keyword">Search:</label>
+                <input type="text" name="keyword" id="keyword">
+            </div>
+            <div id="submit" class="formItem">
+                <input type="submit" value="Submit">
             </div>
         </div>
+        <div class = "myRecipeCardGridContainer">
+            <recipeCard>  
+                <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                <p> Title </p>
+                <customTags> Beef, Easy, Entree </customTags>
+            </recipeCard>
+            <recipeCard>  
+                <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                <p> Title </p>
+                <customTags> Beef, Easy, Entree </customTags>
+            </recipeCard>
+            <recipeCard>  
+                <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                <p> Title </p>
+                <customTags> Beef, Easy, Entree </customTags>
+            </recipeCard>
+            <recipeCard>  
+                <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                <p> Title </p>
+                <customTags> Beef, Easy, Entree </customTags>
+            </recipeCard>
+            <recipeCard>  
+                <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                <p> Title </p>
+                <customTags> Beef, Easy, Entree </customTags>
+            </recipeCard>
+            <recipeCard>  
+                <img id="profile" src="../assets/profile.png" width=40 height=40/>
+                <p> Title </p>
+                <customTags> Beef, Easy, Entree </customTags>
+            </recipeCard>
+        </div>
     </body>
-    <footer>
-
-    </footer>
- </html>
+</html>
