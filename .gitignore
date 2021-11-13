@@ -1,2 +1,4 @@
 **/.DS_Store
 **/specs/.DS_Store
+node_modules
+neDB_demo
