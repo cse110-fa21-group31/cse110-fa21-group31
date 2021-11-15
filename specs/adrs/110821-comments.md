@@ -1,4 +1,4 @@
-# {short title of solved problem and solution}
+# Using comments as second feature
 
 * Status: accepted
 * Deciders: All members
