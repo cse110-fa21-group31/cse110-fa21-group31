@@ -1,8 +1,8 @@
 # {short title of solved problem and solution}
 
-* Status: {accepted} 
-* Deciders: {All members} 
-* Date: {2021-11-08} 
+* Status: accepted
+* Deciders: All members
+* Date: 2021-11-08
 
 Technical Story: We decided to add "comments" as our second feature besides CRUD by using "Disqus". since our target audience is students, and students love to comment on things. We want every user to have a chance to post their own experience on this recipe, so other users could see some feedback on the recipes they loved.
 
