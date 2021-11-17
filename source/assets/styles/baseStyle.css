@@ -1,13 +1,27 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Rammetto+One&display=swap');
 
+/* Fonts, text styles, */
 
 /*
 Logo font:
 font-family: 'Rammetto One', cursive;
+*/
+li .logo {
+    
+    float: left;
+    color: #FF8C42;
+    font-family: 'Rammetto One', cursive;
+    font-weight: bold;
+}
+
+/*
+Recipe Card Font:
+/*
 
 
 
+/*
 Regular text font:
 font-family: 'Open Sans', sans-serif;
 
