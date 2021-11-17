@@ -5,74 +5,71 @@
        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
        <title>Landing Page</title>
        <meta name='viewport' content='width=device-width, initial-scale=1'>
-       <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+       <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
        <!-- <script src='main.js'></script> -->
-       <style>
-           .searchBar {
-               display: block;
-               margin: auto;
-               
-           }
-
-           .myRecipeCardGridContainer {
-           display: grid;
-           grid-template-columns: 1fr 1fr 1fr 1fr;
-           padding: 10px;
-           
-       }
-       </style>
+       
     </head>
     <body>
        <div class="navBar"></div>
 
-        <!-- Search Bar -->
-        <div class="searchBar">
-           <form>
-               <label for="search">Search</label>
-               <input type="text" id="search" name="search">
-           </form>
-        </div>
+       <div id="landingHeader">
 
-        <!-- Tags Bar -->
-        <div class="tagsBar">
-           <p>Tags:</p>
-           <!-- Use Javascript? -->
+            <!-- Search Bar -->
+            <div class="searchWrapper">
+                <img class="searchIcon" src="admin/branding/icons/search.svg">
+                <!--<label for="search">Search</label>-->
+                <input type="text" id="landingSearch" placeholder="Search" name="search">
+            </div>
        </div>
        
         <!-- Recipe Section -->
         <div class = "userInfoGridItem">
            <h1> My Recipes </h1>
            <div class = "myRecipeCardGridContainer">
-               <recipeCard>  
-                   <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                   <p> Title </p>
-                   <customTags> Beef, Easy, Entree </customTags>
-               </recipeCard>
-               <recipeCard>  
-                   <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                   <p> Title </p>
-                   <customTags> Beef, Easy, Entree </customTags>
-               </recipeCard>
-               <recipeCard>  
-                   <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                   <p> Title </p>
-                   <customTags> Beef, Easy, Entree </customTags>
-               </recipeCard>
-               <recipeCard>  
-                   <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                   <p> Title </p>
-                   <customTags> Beef, Easy, Entree </customTags>
-               </recipeCard>
-               <recipeCard>  
-                   <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                   <p> Title </p>
-                   <customTags> Beef, Easy, Entree </customTags>
-               </recipeCard>
-               <recipeCard>  
-                   <img id="profile" src="../assets/profile.png" width=40 height=40/>
-                   <p> Title </p>
-                   <customTags> Beef, Easy, Entree </customTags>
-               </recipeCard>
+            <div class=recipeCard>  
+                <img id="recipeImage" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg"/>
+                <p> Title </p>
+                <!-- Displaying recipe tags-->
+                <div class="tags">
+                    <ul id="tag" class="tagsList">
+                        <li class="individualTag">Tag 1</li>
+                        <li class="individualTag">Tag 2</li>
+                    </ul>
+                </div>
+            </div>
+            <div class=recipeCard>  
+                <img id="recipeImage" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg"/>
+                <p> Title </p>
+                <!-- Displaying recipe tags-->
+                <div class="tags">
+                    <ul id="tag" class="tagsList">
+                        <li class="individualTag">Tag 1</li>
+                        <li class="individualTag">Tag 2</li>
+                    </ul>
+                </div>
+            </div>
+            <div class=recipeCard>  
+                <img id="recipeImage" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg"/>
+                <p> Title </p>
+                <!-- Displaying recipe tags-->
+                <div class="tags">
+                    <ul id="tag" class="tagsList">
+                        <li class="individualTag">Tag 1</li>
+                        <li class="individualTag">Tag 2</li>
+                    </ul>
+                </div>
+            </div>
+            <div class=recipeCard>  
+                <img id="recipeImage" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg"/>
+                <p> Title </p>
+                <!-- Displaying recipe tags-->
+                <div class="tags">
+                    <ul id="tag" class="tagsList">
+                        <li class="individualTag">Tag 1</li>
+                        <li class="individualTag">Tag 2</li>
+                    </ul>
+                </div>
+            </div>
            </div>
        </div>
    </body>

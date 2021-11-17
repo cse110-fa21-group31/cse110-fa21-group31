@@ -16,8 +16,87 @@ li .logo {
 }
 
 /*
-Recipe Card Font:
+Landing Background
+*/
+.landingHeader {
+    background-image: url('source/assets/Images/Olives-Computer-Wallpaper.jpg');
+}
+
 /*
+Search Bar
+*/
+.searchWrapper {
+    position: relative;
+    display: flex;
+    min-width: 100px
+}
+
+.searchIcon {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    width: 14px;
+}
+
+#landingSearch {
+    border: 1px grey;
+    border-radius: 5px;
+    height: 20px;
+    width: 100%;
+    padding: 2px 23px 2px 30px;
+    outline: 0;
+}
+
+
+/* 
+Tags
+ */
+ul.tagsList {
+    font-family: 'Open Sans', sans-serif;
+    list-style-type: none;
+    /* white-space:nowrap; */
+    color:white;
+    font-weight: bold;
+    padding-left:10px;
+    font-size:small;
+    overflow:auto; 
+}
+
+li.individualTag {
+    /* border-style:solid; */
+    margin: 10px 10px;
+    border: 5px solid #FCAF58;
+    border-radius: 5px;
+    padding-left:15px;
+    padding-right:15px;
+    background-color: #FCAF58;
+    display:inline;
+}
+
+/* Recipe cards + grids */
+.myRecipeCardGridContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+    margin: 20px;
+}
+
+.recipeCard {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align:center;
+}
+.recipeCard > p {
+    font-family: 'Bold Open Sans', sans-serif;
+    font-weight: bold;
+    color: #4E598C;
+    font-size: large;
+}
+
+.recipeCard > img {
+    width:200px;
+    height:200px;
+}
 
 
 
