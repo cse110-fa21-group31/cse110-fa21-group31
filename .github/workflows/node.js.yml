@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main celia_branch]
   pull_request:
     branches: [ main ]
 
@@ -31,3 +31,11 @@ jobs:
     - run: npm test
     - name: Codacy Analysis CLI
       uses: codacy/codacy-analysis-cli-action@4.0.0
+
+    - name: htmlValidation
+      uses: Cyb3r-Jak3/html5validator-action
+        with:
+          root: tests/valid/
+    
+    - name: Run ESLint
+      run: eslint . --ext .js,.jsx,.ts,.tsx
