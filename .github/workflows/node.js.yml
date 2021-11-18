@@ -33,7 +33,7 @@ jobs:
       uses: codacy/codacy-analysis-cli-action@4.0.0
 
     - name: htmlValidationCards
-      uses: Cyb3r-Jak3/html5validator-action
+      uses: Cyb3r-Jak3/html5validator-action@v0.6.1
       with:
         root: source/
 
