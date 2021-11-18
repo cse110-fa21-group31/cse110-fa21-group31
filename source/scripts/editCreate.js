@@ -23,7 +23,7 @@ const appendStep = () => {
    //let d = document.getElementById('steps');
    // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
    var newTextBox = document.createElement('div');
-   newTextBox.innerHTML = "<input type='text' id='newInputBox' placeholder='Step #"+numSteps+"'>";
+   newTextBox.innerHTML = "<input type='textarea' cols='40' rows='5' id='newInputBox' placeholder='Step #"+numSteps+"'>";
    document.getElementById("newStepId").appendChild(newTextBox);
    numSteps++;
 }
