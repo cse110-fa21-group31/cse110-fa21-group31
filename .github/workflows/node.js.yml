@@ -31,3 +31,19 @@ jobs:
     - run: npm test
     - name: Codacy Analysis CLI
       uses: codacy/codacy-analysis-cli-action@4.0.0
+    
+  lint: 
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Lint Code Base
+      uses: github/super-linter@v4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
