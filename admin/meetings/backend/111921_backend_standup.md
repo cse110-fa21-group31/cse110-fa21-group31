@@ -1,7 +1,5 @@
-    Topic: 5th backend team meeting:  Updating the progress
-
-
-                                        Data: 11/19
+Topic: 5th backend team meeting:  Updating the progress
+Data: 11/19
 
 People attended: Celia, Kian, Xin, Sarah, Eric, Bjorn
 
