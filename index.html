@@ -6,67 +6,73 @@
        <title>Landing Page</title>
        <meta name='viewport' content='width=device-width, initial-scale=1'>
        <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
+       <link rel='stylesheet' href="/source/assets/styles/cards.css">
        <!-- <script src='main.js'></script> -->
        
     </head>
     <body>
-       <div class="navBar"></div>
-
        <div id="landingHeader">
-
-            <!-- Search Bar -->
-            <div class="searchWrapper">
-                <img class="searchIcon" src="admin/branding/icons/search.svg">
-                <!--<label for="search">Search</label>-->
-                <input type="text" id="landingSearch" placeholder="Search" name="search">
+           <!-- Nav Bar -->
+            <div class="navBar">
+                <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+            </div>
+            <div class = "searchBarHomepage">
+                <img src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
+                <form class="formItems" action="/source/pages/homePage.html" id=searchBarHomepage>
+                    <div id="keywordSearch" class="formItem">
+                        <label for="keyword">Search:</label>
+                        <input type="text" name="keyword" id="keyword" placholder="Search">
+                    </div>
+                    <div id="submit" class="formItem">
+                        <input id="submit" type="submit" name="submit" value="Submit"> 
+                    </div>
+                </form>
             </div>
        </div>
        
         <!-- Recipe Section -->
-        <div class = "userInfoGridItem">
-           <h1> My Recipes </h1>
-           <div class = "myRecipeCardGridContainer">
-            <div class=recipeCard>  
+        <div class = "myRecipeCardGridContainer">
+           <div class=recipeCard>  
                 <img id="recipeImage" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg"/>
-                <p> Title </p>
+                <p> Olives </p>
                 <!-- Displaying recipe tags-->
                 <div class="tags">
                     <ul id="tag" class="tagsList">
-                        <li class="individualTag">Tag 1</li>
-                        <li class="individualTag">Tag 2</li>
+                        <li class="individualTag">Easy</li>
+                        <li class="individualTag">Appetizer</li>
                     </ul>
                 </div>
             </div>
             <div class=recipeCard>  
                 <img id="recipeImage" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg"/>
-                <p> Title </p>
+                <p> Olives </p>
                 <!-- Displaying recipe tags-->
                 <div class="tags">
                     <ul id="tag" class="tagsList">
-                        <li class="individualTag">Tag 1</li>
-                        <li class="individualTag">Tag 2</li>
+                        <li class="individualTag">Easy</li>
+                        <li class="individualTag">Appetizer</li>
                     </ul>
                 </div>
             </div>
             <div class=recipeCard>  
                 <img id="recipeImage" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg"/>
-                <p> Title </p>
+                <p> Olives </p>
                 <!-- Displaying recipe tags-->
                 <div class="tags">
                     <ul id="tag" class="tagsList">
-                        <li class="individualTag">Tag 1</li>
-                        <li class="individualTag">Tag 2</li>
+                        <li class="individualTag">Easy</li>
+                        <li class="individualTag">Appetizer</li>
                     </ul>
                 </div>
             </div>
             <div class=recipeCard>  
                 <img id="recipeImage" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg"/>
-                <p> Title </p>
+                <p> Olives </p>
                 <!-- Displaying recipe tags-->
                 <div class="tags">
                     <ul id="tag" class="tagsList">
-                        <li class="individualTag">Tag 1</li>
-                        <li class="individualTag">Tag 2</li>
+                        <li class="individualTag">Easy</li>
+                        <li class="individualTag">Appetizer</li>
                     </ul>
                 </div>
             </div>
@@ -74,6 +80,6 @@
        </div>
    </body>
    <footer>
-       
+       <iframe src="/source/cards/footer.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
    </footer>
 </html>

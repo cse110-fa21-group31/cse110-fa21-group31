@@ -4,8 +4,13 @@
         <title>Edit/Create</title>
         <meta charset="utf-8">
         <script src="../scripts/editCreate.js"></script>
+       <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
+       <link rel='stylesheet' href="/source/assets/styles/cards.css">
     </head>
     <body>
+        <div class="navBar">
+            <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+        </div>
         <!-- A complete form for editing a recipe -->
         <!-- This can probably just be a really basic form -->
         <!-- 
@@ -30,16 +35,9 @@
         
         
         <!-- Generate a complete recipe editing page. -->
-<<<<<<< HEAD
-        <div id="recipeEdit">
-            <form id="recipeForm">
-                
-                <div id="name" class="formItem">
-=======
         <div id="recipeForm">
             <form onSubmit=formSubmit(event)></form>
                 <div class="name">
->>>>>>> icons
                     <label for="name">Recipe Name:</label>
                     <input type="text" name="name" id="name">
                 </div>
@@ -49,21 +47,8 @@
                     <input type="file" name="picture" id="picture">
                 </div>
 
-<<<<<<< HEAD
-                <!-- Tags will be sent to the backend as a big comma delimited string -->
-                <div id="tags" class="formItem">
-                    <label for="tags">Tags:</label>
-                    <input type="text" name="tags" id="tags">
-                </div>
-
-                <div id="prepTime" class="formItem">
-                    <label for="prepTime">Prep Time:</label>
-                    <input type="time" name="prepTime" id="prepTime" min="00:00" max="18:00" required>
-                </div>
-=======
                 <label for="tags">Tags:</label>
                 <input type="text" name="tags" id="tags">
->>>>>>> icons
 
                 <div id="cookTime" class="formItem">
                     <label for="cookTime">Cook Time:</label>
@@ -123,13 +108,10 @@
                     <input type="submit" value="Submit">
                 </div>
 
-<<<<<<< HEAD
-=======
                 </div class = "steps">
                 <label for="steps">Steps:</label>
                 <textarea name="steps" id="steps" rows="10" cols="40"></textarea>
                 </div>
->>>>>>> icons
             </form>
         </div> 
     </body>
