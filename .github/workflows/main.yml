@@ -33,8 +33,6 @@ jobs:
       - name: Install npm
         run: npm ci
          
-      - name: Css lint
-        run: npm run lint
-        
+    
       - name: run test jest
         run: npm test
