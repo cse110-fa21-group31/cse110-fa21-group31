@@ -7,7 +7,7 @@
        <meta name='viewport' content='width=device-width, initial-scale=1'>
        <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
        <link rel='stylesheet' href="/source/assets/styles/cards.css">
-       <!-- <script src='main.js'></script> -->
+       <script src='/source/scripts/indexSearch.js'></script>
        
     </head>
     <body>
@@ -18,7 +18,8 @@
             </div>
             <div class = "searchBarHomepage">
                 <img src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
-                <form class="formItems" action="/source/pages/homePage.html" id=searchBarHomepage>
+                <form class="formItems" action='source/scripts/indexSearch.js' id=searchBarHomepage> 
+                    <!-- action="/source/pages/homePage.html" > -->
                     <div id="keywordSearch" class="formItem">
                         <label for="keyword">Search:</label>
                         <input type="text" name="keyword" id="keyword" placholder="Search">
