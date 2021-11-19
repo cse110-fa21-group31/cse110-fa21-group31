@@ -91,7 +91,9 @@
         border-radius: 8px;
         font-family: 'OpenSans', sans-serif;
     }
-
+    .bottomButtons .formItems { 
+        display: inline-block;
+    }
     .recipeEdit fieldset {
         border: none;
     }
@@ -112,7 +114,6 @@
     .recipeEdit input[type="datetime"],
     .recipeEdit input[type="time"],
     .recipeEdit input[type="url"],
-    .recipeEdit textarea,
     .recipeEdit select {
         font-family: Georgia, "Times New Roman", Times, serif;
         background: rgba(255, 255, 255, .1);
@@ -177,7 +178,7 @@
         text-align: center;
     }
 
-    .recipeEdit #steps input[type="textarea"]{
+    .recipeEdit #steps #textAreaBox{
         height:200px;
         word-wrap: break-word;
         font-family: Georgia, "Times New Roman", Times, serif;
@@ -224,7 +225,7 @@
         font-size: 18px;
         text-align: center;
         font-style: normal;
-        width: 50%;
+        width: 90%;
         border: 1px solid #FCAF58;
         border-width: 1px 1px 3px;
         margin-bottom: 10px;
@@ -251,6 +252,8 @@
         background: #FCAF58;
     }
 
+    .recipeEdit #delete input[type="button"]:hover,
+    .recipeEdit #cancel input[type="button"]:hover,
     .recipeEdit input[type="submit"]:hover {
         background: #FCAF58;
     }
@@ -363,14 +366,14 @@
                 <div id="newStepId"></div>
             </div>
         
-            <div class="bottomButtons">
-            <div id="delete" class="formItem">
+            <div class="float-container">
+            <div id="delete" class="float-child">
                 <input type="button" value="Delete">
             </div>
-            <div id="cancel" class="formItem">
+            <div id="cancel" class="float-child">
                 <input type="button" value="Cancel">
             </div>
-            <div id="submit" class="formItem">
+            <div id="submit" class="float-child">
                 <input type="submit" value="Save">
             </div>
         </div>
