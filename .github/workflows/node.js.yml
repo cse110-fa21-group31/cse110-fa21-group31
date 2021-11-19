@@ -32,10 +32,10 @@ jobs:
     - name: Codacy Analysis CLI
       uses: codacy/codacy-analysis-cli-action@4.0.0
 
-    - name: htmlValidationCards
-      uses: Cyb3r-Jak3/html5validator-action@v0.6.1
-      with:
-        root: source/
+    # - name: htmlValidationCards
+    #   uses: Cyb3r-Jak3/html5validator-action@v0.6.1
+    #   with:
+    #     root: source/
 
-    - name: Run ESLint
-      run: eslint . --ext .js,.jsx,.ts,.tsx
+    # - name: Run ESLint
+    #   run: eslint . --ext .js,.jsx,.ts,.tsx
