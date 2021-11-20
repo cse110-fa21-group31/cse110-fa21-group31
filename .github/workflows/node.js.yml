@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - name: Checkout Code
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -32,8 +32,13 @@ jobs:
     - run: npm test
 
   code-quality:
-    - name: Codacy Analysis CLI
-      uses: codacy/codacy-analysis-cli-action@4.0.0
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@4.0.0
     
   lint: 
 
