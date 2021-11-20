@@ -48,7 +48,7 @@ jobs:
 
   formatting:
 
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
