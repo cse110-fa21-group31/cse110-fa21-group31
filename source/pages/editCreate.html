@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <title>Edit/Create</title>
         <meta charset="utf-8">
@@ -14,6 +15,286 @@
         <!-- A complete form for editing a recipe -->
         <!-- This can probably just be a really basic form -->
         <!-- 
+
+<style>
+    .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4E598C;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    
+  }
+  
+  .navbar li *:not(.logo){
+    float: right;
+    font-family: 'OpenSans', sans-serif;
+    border: 1px solid #FFFFFF;
+    border-radius: 25px;
+    margin-right: 20px;
+  }
+
+  .navbar li .logo {
+    
+    float: left;
+    color: #FF8C42;
+    font-family: 'Rammetto One', cursive;
+    font-weight: bold;
+  }
+  
+  .navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 18px;
+    text-decoration: none;
+  }
+
+  /* Change the link color to #111 (black) on hover */
+
+  .navbar li *:not(.logo):hover {
+    background-color: #F9C784;
+  }
+  .navbar li .logo:hover {
+    color: #F9C784;
+  }
+
+    .pageFooter ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4E598C;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  
+  .pageFooter *:not(.logo){
+    border-left: 1px solid #bbb;
+    font-family: 'OpenSans', sans-serif;
+  }
+
+  .pageFooter .logo {
+    border-right: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    color: #FF8C42;
+    font-family: 'Rammetto One', cursive;
+    font-weight: bold;
+  }
+  .pageFooter .footerCopyright{
+    font-size: 50%
+  }
+  
+  .pageFooter li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+  }
+
+    .recipeEdit {
+        max-width: 500px;
+        padding: 10px 20px;
+        background: #f4f7f8;
+        margin: 10px auto;
+        padding: 20px;
+        background: #f4f7f8;
+        border-radius: 8px;
+        font-family: 'OpenSans', sans-serif;
+    }
+    .bottomButtons .formItems { 
+        display: inline-block;
+    }
+    .recipeEdit fieldset {
+        border: none;
+    }
+
+    .recipeEdit legend {
+        font-size: 1.4em;
+        margin-bottom: 10px;
+    }
+
+    .recipeEdit label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .recipeEdit #name input[type="text"],
+    .recipeEdit #tags input[type="text"],
+    .recipeEdit input[type="date"],
+    .recipeEdit input[type="datetime"],
+    .recipeEdit input[type="time"],
+    .recipeEdit input[type="url"],
+    .recipeEdit select {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        background: rgba(255, 255, 255, .1);
+        border: none;
+        border-radius: 4px;
+        font-size: 15px;
+        margin: 0;
+        outline: 0;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        background-color: #e8eeef;
+        color: #8a97a0;
+        -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+        margin-bottom: 30px;
+    }
+    .recipeEdit input[type="file"]{
+        font-family: Georgia, "Times New Roman", Times, serif;
+        background: rgba(255, 255, 255, .1);
+        border: none;
+        border-radius: 4px;
+        font-size: 15px;
+        margin: 0;
+        outline: 0;
+        padding: 10px;
+        width: 50%;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        background-color: #e8eeef;
+        color: #8a97a0;
+        -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+        margin-bottom: 30px;
+    }
+
+    .recipe #addIngredients{
+        display: inline-block;
+    }
+    .recipeEdit #ingredients input[type="text"]{
+        font-family: Georgia, "Times New Roman", Times, serif;
+        background: rgba(255, 255, 255, .1);
+        display: inline-block;
+        border: none;
+        border-radius: 4px;
+        font-size: 15px;
+        margin: 0;
+        outline: 0;
+        padding: 10px;
+        width: 90%;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        background-color: #e8eeef;
+        color: #8a97a0;
+        -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .recipeEdit #steps #textAreaBox{
+        height:200px;
+        word-wrap: break-word;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        background: rgba(255, 255, 255, .1);
+        border: none;
+        border-radius: 4px;
+        font-size: 15px;
+        margin: 0;
+        outline: 0;
+        padding: 40px;
+        width: 100%;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        background-color: #e8eeef;
+        color: #8a97a0;
+        -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+        margin-bottom: 30px;
+    }
+
+    .recipeEdit input[type="text"]:focus,
+    .recipeEdit input[type="date"]:focus,
+    .recipeEdit input[type="datetime"]:focus,
+    .recipeEdit textarea:focus,
+    .recipeEdit select:focus {
+        background: #d2d9dd;
+    }
+
+    .recipeEdit select {
+        -webkit-appearance: menulist-button;
+        height: 35px;
+    }
+
+    .recipeEdit input[type="submit"],
+    .recipeEdit #delete input[type="button"],
+    .recipeEdit #cancel input[type="button"]{
+        position: relative;
+        display: inline-block;
+        padding: 19px 39px 18px 39px;
+        color: #FFF;
+        margin: 0 auto;
+        background: #F9C784;
+        font-size: 18px;
+        text-align: center;
+        font-style: normal;
+        width: 90%;
+        border: 1px solid #FCAF58;
+        border-width: 1px 1px 3px;
+        margin-bottom: 10px;
+        border-radius: 25px;
+    }
+    .recipeEdit input[type="button"]{
+
+        position: relative;
+        display: inline-block;
+        padding: 10px 20px 9px 20px;
+        color: #FFF;
+        margin: 0 auto;
+        background: #F9C784;
+        font-size: 15px;
+        text-align: center;
+        font-style: normal;
+        width: 30%;
+        border: 1px solid #FCAF58;
+        border-width: 1px 1px 3px;
+        margin-bottom: 10px;
+        border-radius: 25px;
+    }
+    .recipeEdit input[type="button"]:hover{
+        background: #FCAF58;
+    }
+
+    .recipeEdit #delete input[type="button"]:hover,
+    .recipeEdit #cancel input[type="button"]:hover,
+    .recipeEdit input[type="submit"]:hover {
+        background: #FCAF58;
+    }
+    .float-container{
+        display: flex;
+    }
+    .float-child{
+        width: 500px;
+        float: left;
+    }
+</style>
+
+<head>
+    <title>Edit/Create</title>
+    <meta charset="utf-8">
+    <script src="../scripts/editCreate.js"></script>
+</head>
+
+<body>
+
+    
+    <!-- A complete form for editing a recipe -->
+    <!-- This can probably just be a really basic form -->
+    <!-- 
+
             How will data be sent to the server? 
             Needs:
             * Name of recipe
@@ -29,90 +310,114 @@
             
             ingredients and steps are like
             type in something, enter, it adds some item to a list and then the textbox is put on the bottom where you can continue adding
-        --> 
+        -->
+
 
         <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
         
         
         <!-- Generate a complete recipe editing page. -->
-        <div id="recipeForm">
-            <form onSubmit=formSubmit(event)></form>
-                <div class="name">
-                    <label for="name">Recipe Name:</label>
-                    <input type="text" name="name" id="name">
-                </div>
-                
-                <div id="picture" class="formItem">
-                    <label for="picture">Picture:</label>
-                    <input type="file" name="picture" id="picture">
-                </div>
 
+                
+
+    <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
+
+
+    <!-- Generate a complete recipe editing page. -->
+    <div class="recipeEdit">
+        <form id="recipeForm" onSubmit=formSubmit(event)>
+
+            <div id="name" class="formItem">
+                <label for="name">Recipe Name:</label>
+                <input type="text" name="name" id="name">
+            </div>
+
+            <div id="picture" class="formItem">
+                <label for="picture">Picture:</label>
+                <input type="file" name="picture" id="picture">
+            </div>
+
+            <!-- Tags will be sent to the backend as a big comma delimited string -->
+            <div id="tags" class="formItem">
                 <label for="tags">Tags:</label>
                 <input type="text" name="tags" id="tags">
+            </div>
 
-                <div id="cookTime" class="formItem">
-                    <label for="cookTime">Cook Time:</label>
-                    <input type="time" name="cookTime" id="cookTime" min="00:00" max="18:00" required>
+
+            <div id="prepTime" class="formItem">
+                <label for="prepTime">Prep Time:</label>
+                <input type="time" name="prepTime" id="prepTime" min="00:00" max="18:00" required>
+            </div>
+
+            <div id="cookTime" class="formItem">
+                <label for="cookTime">Cook Time:</label>
+                <input type="time" name="cookTime" id="cookTime" min="00:00" max="18:00" required>
+            </div>
+
+            <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
+            <div id="difficulty" class="formItem">
+                <label for="difficulty">Difficulty:</label>
+                <select name="difficulty" id="difficulty">
+                    <option value="1">1 star</option>
+                    <option value="2">2 stars</option>
+                    <option value="3">3 stars</option>
+                    <option value="4">4 stars</option>
+                    <option value="5">5 stars</option>
+                </select>
+            </div>
+
+            <div id="ingredients" class="formItem">
+                <label for="ingredients">Ingredients:</label>
+
+                <div id="addIngredients">
+                    <input type="button" onclick="appendIngredient()" value="Add Ingredient"></button>
+                    <input type="button" onclick="deleteIngredient()" value="Delete Ingredient"></button>
                 </div>
-
-                <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu --> 
-                <div id="difficulty" class="formItem">
-                    <label for="difficulty">Difficulty:</label>
-                    <select name="difficulty" id="difficulty">
-                        <option value="1">1 star</option>
-                        <option value="2">2 stars</option>
-                        <option value="3">3 stars</option>
-                        <option value="4">4 stars</option>
-                        <option value="5">5 stars</option>
-                    </select>
-                </div>
-           
-                <div id="ingredients" class="formItem">
-
-                    <label for="ingredients">Ingredients:</label>
-
-                    <div id="addIngredients">
-                        <button onclick ="appendIngredient()" value="Add Ingredient">Add Ingredient</button>
-                        <button onclick ="deleteIngredient()" value="Delete Ingredient">Delete Ingredient</button>
+                <div id="addIngredients" class='float-container'>
+                    <div class='float-child'>
+                        <div id="newIngredientId"></div>
                     </div>
-                    <div id="addIngredients" class='float-container'>
-                        <div class='float-child'>
-                            <div id="newIngredientId"></div>
-                        </div>
-                        <div class='float-child'></div>
-                            <div id="newIngredientAmountId"></div>
-                        </div>
+                    <div class='float-child'>
+                        <div id="newIngredientAmountId"></div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Users can add entries into a sorted display list -->
-                <!-- By typing in a specific step and submitting it, it'll add a new entry to the ingredientsBox div --> 
-                <!-- But for this very first draft we're just concerned with giving the backend data to work with -->
-                <!--
+            <div id="steps" class="formItem">
+                <label for="steps">Steps:</label>
+                <div id="addSteps">
+                    <input type="button" onclick="appendStep()" value="Add Step"></button>
+                    <input type="button" onclick="deleteStep()" value="Delete Step"></button>
+                </div>
+                <div id="newStepId"></div>
+            </div>
+        
+            <div class="float-container">
+            <div id="delete" class="float-child">
+                <input type="button" value="Delete">
+            </div>
+            <div id="cancel" class="float-child">
+                <input type="button" value="Cancel">
+            </div>
+            <div id="submit" class="float-child">
+                <input type="submit" value="Save">
+            </div>
+        </div>
+    </div>
+
+    <!-- Users can add entries into a sorted display list -->
+    <!-- By typing in a specific step and submitting it, it'll add a new entry to the ingredientsBox div -->
+    <!-- But for this very first draft we're just concerned with giving the backend data to work with -->
+    <!--
                 <div id="newIngredientEntry">
                     <label for="newIngredientEntry">New Ingredient Entry:</label>
                     <input type="text" name="newIngredientEntry" id="newIngredientEntry">
                 </div>
                 -->
 
-                <div id="steps" class="formItem">
-                    <label for="steps">Steps:</label>
-                    <div id="addSteps">
-                        <button onclick ="appendStep()" value="Add Step">Add Step</button>
-                        <button onclick ="deleteStep()" value="Delete Step">Delete Step</button>
-                    </div>
-                    <div id="newStepId"></div>
-                </div>
 
-                <div id="submit" class="formItem">
-                    <input type="submit" value="Submit">
-                </div>
+    </form>
+    </div>
+</body>
 
-                </div class = "steps">
-                <label for="steps">Steps:</label>
-                <textarea name="steps" id="steps" rows="10" cols="40"></textarea>
-                </div>
-            </form>
-        </div> 
-    </body>
 </html>

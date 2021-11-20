@@ -15,41 +15,41 @@
         <div id="recipeDetail">
 
             <!-- Displaying recipe title, creation date, author-->
-                <p class = "recipeTitle">Recipe title</h1>
-                <p class="dateOfCreation">The Date of Creation</p>
-                <p class="author">The Author</p>
+                <p id="recipeTitle">Recipe title</p>
+                <p id="dateOfCreation">The Date of Creation</p>
+                <p id="author">The Author</p>
 
                 <!-- Displaying recipe image-->
-                <img class="recipeImage" src="#" alt="No Image">
+                <img id="recipeImage" src="" alt="" width="500" height="300">
 
+                <!-- Displaying recipe description-->
+                <div id="description">Description</div>
+
+                <!-- Displaying serving size-->
+                <p id ="servingSize">servingSize</p>
+                
                 <!-- Displaying recipe tags-->
-                <div class="tags">
-                    <ul id="tag" class="tagsList">
-                        <li class="individualTag">Tag 1</li>
-                        <li class="individualTag">Tag 2</li>
-                    </ul>
+
+                <label for="tags">Tags:</label>
+                <div id="tags">
+                    <ul id="tag" class="tagsList"></ul>
+
                 </div>
 
                 <!-- Displaying recipe cooktime-->
-                <label for="cooktime">Cook Time:</label>
-                <time>5 mins</time>
+                <label for="cookTime">Cook Time:</label>
+                <p id="cookTime">cook Time</p>
 
                 <!-- Displaying recipe ingredients-->
-                <div id="ingredients" class="ingredients">
+                <div class="ingredients" id="ingredients">
                     <label for="ingredients">Ingredients:</label>
-                    <ul id="ingr" class="ingredientsList">
-                        <li>Ingredients 1</li>
-                        <li>Ingredients2</li>
-                      </ul>
+                    <ul id="ingr" class="ingredientsList"></ul>
                 </div>
 
                 <!-- Displaying recipe steps-->
-                <div class="steps">
+                <div class="steps" id="steps">
                     <label for="steps">Steps:</label>
-                    <ul id="ingr" class="ingredientsList">
-                        <li>Step 1</li>
-                        <li>Step 2</li>
-                      </ul>
+                    <ol id="stps" class="ingredientsList"></ol>
                 </div>
 
         </div>
