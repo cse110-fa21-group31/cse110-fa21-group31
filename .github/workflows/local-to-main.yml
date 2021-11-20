@@ -1,0 +1,62 @@
+# Takes care of general code quality checks and tests
+# Should run when new features are being added to codebase
+# and when codebase is being deployed.
+
+name: local-to-main
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  testing-job:
+    # For unit and end to end testing
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+    
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    # Unit testing
+    - name: Run Jest unit tests
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
+
+    # End to end testing
+    - name: Run Cypress tests
+      uses: cypress-io/github-action@v2.9.7
+
+
+
+  code-quality-job:
+    # For linting, formatting, and quality evaluation of code.
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    # Formatting
+    - name: Prettier Action
+      uses: creyD/prettier_action@v4.0
+
+    # Linting
+    - name: Super-Linter
+      uses: github/super-linter@v4.8.4
+
+    # Quality
+    - name: Codacy Analysis CLI
+      uses: codacy/codacy-analysis-cli-action@4.0.0
