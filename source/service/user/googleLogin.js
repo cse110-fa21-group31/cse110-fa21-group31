@@ -1,53 +1,75 @@
 /**
- * File Name: googleLogin.js
+ * Filename: googleLogin.js
+ * Date: 11/18/2021
  * Description: functions for handling Google sign-in / log-out and related 
  *  changes of profile display.
  * Dependency: navBarWithGoogle.html
  * Note: Google Login doesn't work for 127.0.0.1. Type localhost instead. 
  */
 
-// Get user info on sign in
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-  // When logged in, show profile image and sign-out button, remove sign-in 
-  // button
-  document.getElementById("signInButton").style.display = "none";
-  document.getElementById("signOutButton").style.display = "block";
-  var profileImage = document.getElementById("profile");
-  profileImage.style.display = "inline";
-  // Display profile image
-  var image = document.createElement("img");
-  image.src = profile.getImageUrl();
-  image.classList.add("profileImage");
-  image.referrerpolicy="no-referrer";
-  // Create a wrapper of type <a> for image, in preparing for linking to 
-  // profile page
-  var imageWrapper = document.createElement("a");
-  imageWrapper.id = "profileWrapper";
-  imageWrapper.onclick = () => {alert("Profile Picture Clicked")};
-
-  imageWrapper.append(image);
-  profileImage.append(imageWrapper);
+/**
+ * This function will be called by the front end function userLogin.js/onSignIn
+ * when Google API returns sign-in success.
+ * Simply print out user profile for now. 
+ * 
+ * @param {...object} profile User profile passed from front end. Includes: 
+ *  { name, imageURL, email }
+ */
+function userSignedIn(profile) {
+  console.log('User login data passed to backend: ');
+  console.log('name: ' + profile.name);
+  console.log('imageURL: ' + profile.imageURL);
+  // This is null if the 'email' scope is not present.
+  console.log('email: ' + profile.email); 
 }
 
-// Sign out user
-function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
+
+/**
+ * Checks whether a user already exists in the database. 
+ * 
+ * @param {...string} email 
+ * @returns True if a user already exists, false if it's a new account.
+ */
+function hasUser(email) {
+  console.log('hasUser("' + email + '") called');
+  // Simply returns false for now
+  return false;
+}
+
+
+/**
+ * This function creates a new user in the database. 
+ * 
+ * @param {...object} profile The profile of the new user. 
+ * @returns False for now.
+ */
+function createNewUser(profile) {
+  console.log('Create new user ' + profile.email);
+  return false;
+}
+
+
+/**
+ * This function gets data of a user based on the email.
+ * @param {...string} email The email of the user to get data for. 
+ * @returns A json file of the user data. 
+ */
+function getUserData(email) {
+  var data = {};
+  return data.stringify();
+}
+
+
+/**
+ * This function will be called by the front end function userLogin.js/signedOut 
+ * when the user clicks sign-out button. 
+ * Calls Google log-out api. 
+ */
+ function userSignedOut() {
+  const auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
     console.log('User signed out.');
   });
-
-  // When logged out, show sign-in button, remove profile image and 
-  // sign-out button
-  document.getElementById("signInButton").style.display = "inline";
-  document.getElementById("signOutButton").style.display = "none";
-  var profileImage = document.getElementById("profile");
-  profileImage.removeChild(profileImage.firstChild);
-  profileImage.style.display = "none";
-
 }
+
+export { userSignedIn, userSignedOut, hasUser, getUserData, createNewUser };

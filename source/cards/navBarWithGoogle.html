@@ -80,9 +80,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap" rel="stylesheet">
 
 <!-- Scripts and libraries necessary for Google Login -->
-<script src="../service/user/googleLogin.js" type="text/javascript"></script>
 <meta name="google-signin-client_id" content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<script src="../scripts/userLogin.js" type="module"></script>
 
 
 <nav id="navbar">
@@ -91,6 +91,8 @@
       <a class="logo" href="/cse110-fa21-group31/index.html">Olive U</a>
     </li>
     <li id="signInButton">
+      <!-- when sign-in success, call frontend function onSignIn() in 
+        scripts/util.js -->
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </li>
     <li id="profile"></li>
@@ -100,6 +102,6 @@
 
 <!-- move sign-out button to profile page later. Might need to move Google 
   libraries and js functions as well -->
-<div id="signOutButton">
-  <a href="#" onclick="signOut();">Sign out</a>
-</div>
+  <div id="signOutButton">
+    <a href="#" onclick="signOut();">Sign out</a>
+  </div>
