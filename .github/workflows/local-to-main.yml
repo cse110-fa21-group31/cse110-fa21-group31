@@ -31,9 +31,9 @@ jobs:
 
     # Unit testing
     - name: Run Jest unit tests
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      run: npm ci
+      run: npm run build --if-present
+      run: npm test
 
     # End to end testing
     - name: Run Cypress tests
@@ -53,7 +53,7 @@ jobs:
     - name: Prettier Action
       uses: creyD/prettier_action@v4.0
       with:
-        dry: True # won't overwrite files automatically, just warns us
+      - dry: True # won't overwrite files automatically, just warns us
         prettier_options: "--check" # recommended to use with dry, outputs analysis results
         only_changed: True # i think this only runs prettier on changed code
         # in the future if we plan to do only matching custom file patterns then we'd need to forgo only_changed
