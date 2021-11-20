@@ -16,17 +16,14 @@
             <div class="navBar">
                 <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
             </div>
-            <div class = "searchBarHomepage">
+
+            <!-- Search Bar -->
+            <div class="searchBarHomepage">
                 <img src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
-                <form class="formItems" action='source/scripts/indexSearch.js' id=searchBarHomepage> 
-                    <!-- action="/source/pages/homePage.html" > -->
-                    <div id="keywordSearch" class="formItem">
-                        <label for="keyword">Search:</label>
-                        <input type="text" name="keyword" id="keyword" placholder="Search">
-                    </div>
-                    <div id="submit" class="formItem">
-                        <input id="submit" type="submit" name="submit" value="Submit"> 
-                    </div>
+                <!-- <p class="formItems" class="homePageTitle">Food is Love and Olive U</p>-->
+                <form class="formItems" action='source/scripts/indexSearch.js' id="searchBarFormHomepage"> 
+                        <input type="search" name="keyword" id="searchBar" placeholder="Search...">
+                        <input id="searchButton" type="button" name="submit" value="Search"> 
                 </form>
             </div>
        </div>
