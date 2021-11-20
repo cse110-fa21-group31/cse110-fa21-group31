@@ -2,5 +2,5 @@
 module.exports = getHelloWorld;
 
 function getHelloWorld() {
-    return "Hello World!";
+  return "Hello World!";
 }
