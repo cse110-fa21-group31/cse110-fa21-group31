@@ -46,12 +46,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    formatting:
+  formatting:
 
-      runs-on: ubuntu-lates
+    runs-on: ubuntu-lates
 
-      steps:
-        - name: Checkout Code
-          uses: actions/checkout@v2
-        - run: npm ci
-        - run: npm run format
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run format
