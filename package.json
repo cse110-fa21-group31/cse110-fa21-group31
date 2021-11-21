@@ -17,6 +17,7 @@
     "verbose": true
   },
   "dependencies": {
+    "fastify": "^3.24.0",
     "nedb": "^1.8.0"
   }
 }
