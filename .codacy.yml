@@ -5,3 +5,4 @@ exclude_paths:
   - "specs/**"
   - "cypress/**"
   - "__tests__" # should we check test scripts? i'm ignoring them for now just for minimal output -Euvin
+  - "**/*.css"
