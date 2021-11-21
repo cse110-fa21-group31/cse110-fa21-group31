@@ -1,5 +1,7 @@
 // import { RECIPE_DB_PATH } from "../util";
 
+module.exports = { getRecipesByNameAndTags }
+
 /**
  * Guide to test neDB
  * 1. run `npm install`
@@ -31,6 +33,35 @@ function createRecipe(recipe) {
         }
     });
     return id;
+}
+
+async function getRecipesByNameAndTags(searchParams){
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    filters = {}
+    if (searchParams.name){
+        let keywords = searchParams.name.toLowerCase().split(" ");
+        filters.name = { $in: keywords }
+    }
+    if (searchParams.tags){
+        let tags = tags.map(t => t.toLowerCase());
+        filters.name = { $in: tags }
+    }
+    console.log(filters);
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+    return new Promise((resolve, reject) => {
+        // TODO (Bjorn): sort the returned results
+        recipeDB.find(filters, (err, docs) => {
+         if (err) {
+          reject(err);
+         }
+
+        console.log('Found ' + docs.length + ' matching recipes')
+        docs.forEach(recipe => console.log(recipe));
+     
+        resolve(docs);
+        });
+    });
 }
 
 function deleteRecipe(id) {
