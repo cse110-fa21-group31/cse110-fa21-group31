@@ -7,4 +7,3 @@ exclude_paths:
   - "__tests__" # should we check test scripts? i'm ignoring them for now just for minimal output -Euvin
   - "**/*.css"
   - "README.md"
-  - "source/scripts/recipeDetail.js"
