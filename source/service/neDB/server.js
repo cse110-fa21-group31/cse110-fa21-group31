@@ -72,6 +72,28 @@ fastify.delete("/api", async (request, reply) => {
     reply.send(await dbInterface.deleteRecipe(request.query.id, recipeDB));
 });
 
+/****************** User APIs ************************/
+
+// Get all data of one user by id
+fastify.get("/api/user", async (req, reply) => {
+    reply.status(200).send('GET username by id: ' + req.params.id);
+});
+
+// Get all data of one user by email, create new user if not existed
+fastify.post("/api/user", async (req, reply) => {
+    reply.status(200).send('POST username by email: ' + req.query.email);
+});
+
+// Add a recipe to savedRecipe for user by id
+fastify.put("/api/user/saved", async (req, reply) => {
+    reply.status(200).send('Add a recipe ' + req.query.recipeId + ' to savedRecipe for user by id: ' + req.query.userId);
+});
+
+// Delete a recipe from savedRecipe for user by id
+fastify.delete("/api/user/saved", async (req, reply) => {
+    reply.status(200).send('Delete a recipe ' + req.query.recipeId + ' from savedRecipe for user by id: ' + req.query.userId);
+});
+
 // Run the server!
 const start = async () => {
     try {
