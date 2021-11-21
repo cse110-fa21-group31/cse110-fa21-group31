@@ -117,7 +117,7 @@ jobs:
       uses: codacy/codacy-analysis-cli-action@4.0.0
       with:
         fail-if-incomplete: true
-        max-allowed-issues: 2147483647
+        max-allowed-issues: 5
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
         upload: true
   
