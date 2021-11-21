@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/source/assets/styles/baseStyle.css">
+    <title>Account Settings</title>
     <style>
         .accountSettingsGrid {
             display: grid;
@@ -21,28 +22,26 @@
 </head>
 <body>
     <h1> Account Settings </h1>
-    <div class = accountSettingsGrid>
-        <form action="https://httpbin.org/post" method="post" id="memberRegistration">
-            <div class = accountSettingsItem>
-                <label for="name">Name:</label>
-                <input type="text" id="userName" name="userName">
-                <br><br>
+    <form action="https://httpbin.org/post" method="post" id="memberRegistration" class="accountSettingsGrid">
+        <div class = accountSettingsItem>
+            <label for="name">Name:</label>
+            <input type="text" id="userName" name="userName">
+            <br><br>
 
-                <label for="name">Email:</label>
-                <input type="text" id="userEmail" name="userEmail">
-                <br><br>
+            <label for="name">Email:</label>
+            <input type="text" id="userEmail" name="userEmail">
+            <br><br>
 
-                <label for="name">Password:</label>
-                <input type="text" id="userPassword" name="userPassword">
-                <br><br>
-            </div>
-            <div class = accountSettingsItem>
-                <label for="userProfilePhoto">Select image:</label>
-                <input type="file" accept="image/*" id="userProfilePhoto" name="userProfilePhoto"/>
-            </div>
+            <label for="name">Password:</label>
+            <input type="text" id="userPassword" name="userPassword">
+            <br><br>
+        </div>
+        <div class = accountSettingsItem>
+            <label for="userProfilePhoto">Select image:</label>
+            <input type="file" accept="image/*" id="userProfilePhoto" name="userProfilePhoto"/>
+        </div>
 
-            <button type="submit" form="memberRegistration" value="Submit">Submit</button>
-        </form>
-    </div>
+        <button type="submit" form="memberRegistration" value="Submit">Submit</button>
+    </form>
 </body>
 </html>
