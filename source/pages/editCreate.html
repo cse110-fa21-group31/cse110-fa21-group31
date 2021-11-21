@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html>
+
+    <head>
+        <title>Edit/Create</title>
+        <meta charset="utf-8">
+        <script src="../scripts/editCreate.js"></script>
+       <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
+       <link rel='stylesheet' href="/source/assets/styles/cards.css">
+    </head>
+    <body>
+        <div class="navBar">
+            <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+        </div>
+        <!-- A complete form for editing a recipe -->
+        <!-- This can probably just be a really basic form -->
+        <!-- 
+
 <style>
     .navbar ul {
     list-style-type: none;
@@ -286,6 +302,7 @@
     <!-- A complete form for editing a recipe -->
     <!-- This can probably just be a really basic form -->
     <!-- 
+
             How will data be sent to the server? 
             Needs:
             * Name of recipe
@@ -303,12 +320,20 @@
             type in something, enter, it adds some item to a list and then the textbox is put on the bottom where you can continue adding
         -->
 
+
+        <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
+        
+        
+        <!-- Generate a complete recipe editing page. -->
+
+                
+
     <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
 
 
     <!-- Generate a complete recipe editing page. -->
     <div class="recipeEdit">
-        <form id="recipeForm">
+        <form id="recipeForm" onSubmit=formSubmit(event)>
 
             <div id="name" class="formItem">
                 <label for="name">Recipe Name: *</label>
@@ -331,6 +356,7 @@
                 <label for="tags">Tags:</label>
                 <input type="text" name="tags" id="tags">
             </div>
+
 
             <div id="prepTime" class="formItem">
                 <label for="prepTime">Prep Time:</label>
