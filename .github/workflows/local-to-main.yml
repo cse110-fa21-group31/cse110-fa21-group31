@@ -32,7 +32,8 @@ jobs:
 
     # End to end testing
     - name: Run Cypress tests
-      uses: cypress-io/github-action@v2.9.7
+      run: npx cypress run
+      #uses: cypress-io/github-action@v2.9.7
 
   # linters and formatters are being done by Kian, omitted
 
