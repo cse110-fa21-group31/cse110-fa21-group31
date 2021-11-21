@@ -73,5 +73,5 @@ jobs:
 
       # This only says which files have formatting problems. We also have
       # the option of having Prettier auto fix it all
-      - name: Check format
-        run: npm run format
+      - name: Fix format
+        run: npm run prettier

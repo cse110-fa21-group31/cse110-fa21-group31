@@ -19,7 +19,6 @@
   },
   "scripts": {
     "test": "jest",
-    "format": "prettier --check 'source/**/*.js'",
     "start": "node source/service/neDB/server.js",
     "eslint": "npx eslint '**/*.js' '**/*.json'",
     "stylelint": "npx stylelint '**/*.css'",
