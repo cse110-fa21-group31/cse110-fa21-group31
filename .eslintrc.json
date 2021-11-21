@@ -6,6 +6,7 @@
         "node": true
     },
     "extends": "eslint:recommended",
+    "ignorePatterns": ["**/*.json"],
     "overrides": [
 
     ],
