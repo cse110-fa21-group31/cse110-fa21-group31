@@ -70,6 +70,7 @@ jobs:
         VALIDATE_JSCPD: false
         VALIDATE_MARKDOWN: false
         VALIDATE_NATURAL_LANGUAGE: false
+        VALIDATE_ENV: false
 
   formatting:
 
@@ -82,8 +83,8 @@ jobs:
 
       # This only says which files have formatting problems. We also have
       # the option of having Prettier auto fix it all
-      - name: Check format
-        run: npm run format
+      - name: Fix format
+        run: npm run prettier
 
   codacy-job:
     # For linting, formatting, and quality evaluation of code.
