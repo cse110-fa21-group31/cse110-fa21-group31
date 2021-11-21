@@ -119,6 +119,7 @@ jobs:
         # fail-if-incomplete: true
         max-allowed-issues: 0
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run-docker-tools: false
         verbose: true
         upload: true
   
