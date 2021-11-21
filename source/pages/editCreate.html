@@ -124,7 +124,12 @@
         margin-bottom: 8px;
     }
 
+    .recipeEdit #servingSize input[type="text"],
+    .recipeEdit #descriptionText,
     .recipeEdit #name input[type="text"],
+    .recipeEdit #tags input[type="text"],
+    .recipeEdit #prepTime input[type="text"],
+    .recipeEdit #cookTime input[type="text"],
     .recipeEdit #tags input[type="text"],
     .recipeEdit input[type="date"],
     .recipeEdit input[type="datetime"],
@@ -216,9 +221,12 @@
         margin-bottom: 30px;
     }
 
-    .recipeEdit input[type="text"]:focus,
-    .recipeEdit input[type="date"]:focus,
-    .recipeEdit input[type="datetime"]:focus,
+    .recipeEdit #name input[type="text"]:focus,
+    .recipeEdit #tags input[type="text"]:focus,
+    .recipeEdit #prepTime input[type="text"]:focus,
+    .recipeEdit #cookTime input[type="text"]:focus,
+    .recipeEdit #descriptionText:focus,
+    .recipeEdit #servingSize[type="text"]:focus,
     .recipeEdit textarea:focus,
     .recipeEdit select:focus {
         background: #d2d9dd;
@@ -328,13 +336,19 @@
         <form id="recipeForm" onSubmit=formSubmit(event)>
 
             <div id="name" class="formItem">
-                <label for="name">Recipe Name:</label>
-                <input type="text" name="name" id="name">
+                <label for="name">Recipe Name: *</label>
+                <input type="text" name="name" id="name" required>
             </div>
 
             <div id="picture" class="formItem">
                 <label for="picture">Picture:</label>
                 <input type="file" name="picture" id="picture">
+            </div>
+
+            
+            <div id="description" class="formItem">
+                <label for="description">Description:</label>
+                <textarea name="Tell us about your recipe!" id="descriptionText"></textarea>
             </div>
 
             <!-- Tags will be sent to the backend as a big comma delimited string -->
@@ -346,12 +360,17 @@
 
             <div id="prepTime" class="formItem">
                 <label for="prepTime">Prep Time:</label>
-                <input type="time" name="prepTime" id="prepTime" min="00:00" max="18:00" required>
+                <input type="text" name="prepTime" id="prepTime">
             </div>
 
             <div id="cookTime" class="formItem">
                 <label for="cookTime">Cook Time:</label>
-                <input type="time" name="cookTime" id="cookTime" min="00:00" max="18:00" required>
+                <input type="text" name="prepTime" id="prepTime">
+            </div>
+
+            <div id="servingSize" class="formItem">
+                <label for="servingSize">Serving Size:</label>
+                <input type="text" name="servingSize" id="servingSize">
             </div>
 
             <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->

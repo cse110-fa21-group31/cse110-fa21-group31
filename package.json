@@ -1,17 +1,38 @@
 {
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
     "@babel/preset-env": "^7.16.4",
     "babel-jest": "^27.3.1",
+    "eslint": "^8.3.0",
+    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-json": "^3.1.0",
+    "htmlhint": "^0.16.1",
     "jest": "^27.3.1",
     "jest-puppeteer": "^6.0.0",
-    "puppeteer": "^11.0.0"
+    "markdownlint-cli": "^0.30.0",
+    "prettier": "2.4.1",
+    "puppeteer": "^11.0.0",
+    "stylelint": "^14.1.0",
+    "stylelint-config-standard": "^24.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node source/service/neDB/server.js",
+    "eslint": "npx eslint '**/*.js' '**/*.json'",
+    "stylelint": "npx stylelint '**/*.css'",
+    "htmlhint": "npx htmlhint '**/*.html'",
+    "prettier": "npx prettier --write '**/*.js'",
+    "lint": "npm run eslint && npm run stylelint && npm run htmlhint"
   },
   "jest": {
     "preset": "jest-puppeteer",
     "verbose": true
+  },
+  "dependencies": {
+    "fastify": "^3.24.0",
+    "fastify-static": "^4.5.0",
+    "nedb": "^1.8.0"
   }
 }

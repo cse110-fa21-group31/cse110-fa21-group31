@@ -5,22 +5,23 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    # branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  build:
+  testing:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Code
+      uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -29,5 +30,49 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - name: Codacy Analysis CLI
-      uses: codacy/codacy-analysis-cli-action@4.0.0
+
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@4.0.0
+    
+  lint: 
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - run: npm ci
+    - name: Lint Code Base
+      uses: github/super-linter@v4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        LINTER_RULES_PATH: /
+        CSS_FILE_NAME: .stylelintrc.json
+        JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
+        VALIDATE_JAVASCRIPT_STANDARD: false
+        VALIDATE_JSCPD: false
+        VALIDATE_MARKDOWN: false
+        VALIDATE_NATURAL_LANGUAGE: false
+        VALIDATE_ENV: false
+
+  formatting:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - run: npm ci
+
+      # This only says which files have formatting problems. We also have
+      # the option of having Prettier auto fix it all
+      - name: Fix format
+        run: npm run prettier
