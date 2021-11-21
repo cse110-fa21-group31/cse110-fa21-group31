@@ -1,12 +1,8 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Rammetto+One&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Rammetto+One&display=swap");
 
 /*
 Logo font:
 font-family: 'Rammetto One', cursive;
-
-
 
 Regular text font:
 font-family: 'Open Sans', sans-serif;
@@ -17,4 +13,6 @@ Colors:
 #F9C784
 #FCAF58
 #FF8C42
+
+border-radius: 25px;
 */
