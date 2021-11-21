@@ -15,6 +15,9 @@
  * @param {...object} profile User profile passed from front end. Includes: 
  *  { name, imageURL, email }
  */
+
+ /* global gapi */
+ 
 function userSignedIn(profile) {
   console.log('User login data passed to backend: ');
   console.log('name: ' + profile.name);
@@ -54,10 +57,12 @@ function createNewUser(profile) {
  * @param {...string} email The email of the user to get data for. 
  * @returns A json file of the user data. 
  */
+/* eslint-disable no-unused-vars*/
 function getUserData(email) {
   var data = {};
   return data.stringify();
 }
+/* eslint-enable no-unused-vars*/
 
 
 /**

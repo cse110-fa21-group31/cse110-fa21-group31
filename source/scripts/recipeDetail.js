@@ -121,7 +121,7 @@ function fillOutRecipe(data){
       for (let i = 0; i < data['@graph'].length; i++) {
         if (data['@graph'][i]['@type'] == 'Recipe') {
           if (data['@graph'][i]['name']) return data['@graph'][i]['name'];
-        };
+        }
       }
     }
     return null;
@@ -165,7 +165,7 @@ function fillOutRecipe(data){
           if (data['@graph'][i]['recipeCategory']) {
             categories = data['@graph'][i]['recipeCategory'];
           }
-        };
+        }
       }
     }
     if (Array.isArray(categories)) categories = categories.join(', ');
@@ -204,7 +204,7 @@ function fillOutRecipe(data){
           if (data['@graph'][i]['url']) return data['@graph'][i]['url'];
           if (data['@graph'][i]['contentUrl']) return data['@graph'][i]['contentUrl'];
           if (data['@graph'][i]['thumbnailUrl']) return data['@graph'][i]['thumbnailUrl'];
-        };
+        }
       }
     }
     return null;
@@ -215,15 +215,17 @@ function fillOutRecipe(data){
    * @param {Object} data Raw recipe JSON to find the URL of
    * @returns {String} If found, it returns the URL as a string, otherwise null
    */
+  /* eslint-disable no-unused-vars*/
   function getUrl(data) {
     if (data.url) return data.url;
     if (data['@graph']) {
       for (let i = 0; i < data['@graph'].length; i++) {
         if (data['@graph'][i]['@type'] == 'Recipe') return data['@graph'][i]['@id'];
       }
-    };
+    }
     return null;
   }
+  /* eslint-enable no-unused-vars*/
   
   /**
    * Similar to getUrl(), this function extracts the organizations name from the
@@ -239,7 +241,7 @@ function fillOutRecipe(data){
           return data['@graph'][i].name;
         }
       }
-    };
+    }
     return null;
   }
   
@@ -282,7 +284,7 @@ function fillOutRecipe(data){
         return data.recipeIngredient.slit('. ');
       }
       return data.recipeIngredient;
-    };
+    }
     if (data['@graph']) {
       for (let i = 0; i < data['@graph'].length; i++) {
         if (data['@graph'][i]['@type'] == 'Recipe') {
@@ -290,7 +292,7 @@ function fillOutRecipe(data){
             return data['@graph'][i]['recipeIngredient'].slit('. ');
           }
           return data['@graph'][i]['recipeIngredient'];
-        };
+        }
       }
     }
     return null;
@@ -308,7 +310,7 @@ function fillOutRecipe(data){
         return data.recipeInstructions.split('. ');
       }
       return data.recipeInstructions;
-    };
+    }
     if (data['@graph']) {
       for (let i = 0; i < data['@graph'].length; i++) {
         if (data['@graph'][i]['@type'] == 'Recipe') {
@@ -326,7 +328,7 @@ function fillOutRecipe(data){
           } else {
             return data['@graph'][i]['recipeInstructions'].map(instr => instr.text);
           }
-        };
+        }
       }
     }
     return null;
