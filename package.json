@@ -10,7 +10,8 @@
     "puppeteer": "^11.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node source/service/neDB/server.js"
   },
   "jest": {
     "preset": "jest-puppeteer",
