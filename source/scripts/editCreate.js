@@ -31,10 +31,9 @@ const appendStep = () => {
 const deleteStep = () => {
     //newTextBox.classList.add('stepEntry');
     if (document.getElementById("newStepId").lastChild != null){
-    document.getElementById("newStepId").removeChild(document.getElementById("newStepId").lastChild);
-    numSteps--;
+        document.getElementById("newStepId").removeChild(document.getElementById("newStepId").lastChild);
+        numSteps--;
     }
-
 }
 
 const appendIngredient = () => {
@@ -50,8 +49,7 @@ const appendIngredient = () => {
  
  const deleteIngredient= () => {
      if (document.getElementById("newIngredientId").lastChild != null){
-     document.getElementById("newIngredientId").removeChild(document.getElementById("newIngredientId").lastChild);
-     document.getElementById("newIngredientAmountId").removeChild(document.getElementById("newIngredientAmountId").lastChild);
+         document.getElementById("newIngredientId").removeChild(document.getElementById("newIngredientId").lastChild);
+         document.getElementById("newIngredientAmountId").removeChild(document.getElementById("newIngredientAmountId").lastChild);
      }
- 
  }
