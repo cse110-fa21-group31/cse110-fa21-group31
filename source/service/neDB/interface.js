@@ -1,6 +1,6 @@
 // import { RECIPE_DB_PATH } from "../util";
 
-module.exports = { getRecipesByNameAndTags }
+module.exports = { createRecipe, deleteRecipe, updateRecipe, getAllRecipe,getRecipesByNameAndTags, getRecipeById, getRecipesByIds }
 
 /**
  * Guide to test neDB
@@ -35,15 +35,56 @@ function createRecipe(recipe) {
     return id;
 }
 
+/**
+ * removes a single recipe from the database
+ * @param {string} id 
+ */
+ function deleteRecipe(id) {
+    recipeDB.deleteOne({ _id: id });
+}
+
+/**
+ * updates one recipe in the database
+ * @param {string} id 
+ * @param {*} recipe 
+ */
+function updateRecipe(id, recipe) {
+    // TODO: Define format of recipe object and update accordingly
+    update = {};
+    recipeDB.updateOne({ _id: id }, update);
+}
+
+/**
+ * fetches all recipes
+ * @returns all recipes in the database
+ */
+ function getAllRecipe() {
+    let foundDocs = []
+    recipeDB.find({}, function (err, docs) {
+        if (err) {
+            //debug usage, log any possible error
+            log(err);
+        }
+        foundDocs = docs;
+    });
+    return foundDocs;
+}
+
+/**
+ * retrieves all recipes with overlap in the names and all tags match
+ * @param {*} searchParams 
+ * @returns 
+ */
 async function getRecipesByNameAndTags(searchParams){
     filters = {}
     if (searchParams.name){
         let keywords = searchParams.name.toLowerCase().split(" ");
+        // TODO (Bjorn): Make sure this is enough to catch all overlapping names
         filters.name = { $in: keywords }
     }
     if (searchParams.tags){
         let tags = tags.map(t => t.toLowerCase());
-        filters.name = { $in: tags }
+        filters.name = { $all: tags }
     }
 
     let foundDocs = []
@@ -58,40 +99,7 @@ async function getRecipesByNameAndTags(searchParams){
 }
 
 /**
- * 
- * @param {string} id 
- */
-function deleteRecipe(id) {
-
-}
-
-/**
- * 
- * @param {string} id 
- * @param {*} recipe 
- */
-function updateRecipe(id, recipe) {
-
-}
-
-/**
- * 
- * @returns all recipes in the database
- */
-function getAllRecipe() {
-    let foundDocs = []
-    recipeDB.find({}, function (err, docs) {
-        if (err) {
-            //debug usage, log any possible error
-            log(err);
-        }
-        foundDocs = docs;
-    });
-    return foundDocs;
-}
-
-/**
- * 
+ * retrieves a single recipe based on id
  * @param {string} id the id used to look up a recipe
  * @returns recipe matching the id
  * @returns null if not found
@@ -101,7 +109,7 @@ function getRecipeById(id) {
 }
 
 /**
- * 
+ * retrieves a number of recipes based on their ids
  * @param {Array[string]} ids 
  * @returns recipes matching any of the given ids
  */
