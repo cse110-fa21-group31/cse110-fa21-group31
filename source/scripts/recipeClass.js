@@ -20,7 +20,18 @@
 */
 
 class RecipeClass {
-    constructor(recipeID, name, authorID, datePosted, coverImage, cookingTime, difficulty, tags, ingredients, steps) {
+    constructor(
+        recipeID,
+        name,
+        authorID,
+        datePosted,
+        coverImage,
+        cookingTime,
+        difficulty,
+        tags,
+        ingredients,
+        steps
+    ) {
         this.recipeID = recipeID;
         this.name = name;
         this.authorID = authorID;
@@ -34,7 +45,7 @@ class RecipeClass {
 
         this.comments = [];
     }
-    
+
     // setters for all changable properties
     set name(name) {
         this.name = name;
@@ -77,7 +88,7 @@ class RecipeClass {
     insertStep(step, stepIndex = this.steps.length) {
         this.steps.splice(stepIndex, 0, step);
     }
-    
+
     removeStep(stepIndex) {
         this.steps.splice(stepIndex, 1);
     }

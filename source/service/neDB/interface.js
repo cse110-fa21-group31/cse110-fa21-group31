@@ -1,35 +1,23 @@
 /* eslint-disable no-unused-vars*/
-function createRecipe(recipe) {
-
-}
+function createRecipe(recipe) {}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-function deleteRecipe(id) {
-
-}
+function deleteRecipe(id) {}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-function updateRecipe(id, recipe) {
-
-}
+function updateRecipe(id, recipe) {}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-function getAllRecipe() {
-
-}
+function getAllRecipe() {}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-function getRecipeById() {
-
-}
+function getRecipeById() {}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-function getRecipeByIds(ids) {
-
-}
+function getRecipeByIds(ids) {}
 /* eslint-enable no-unused-vars*/

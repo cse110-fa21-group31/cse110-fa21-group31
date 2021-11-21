@@ -1,23 +1,15 @@
 /* eslint-disable no-unused-vars*/
-function saveRecipe(recipeId) {
-
-}
+function saveRecipe(recipeId) {}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-function unsaveRecipe(recipeId) {
-
-}
+function unsaveRecipe(recipeId) {}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-function saveRecipes(recipeIds) {
-
-}
+function saveRecipes(recipeIds) {}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-function unsaveRecipes(recipeIds) {
-
-}
+function unsaveRecipes(recipeIds) {}
 /* eslint-enable no-unused-vars*/
