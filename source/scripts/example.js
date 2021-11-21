@@ -11,3 +11,5 @@ module.exports = getHelloWorld;
 function getHelloWorld() {
   return "Hello World!";
 }
+
+console.log("codacy will not like this");
