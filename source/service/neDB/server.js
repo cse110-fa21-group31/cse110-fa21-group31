@@ -16,21 +16,22 @@ fastify.get('/', async (request, reply) => {
 
 
 fastify.get('/api', async (request, reply) => {
-    const fs = require('fs');
-    const stream = fs.createReadStream('./index.html');
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log(request.query);
-    console.log(typeof(request.query));
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    reply.type('text/html').send(stream);
+    let results = []
+    if(request.query.id){
+        results = await dbInterface.getRecipeById(request.query.id);
+    }
+    else if(request.query.page){
+        // TODO: Figure out how to handle page requests
+    }
+    else {
+        throw Error("Invalid API request! No page or id found");
+    }
+    reply.type('application/json').send(results);
 })
 
 
 fastify.get('/api/search', async (request, reply) => {
-    results = await dbInterface.getRecipesByNameAndTags(request.query);
-
-    console.log(results);
-
+    let results = await dbInterface.getRecipesByNameAndTags(request.query);
     reply.type('application/json').send(results);
 })
 

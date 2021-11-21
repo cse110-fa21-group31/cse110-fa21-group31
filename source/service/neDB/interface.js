@@ -36,7 +36,6 @@ function createRecipe(recipe) {
 }
 
 async function getRecipesByNameAndTags(searchParams){
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~");
     filters = {}
     if (searchParams.name){
         let keywords = searchParams.name.toLowerCase().split(" ");
@@ -46,32 +45,39 @@ async function getRecipesByNameAndTags(searchParams){
         let tags = tags.map(t => t.toLowerCase());
         filters.name = { $in: tags }
     }
-    console.log(filters);
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-    return new Promise((resolve, reject) => {
-        // TODO (Bjorn): sort the returned results
-        recipeDB.find(filters, (err, docs) => {
-         if (err) {
-          reject(err);
-         }
-
-        console.log('Found ' + docs.length + ' matching recipes')
-        docs.forEach(recipe => console.log(recipe));
-     
-        resolve(docs);
-        });
+    let foundDocs = []
+    // TODO (Bjorn): sort the returned results
+    recipeDB.find(filters, (err, docs) => {
+        if (err) {
+        log(err);
+        }
+        foundDocs = docs;
     });
+    return foundDocs;
 }
 
+/**
+ * 
+ * @param {string} id 
+ */
 function deleteRecipe(id) {
 
 }
 
+/**
+ * 
+ * @param {string} id 
+ * @param {*} recipe 
+ */
 function updateRecipe(id, recipe) {
 
 }
 
+/**
+ * 
+ * @returns all recipes in the database
+ */
 function getAllRecipe() {
     let foundDocs = []
     recipeDB.find({}, function (err, docs) {
@@ -81,6 +87,7 @@ function getAllRecipe() {
         }
         foundDocs = docs;
     });
+    return foundDocs;
 }
 
 /**
@@ -90,9 +97,18 @@ function getAllRecipe() {
  * @returns null if not found
  */
 function getRecipeById(id) {
-    let foundDocs = {}
-    recipeDB.findOne({ _id: id }, function (err, docs) {
-        // If no document is found, doc is null
+    return getRecipesByIds([id]);
+}
+
+/**
+ * 
+ * @param {Array[string]} ids 
+ * @returns recipes matching any of the given ids
+ */
+function getRecipesByIds(ids) {
+    let foundDocs = []
+    recipeDB.find({ _id: { $in: ids } }, function (err, docs) {
+        // If no document is found, docs is null
         if (err) {
             //debug usage, log any possible error
             log(err);
@@ -100,12 +116,4 @@ function getRecipeById(id) {
         foundDocs = docs;
     });
     return foundDocs
-}
-
-function getRecipeByIds(ids) {
-
-}
-
-function searchByName(name) {
-
 }
