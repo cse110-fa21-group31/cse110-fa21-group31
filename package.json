@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "fastify": "^3.24.0",
+    "fastify-static": "^4.5.0",
     "nedb": "^1.8.0"
   }
 }
