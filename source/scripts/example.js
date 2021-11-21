@@ -13,3 +13,4 @@ function getHelloWorld() {
 }
 
 console.log("codacy will not like this");
+.... or this
