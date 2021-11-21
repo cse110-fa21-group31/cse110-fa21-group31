@@ -67,10 +67,10 @@ jobs:
     # Quality
     - name: Codacy Analysis CLI
       uses: codacy/codacy-analysis-cli-action@4.0.0
-      with:
-        directory: source
-        fail-if-incomplete: true
-        max-allowed-issues: 5
+      #with:
+      #  directory: source
+      #  fail-if-incomplete: true
+      #  max-allowed-issues: 5
   
   doc-generation-job:
     # For automatic documentation generation
