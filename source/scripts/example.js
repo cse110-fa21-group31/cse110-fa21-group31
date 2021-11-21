@@ -9,5 +9,10 @@ module.exports = getHelloWorld;
  * @returns {string}
  */
 function getHelloWorld() {
+<<<<<<< HEAD
   return "Hello World!";
 }
+=======
+    return "Hello World!";
+}
+>>>>>>> lint-and-format

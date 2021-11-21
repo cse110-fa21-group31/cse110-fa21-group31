@@ -75,7 +75,9 @@ class ProfileClass {
         this.myRecipes.push(recipe);
     }
     removeRecipe(recipeId) {
-        let index = this.myRecipes.findIndex(recipe => recipe.id === recipeId);
+        let index = this.myRecipes.findIndex(
+            (recipe) => recipe.id === recipeId
+        );
         if (index > -1) {
             this.myRecipes.splice(index, 1);
         }
@@ -85,9 +87,13 @@ class ProfileClass {
         this.savedRecipes.push(recipe);
     }
     removeSavedRecipe(recipeId) {
-        let index = this.savedRecipes.findIndex(recipe => recipe.id === recipeId);
+        let index = this.savedRecipes.findIndex(
+            (recipe) => recipe.id === recipeId
+        );
         if (index > -1) {
             this.savedRecipes.splice(index, 1);
         }
     }
 }
+
+module.exports = ProfileClass;

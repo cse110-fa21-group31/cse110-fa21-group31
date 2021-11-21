@@ -1,16 +1,25 @@
 {
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
     "@babel/preset-env": "^7.16.4",
     "babel-jest": "^27.3.1",
     "cypress": "^9.0.0",
     "eslint": "^8.3.0",
+    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-json": "^3.1.0",
+    "htmlhint": "^0.16.1",
     "jest": "^27.3.1",
     "jest-puppeteer": "^6.0.0",
-    "puppeteer": "^11.0.0"
+    "markdownlint-cli": "^0.30.0",
+    "prettier": "2.4.1",
+    "puppeteer": "^11.0.0",
+    "stylelint": "^14.1.0",
+    "stylelint-config-standard": "^24.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --check 'source/**/*.js'"
   },
   "jest": {
     "preset": "jest-puppeteer",
