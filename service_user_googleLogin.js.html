@@ -29,75 +29,76 @@
             <pre class="prettyprint source linenums"><code>/**
  * Filename: googleLogin.js
  * Date: 11/18/2021
- * Description: functions for handling Google sign-in / log-out and related 
+ * Description: functions for handling Google sign-in / log-out and related
  *  changes of profile display.
  * Dependency: navBarWithGoogle.html
- * Note: Google Login doesn't work for 127.0.0.1. Type localhost instead. 
+ * Note: Google Login doesn't work for 127.0.0.1. Type localhost instead.
  */
 
 /**
  * This function will be called by the front end function userLogin.js/onSignIn
  * when Google API returns sign-in success.
- * Simply print out user profile for now. 
- * 
- * @param {...object} profile User profile passed from front end. Includes: 
+ * Simply print out user profile for now.
+ *
+ * @param {...object} profile User profile passed from front end. Includes:
  *  { name, imageURL, email }
  */
+
+/* global gapi */
+
 function userSignedIn(profile) {
-  console.log('User login data passed to backend: ');
-  console.log('name: ' + profile.name);
-  console.log('imageURL: ' + profile.imageURL);
-  // This is null if the 'email' scope is not present.
-  console.log('email: ' + profile.email); 
+    console.log("User login data passed to backend: ");
+    console.log("name: " + profile.name);
+    console.log("imageURL: " + profile.imageURL);
+    // This is null if the 'email' scope is not present.
+    console.log("email: " + profile.email);
 }
 
-
 /**
- * Checks whether a user already exists in the database. 
- * 
- * @param {...string} email 
+ * Checks whether a user already exists in the database.
+ *
+ * @param {...string} email
  * @returns True if a user already exists, false if it's a new account.
  */
 function hasUser(email) {
-  console.log('hasUser("' + email + '") called');
-  // Simply returns false for now
-  return false;
+    console.log('hasUser("' + email + '") called');
+    // Simply returns false for now
+    return false;
 }
 
-
 /**
- * This function creates a new user in the database. 
- * 
- * @param {...object} profile The profile of the new user. 
+ * This function creates a new user in the database.
+ *
+ * @param {...object} profile The profile of the new user.
  * @returns False for now.
  */
 function createNewUser(profile) {
-  console.log('Create new user ' + profile.email);
-  return false;
+    console.log("Create new user " + profile.email);
+    return false;
 }
-
 
 /**
  * This function gets data of a user based on the email.
- * @param {...string} email The email of the user to get data for. 
- * @returns A json file of the user data. 
+ * @param {...string} email The email of the user to get data for.
+ * @returns A json file of the user data.
  */
+/* eslint-disable no-unused-vars*/
 function getUserData(email) {
-  var data = {};
-  return data.stringify();
+    var data = {};
+    return data.stringify();
 }
-
+/* eslint-enable no-unused-vars*/
 
 /**
- * This function will be called by the front end function userLogin.js/signedOut 
- * when the user clicks sign-out button. 
- * Calls Google log-out api. 
+ * This function will be called by the front end function userLogin.js/signedOut
+ * when the user clicks sign-out button.
+ * Calls Google log-out api.
  */
- function userSignedOut() {
-  const auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-  });
+function userSignedOut() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log("User signed out.");
+    });
 }
 
 export { userSignedIn, userSignedOut, hasUser, getUserData, createNewUser };
@@ -111,13 +112,13 @@ export { userSignedIn, userSignedOut, hasUser, getUserData, createNewUser };
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#convertTime">convertTime</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#getCategories">getCategories</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getHelloWorld">getHelloWorld</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getOrganization">getOrganization</a></li><li><a href="global.html#getTitle">getTitle</a></li><li><a href="global.html#getUrl">getUrl</a></li><li><a href="global.html#getUserData">getUserData</a></li><li><a href="global.html#getYield">getYield</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#userSignedIn">userSignedIn</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#convertTime">convertTime</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#getCategories">getCategories</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getHelloWorld">getHelloWorld</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getOrganization">getOrganization</a></li><li><a href="global.html#getTitle">getTitle</a></li><li><a href="global.html#getYield">getYield</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun Nov 21 2021 10:13:34 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun Nov 21 2021 19:01:36 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
