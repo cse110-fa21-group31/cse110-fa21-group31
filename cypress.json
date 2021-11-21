@@ -1,5 +1,4 @@
 {
-    "baseUrl": "http://localhost:5500/",
     "integrationFolder": "__tests__",
     "ignoreTestFiles": "**/!(*.spec.js)"
 }
