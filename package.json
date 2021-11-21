@@ -13,6 +13,7 @@
   },
   "jest": {
     "preset": "jest-puppeteer",
-    "verbose": true
+    "verbose": true,
+    "testRegex": "__tests__/.*\\.test\\.js$"
   }
 }
