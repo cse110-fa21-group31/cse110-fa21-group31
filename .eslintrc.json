@@ -5,8 +5,7 @@
         "jest/globals": true,
         "node": true
     },
-    "extends": "eslint:recommended",
-    "ignorePatterns": ["**/*.json"],
+    "extends": ["eslint:recommended", "plugin:json/recommended"],
     "overrides": [
 
     ],
