@@ -4,6 +4,8 @@ const fastify = require('fastify')({ logger: true })
 const port = process.env.PORT || 3030;
 // Declare a route
 fastify.get('/', async (request, reply) => {
+    // recipe = request.body
+
     return { hello: 'world' }
 })
 
