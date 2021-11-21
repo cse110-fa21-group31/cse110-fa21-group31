@@ -9,9 +9,9 @@
     "overrides": [
 
     ],
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
-        "ecmaVersion": 12,
-        "sourceType": "module"
+        "requireConfigFile": false
     },
     "plugins": ["jest"],
     "rules": {
