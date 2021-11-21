@@ -1,0 +1,6 @@
+---
+exclude_paths:
+  - "node_modules/**"
+  - "admin/**"
+  - "specs/**"
+#  - "__tests__"

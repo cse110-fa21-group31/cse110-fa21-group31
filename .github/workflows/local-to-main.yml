@@ -14,19 +14,15 @@ jobs:
   testing-job:
     # For unit and end to end testing
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
     
     steps:
     - name: Checkout branch
       uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '16'
         cache: 'npm'
 
     # Unit testing
@@ -38,9 +34,9 @@ jobs:
     - name: Run Cypress tests
       uses: cypress-io/github-action@v2.9.7
 
+  # linters and formatters are being done by Kian, omitted
 
-
-  code-quality-job:
+  codacy-job:
     # For linting, formatting, and quality evaluation of code.
     runs-on: ubuntu-latest
 
@@ -48,24 +44,11 @@ jobs:
     - name: Checkout branch
       uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '16'
         cache: 'npm'
-    
-    # Formatting
-    - name: Prettier Action
-      uses: creyD/prettier_action@v4.0
-      with:
-        dry: True # won't overwrite files automatically, just warns us
-        prettier_options: "--check" # recommended to use with dry, outputs analysis results
-        only_changed: True # i think this only runs prettier on changed code
-        # in the future if we plan to do only matching custom file patterns then we'd need to forgo only_changed
-
-    # Linting
-    - name: Super-Linter
-      uses: github/super-linter@v4.8.4
 
     # Quality
     - name: Codacy Analysis CLI
