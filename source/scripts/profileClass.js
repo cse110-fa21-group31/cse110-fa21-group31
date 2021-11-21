@@ -92,3 +92,5 @@ class ProfileClass {
         }
     }
 }
+
+module.exports = ProfileClass;
