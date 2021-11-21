@@ -119,7 +119,7 @@ jobs:
         fail-if-incomplete: true
         max-allowed-issues: 5
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        upload: true
+        # upload: true
   
   doc-generation-job:
     # For automatic documentation generation
