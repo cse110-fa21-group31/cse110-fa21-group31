@@ -20,7 +20,12 @@
   "scripts": {
     "test": "jest",
     "format": "prettier --check 'source/**/*.js'",
-    "start": "node source/service/neDB/server.js"
+    "start": "node source/service/neDB/server.js",
+    "eslint": "npx eslint '**/*.js' '**/*.json'",
+    "stylelint": "npx stylelint '**/*.css'",
+    "htmlhint": "npx htmlhint '**/*.html'",
+    "prettier": "npx prettier --write '**/*.js'",
+    "lint": "npm run eslint && npm run stylelint && npm run htmlhint"
   },
   "jest": {
     "preset": "jest-puppeteer",
