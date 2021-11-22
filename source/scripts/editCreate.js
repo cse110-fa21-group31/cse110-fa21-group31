@@ -20,11 +20,47 @@ function init() {
 const onSubmitRecipe = async (event) => {
     console.log("SUBMITTED THINGY");
     event.preventDefault();
-    let newRecipe = { name: "apple", datePosted: Date.now(), author: "HZRfg63gUu5M8S0F", steps: ["step 1", "step 2"] }
+    event.preventDefault();
+    console.log("SUBMITTED THINGY");
+    const recipeF = document.getElementById("recipeForm");
+    let formData = new FormData(recipeF);
+    /** 
+    console.log(formData.get('name'));
+    console.log(formData.get('picture'));
+    console.log(formData.get('description'));
+    console.log(formData.get('tags'));
+    console.log(formData.get('prepTime'));
+    console.log(formData.get('cookTime'));
+    console.log(formData.get('servingSize'));
+    console.log(formData.get('difficulty'));
+    console.log(formData.get('ingredients'));
+    console.log(formData.get('ingredientAmounts'));
+    console.log(formData.get('steps'));
+    */
+    const recipeCard = document.createElement('recipe-card');
+    // recipeCard.dat
+    // const recClass = new RecipeClass();
+    recipeCard.name = formData.get('name');
+    recipeCard.authorId = 'HZRfg63gUu5M8S0F';
+    recipeCard.datePosted = Date.now();
+    recipeCard.coverImage = formData.get('picture');
+    recipeCard.cookingTime = formData.get('cookTime');
+    //recClass.servingSize =
+    recipeCard.difficulty = formData.get('difficulty');
+    recipeCard.tags = formData.get('tags');
+    //recClass.ingredients =formData.get('ingredients');
+    //recClass.steps = formData.get('steps');
+
+    let newRecipe = {
+        name: formData.get('name'), datePosted: Date.now(),
+        cookTime: formData.get('cookTime'),
+        author: "HZRfg63gUu5M8S0F", steps: ["step 1", "step 2"]
+    }
+    console.log(newRecipe)
 
     let response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        body: newRecipe // body data type must match "Content-Type" header
+        body: JSON.stringify(newRecipe) // body data type must match "Content-Type" header
     }).then((response) => response.json())
         .then((data) => {
             // This grabs the data return by the server

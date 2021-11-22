@@ -13,7 +13,7 @@ const userSchema = {
  * @param {...string} profile The user profile for creating new user.
  * @returns The user Json.
  */
-async function createUser(userDB, profile) {
+export async function createUser(userDB, profile) {
     // set up new user object
     let newUser = userSchema;
     newUser.username = profile.username;
@@ -42,7 +42,7 @@ async function createUser(userDB, profile) {
  * @param {...string} email The email to check whether there's a user
  * @returns The user Json if exists, false if doesn't exist.
  */
-async function hasUser(userDB, email) {
+export async function hasUser(userDB, email) {
     let hasUser = new Promise((resolve, reject) => {
         userDB.findOne({ email }, function (err, doc) {
             if (!err) {
@@ -64,7 +64,7 @@ async function hasUser(userDB, email) {
  * @param id The id of the user to search for.
  * @return The json file of the user found, or null if not found.
  */
-async function getUser(userDB, id) {
+export async function getUser(userDB, id) {
     let userData = new Promise((resolve, reject) => {
         userDB.findOne({ _id: id }, function (err, doc) {
             if (!err) {
@@ -85,7 +85,7 @@ async function getUser(userDB, id) {
  * @param recipeId The id of the recipe to add.
  * @return 1 if save success, 0 if recipe already saved.
  */
-async function addMyRecipe(userDB, id, recipeId) {
+export async function addMyRecipe(userDB, id, recipeId) {
     let data = await getUser(userDB, id);
     if (!recipeSaved(data.myRecipe, recipeId)) {
         // update in db
@@ -118,7 +118,7 @@ async function addMyRecipe(userDB, id, recipeId) {
  * @param recipeId The id of the recipe to remove.
  * @return 1 if save success, 0 if recipe not saved.
  */
-async function removeMyRecipe(userDB, id, recipeId) {
+export async function removeMyRecipe(userDB, id, recipeId) {
     let data = await getUser(userDB, id);
     if (recipeSaved(data.myRecipe, recipeId)) {
         // remove the recipe from array
@@ -154,7 +154,7 @@ async function removeMyRecipe(userDB, id, recipeId) {
  * @param recipeId The id of the recipe to add.
  * @return 1 if save success, 0 if recipe already saved.
  */
-async function saveRecipe(userDB, id, recipeId) {
+export async function saveRecipe(userDB, id, recipeId) {
     let data = await getUser(userDB, id);
     if (!recipeSaved(data.savedRecipe, recipeId)) {
         // update in db
@@ -187,7 +187,7 @@ async function saveRecipe(userDB, id, recipeId) {
  * @param recipeId The id of the recipe to remove.
  * @return 1 if save success, 0 if recipe not saved.
  */
-async function unsaveRecipe(userDB, id, recipeId) {
+export async function unsaveRecipe(userDB, id, recipeId) {
     let data = await getUser(userDB, id);
     if (recipeSaved(data.savedRecipe, recipeId)) {
         // remove the recipe from array
@@ -223,7 +223,7 @@ async function unsaveRecipe(userDB, id, recipeId) {
  *
  * @return TRUE if the recipe is saved, FALSE if not.
  */
-function recipeSaved(recipeArray, recipeId) {
+export function recipeSaved(recipeArray, recipeId) {
     for (let i = 0; i < recipeArray.length; i++) {
         if (recipeArray[i] == recipeId) {
             return true;
@@ -232,12 +232,12 @@ function recipeSaved(recipeArray, recipeId) {
     return false;
 }
 
-module.exports = {
-    createUser,
-    hasUser,
-    getUser,
-    addMyRecipe,
-    removeMyRecipe,
-    saveRecipe,
-    unsaveRecipe,
-};
+// export default {
+//     createUser,
+//     hasUser,
+//     getUser,
+//     addMyRecipe,
+//     removeMyRecipe,
+//     saveRecipe,
+//     unsaveRecipe,
+// };

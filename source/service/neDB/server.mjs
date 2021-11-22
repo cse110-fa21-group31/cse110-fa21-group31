@@ -1,34 +1,27 @@
-const userInterface = require("./userInterface");
-const Datastore = require("nedb");
-// const { RECIPE_DB_PATH, USER_DB_PATH } = require("../util");
-const RECIPE_DB_PATH = "source/service/.data/recipes";
+import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
+import { getRecipeById, getAllRecipe, createRecipe, updateRecipe, deleteRecipe } from "./interface.mjs";
+import Datastore from "nedb";
+// the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
-const TAGS_DB_PATH = "source/service/.data/tags";
-const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
-const tagsDB = new Datastore({ filename: TAGS_DB_PATH, autoload: true });
+const RECIPE_DB_PATH = "source/service/.data/recipes"
+const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 
 // Require the framework and instantiate it
-const fastify = require("fastify")({ logger: true });
-const Datastore = require("nedb");
-const interface = require("./interface")
+import Fastify from 'fastify';
+const fastify = Fastify({ logger: true });
+
 // const path = require('path')
-const Cors = require('fastify-cors')
+import Cors from 'fastify-cors';
 fastify.register(Cors, {
     origin: true
 })
 
-// the following are "collection" object for the users, recipes, and tags tables
-const RECIPE_DB_PATH = "source/service/.data/recipes"
-// const USER_DB_PATH = "source/service/.data/users"
-// const TAGS_DB_PATH = "source/service/.data/tags"
-const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
-// const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
-// const tagDB = new Datastore({ filename: TAGS_DB_PATH, autoload: true });
+
 
 const port = process.env.PORT || 3030;
 
-const dbInterface = require("./interface");
+
 
 // Declare a route
 fastify.get("/", async () => {
@@ -47,20 +40,22 @@ fastify.get("/api", async (_, reply) => {
 
 fastify.get("/api", async (request, reply) => {
     if (request.query.id) {
-        reply.send(await dbInterface.getRecipeById(request.query.id, recipeDB));
+        reply.send(await getRecipeById(request.query.id, recipeDB));
     } else if (request.query.page) {
-        reply.send(await dbInterface.getAllRecipe(recipeDB));
+        reply.send(await getAllRecipe(recipeDB));
     }
 });
 
 fastify.post("/api", async (request, reply) => {
-    if (!request.body.name || !request.body.author || !request.body.steps) {
+    // console.log(JSON.parse(request.body))
+    let body = JSON.parse(request.body)
+    if (!body.name || !body.author || !body.steps) {
         const err = new Error();
         err.statusCode = 400;
         err.message = "Request body missing required recipe information";
         reply.send(err);
     } else {
-        reply.send(await dbInterface.createRecipe(request.body, recipeDB));
+        reply.send(await createRecipe(body, recipeDB));
     }
 });
 
@@ -76,7 +71,7 @@ fastify.put("/api", async (request, reply) => {
         reply.send(err);
     } else {
         reply.send(
-            await dbInterface.updateRecipe(
+            await updateRecipe(
                 request.body._id,
                 request.body,
                 recipeDB
@@ -86,7 +81,7 @@ fastify.put("/api", async (request, reply) => {
 });
 
 fastify.delete("/api", async (request, reply) => {
-    reply.send(await dbInterface.deleteRecipe(request.query.id, recipeDB));
+    reply.send(await deleteRecipe(request.query.id, recipeDB));
 });
 
 /****************** User APIs ************************/
@@ -98,7 +93,7 @@ fastify.delete("/api", async (request, reply) => {
  * reply: user json if found, 404 if not found.
  */
 fastify.get("/api/user", async (req, reply) => {
-    let data = await userInterface.getUser(userDB, req.query.id);
+    let data = await getUser(userDB, req.query.id);
     if (data == null) {
         reply
             .status(404)
@@ -118,9 +113,9 @@ fastify.get("/api/user", async (req, reply) => {
  */
 fastify.post("/api/user", async (req, reply) => {
     // check if user exists. false if not.
-    let data = await userInterface.hasUser(userDB, req.query.email);
+    let data = await hasUser(userDB, req.query.email);
     if (!data) {
-        data = await userInterface.createUser(userDB, req.body);
+        data = await createUser(userDB, req.body);
     }
     reply.status(200).send(data);
 });
@@ -133,12 +128,12 @@ fastify.post("/api/user", async (req, reply) => {
  * reply: user json.
  */
 fastify.put("/api/user/saved", async (req, reply) => {
-    let numUpdated = await userInterface.saveRecipe(
+    let numUpdated = await saveRecipe(
         userDB,
         req.query.userId,
         req.query.recipeId
     );
-    let data = await userInterface.getUser(userDB, req.query.userId);
+    let data = await getUser(userDB, req.query.userId);
     console.log("SAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
@@ -151,12 +146,12 @@ fastify.put("/api/user/saved", async (req, reply) => {
  * reply: user json.
  */
 fastify.delete("/api/user/saved", async (req, reply) => {
-    let numUpdated = await userInterface.unsaveRecipe(
+    let numUpdated = await unsaveRecipe(
         userDB,
         req.query.userId,
         req.query.recipeId
     );
-    let data = await userInterface.getUser(userDB, req.query.userId);
+    let data = await getUser(userDB, req.query.userId);
     console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
