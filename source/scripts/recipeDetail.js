@@ -1,23 +1,27 @@
 // import RecipeClass from "./recipeClass";
-
+// const http = require('http');
 // RecipeExpand.js
 window.addEventListener("DOMContentLoaded", init);
 
 const recipes = [
-    "https://introweb.tech/assets/json/ghostCookies.json",
-    "https://introweb.tech/assets/json/birthdayCake.json",
-    "https://introweb.tech/assets/json/chocolateChip.json",
-    "https://introweb.tech/assets/json/stuffing.json",
-    "https://introweb.tech/assets/json/turkey.json",
-    "https://introweb.tech/assets/json/pumpkinPie.json",
+    "http://127.0.0.1:3030/api?id=uYaCV6U4XGfQHYg2",
+    // "https://introweb.tech/assets/json/ghostCookies.json",
+    // "https://introweb.tech/assets/json/birthdayCake.json",
+    // "https://introweb.tech/assets/json/chocolateChip.json",
+    // "https://introweb.tech/assets/json/stuffing.json",
+    // "https://introweb.tech/assets/json/turkey.json",
+    // "https://introweb.tech/assets/json/pumpkinPie.json",
 ];
 const recipeData = {};
 async function fetchRecipes() {
     return new Promise((resolve, reject) => {
         recipes.forEach((recipe) => {
+            console.log("fetching", recipe)
             fetch(recipe)
+                // parses JSON response into native JavaScript objects)
                 .then((response) => response.json())
                 .then((data) => {
+                    console.log(data)
                     // This grabs the page name from the URL in the array above
                     data["page-name"] = recipe.split("/").pop().split(".")[0];
                     recipeData[recipe] = data;
@@ -29,6 +33,7 @@ async function fetchRecipes() {
                     console.log(`Error loading the ${recipe} recipe`);
                     reject(err);
                 });
+
         });
     });
 }
@@ -326,7 +331,7 @@ function getInstructions(data) {
                 }
                 if (
                     data["@graph"][i]["recipeInstructions"][0][
-                        "itemListElement"
+                    "itemListElement"
                     ]
                 ) {
                     const instructionArr = [];
