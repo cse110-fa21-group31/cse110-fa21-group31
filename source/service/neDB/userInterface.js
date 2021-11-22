@@ -128,7 +128,7 @@ async function removeMyRecipe(userDB, id, recipeId) {
     data = new Promise((resolve, reject) => {
       userDB.update(
         { _id: id }, 
-        {myRecipe: data.myRecipe}, 
+        {$set: {myRecipe: data.myRecipe}}, 
         {}, 
         function (err, doc) {
         if (!err) {
@@ -198,7 +198,7 @@ async function unsaveRecipe(userDB, id, recipeId) {
     data = new Promise((resolve, reject) => {
       userDB.update(
         { _id: id }, 
-        {savedRecipe: data.savedRecipe}, 
+        {$set: {savedRecipe: data.savedRecipe}}, 
         {}, 
         function (err, doc) {
         if (!err) {
