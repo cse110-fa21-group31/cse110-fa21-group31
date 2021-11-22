@@ -1,74 +1,80 @@
-// import { RECIPE_DB_PATH } from "../util";
-
 module.exports = { createRecipe, deleteRecipe, updateRecipe, getAllRecipe,getRecipesByNameAndTags, getRecipeById, getRecipesByIds }
-
-/**
- * Guide to test neDB
- * 1. run `npm install`
- * 2. cd to current folder
- * 3. run `node interface.js`
- */
-const Datastore = require('nedb');
-
-// const { RECIPE_DB_PATH } = require('../util');
-// var db = new Datastore({ filename: 'data/demo' });
-const RECIPE_DB_PATH = "../data/recipes"
-const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true })
 
 /**
  * insert a single recipe to database
  * @param {recipe} recipe 
  */
-function createRecipe(recipe) {
-    let id = undefined;
-    recipeDB.insert(recipe, function (err, newDoc) {   // Callback is optional
-        // newDoc is the newly inserted document, including its _id
-        // newDoc has no key called notToBeSaved since its value was undefined
-        if (err) {
-            //debug usage, log any possible error
-            log(err);
-        }
-        else {
-            id = newDoc._id;
-        }
+async function createRecipe(recipe, recipeCollection) {
+    let insertedDoc = new Promise((resolve, reject) => {
+        recipeCollection.insert(recipe, function (err, doc) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                resolve(doc);
+            }
+        });
     });
-    return id;
+    return insertedDoc;
 }
+
 
 /**
  * removes a single recipe from the database
  * @param {string} id 
  */
- function deleteRecipe(id) {
-    recipeDB.deleteOne({ _id: id });
+async function deleteRecipe(id, recipeCollection) {
+    recipeCollection.deleteOne({ _id: id });
 }
+
 
 /**
  * updates one recipe in the database
  * @param {string} id 
  * @param {*} recipe 
  */
-function updateRecipe(id, recipe) {
-    // TODO: Define format of recipe object and update accordingly
-    update = {};
-    recipeDB.updateOne({ _id: id }, update);
-}
+/* eslint-disable no-unused-vars*/
+async function updateRecipe(id, recipe, recipeCollection) {
+    let updatedRecipes = new Promise((resolve, reject) => {
+        recipeCollection.updateOne(
+            { _id: id },
+            recipe,
+            { returnUpdatedDocs: true },
+            function (err, numAffected, affectedDocs, upsert) {
+                if (!err) {
+                    console.log("Updated " + numAffected + " documents");
+                    console.log(affectedDocs);
+                    resolve(affectedDocs);
+                } else {
+                    reject(err);
+                }
+            }
+        );
+    });
+    return updatedRecipes;
+};
+/* eslint-enable no-unused-vars*/
 
 /**
  * fetches all recipes
  * @returns all recipes in the database
  */
- function getAllRecipe() {
-    let foundDocs = []
-    recipeDB.find({}, function (err, docs) {
-        if (err) {
-            //debug usage, log any possible error
-            log(err);
-        }
-        foundDocs = docs;
+ function getAllRecipe(recipeCollection) {
+    let foundDocs = new Promise((resolve, reject) => {
+        recipeCollection.find({}, function (err, docs) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else{
+                resolve(docs);
+            }
+        });
     });
     return foundDocs;
 }
+
 
 /**
  * retrieves all recipes with overlap in the names and all tags match
@@ -104,24 +110,27 @@ async function getRecipesByNameAndTags(searchParams){
  * @returns recipe matching the id
  * @returns null if not found
  */
-function getRecipeById(id) {
-    return getRecipesByIds([id]);
+function getRecipeById(id, recipeCollection) {
+    return getRecipesByIds([id], recipeCollection);
 }
+
 
 /**
  * retrieves a number of recipes based on their ids
  * @param {Array[string]} ids 
  * @returns recipes matching any of the given ids
  */
-function getRecipesByIds(ids) {
-    let foundDocs = []
-    recipeDB.find({ _id: { $in: ids } }, function (err, docs) {
-        // If no document is found, docs is null
-        if (err) {
-            //debug usage, log any possible error
-            log(err);
-        }
-        foundDocs = docs;
+function getRecipesByIds(ids, recipeCollection) {
+    let foundDocs = new Promise((resolve, reject) => {
+        recipeCollection.find({ _id: { $in: ids } }, function (err, docs) {
+            if (err) {
+                log(err);
+                reject(err);
+            }
+            else {
+                resolve(docs);
+            }
+        });
     });
     return foundDocs
 }

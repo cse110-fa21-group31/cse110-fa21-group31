@@ -1,0 +1,159 @@
+# Takes care of general code quality checks and tests
+# Should run when new features are being added to codebase
+# and when codebase is being deployed.
+
+name: local-to-main
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  testing-job:
+    # For unit and end to end testing
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    # - name: Cache node modules
+    #   uses: actions/cache@v2
+    #   env:
+    #     cache-name: cache-node-modules
+    #   with:
+    #     path: ~/.npm
+    #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-build-${{ env.cache-name }}-
+    #       ${{ runner.os }}-build-
+    #       ${{ runner.os }}-
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        # cache: 'npm'
+
+    # Unit testing
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
+
+    # End to end testing
+    - name: Run Cypress tests
+      #run: npx cypress run
+      uses: cypress-io/github-action@v2.9.7
+
+  # linters and formatters are being done by Kian, omitted
+
+  lint: 
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - run: npm ci
+    - name: Lint Code Base
+      uses: github/super-linter@v4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        LINTER_RULES_PATH: /
+        CSS_FILE_NAME: .stylelintrc.json
+        JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
+        VALIDATE_JAVASCRIPT_STANDARD: false
+        VALIDATE_JSCPD: false
+        VALIDATE_MARKDOWN: false
+        VALIDATE_NATURAL_LANGUAGE: false
+        VALIDATE_ENV: false
+
+  formatting:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - run: npm ci
+
+      # This only says which files have formatting problems. We also have
+      # the option of having Prettier auto fix it all
+      - name: Fix format
+        run: npm run prettier
+
+  codacy-job:
+    # For linting, formatting, and quality evaluation of code.
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    # - name: Cache node modules
+    #   uses: actions/cache@v2
+    #   env:
+    #     cache-name: cache-node-modules
+    #   with:
+    #     path: ~/.npm
+    #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-build-${{ env.cache-name }}-
+    #       ${{ runner.os }}-build-
+    #       ${{ runner.os }}-
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        #cache: 'npm'
+
+    # Quality
+    - name: Codacy Analysis CLI
+      uses: codacy/codacy-analysis-cli-action@4.0.0
+      with:
+        # fail-if-incomplete: true
+        max-allowed-issues: 0
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run-docker-tools: false
+        verbose: true
+        upload: true
+  
+  doc-generation-job:
+    # For automatic documentation generation
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    - name: Run JSDoc
+      uses: andstor/jsdoc-action@v1.2.0
+      with:
+        source_dir: ./source
+        recurse: true
+        output_dir: ./docs
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+
