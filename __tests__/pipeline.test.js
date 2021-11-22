@@ -6,8 +6,9 @@ test('getHelloWorld should return "Hello World!"', () => {
     expect(getHelloWorld()).toBe("Hello World!");
 });
 
+const saladRecipeId = 'saladRecipe1';
 const SaladRecipe = new recipeClass(
-    'saladrecipe1',
+    saladRecipeId,
     'Ceasar Salad',
     'Julius',
     '11/21/2020',
@@ -25,12 +26,12 @@ let newProfile = new profileClass('sa8f39bd', 'Robert', 'robert@email.com', 'pic
 
 test('profiles should be able to add recipes', () => {
     newProfile.addRecipe(SaladRecipe);
-    expect(newProfile.recipes.length).toBe(1);
+    expect(newProfile.myRecipes.length).toBe(1);
 });
 
-test('profiles should be able to remove recipes', () => {
-    newProfile.removeRecipe(SaladRecipe);
-    expect(newProfile.recipes.length).toBe(0);
+test('profiles should be able to remove myRecipes', () => {
+    newProfile.removeRecipe(saladRecipeId);
+    expect(newProfile.myRecipes.length).toBe(0);
 });
 
 test('profiles should be able to add favorites', () => {
@@ -39,6 +40,6 @@ test('profiles should be able to add favorites', () => {
 });
 
 test('profiles should be able to remove favorites', () => {
-    newProfile.removeSavedRecipe(SaladRecipe);
+    newProfile.removeSavedRecipe(saladRecipeId);
     expect(newProfile.savedRecipes.length).toBe(0);
 });

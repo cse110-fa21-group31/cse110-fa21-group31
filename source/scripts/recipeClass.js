@@ -46,43 +46,29 @@ class RecipeClass {
         this.comments = [];
     }
 
-    // setters for all changable properties
+    // SETTERS for every single field of this class
+    /*
+    set recipeID(name) {
+        this._recipeID = name;
+    }
     set name(name) {
-        this.name = name;
+        this._name = name;
     }
-
-    set authorID(authorID) {
-        this.authorID = authorID;
+    set authorID(id) {
+        this._authorID = id;
     }
-
-    set datePosted(datePosted) {
-        this.datePosted = datePosted;
+    set datePosted(dateString) {
+        this._datePosted = new Date(dateString);
     }
-
     set coverImage(coverImage) {
-        this.coverImage = coverImage;
-    }
+        this._coverImage = coverImage;
+    }*/
 
-    set cookingTime(cookingTime) {
-        this.cookingTime = cookingTime;
-    }
-
-    set difficulty(difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    set tags(tags) {
-        this.tags = tags;
-    }
     addTag(tag) {
         this.tags.push(tag);
     }
     removeTag(tag) {
         this.tags.splice(this.tags.indexOf(tag), 1);
-    }
-
-    set ingredients(ingredients) {
-        this.ingredients = ingredients;
     }
 
     insertStep(step, stepIndex = this.steps.length) {
@@ -101,7 +87,7 @@ class RecipeClass {
     removeComment(commentIndex) {
         this.comments.splice(commentIndex, 1);
     }
-
+    /*
     // getters for all properties
     get name() {
         return this.name;
@@ -141,7 +127,7 @@ class RecipeClass {
 
     get comments() {
         return this.comments;
-    }
+    }*/
 }
 
-export default RecipeClass;
+module.exports = RecipeClass;
