@@ -1,0 +1,16 @@
+{
+  "_id": "12345abcde",
+  "name": "Christmas Cake",
+  "author": "Powell's Fanclub",
+  "description": "Christmas cake made by Powell's Fanclu! We're awesome and Merry Christmas!",
+  "datePosted": "2021-04-23T18:25:43.511Z",
+  "serving size": 10,
+  "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/frosty-robin-cake-1606392006.jpg",
+  "tags": ["christmas", "party"],
+  "prepTime": "1 hr",
+  "cookTime": "2 hrs",
+  "difficulty": "5 star",
+  "ingredients": ["butter", "flour"],
+  "steps": ["step 1", "step 2"],
+  "comments": ["comment1: amazing!", "comment2: Delicious"]
+}

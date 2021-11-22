@@ -1,9 +1,16 @@
 // import RecipeClass from "./recipeClass";
+<<<<<<< HEAD
 // const http = require('http');
+=======
+// The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
+
+>>>>>>> f3fb0a565451b970f019047fcfec081709ff999c
 // RecipeExpand.js
 window.addEventListener("DOMContentLoaded", init);
 
+// THESE SHOULD BE GIVEN VIA API
 const recipes = [
+<<<<<<< HEAD
     "http://127.0.0.1:3030/api?id=uYaCV6U4XGfQHYg2",
     // "https://introweb.tech/assets/json/ghostCookies.json",
     // "https://introweb.tech/assets/json/birthdayCake.json",
@@ -11,8 +18,31 @@ const recipes = [
     // "https://introweb.tech/assets/json/stuffing.json",
     // "https://introweb.tech/assets/json/turkey.json",
     // "https://introweb.tech/assets/json/pumpkinPie.json",
+=======
+    "/source/assets/exampleJSON/example1.json"
+>>>>>>> f3fb0a565451b970f019047fcfec081709ff999c
 ];
 const recipeData = {};
+
+async function init() {
+    try {
+        await createRecipes();
+    } catch (err) {
+        console.log(`Error fetching recipes: ${err}`);
+        return;
+    }
+    await fetchRecipes();
+    //const data = recipeData[recipes[0]];
+    //fillOutRecipe(data);
+    createRecipeCards();
+}
+
+//fills the recipes into the recipes Array
+//should help pull info from the api call, or makes the api call here
+async function createRecipes() {
+    //do nothing for now!
+}
+
 async function fetchRecipes() {
     return new Promise((resolve, reject) => {
         recipes.forEach((recipe) => {
@@ -21,9 +51,10 @@ async function fetchRecipes() {
                 // parses JSON response into native JavaScript objects)
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data)
+                    console.log(data);
+                    console.log(recipe);
                     // This grabs the page name from the URL in the array above
-                    data["page-name"] = recipe.split("/").pop().split(".")[0];
+                    //data["page-name"] = recipe.split("/").pop().split(".")[0];
                     recipeData[recipe] = data;
                     if (Object.keys(recipeData).length == recipes.length) {
                         resolve();
@@ -38,15 +69,37 @@ async function fetchRecipes() {
     });
 }
 
-async function init() {
-    try {
-        await fetchRecipes();
-    } catch (err) {
-        console.log(`Error fetching recipes: ${err}`);
-        return;
+/**
+ * Generates the <recipeCard> elements from the fetched recipes and
+ * appends them to the page
+ */
+function createRecipeCards() {
+    // Makes a new recipe card
+    const recipeCard = document.createElement('recipeCard');
+    // Inputs the data for the card. This is just the first recipe in the recipes array,
+    // being used as the key for the recipeData object
+    recipeCard.data = recipeData[recipes[0]];
+
+    for (let i in recipes) {
+        const json = recipes[i];
+        const recipeCard = document.createElement('recipe-card');
+        console.log("Created recipe-card");
+        recipeCard.data = recipeData[json];
+        console.log(recipeCard.data);
+        /*
+        const page = recipeData[json]['page-name'];
+        router.addPage(page, function () {
+          document.querySelector('.section--recipe-cards').classList.remove('shown');
+          document.querySelector('.section--recipe-expand').classList.add('shown');
+          document.querySelector('recipe-expand').data = recipeData[json];
+        });
+        if (i > 2) {
+          recipeCard.classList.add('hidden');
+        }
+        */
+        //bindRecipeCard(recipeCard, page);
+        document.querySelector('.myRecipeCardGridContainer').appendChild(recipeCard);
     }
-    const data = recipeData[recipes[0]];
-    fillOutRecipe(data);
 }
 
 function fillOutRecipe(data) {

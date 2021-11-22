@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html>
+
+    <head>
+        <title>Edit/Create</title>
+        <meta charset="utf-8">
+        <script src="../scripts/editCreate.js"></script>
+       <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
+       <link rel='stylesheet' href="/source/assets/styles/cards.css">
+    </head>
+    <body>
+        <div class="navBar">
+            <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+        </div>
+        <!-- A complete form for editing a recipe -->
+        <!-- This can probably just be a really basic form -->
+        <!-- 
+
 <style>
     .navbar ul {
     list-style-type: none;
@@ -108,7 +124,12 @@
         margin-bottom: 8px;
     }
 
+    .recipeEdit #servingSize input[type="text"],
+    .recipeEdit #descriptionText,
     .recipeEdit #name input[type="text"],
+    .recipeEdit #tags input[type="text"],
+    .recipeEdit #prepTime input[type="text"],
+    .recipeEdit #cookTime input[type="text"],
     .recipeEdit #tags input[type="text"],
     .recipeEdit input[type="date"],
     .recipeEdit input[type="datetime"],
@@ -200,9 +221,12 @@
         margin-bottom: 30px;
     }
 
-    .recipeEdit input[type="text"]:focus,
-    .recipeEdit input[type="date"]:focus,
-    .recipeEdit input[type="datetime"]:focus,
+    .recipeEdit #name input[type="text"]:focus,
+    .recipeEdit #tags input[type="text"]:focus,
+    .recipeEdit #prepTime input[type="text"]:focus,
+    .recipeEdit #cookTime input[type="text"]:focus,
+    .recipeEdit #descriptionText:focus,
+    .recipeEdit #servingSize[type="text"]:focus,
     .recipeEdit textarea:focus,
     .recipeEdit select:focus {
         background: #d2d9dd;
@@ -278,6 +302,7 @@
     <!-- A complete form for editing a recipe -->
     <!-- This can probably just be a really basic form -->
     <!-- 
+
             How will data be sent to the server? 
             Needs:
             * Name of recipe
@@ -295,21 +320,35 @@
             type in something, enter, it adds some item to a list and then the textbox is put on the bottom where you can continue adding
         -->
 
+
+        <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
+        
+        
+        <!-- Generate a complete recipe editing page. -->
+
+                
+
     <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
 
 
     <!-- Generate a complete recipe editing page. -->
     <div class="recipeEdit">
-        <form id="recipeForm">
+        <form id="recipeForm" onSubmit=formSubmit(event)>
 
             <div id="name" class="formItem">
-                <label for="name">Recipe Name:</label>
-                <input type="text" name="name" id="name">
+                <label for="name">Recipe Name: *</label>
+                <input type="text" name="name" id="name" required>
             </div>
 
             <div id="picture" class="formItem">
                 <label for="picture">Picture:</label>
                 <input type="file" name="picture" id="picture">
+            </div>
+
+            
+            <div id="description" class="formItem">
+                <label for="description">Description:</label>
+                <textarea name="Tell us about your recipe!" id="descriptionText"></textarea>
             </div>
 
             <!-- Tags will be sent to the backend as a big comma delimited string -->
@@ -318,14 +357,20 @@
                 <input type="text" name="tags" id="tags">
             </div>
 
+
             <div id="prepTime" class="formItem">
                 <label for="prepTime">Prep Time:</label>
-                <input type="time" name="prepTime" id="prepTime" min="00:00" max="18:00" required>
+                <input type="text" name="prepTime" id="prepTime">
             </div>
 
             <div id="cookTime" class="formItem">
                 <label for="cookTime">Cook Time:</label>
-                <input type="time" name="cookTime" id="cookTime" min="00:00" max="18:00" required>
+                <input type="text" name="prepTime" id="prepTime">
+            </div>
+
+            <div id="servingSize" class="formItem">
+                <label for="servingSize">Serving Size:</label>
+                <input type="text" name="servingSize" id="servingSize">
             </div>
 
             <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->

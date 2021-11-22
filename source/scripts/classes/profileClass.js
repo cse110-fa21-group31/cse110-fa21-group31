@@ -10,7 +10,6 @@
     myRecipes (RecipeClass[])
     savedRecipes (RecipeClass[])
 */
-
 class ProfileClass {
     constructor(id, name, email, profilePicture, myRecipes, savedRecipes) {
         this.id = id;
