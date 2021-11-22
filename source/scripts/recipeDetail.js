@@ -1,16 +1,11 @@
 // import RecipeClass from "./recipeClass";
-<<<<<<< HEAD
-// const http = require('http');
-=======
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
 
->>>>>>> f3fb0a565451b970f019047fcfec081709ff999c
 // RecipeExpand.js
 window.addEventListener("DOMContentLoaded", init);
 
 // THESE SHOULD BE GIVEN VIA API
 const recipes = [
-<<<<<<< HEAD
     "http://127.0.0.1:3030/api?id=uYaCV6U4XGfQHYg2",
     // "https://introweb.tech/assets/json/ghostCookies.json",
     // "https://introweb.tech/assets/json/birthdayCake.json",
@@ -18,9 +13,6 @@ const recipes = [
     // "https://introweb.tech/assets/json/stuffing.json",
     // "https://introweb.tech/assets/json/turkey.json",
     // "https://introweb.tech/assets/json/pumpkinPie.json",
-=======
-    "/source/assets/exampleJSON/example1.json"
->>>>>>> f3fb0a565451b970f019047fcfec081709ff999c
 ];
 const recipeData = {};
 
