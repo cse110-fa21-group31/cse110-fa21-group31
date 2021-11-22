@@ -53,17 +53,17 @@ const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 //     }
 // });
 
-userDB.find({ username: "John" }, function (err, doc) {
+userDB.find({ username: "Jo94iBwkMfFuz9YPxshn" }, function (err, doc) {
     if (!err) {
         console.log("Found", doc);
     }
 });
 
-userDB.remove({ _id: "HZRfg63gUu5M8S0F" }, function (err, doc) {
-    if (!err) {
-        console.log("Removed", doc);
-    }
-});
+// userDB.remove({ _id: "tHgFbcpGeynDv8hI" }, function (err, doc) {
+//     if (!err) {
+//         console.log("Removed", doc);
+//     }
+// });
 
 // userDB.remove({ username: "Jane"}, function (err, doc) {
 //     if(!err){
