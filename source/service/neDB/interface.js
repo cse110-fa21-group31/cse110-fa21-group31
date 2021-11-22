@@ -58,7 +58,7 @@ async function updateRecipe(id, recipe, recipeCollection) {
         );
     });
     return updatedRecipes;
-};
+}
 /* eslint-enable no-unused-vars*/
 
 /**
@@ -89,7 +89,7 @@ async function updateRecipe(id, recipe, recipeCollection) {
  * @returns {Array<recipe>} the matching recipes
  */
 async function getRecipesByNameAndTags(searchParams, recipeCollection){
-    filters = {}
+    let filters = {}
     if (searchParams.name){
         // TODO (Bjorn): Make this general enough to catch any overlap between
         // search keywords and recipe name
@@ -103,7 +103,7 @@ async function getRecipesByNameAndTags(searchParams, recipeCollection){
     }
     if (searchParams.tags){
         let tags = [];
-        for (t of searchParams.tags.split(',')) {
+        for (let t of searchParams.tags.split(',')) {
             tags.push({tags: t.toLowerCase()});
         }
         filters.$and = tags;
@@ -143,7 +143,7 @@ function getRecipesByIds(ids, recipeCollection) {
     let foundDocs = new Promise((resolve, reject) => {
         recipeCollection.find({ _id: { $in: ids } }, function (err, docs) {
             if (err) {
-                log(err);
+                console.log(err);
                 reject(err);
             }
             else {
