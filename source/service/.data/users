@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 {"username":"Jane","email":"jane@ucsd.edu","imageURL":"https://lh3.googleusercontent.com/a/AATXAJwbq-lmmYGH9EGApMnGR7cIulPJWaB_WSwdWMvV=s192-c-br100-rg-mo","savedRecipe":["my_recipe1_id"],"myRecipe":[],"_id":"94iBwkMfFuz9YPxs"}
 {"username":"Celia Xiao","email":"c6xiao@ucsd.edu","imageURL":"https://lh3.googleusercontent.com/a/AATXAJwbq-lmmYGH9EGApMnGR7cIulPJWaB_WSwdWMvV=s192-c-br100-rg-mo","savedRecipe":[],"myRecipe":[],"_id":"MMAfv3oCQDiL4u10"}
-=======
-{"username":"Celia Xiao","email":"c6xiao@ucsd.edu","imageURL":"https://lh3.googleusercontent.com/a/AATXAJwbq-lmmYGH9EGApMnGR7cIulPJWaB_WSwdWMvV=s192-c-br100-rg-mo","savedRecipe":[],"myRecipe":[],"_id":"MMAfv3oCQDiL4u10"}
-{"myRecipe":["my_recipe1_id"],"_id":"gWiPAUwnsmjajJLI"}
->>>>>>> 2b00a0e (Finished userInterface)

@@ -56,7 +56,7 @@ const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 //     }
 // });
 
-userDB.find({ username: "John" }, function (err, doc) {
+userDB.find({ username: "Jane" }, function (err, doc) {
     if (!err) {
         console.log("Found", doc);
     }
