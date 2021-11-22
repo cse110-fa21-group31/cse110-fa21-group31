@@ -1,19 +1,20 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "jest/globals": true,
-        "node": true
-    },
-    "extends": ["eslint:recommended", "plugin:json/recommended"],
-    "overrides": [
-
-    ],
-    "parser": "@babel/eslint-parser",
-    "parserOptions": {
-        "requireConfigFile": false
-    },
-    "plugins": ["jest"],
-    "rules": {
-    }
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true,
+    "es2021": true,
+    "jest/globals": true
+  },
+  "extends": ["eslint:recommended", "plugin:json/recommended", "plugin:cypress/recommended"],
+  "overrides": [],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "requireConfigFile": false
+  },
+  "plugins": ["jest"],
+  "rules": {
+    "no-unused-vars": 0
+  }
 }
