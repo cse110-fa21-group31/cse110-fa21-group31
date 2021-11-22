@@ -5,7 +5,9 @@
     "@babel/eslint-parser": "^7.16.3",
     "@babel/preset-env": "^7.16.4",
     "babel-jest": "^27.3.1",
+    "cypress": "^9.0.0",
     "eslint": "^8.3.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-jest": "^25.2.4",
     "eslint-plugin-json": "^3.1.0",
     "htmlhint": "^0.16.1",
@@ -28,7 +30,8 @@
   },
   "jest": {
     "preset": "jest-puppeteer",
-    "verbose": true
+    "verbose": true,
+    "testRegex": "__tests__/.*\\.test\\.js$"
   },
   "dependencies": {
     "fastify": "^3.24.0",
