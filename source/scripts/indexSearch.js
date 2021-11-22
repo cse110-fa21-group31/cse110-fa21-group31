@@ -40,7 +40,6 @@ async function submitSearch(keywords, tags){
         return data
     })
     .catch((err) => {
-        console.log('Error searching for recipes');
-        reject(err);
+        console.err('Error searching for recipes: '+err.message);
     });
 }

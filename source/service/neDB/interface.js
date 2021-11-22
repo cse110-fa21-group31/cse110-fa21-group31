@@ -93,7 +93,7 @@ async function getRecipesByNameAndTags(searchParams, recipeCollection){
     if (searchParams.name){
         // TODO (Bjorn): Create a list of common words to ignore
         let keywords = [];
-        for (n of searchParams.name.split(" ")) {
+        for (let n of searchParams.name.split(" ")) {
             let pattern = new RegExp(n, 'i');
             keywords.push({name: {$regex: pattern}});
         }
