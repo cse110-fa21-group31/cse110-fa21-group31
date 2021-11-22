@@ -91,15 +91,13 @@ async function updateRecipe(id, recipe, recipeCollection) {
 async function getRecipesByNameAndTags(searchParams, recipeCollection){
     let filters = {}
     if (searchParams.name){
-        // TODO (Bjorn): Make this general enough to catch any overlap between
-        // search keywords and recipe name
-
-        // let keywords = [];
-        // for (n of searchParams.name.split(" ")) {
-        //     keywords.push({name: n});
-        // }
-        // filters.$or = keywords;
-        filters.name = searchParams.name;
+        // TODO (Bjorn): Create a list of common words to ignore
+        let keywords = [];
+        for (n of searchParams.name.split(" ")) {
+            let pattern = new RegExp(n, 'i');
+            keywords.push({name: {$regex: pattern}});
+        }
+        filters.$or = keywords;
     }
     if (searchParams.tags){
         let tags = [];

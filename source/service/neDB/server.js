@@ -11,6 +11,11 @@ const tagsDB = new Datastore({ filename: TAGS_DB_PATH, autoload: true });
 // Require the framework and instantiate it
 const fastify = require("fastify")({ logger: true });
 
+const Cors = require('fastify-cors')
+fastify.register(Cors, {
+    origin: true
+})
+
 const port = process.env.PORT || 3030;
 
 const dbInterface = require("./interface");
