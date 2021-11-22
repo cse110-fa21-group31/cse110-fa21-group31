@@ -1,9 +1,9 @@
 const userInterface = require("./userInterface");
 const Datastore = require("nedb");
 // const { RECIPE_DB_PATH, USER_DB_PATH } = require("../util");
-const RECIPE_DB_PATH = "source/service/.data/recipes"
-const USER_DB_PATH = "source/service/.data/users"
-const TAGS_DB_PATH = "source/service/.data/tags"
+const RECIPE_DB_PATH = "source/service/.data/recipes";
+const USER_DB_PATH = "source/service/.data/users";
+const TAGS_DB_PATH = "source/service/.data/tags";
 const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 const tagsDB = new Datastore({ filename: TAGS_DB_PATH, autoload: true });
@@ -78,14 +78,16 @@ fastify.delete("/api", async (request, reply) => {
 
 /**
  * Get all data of one user by id.
- * 
+ *
  * req.query.id: the id to search for.
  * reply: user json if found, 404 if not found.
- */ 
+ */
 fastify.get("/api/user", async (req, reply) => {
     let data = await userInterface.getUser(userDB, req.query.id);
-    if(data == null){
-        reply.status(404).send("ERROR: no user with id " + req.query.id + " exists. ");
+    if (data == null) {
+        reply
+            .status(404)
+            .send("ERROR: no user with id " + req.query.id + " exists. ");
     } else {
         reply.status(200).send(data);
     }
@@ -93,16 +95,16 @@ fastify.get("/api/user", async (req, reply) => {
 
 /**
  * Get all data of one user by email, create new user if not existed.
- * 
+ *
  * req.query.email: the id to search for.
  * req.body: the json of user data to create new user.
- * NOTE: req.query.email and req.body.email MUST be the same! 
+ * NOTE: req.query.email and req.body.email MUST be the same!
  * reply: user json.
- */ 
+ */
 fastify.post("/api/user", async (req, reply) => {
     // check if user exists. false if not.
     let data = await userInterface.hasUser(userDB, req.query.email);
-    if(!data){
+    if (!data) {
         data = await userInterface.createUser(userDB, req.body);
     }
     reply.status(200).send(data);
@@ -114,10 +116,13 @@ fastify.post("/api/user", async (req, reply) => {
  * req.query.recipeId: the recipe id to save to savedRecipe.
  * req.query.userId: the user id to save the recipe into.
  * reply: user json.
- */ 
+ */
 fastify.put("/api/user/saved", async (req, reply) => {
-    let numUpdated = await userInterface.saveRecipe(userDB, req.query.userId, 
-        req.query.recipeId);
+    let numUpdated = await userInterface.saveRecipe(
+        userDB,
+        req.query.userId,
+        req.query.recipeId
+    );
     let data = await userInterface.getUser(userDB, req.query.userId);
     console.log("SAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
@@ -129,10 +134,13 @@ fastify.put("/api/user/saved", async (req, reply) => {
  * req.query.recipeId: the recipe id to remove from savedRecipe.
  * req.query.userId: the user id to remove the recipe from.
  * reply: user json.
- */ 
+ */
 fastify.delete("/api/user/saved", async (req, reply) => {
-    let numUpdated = await userInterface.unsaveRecipe(userDB, req.query.userId, 
-        req.query.recipeId);
+    let numUpdated = await userInterface.unsaveRecipe(
+        userDB,
+        req.query.userId,
+        req.query.recipeId
+    );
     let data = await userInterface.getUser(userDB, req.query.userId);
     console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
