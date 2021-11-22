@@ -8,6 +8,7 @@ module.exports = getHelloWorld;
  * getHelloWorld();
  * @returns {string}
  */
+
 function getHelloWorld() {
     return "Hello World!";
 }
