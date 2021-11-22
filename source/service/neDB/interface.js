@@ -4,6 +4,7 @@ module.exports = { createRecipe, deleteRecipe, updateRecipe, getAllRecipe,getRec
  * insert a single recipe to database
  * @param {recipe} recipe the recipe to insert
  * @param {*} recipeCollection the database to search in
+ * @returns {Array<recipe>} the inserted recipe
  */
 async function createRecipe(recipe, recipeCollection) {
     let insertedDoc = new Promise((resolve, reject) => {
@@ -36,6 +37,7 @@ async function deleteRecipe(id, recipeCollection) {
  * @param {string} id unique string identifier of the desired recipe
  * @param {*} recipe the recipe data (or subset thereof) to update
  * @param {*} recipeCollection the database to search in
+ * @returns {Array<recipe>} the updated recipe
  */
 /* eslint-disable no-unused-vars*/
 async function updateRecipe(id, recipe, recipeCollection) {
@@ -62,7 +64,7 @@ async function updateRecipe(id, recipe, recipeCollection) {
 /**
  * fetches all recipes
  * @param {*} recipeCollection the database to search in
- * @returns all recipes in the database
+ * @returns {Array<recipe>} all recipes in the database
  */
  function getAllRecipe(recipeCollection) {
     let foundDocs = new Promise((resolve, reject) => {
@@ -84,7 +86,7 @@ async function updateRecipe(id, recipe, recipeCollection) {
  * retrieves all recipes with overlap in the names and all tags match
  * @param {*} searchParams the content to search for
  * @param {*} recipeCollection the database to search in
- * @returns 
+ * @returns {Array<recipe>} the matching recipes
  */
 async function getRecipesByNameAndTags(searchParams, recipeCollection){
     filters = {}
@@ -124,8 +126,8 @@ async function getRecipesByNameAndTags(searchParams, recipeCollection){
 /**
  * retrieves a single recipe based on id
  * @param {string} id unique string identifier of the desired recipe
- * @returns recipe matching the id
- * @returns null if not found
+ * @returns {Array<recipe>} the found recipe
+ * @returns {null} if not found
  */
 function getRecipeById(id, recipeCollection) {
     return getRecipesByIds([id], recipeCollection);
@@ -135,7 +137,7 @@ function getRecipeById(id, recipeCollection) {
 /**
  * retrieves a number of recipes based on their ids
  * @param {Array<string>} ids 
- * @returns recipes matching any of the given ids
+ * @returns {Array<recipe>} the recipes matching any of the given ids
  */
 function getRecipesByIds(ids, recipeCollection) {
     let foundDocs = new Promise((resolve, reject) => {
