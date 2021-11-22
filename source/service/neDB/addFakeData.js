@@ -1,17 +1,10 @@
 var Datastore = require("nedb");
 // var db = new Datastore({ filename: "data/demo" });
 // const demo2 = new Datastore({ filename: "data/demo2", autoload: true });
-<<<<<<< HEAD
-const RECIPE_DB_PATH = "source/service/.data/recipes";
-// const USER_DB_PATH = "source/service/.data/users"
-const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
-// const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
-=======
 // const RECIPE_DB_PATH = "source/service/.data/recipes"
 const USER_DB_PATH = "source/service/.data/users"
 // const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
->>>>>>> d48a8e0 (Finished userInterface)
 // db.loadDatabase(function (err) {
 //     // Start issuing commands after callback...
 //     if (!err) {
