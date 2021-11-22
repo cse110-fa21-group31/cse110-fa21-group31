@@ -134,7 +134,7 @@ function getRecipeById(id, recipeCollection) {
 
 /**
  * retrieves a number of recipes based on their ids
- * @param {Array[string]} ids 
+ * @param {Array<string>} ids 
  * @returns recipes matching any of the given ids
  */
 function getRecipesByIds(ids, recipeCollection) {
