@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: service/user/googleLogin.js</title>
+    <title>JSDoc: Source: scripts/indexSearch.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: service/user/googleLogin.js</h1>
+    <h1 class="page-title">Source: scripts/indexSearch.js</h1>
 
     
 
@@ -26,83 +26,60 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Filename: googleLogin.js
- * Date: 11/18/2021
- * Description: functions for handling Google sign-in / log-out and related
- *  changes of profile display.
- * Dependency: navBarWithGoogle.html
- * Note: Google Login doesn't work for 127.0.0.1. Type localhost instead.
- */
+            <pre class="prettyprint source linenums"><code>//This file is when the user searches a keyword in index.html page
+window.addEventListener("DOMContentLoaded", init);
+
+var typeInput = null;
+const tagsInput = {};
 
 /**
- * This function will be called by the front end function userLogin.js/onSignIn
- * when Google API returns sign-in success.
- * Simply print out user profile for now.
- *
- * @param {...object} profile User profile passed from front end. Includes:
- *  { name, imageURL, email }
+ * initializes search functionality through the frontend
  */
-
-/* global gapi */
-
-function userSignedIn(profile) {
-    console.log("User login data passed to backend: ");
-    console.log("name: " + profile.name);
-    console.log("imageURL: " + profile.imageURL);
-    // This is null if the 'email' scope is not present.
-    console.log("email: " + profile.email);
-}
-
-/**
- * Checks whether a user already exists in the database.
- *
- * @param {...string} email
- * @returns True if a user already exists, false if it's a new account.
- */
-function hasUser(email) {
-    console.log('hasUser("' + email + '") called');
-    // Simply returns false for now
-    return false;
-}
-
-/**
- * This function creates a new user in the database.
- *
- * @param {...object} profile The profile of the new user.
- * @returns False for now.
- */
-function createNewUser(profile) {
-    console.log("Create new user " + profile.email);
-    return false;
-}
-
-/**
- * This function gets data of a user based on the email.
- * @param {...string} email The email of the user to get data for.
- * @returns A json file of the user data.
- */
-/* eslint-disable no-unused-vars*/
-function getUserData(email) {
-    var data = {};
-    return data.stringify();
-}
-/* eslint-enable no-unused-vars*/
-
-/**
- * This function will be called by the front end function userLogin.js/signedOut
- * when the user clicks sign-out button.
- * Calls Google log-out api.
- */
-function userSignedOut() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log("User signed out.");
+async function init() {
+    let searchBar = document.querySelector("#searchBar");
+    let searchButton = document.querySelector("#searchButton");
+    searchButton.addEventListener("click", function(){
+        updateKeywords(searchBar.value);
+        submitSearch();
     });
 }
 
-export { userSignedIn, userSignedOut, hasUser, getUserData, createNewUser };
-</code></pre>
+/**
+ * updates internal query state to be ready to execute the search
+ * @param {string} inputText the search bar content
+ */
+function updateKeywords(inputText) {
+    // TODO (Bjorn): extend search so we can use an array
+    // of keywords instead of a string to search by name
+
+    // e = String(e.target.value);
+    // e = e.split(" ");
+    // // console.log(type(e));
+    // for (let i = 0; i &lt; e.length; i++) {
+    //     typeInput[i] = e[i];
+    // }
+    typeInput = inputText;
+}
+
+/**
+ * sends an HTTP request to the server to fetch the search results
+ */
+async function submitSearch(){
+    console.log("Searching for: " + typeInput);
+
+    const Http = new XMLHttpRequest();
+    const url='http://127.0.0.1:3030/api/search?name='+typeInput;
+    Http.open("GET", url);
+    Http.send();
+
+    Http.onreadystatechange = (e) => {
+        console.log(Http.responseText)
+    }
+
+    // TODO: assign a "score" to how matching the input + tags is to a recipe's title + tags and sort based on this
+
+    // window.location.href='/source/pages/homePage.html';
+}</code></pre>
         </article>
     </section>
 
