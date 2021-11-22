@@ -5,6 +5,10 @@ var Datastore = require("nedb");
 const USER_DB_PATH = "source/service/.data/users";
 // const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
+const RECIPE_DB_PATH = "source/service/.data/recipes";
+// const USER_DB_PATH = "source/service/.data/users"
+const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
+// const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 // db.loadDatabase(function (err) {
 //     // Start issuing commands after callback...
 //     if (!err) {
@@ -52,7 +56,7 @@ const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 //     }
 // });
 
-userDB.find({ username: "Jo94iBwkMfFuz9YPxshn" }, function (err, doc) {
+userDB.find({ username: "John" }, function (err, doc) {
     if (!err) {
         console.log("Found", doc);
     }
