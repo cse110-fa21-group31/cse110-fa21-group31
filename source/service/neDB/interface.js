@@ -2,7 +2,8 @@ module.exports = { createRecipe, deleteRecipe, updateRecipe, getAllRecipe,getRec
 
 /**
  * insert a single recipe to database
- * @param {recipe} recipe 
+ * @param {recipe} recipe the recipe to insert
+ * @param {*} recipeCollection the database to search in
  */
 async function createRecipe(recipe, recipeCollection) {
     let insertedDoc = new Promise((resolve, reject) => {
@@ -22,7 +23,8 @@ async function createRecipe(recipe, recipeCollection) {
 
 /**
  * removes a single recipe from the database
- * @param {string} id 
+ * @param {string} id unique string identifier of the desired recipe
+ * @param {*} recipeCollection the database to search in
  */
 async function deleteRecipe(id, recipeCollection) {
     recipeCollection.deleteOne({ _id: id });
@@ -31,8 +33,9 @@ async function deleteRecipe(id, recipeCollection) {
 
 /**
  * updates one recipe in the database
- * @param {string} id 
- * @param {*} recipe 
+ * @param {string} id unique string identifier of the desired recipe
+ * @param {*} recipe the recipe data (or subset thereof) to update
+ * @param {*} recipeCollection the database to search in
  */
 /* eslint-disable no-unused-vars*/
 async function updateRecipe(id, recipe, recipeCollection) {
@@ -58,6 +61,7 @@ async function updateRecipe(id, recipe, recipeCollection) {
 
 /**
  * fetches all recipes
+ * @param {*} recipeCollection the database to search in
  * @returns all recipes in the database
  */
  function getAllRecipe(recipeCollection) {
@@ -78,35 +82,48 @@ async function updateRecipe(id, recipe, recipeCollection) {
 
 /**
  * retrieves all recipes with overlap in the names and all tags match
- * @param {*} searchParams 
+ * @param {*} searchParams the content to search for
+ * @param {*} recipeCollection the database to search in
  * @returns 
  */
-async function getRecipesByNameAndTags(searchParams){
+async function getRecipesByNameAndTags(searchParams, recipeCollection){
     filters = {}
     if (searchParams.name){
-        let keywords = searchParams.name.toLowerCase().split(" ");
-        // TODO (Bjorn): Make sure this is enough to catch all overlapping names
-        filters.name = { $in: keywords }
+        // TODO (Bjorn): Make this general enough to catch any overlap between
+        // search keywords and recipe name
+
+        // let keywords = [];
+        // for (n of searchParams.name.split(" ")) {
+        //     keywords.push({name: n});
+        // }
+        // filters.$or = keywords;
+        filters.name = searchParams.name;
     }
     if (searchParams.tags){
-        let tags = tags.map(t => t.toLowerCase());
-        filters.name = { $all: tags }
+        let tags = [];
+        for (t of searchParams.tags.split(',')) {
+            tags.push({tags: t.toLowerCase()});
+        }
+        filters.$and = tags;
     }
 
-    let foundDocs = []
-    // TODO (Bjorn): sort the returned results
-    recipeDB.find(filters, (err, docs) => {
-        if (err) {
-        log(err);
-        }
-        foundDocs = docs;
+    let foundDocs = new Promise((resolve, reject) => {
+        recipeCollection.find(filters, (err, docs) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                resolve(docs);
+            }
+        });
     });
     return foundDocs;
 }
 
 /**
  * retrieves a single recipe based on id
- * @param {string} id the id used to look up a recipe
+ * @param {string} id unique string identifier of the desired recipe
  * @returns recipe matching the id
  * @returns null if not found
  */
