@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars*/
 // append recipe id to user schema
-module.exports.createRecipe = async function createRecipe(
+export async function createRecipe(
     recipe,
     recipeCollection
 ) {
@@ -14,20 +14,20 @@ module.exports.createRecipe = async function createRecipe(
         });
     });
     return insertedDoc;
-};
+}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-module.exports.deleteRecipe = async function deleteRecipe(
+export async function deleteRecipe(
     id,
     recipeCollection
 ) {
     // Call Xin's function that unsaves recipe from specific user
-};
+}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-module.exports.updateRecipe = async function updateRecipe(
+export async function updateRecipe(
     id,
     recipe,
     recipeCollection
@@ -49,11 +49,11 @@ module.exports.updateRecipe = async function updateRecipe(
         );
     });
     return updatedRecipes;
-};
+}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-module.exports.getAllRecipe = function getAllRecipe(recipeCollection) {
+export function getAllRecipe(recipeCollection) {
     let allRecipes = new Promise((resolve, reject) => {
         const recipesCursor = recipeCollection.find({}, function (err, docs) {
             if (!err) {
@@ -64,11 +64,11 @@ module.exports.getAllRecipe = function getAllRecipe(recipeCollection) {
         });
     });
     return allRecipes;
-};
+}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-module.exports.getRecipeById = async function getRecipeById(
+export async function getRecipeById(
     id,
     recipeCollection
 ) {
@@ -84,12 +84,12 @@ module.exports.getRecipeById = async function getRecipeById(
         });
     });
     return recipe;
-};
+}
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
-module.exports.getRecipeByIds = function getRecipeByIds(
+export function getRecipeByIds(
     ids,
     recipeCollection
-) {};
-/* eslint-enable no-unused-vars*/
+) { }
+// export const getRecipeById = getRecipeById;

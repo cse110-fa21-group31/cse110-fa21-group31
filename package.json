@@ -37,7 +37,10 @@
   },
   "dependencies": {
     "fastify": "^3.24.0",
+    "fastify-cors": "^6.0.2",
     "fastify-static": "^4.5.0",
-    "nedb": "^1.8.0"
-  }
+    "nedb": "^1.8.0",
+    "path": "^0.12.7"
+  },
+  "type": "module"
 }
