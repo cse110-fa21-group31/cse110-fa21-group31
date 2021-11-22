@@ -14,5 +14,7 @@
     "requireConfigFile": false
   },
   "plugins": ["jest"],
-  "rules": {}
+  "rules": {
+    "no-unused-vars": 0
+  }
 }
