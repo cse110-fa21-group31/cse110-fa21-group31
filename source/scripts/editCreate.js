@@ -64,6 +64,7 @@ const onSubmitRecipe = async (event) => {
     }
     console.log(newRecipe)
 
+    //for update, change the method of PUT
     let response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify(newRecipe) // body data type must match "Content-Type" header
