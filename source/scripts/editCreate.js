@@ -16,45 +16,51 @@ function init() {
     const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
 }
+let numSteps = 0;
+let numIngredients = 0;
 
 const onSubmitRecipe = async (event) => {
     console.log("SUBMITTED THINGY");
     event.preventDefault();
     event.preventDefault();
-    console.log("SUBMITTED THINGY");
     const recipeF = document.getElementById("recipeForm");
     let formData = new FormData(recipeF);
-    /** 
-    console.log(formData.get('name'));
-    console.log(formData.get('picture'));
-    console.log(formData.get('description'));
-    console.log(formData.get('tags'));
-    console.log(formData.get('prepTime'));
-    console.log(formData.get('cookTime'));
-    console.log(formData.get('servingSize'));
-    console.log(formData.get('difficulty'));
-    console.log(formData.get('ingredients'));
-    console.log(formData.get('ingredientAmounts'));
-    console.log(formData.get('steps'));
-    */
-    const recipeCard = document.createElement('recipe-card');
-    // recipeCard.dat
-    // const recClass = new RecipeClass();
-    recipeCard.name = formData.get('name');
-    recipeCard.authorId = 'HZRfg63gUu5M8S0F';
-    recipeCard.datePosted = Date.now();
-    recipeCard.coverImage = formData.get('picture');
-    recipeCard.cookingTime = formData.get('cookTime');
-    //recClass.servingSize =
-    recipeCard.difficulty = formData.get('difficulty');
-    recipeCard.tags = formData.get('tags');
-    //recClass.ingredients =formData.get('ingredients');
-    //recClass.steps = formData.get('steps');
+  
+    // get ingredients from form
+    let ingrArr = [];
+    let ingrAmountArr = [];
+    let stepsArr = [];
+    let strTags = formData.get('tags').split(',');
+    strTags.push(formData.get('difficulty')+'*');
+    //let tagsArr = strTags.split(',');
+    for (let i = 0; i<numIngredients;i++){
+        ingrArr.push(formData.get('ingredient'+i));
+        ingrAmountArr.push(formData.get('ingredientAmount'+i));
+        console.log(formData.get('ingredient'+i));
+        console.log(formData.get('ingredientAmount'+i));
+    }
 
+    // get steps from form
+    for (let i = 0; i<numSteps;i++){
+        stepsArr.push(formData.get('step'+i));
+        console.log(formData.get('step'+i));
+    }
+    
+    const recipeCard = document.createElement('recipe-card');
+    
+    // CREATE NEW RECIPE
     let newRecipe = {
-        name: formData.get('name'), datePosted: Date.now(),
+        name: formData.get('name'),
+        datePosted: Date.now(),
+        coverImage: formData.get('picture'),
+        authorID: "HZRfg63gUu5M8S0F",
+        description: formData.get('description'),
+        tags: strTags,
+        servingSize: formData.get('servingSize'),
         cookTime: formData.get('cookTime'),
-        author: "HZRfg63gUu5M8S0F", steps: ["step 1", "step 2"]
+        ingredients: ingrArr,
+        ingredientAmounts: ingrAmountArr,
+        steps: stepsArr
     }
     console.log(newRecipe)
 
@@ -76,18 +82,20 @@ const onSubmitRecipe = async (event) => {
 
 };
 
-let numSteps = 1;
+
 /* eslint-disable no-unused-vars*/
 const appendStep = () => {
     //let d = document.getElementById('steps');
     // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
     var newTextBox = document.createElement("div");
+    
     newTextBox.innerHTML =
-        "<textarea cols='40' rows='4' id='textAreaBox' placeholder='Step #" +
+        "<textarea cols='40' rows='4' id='textAreaBox' name='step"+numSteps+"' placeholder='Step #" +
         numSteps +
         "'></textarea>";
     document.getElementById("newStepId").appendChild(newTextBox);
     numSteps++;
+    
 };
 /* eslint-enable no-unused-vars*/
 
@@ -101,25 +109,25 @@ const deleteStep = () => {
         numSteps--;
     }
 };
-/* eslint-enable no-unused-vars*/
-
 /* eslint-disable no-unused-vars*/
 const appendIngredient = () => {
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
-        "<input type='text' id='newInputBox' placeholder='ingredient'>";
+        "<input type='text' id='newInputBox' name='ingredient"+numIngredients+"' placeholder='ingredient'>";
     document.getElementById("newIngredientId").appendChild(newTextBox);
 
     var newAmountBox = document.createElement("div");
     newAmountBox.innerHTML =
-        "<input type='text' id='newInputBox' placeholder='amount'>";
+        "<input type='text' id='newInputBox' name='ingredientAmount"+numIngredients+"' placeholder='amount'>";
     document.getElementById("newIngredientAmountId").appendChild(newAmountBox);
+    numIngredients++;
 };
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
 const deleteIngredient = () => {
     if (document.getElementById("newIngredientId").lastChild != null) {
+        numIngredients--;
         document
             .getElementById("newIngredientId")
             .removeChild(document.getElementById("newIngredientId").lastChild);
