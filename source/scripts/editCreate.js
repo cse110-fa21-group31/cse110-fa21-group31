@@ -31,14 +31,19 @@ const onSubmitRecipe = async (event) => {
     let ingrAmountArr = [];
     let stepsArr = [];
     let strTags = formData.get('tags').split(',');
-    strTags.push(formData.get('difficulty')+'*');
     //let tagsArr = strTags.split(',');
+
+    let ingArr = {};
     for (let i = 0; i<numIngredients;i++){
+        ingArr[formData.get('ingredient'+i)] = formData.get('ingredientAmount'+i);
+        /** 
         ingrArr.push(formData.get('ingredient'+i));
         ingrAmountArr.push(formData.get('ingredientAmount'+i));
         console.log(formData.get('ingredient'+i));
         console.log(formData.get('ingredientAmount'+i));
+        */
     }
+    console.log(ingArr);
 
     // get steps from form
     for (let i = 0; i<numSteps;i++){
@@ -47,18 +52,19 @@ const onSubmitRecipe = async (event) => {
     }
     
     const recipeCard = document.createElement('recipe-card');
-    
+    console.log(formData.get('picture'));
     // CREATE NEW RECIPE
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
-        coverImage: formData.get('picture'),
-        authorID: "HZRfg63gUu5M8S0F",
+        image: formData.get('picture'),
+        author: "HZRfg63gUu5M8S0F",
         description: formData.get('description'),
         tags: strTags,
         servingSize: formData.get('servingSize'),
         cookTime: formData.get('cookTime'),
-        ingredients: ingrArr,
+        ingredients: ingArr,
+        difficulty: formData.get('difficulty'),
         ingredientAmounts: ingrAmountArr,
         steps: stepsArr
     }
