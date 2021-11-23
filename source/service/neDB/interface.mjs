@@ -39,7 +39,6 @@ async function deleteRecipe(id, recipeCollection) {
  * @param {*} recipeCollection the database to search in
  * @returns {Array<recipe>} the updated recipe
  */
-/* eslint-disable no-unused-vars*/
 async function updateRecipe(id, recipe, recipeCollection) {
     let updatedRecipes = new Promise((resolve, reject) => {
         recipeCollection.updateOne(
@@ -59,14 +58,14 @@ async function updateRecipe(id, recipe, recipeCollection) {
     });
     return updatedRecipes;
 }
-/* eslint-enable no-unused-vars*/
+
 
 /**
  * fetches all recipes
  * @param {*} recipeCollection the database to search in
  * @returns {Array<recipe>} all recipes in the database
  */
- function getAllRecipe(recipeCollection) {
+async function getAllRecipe(recipeCollection) {
     let foundDocs = new Promise((resolve, reject) => {
         recipeCollection.find({}, function (err, docs) {
             if (err) {
@@ -120,6 +119,7 @@ async function getRecipesByNameAndTags(searchParams, recipeCollection){
     });
     return foundDocs;
 }
+
 
 /**
  * retrieves a single recipe based on id
