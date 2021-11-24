@@ -1,5 +1,5 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
-import { getRecipeById, getAllRecipe, createRecipe, updateRecipe, deleteRecipe } from "./interface.mjs";
+import { createRecipe, deleteRecipe, updateRecipe, getAllRecipe,getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
 import Datastore from "nedb";
 // the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
@@ -17,10 +17,7 @@ fastify.register(Cors, {
     origin: true
 })
 
-
-
 const port = process.env.PORT || 3030;
-
 
 
 // Declare a route
@@ -155,6 +152,12 @@ fastify.delete("/api/user/saved", async (req, reply) => {
     console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
+
+
+fastify.get('/api/search', async (request, reply) => {
+    let data = await getRecipesByNameAndTags(request.query, recipeDB);
+    reply.status(200).send(data);
+})
 
 // Run the server!
 const start = async () => {

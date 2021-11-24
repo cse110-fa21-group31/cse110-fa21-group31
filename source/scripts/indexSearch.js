@@ -1,39 +1,45 @@
 //This file is when the user searches a keyword in index.html page
 window.addEventListener("DOMContentLoaded", init);
 
-const typeInput = {};
 const tagsInput = {};
 
+/**
+ * initializes search functionality through the frontend
+ */
 async function init() {
-    console.log(window.location);
-
-    if (document.querySelector("#keywordSearch")) {
-        document
-            .querySelector("#keywordSearch")
-            .querySelector("input")
-            .addEventListener("change", updateKeywords);
-    }
-
-    if (document.querySelector("#submit")) {
-        document
-            .querySelector("#submit")
-            .querySelector("input")
-            .addEventListener("click", submitSearch);
-    }
+    let searchBar = document.querySelector("#searchBar");
+    let searchButton = document.querySelector("#searchButton");
+    searchButton.addEventListener("click", function(){
+        // TODO: Add a tags field to the search bar and make use of it
+        submitSearch(searchBar.value);
+    });
 }
 
-function updateKeywords(e) {
-    e = String(e.target.value);
-    e = e.split(" ");
-    // console.log(type(e));
-    for (let i = 0; i < e.length; i++) {
-        typeInput[i] = e[i];
-    }
-}
+/**
+ * sends an HTTP request to the server to fetch the search results
+ * @param {string} keywords words to search for in the name of recipes
+ * @param {Array<string>} tags tags to filter results by
+ * @returns {Array<recipe>} the recipes returned by the search engine
+ */
+async function submitSearch(keywords, tags){
+    console.log("Searching for: " + keywords);
 
-async function submitSearch(e) {
-    // assign a "score" to how matching the input + tags is to a recipe's title + tags
-    // window.location.href='/source/pages/homePage.html';
-    console.log(e);
-    // e.preventDefault();
+    let params = "name=" + keywords;
+    if(tags){
+        params = params + '&' + "tags=" + JSON.stringify(tags);
+    }
+    console.log("params: " + params);
+    const url='http://127.0.0.1:3030/api/search?'+params;
+    await fetch(url, {
+        method: 'GET',
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("Search Results:");
+        console.log(data);
+        return data
+    })
+    .catch((err) => {
+        console.err('Error searching for recipes: '+err.message);
+    });
 }
