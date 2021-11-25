@@ -1,12 +1,15 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
 window.addEventListener("DOMContentLoaded", init);
 
+import {fetchRecipeById, deleteRecipe} from "./APICalls.js"
+
 const url = "http://127.0.0.1:3030/api"
     //var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
 var pageId = 'cVDGPZ40HpJBFSxU'; // test page, delete if you want
 function init() {
     console.log("editCreate.js init called");
 
+    // deleteRecipe(pageId);
     editRecipe();
 
     // Adding steps to the recipe
@@ -23,18 +26,6 @@ function init() {
 
 let numSteps = 0;
 let numIngredients = 0;
-const deleteRecipe = async(event) => {
-
-    console.log("DELETING");
-    let response = await fetch(url + '?id=' + pageId, {
-            method: 'DEL', // *GET, POST, PUT, DELETE, etc.
-        }).then((response) => response.json())
-        .then((data) => {
-            // This grabs the data return by the server
-            return data
-        })
-        .catch((err) => {});
-}
 
 const editRecipe = async(event) => {
 
@@ -42,18 +33,8 @@ const editRecipe = async(event) => {
 
     // get recipe info and fill it out
     let recipeID = pageId;
-    let response = await fetch(url + '?id=' + pageId, {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        }).then((response) => response.json())
-        .then((data) => {
-            // This grabs the data return by the server
-            return data
-        })
-        .catch((err) => {});
-    //the recipe object received from backend server
-
-    console.log(response)
-
+    let recipe = fetchRecipeById(pageId);
+    console.log(recipe);
 
     // get ingredients from data
     document.getElementById('name').innerHTML = '<label for="name">Recipe Name: *</label><input type="text" name="name" id="name" value="' + response.name + '" required>';
@@ -162,22 +143,8 @@ const onSubmitRecipe = async(event) => {
         steps: stepsArr,
         _id: pageId
     }
-    console.log(newRecipe)
-
-    //for update, change the method of PUT
-    let response = await fetch(url, {
-            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-            body: JSON.stringify(newRecipe) // body data type must match "Content-Type" header
-        }).then((response) => response.json())
-        .then((data) => {
-            // This grabs the data return by the server
-            return data
-        })
-        .catch((err) => {});
-    //the recipe object received from backend server
-
-    console.log(response)
-
+    console.log(newRecipe);
+    insertRecipe(newRecipe);
 };
 
 

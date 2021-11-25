@@ -14,7 +14,8 @@ const fastify = Fastify({ logger: true });
 // const path = require('path')
 import Cors from 'fastify-cors';
 fastify.register(Cors, {
-    origin: true
+    origin: true,
+    methods: ['GET', 'PUT', 'POST', 'DEL']
 })
 
 const port = process.env.PORT || 3030;
