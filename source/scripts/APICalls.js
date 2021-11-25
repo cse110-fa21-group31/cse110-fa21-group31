@@ -96,6 +96,6 @@ export async function submitSearch(keywords, tags){
         return data
     })
     .catch((err) => {
-        console.err('Error searching for recipes: '+err.message);
+        console.error('Error searching for recipes: '+err.message);
     });
 }
