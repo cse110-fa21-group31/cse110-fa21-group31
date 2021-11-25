@@ -12,7 +12,9 @@ p {
     font-family: 'Open Sans', sans-serif;
 }
 
-
+body {
+    margin: 0;
+}
 
 /*
 Landing Background
@@ -22,16 +24,14 @@ Landing Background
     width: 0%;
 }
 
-
+#homepageImage {
+    padding-top:4rem;
+}
 
 /*
 Search Bar
 */
 
-/* .homePageTitle {
-    color: green;
-    font-size: 50px;
-} */
 
 #searchButton {
     width: 20%;
@@ -124,6 +124,7 @@ div.searchBarLandingPage > img {
     left: 8px;
     width: 14px;
 } */
+
 
 /* 
 Tags

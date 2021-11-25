@@ -12,18 +12,17 @@
        <script type="module" src='/source/scripts/indexSearch.js'></script>
        <script src="/source/scripts/classes/recipeClass.js" type="module"></script>
        <script src="/source/scripts/recipeDetail.js" type="module"></script>
+
+       <script src="/source/scripts/navBarWithGoogle.js" type="module"></script>
+
        
     </head>
     <body>
        <div id="landingHeader">
-           <!-- Nav Bar -->
-            <div class="navBar">
-                <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
-            </div>
 
             <!-- Search Bar -->
             <div class="searchBarLandingPage">
-                <img src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
+                <img src="/source/assets/Images/Olives-Computer-Wallpaper.jpg" id="homepageImage">
                 <!-- <p class="formItems" class="homePageTitle">Food is Love and Olive U</p>-->
                 <form class="searchItems" action='source/scripts/indexSearch.js' id="searchBarFormHomepage"> 
                         <input type="search" name="keyword" id="searchBar" placeholder="Search...">
@@ -36,8 +35,6 @@
         <div class = "myRecipeCardGridContainer">
            
        </div>
-
-       <div class="expand"></div>
    </body>
    <footer>
        <iframe src="/source/cards/footer.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>

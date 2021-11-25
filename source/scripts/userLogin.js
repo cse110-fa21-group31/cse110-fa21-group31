@@ -71,6 +71,8 @@ function onSignIn(googleUser) {
 
     imageWrapper.append(image);
     profileImage.append(imageWrapper);
+
+    window.location.replace("/source/pages/homePage.html");
 }
 
 /**
