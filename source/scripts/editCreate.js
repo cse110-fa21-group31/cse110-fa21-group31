@@ -1,7 +1,7 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
 window.addEventListener("DOMContentLoaded", init);
 
-import {insertRecipe} from "./APICalls.js"
+import { insertRecipe } from "./APICalls.js"
 
 function init() {
     console.log("editCreate.js init called");
@@ -38,8 +38,7 @@ const onSubmitRecipe = async (event) => {
     console.log(formData.get('steps'));
     */
     const recipeCard = document.createElement('recipe-card');
-    // recipeCard.dat
-    // const recClass = new RecipeClass();
+
     recipeCard.name = formData.get('name');
     recipeCard.authorId = 'HZRfg63gUu5M8S0F';
     recipeCard.datePosted = Date.now();
@@ -48,8 +47,6 @@ const onSubmitRecipe = async (event) => {
     //recClass.servingSize =
     recipeCard.difficulty = formData.get('difficulty');
     recipeCard.tags = formData.get('tags');
-    //recClass.ingredients =formData.get('ingredients');
-    //recClass.steps = formData.get('steps');
 
     let newRecipe = {
         name: formData.get('name'), datePosted: Date.now(),
