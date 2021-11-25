@@ -84,9 +84,7 @@ const onSubmitRecipe = async(event) => {
             // This grabs the data return by the server
             return data
         })
-        .catch((err) => {
-            reject(err);
-        });
+        .catch((err) => {});
     //the recipe object received from backend server
 
     console.log(response)

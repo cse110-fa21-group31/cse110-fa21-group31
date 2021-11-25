@@ -1,3 +1,4 @@
+/** 
 class RecipeExpand extends HTMLElement {
     constructor() {
         super();
@@ -140,11 +141,12 @@ class RecipeExpand extends HTMLElement {
         // Append elements to the shadow root
         this.shadowRoot.append(styles, article);
     }
-
-    /**
-     * Sets the recipe that will be used inside the <recipe-expand> element.
-     * Overwrites the previous recipe, fair warning.
-     */
+*/
+/**
+ * Sets the recipe that will be used inside the <recipe-expand> element.
+ * Overwrites the previous recipe, fair warning.
+ */
+/** 
     set data(data) {
         this.json = data;
 
@@ -240,21 +242,23 @@ class RecipeExpand extends HTMLElement {
             this.shadowRoot.querySelector('.section--instructions > ol').append(listItem);
         });
     }
-
-    /**
-     * Returns the object of the currect recipe being used.
-     */
+*/
+/**
+ * Returns the object of the currect recipe being used.
+ */
+/** 
     get data() {
         return this.json;
     }
 }
-
+*/
 /**
  * Recursively search for a key nested somewhere inside an object
  * @param {Object} object the object with which you'd like to search
  * @param {String} key the key that you are looking for in the object
  * @returns {*} the value of the found key
  */
+/** 
 function searchForKey(object, key) {
     var value;
     Object.keys(object).some(function(k) {
@@ -269,12 +273,13 @@ function searchForKey(object, key) {
     });
     return value;
 }
-
+*/
 /**
  * Extract the title of the recipe from the given recipe schema JSON obejct
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the recipe title
  */
+/** 
 function getTitle(data) {
     if (data.name) return data.name;
     if (data['@graph']) {
@@ -286,12 +291,13 @@ function getTitle(data) {
     }
     return null;
 }
-
+*/
 /**
  * Extract the yield of the recipe from the given recipe schema JSON obejct
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the recipe yield
  */
+/** 
 function getYield(data) {
     if (data.recipeYield) return data.recipeYield;
     if (data['@graph']) {
@@ -309,12 +315,13 @@ function getYield(data) {
     }
     return null;
 }
-
+*/
 /**
  * Extract the categories of the recipe from the given recipe schema JSON obejct
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the recipe categories as a string
  */
+/** 
 function getCategories(data) {
     let categories = null;
     if (data.recipeCategory) {
@@ -331,12 +338,13 @@ function getCategories(data) {
     if (Array.isArray(categories)) categories = categories.join(', ');
     return categories.toLowerCase();
 }
-
+*/
 /**
  * Extract the description of the recipe from the given recipe schema JSON obejct
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the recipe description
  */
+/** 
 function getDescription(data) {
     if (data.description) return data.description;
     if (data['@graph']) {
@@ -348,12 +356,14 @@ function getDescription(data) {
     }
     return null;
 }
+*/
 
 /**
  * Extract a usable image from the given recipe schema JSON object
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the URL of the image as a string, otherwise null
  */
+/** 
 function getImage(data) {
     if (data.image ? .url) return data.image.url;
     if (data.image ? .contentUrl) return data.image.contentUrl;
@@ -369,12 +379,13 @@ function getImage(data) {
     }
     return null;
 }
-
+*/
 /**
  * Extract the URL from the given recipe schema JSON object
  * @param {Object} data Raw recipe JSON to find the URL of
  * @returns {String} If found, it returns the URL as a string, otherwise null
  */
+/** 
 function getUrl(data) {
     if (data.url) return data.url;
     if (data['@graph']) {
@@ -384,13 +395,14 @@ function getUrl(data) {
     }
     return null;
 }
-
+*/
 /**
  * Similar to getUrl(), this function extracts the organizations name from the
  * schema JSON object. It's not in a standard location so this function helps.
  * @param {Object} data Raw recipe JSON to find the org string of
  * @returns {String} If found, it retuns the name of the org as a string, otherwise null
  */
+/** 
 function getOrganization(data) {
     if (data.publisher ? .name) return data.publisher ? .name;
     if (data['@graph']) {
@@ -402,13 +414,14 @@ function getOrganization(data) {
     }
     return null;
 }
-
+*/
 /**
  * Converts ISO 8061 time strings to regular english time strings.
  * Not perfect but it works for this lab
  * @param {String} time time string to format
  * @return {String} formatted time string
  */
+/** 
 function convertTime(time) {
     let timeStr = '';
 
@@ -430,12 +443,13 @@ function convertTime(time) {
 
     return '';
 }
-
+*/
 /**
  * Extract the ingredients of the recipe from the given recipe schema JSON obejct
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {Array} If found, returns the recipe ingredients
  */
+/** 
 function getIngredients(data) {
     if (data.recipeIngredient) {
         if (typeof data.recipeIngredient == 'string') {
@@ -455,13 +469,14 @@ function getIngredients(data) {
     }
     return null;
 }
-
+*/
 /**
  * Extract the instructions of the recipe from the given recipe schema JSON obejct.
  * This ones a bit messy and optimally should be refactored but it works.
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {Array} If found, returns the recipe instructions
  */
+/** 
 function getInstructions(data) {
     if (data.recipeInstructions) {
         if (typeof data.recipeInstructions == 'string') {
@@ -493,3 +508,5 @@ function getInstructions(data) {
 }
 
 customElements.define('recipe-expand', RecipeExpand);
+
+*/
