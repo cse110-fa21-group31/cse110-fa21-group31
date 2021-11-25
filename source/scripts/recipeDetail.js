@@ -18,16 +18,15 @@ const recipes = [
 const recipeData = {};
 
 async function init() {
-    let recipeID = 'VZsAA6HuzytdIQT2'; 
-    let response = await fetch(url+'?id='+recipeID, {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-    }).then((response) => response.json())
+    let recipeID = 'VZsAA6HuzytdIQT2';
+    let response = await fetch(url + '?id=' + recipeID, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        }).then((response) => response.json())
         .then((data) => {
             // This grabs the data return by the server
             return data
         })
         .catch((err) => {
-            console.log(`Error loading the ${recipe} recipe`);
             reject(err);
         });
     //the recipe object received from backend server
@@ -39,15 +38,7 @@ async function init() {
 
 }
 
-//fills the recipes into the recipes Array
-//should help pull info from the api call, or makes the api call here
-async function fillOutRecipe(data) {
-    //do nothing for now!
-
-
-}
-
-
+/** 
 async function fetchRecipes() {
     return new Promise((resolve, reject) => {
         recipes.forEach((recipe) => {
@@ -73,43 +64,13 @@ async function fetchRecipes() {
         });
     });
 }
+*/
 
-/**
- * Generates the <recipeCard> elements from the fetched recipes and
- * appends them to the page
- */
-function createRecipeCards() {
-    // Makes a new recipe card
-    const recipeCard = document.createElement('recipeCard');
-    // Inputs the data for the card. This is just the first recipe in the recipes array,
-    // being used as the key for the recipeData object
-    recipeCard.data = recipeData[recipes[0]];
 
-    for (let i in recipes) {
-        const json = recipes[i];
-        const recipeCard = document.createElement('recipe-card');
-        console.log("Created recipe-card");
-        recipeCard.data = recipeData[json];
-        console.log(recipeCard.data);
-        /*
-        const page = recipeData[json]['page-name'];
-        router.addPage(page, function () {
-          document.querySelector('.section--recipe-cards').classList.remove('shown');
-          document.querySelector('.section--recipe-expand').classList.add('shown');
-          document.querySelector('recipe-expand').data = recipeData[json];
-        });
-        if (i > 2) {
-          recipeCard.classList.add('hidden');
-        }
-        */
-        //bindRecipeCard(recipeCard, page);
-        document.querySelector('.myRecipeCardGridContainer').appendChild(recipeCard);
-    }
-}
 
 function fillOutRecipe(data) {
     document.getElementById("recipeTitle").innerHTML = data.name;
-    document.getElementById("tags").innerHTML= data.tags;
+    document.getElementById("tags").innerHTML = data.tags;
     document.getElementById("recipeImage").setAttribute("src", data.image);
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
     document.getElementById("description").innerHTML = data.description;
@@ -118,7 +79,7 @@ function fillOutRecipe(data) {
     document.getElementById("cookTime").innerHTML = data.cookTime;
     document.getElementById("ingredients").innerHTML = data.ingredients;
     document.getElementById("steps").innerHTML = data.steps;
-    
+
     /** 
     console.log(getTitle(data));
     console.log(getYield(data));
@@ -170,24 +131,23 @@ function fillOutRecipe(data) {
     */
     function convertTime(time) {
         let timeStr = '';
-      
+
         // Remove the 'PT'
         time = time.slice(2);
-      
+
         let timeArr = time.split('');
         if (time.includes('H')) {
-          for (let i = 0; i < timeArr.length; i++) {
-            if (timeArr[i] == 'H') return `${timeStr} hr`;
-            timeStr += timeArr[i];
-          }
+            for (let i = 0; i < timeArr.length; i++) {
+                if (timeArr[i] == 'H') return `${timeStr} hr`;
+                timeStr += timeArr[i];
+            }
         } else {
-          for (let i = 0; i < timeArr.length; i++) {
-            if (timeArr[i] == 'M') return `${timeStr} min`;
-            timeStr += timeArr[i];
-          }
+            for (let i = 0; i < timeArr.length; i++) {
+                if (timeArr[i] == 'M') return `${timeStr} min`;
+                timeStr += timeArr[i];
+            }
         }
-      
-        return '';
-      }
-}
 
+        return '';
+    }
+}
