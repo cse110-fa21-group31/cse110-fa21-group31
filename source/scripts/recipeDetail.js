@@ -28,12 +28,6 @@ async function fetchRecipes(){
     }
 }
 
-//fills the recipes into the recipes Array
-//should help pull info from the api call, or makes the api call here
-async function createRecipes() {
-    //do nothing for now!
-}
-
 /**
  * Generates the <recipeCard> elements from the fetched recipes and
  * appends them to the page
@@ -65,7 +59,6 @@ function createRecipeCards() {
         document.querySelector('.myRecipeCardGridContainer').appendChild(recipeCard);
     }
 }
->>>>>>> main
 
 function fillOutRecipe(data) {
     document.getElementById("recipeTitle").innerHTML = data.name;
