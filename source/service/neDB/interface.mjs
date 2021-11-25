@@ -1,39 +1,45 @@
-/* eslint-disable no-unused-vars*/
-// append recipe id to user schema
-export async function createRecipe(
-    recipe,
-    recipeCollection
-) {
+/**
+ * insert a single recipe to database
+ * @param {recipe} recipe the recipe to insert
+ * @param {*} recipeCollection the database to search in
+ * @returns {Array<recipe>} the inserted recipe
+ */
+export async function createRecipe(recipe, recipeCollection) {
     let insertedDoc = new Promise((resolve, reject) => {
         recipeCollection.insert(recipe, function (err, doc) {
-            if (!err) {
-                resolve(doc);
-            } else {
+            if (err) {
+                console.log(err);
                 reject(err);
+            }
+            else {
+                resolve(doc);
             }
         });
     });
     return insertedDoc;
 }
-/* eslint-enable no-unused-vars*/
 
-/* eslint-disable no-unused-vars*/
-export async function deleteRecipe(
-    id,
-    recipeCollection
-) {
-    // Call Xin's function that unsaves recipe from specific user
+
+/**
+ * removes a single recipe from the database
+ * @param {string} id unique string identifier of the desired recipe
+ * @param {*} recipeCollection the database to search in
+ */
+ export async function deleteRecipe(id, recipeCollection) {
+    recipeCollection.deleteOne({ _id: id });
 }
-/* eslint-enable no-unused-vars*/
 
-/* eslint-disable no-unused-vars*/
-export async function updateRecipe(
-    id,
-    recipe,
-    recipeCollection
-) {
+
+/**
+ * updates one recipe in the database
+ * @param {string} id unique string identifier of the desired recipe
+ * @param {*} recipe the recipe data (or subset thereof) to update
+ * @param {*} recipeCollection the database to search in
+ * @returns {Array<recipe>} the updated recipe
+ */
+ export async function updateRecipe(id, recipe, recipeCollection) {
     let updatedRecipes = new Promise((resolve, reject) => {
-        recipeCollection.update(
+        recipeCollection.updateOne(
             { _id: id },
             recipe,
             { returnUpdatedDocs: true },
@@ -50,46 +56,96 @@ export async function updateRecipe(
     });
     return updatedRecipes;
 }
-/* eslint-enable no-unused-vars*/
 
-/* eslint-disable no-unused-vars*/
-export function getAllRecipe(recipeCollection) {
-    let allRecipes = new Promise((resolve, reject) => {
-        const recipesCursor = recipeCollection.find({}, function (err, docs) {
-            if (!err) {
+
+/**
+ * fetches all recipes
+ * @param {*} recipeCollection the database to search in
+ * @returns {Array<recipe>} all recipes in the database
+ */
+export async function getAllRecipe(recipeCollection) {
+    let foundDocs = new Promise((resolve, reject) => {
+        recipeCollection.find({}, function (err, docs) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else{
                 resolve(docs);
-            } else {
-                reject(err);
             }
         });
     });
-    return allRecipes;
+    return foundDocs;
 }
-/* eslint-enable no-unused-vars*/
 
-/* eslint-disable no-unused-vars*/
-export async function getRecipeById(
-    id,
-    recipeCollection
-) {
-    let recipe = new Promise((resolve, reject) => {
-        recipeCollection.findOne({ _id: id }, function (err, doc) {
-            if (!err) {
-                console.log("noooooo");
-                resolve(doc);
-            } else {
-                console.log("here");
+
+/**
+ * retrieves all recipes with overlap in the names and all tags match
+ * @param {*} searchParams the content to search for
+ * @param {*} recipeCollection the database to search in
+ * @returns {Array<recipe>} the matching recipes
+ */
+export async function getRecipesByNameAndTags(searchParams, recipeCollection){
+    let filters = {}
+    if (searchParams.name){
+        // TODO (Bjorn): Create a list of common words to ignore
+        let keywords = [];
+        for (let n of searchParams.name.split(" ")) {
+            let pattern = new RegExp(n, 'i');
+            keywords.push({name: {$regex: pattern}});
+        }
+        filters.$or = keywords;
+    }
+    if (searchParams.tags){
+        let tags = [];
+        for (let t of searchParams.tags.split(',')) {
+            tags.push({tags: t.toLowerCase()});
+        }
+        filters.$and = tags;
+    }
+
+    let foundDocs = new Promise((resolve, reject) => {
+        recipeCollection.find(filters, (err, docs) => {
+            if (err) {
+                console.log(err);
                 reject(err);
+            }
+            else {
+                resolve(docs);
             }
         });
     });
-    return recipe;
+    return foundDocs;
 }
-/* eslint-enable no-unused-vars*/
 
-/* eslint-disable no-unused-vars*/
-export function getRecipeByIds(
-    ids,
-    recipeCollection
-) { }
-// export const getRecipeById = getRecipeById;
+
+/**
+ * retrieves a single recipe based on id
+ * @param {string} id unique string identifier of the desired recipe
+ * @returns {Array<recipe>} the found recipe
+ * @returns {null} if not found
+ */
+export function getRecipeById(id, recipeCollection) {
+    return getRecipesByIds([id], recipeCollection);
+}
+
+
+/**
+ * retrieves a number of recipes based on their ids
+ * @param {Array<string>} ids 
+ * @returns {Array<recipe>} the recipes matching any of the given ids
+ */
+export function getRecipesByIds(ids, recipeCollection) {
+    let foundDocs = new Promise((resolve, reject) => {
+        recipeCollection.find({ _id: { $in: ids } }, function (err, docs) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                resolve(docs);
+            }
+        });
+    });
+    return foundDocs
+}
