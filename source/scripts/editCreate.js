@@ -1,7 +1,7 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
 window.addEventListener("DOMContentLoaded", init);
 
-const url = "http://127.0.0.1:3030/api"
+import {insertRecipe} from "./APICalls.js"
 
 function init() {
     console.log("editCreate.js init called");
@@ -56,25 +56,8 @@ const onSubmitRecipe = async (event) => {
         cookTime: formData.get('cookTime'),
         author: "HZRfg63gUu5M8S0F", steps: ["step 1", "step 2"]
     }
-    console.log(newRecipe)
-
-    //for update, change the method of PUT
-    let response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        body: JSON.stringify(newRecipe) // body data type must match "Content-Type" header
-    }).then((response) => response.json())
-        .then((data) => {
-            // This grabs the data return by the server
-            return data
-        })
-        .catch((err) => {
-            console.log(`Error loading the ${recipe} recipe`);
-            reject(err);
-        });
-    //the recipe object received from backend server
-
-    console.log(response)
-
+    console.log(newRecipe);
+    insertRecipe(newRecipe);
 };
 
 let numSteps = 1;

@@ -4,16 +4,12 @@
 // RecipeExpand.js
 window.addEventListener("DOMContentLoaded", init);
 
+import {fetchRecipeById} from "./APICalls.js"
+
 // THESE SHOULD BE GIVEN VIA API
-const recipes = [
-    "http://127.0.0.1:3030/api?id=uYaCV6U4XGfQHYg2",
-    // "https://introweb.tech/assets/json/ghostCookies.json",
-    // "https://introweb.tech/assets/json/birthdayCake.json",
-    // "https://introweb.tech/assets/json/chocolateChip.json",
-    // "https://introweb.tech/assets/json/stuffing.json",
-    // "https://introweb.tech/assets/json/turkey.json",
-    // "https://introweb.tech/assets/json/pumpkinPie.json",
-];
+const recipeIDs = [
+    "uYaCV6U4XGfQHYg2"
+]
 const recipeData = {};
 
 async function init() {
@@ -24,41 +20,21 @@ async function init() {
         return;
     }
     await fetchRecipes();
-    //const data = recipeData[recipes[0]];
     //fillOutRecipe(data);
     createRecipeCards();
+}
+
+async function fetchRecipes(){
+    for(let id of recipeIDs){
+        let recipe = await fetchRecipeById(id);
+        recipeData[id] = recipe;
+    }
 }
 
 //fills the recipes into the recipes Array
 //should help pull info from the api call, or makes the api call here
 async function createRecipes() {
     //do nothing for now!
-}
-
-async function fetchRecipes() {
-    return new Promise((resolve, reject) => {
-        recipes.forEach((recipe) => {
-            console.log("fetching", recipe)
-            fetch(recipe)
-                // parses JSON response into native JavaScript objects)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    console.log(recipe);
-                    // This grabs the page name from the URL in the array above
-                    //data["page-name"] = recipe.split("/").pop().split(".")[0];
-                    recipeData[recipe] = data;
-                    if (Object.keys(recipeData).length == recipes.length) {
-                        resolve();
-                    }
-                })
-                .catch((err) => {
-                    console.log(`Error loading the ${recipe} recipe`);
-                    reject(err);
-                });
-
-        });
-    });
 }
 
 /**
@@ -70,13 +46,12 @@ function createRecipeCards() {
     const recipeCard = document.createElement('recipeCard');
     // Inputs the data for the card. This is just the first recipe in the recipes array,
     // being used as the key for the recipeData object
-    recipeCard.data = recipeData[recipes[0]];
+    recipeCard.data = recipeData[recipeIDs[0]];
 
-    for (let i in recipes) {
-        const json = recipes[i];
+    for (let id of recipeIDs) {
         const recipeCard = document.createElement('recipe-card');
         console.log("Created recipe-card");
-        recipeCard.data = recipeData[json];
+        recipeCard.data = recipeData[id];
         console.log(recipeCard.data);
         /*
         const page = recipeData[json]['page-name'];
