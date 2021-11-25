@@ -2,3 +2,7 @@ cypress/**
 node_modules/**
 specs/**
 admin/**
+/cypress/**
+/node_modules/**
+/specs/**
+/admin/**
