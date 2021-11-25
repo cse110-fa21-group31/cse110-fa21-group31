@@ -1,5 +1,5 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
-import { createRecipe, deleteRecipe, updateRecipe, getAllRecipe,getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
+import { createRecipe, deleteRecipe, updateRecipe, getAllRecipe, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
 import Datastore from "nedb";
 // the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
@@ -22,7 +22,7 @@ const port = process.env.PORT || 3030;
 
 
 // Declare a route
-fastify.get("/", async () => {
+fastify.get("/", async() => {
     // recipe = request.body
 
     return { hello: "world" };
@@ -36,15 +36,18 @@ fastify.get("/api", async (_, reply) => {
 });
 */
 
-fastify.get("/api", async (request, reply) => {
+fastify.get("/api", async(request, reply) => {
+
     if (request.query.id) {
+        const recipe = await getRecipeById(request.query.id, recipeDB)
+        console.log(recipe);
         reply.send(await getRecipeById(request.query.id, recipeDB));
     } else if (request.query.page) {
         reply.send(await getAllRecipe(recipeDB));
     }
 });
 
-fastify.post("/api", async (request, reply) => {
+fastify.post("/api", async(request, reply) => {
     // console.log(JSON.parse(request.body))
     let body = JSON.parse(request.body)
     if (!body.name || !body.author || !body.steps) {
@@ -57,12 +60,12 @@ fastify.post("/api", async (request, reply) => {
     }
 });
 
-fastify.put("/api", async (request, reply) => {
-    if (
-        !request.body.name ||
-        !request.body.author ||
-        !request.body.steps ||
-        !request.body._id
+fastify.put("/api", async(request, reply) => {
+    let body = JSON.parse(request.body)
+    if (!body.name ||
+        !body.author ||
+        !body.steps ||
+        !body._id
     ) {
         const err = new Error();
         err.statusCode = 400;
@@ -70,7 +73,7 @@ fastify.put("/api", async (request, reply) => {
     } else {
         reply.send(
             await updateRecipe(
-                request.body._id,
+                body._id,
                 request.body,
                 recipeDB
             )
@@ -78,7 +81,7 @@ fastify.put("/api", async (request, reply) => {
     }
 });
 
-fastify.delete("/api", async (request, reply) => {
+fastify.delete("/api", async(request, reply) => {
     reply.send(await deleteRecipe(request.query.id, recipeDB));
 });
 
@@ -90,7 +93,7 @@ fastify.delete("/api", async (request, reply) => {
  * req.query.id: the id to search for.
  * reply: user json if found, 404 if not found.
  */
-fastify.get("/api/user", async (req, reply) => {
+fastify.get("/api/user", async(req, reply) => {
     let data = await getUser(userDB, req.query.id);
     if (data == null) {
         reply
@@ -109,7 +112,7 @@ fastify.get("/api/user", async (req, reply) => {
  * NOTE: req.query.email and req.body.email MUST be the same!
  * reply: user json.
  */
-fastify.post("/api/user", async (req, reply) => {
+fastify.post("/api/user", async(req, reply) => {
     // check if user exists. false if not.
     let data = await hasUser(userDB, req.query.email);
     if (!data) {
@@ -125,7 +128,7 @@ fastify.post("/api/user", async (req, reply) => {
  * req.query.userId: the user id to save the recipe into.
  * reply: user json.
  */
-fastify.put("/api/user/saved", async (req, reply) => {
+fastify.put("/api/user/saved", async(req, reply) => {
     let numUpdated = await saveRecipe(
         userDB,
         req.query.userId,
@@ -143,7 +146,7 @@ fastify.put("/api/user/saved", async (req, reply) => {
  * req.query.userId: the user id to remove the recipe from.
  * reply: user json.
  */
-fastify.delete("/api/user/saved", async (req, reply) => {
+fastify.delete("/api/user/saved", async(req, reply) => {
     let numUpdated = await unsaveRecipe(
         userDB,
         req.query.userId,
@@ -155,13 +158,13 @@ fastify.delete("/api/user/saved", async (req, reply) => {
 });
 
 
-fastify.get('/api/search', async (request, reply) => {
+fastify.get('/api/search', async(request, reply) => {
     let data = await getRecipesByNameAndTags(request.query, recipeDB);
     reply.status(200).send(data);
 })
 
 // Run the server!
-const start = async () => {
+const start = async() => {
     try {
         await fastify.listen(port);
     } catch (err) {

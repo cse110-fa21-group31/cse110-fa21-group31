@@ -1,15 +1,14 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
 window.addEventListener("DOMContentLoaded", init);
 
-import {fetchRecipeById, deleteRecipe} from "./APICalls.js"
+import { fetchRecipeById, deleteRecipe, updateRecipeById } from "./APICalls.js"
 
 const url = "http://127.0.0.1:3030/api"
     //var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
-var pageId = 'cVDGPZ40HpJBFSxU'; // test page, delete if you want
+var pageId = 'zWLApN1kvM5MezgL'; // test page, delete if you want
 function init() {
     console.log("editCreate.js init called");
 
-    // deleteRecipe(pageId);
     editRecipe();
 
     // Adding steps to the recipe
@@ -22,7 +21,27 @@ function init() {
 
     const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
+    document.getElementById("addIngr").addEventListener("click", function() {
+        appendIngredient();
+    });
+    document.getElementById("addStep").addEventListener("click", function() {
+        appendStep();
+    });
+    document.getElementById("delIngr").addEventListener("click", function() {
+        deleteIngredient();
+    });
+    document.getElementById("delStep").addEventListener("click", function() {
+        deleteIngredient();
+    });
+    document.getElementById("delete").addEventListener("click", function() {
+        deleteRecipeButton();
+    });
 }
+
+const deleteRecipeButton = async(event) => {
+    await deleteRecipe(pageId);
+}
+
 
 let numSteps = 0;
 let numIngredients = 0;
@@ -32,14 +51,14 @@ const editRecipe = async(event) => {
     console.log("EDITTED RECIPE");
 
     // get recipe info and fill it out
-    let recipeID = pageId;
-    let recipe = fetchRecipeById(pageId);
-    console.log(recipe);
+    let response = await fetchRecipeById(pageId);
 
+    console.log(response);
     // get ingredients from data
     document.getElementById('name').innerHTML = '<label for="name">Recipe Name: *</label><input type="text" name="name" id="name" value="' + response.name + '" required>';
     //document.getElementById('picture').innerHTML = 'label for="picture">Picture:</label><input type="file" name="picture" id="picture" src="'+response.image+'">';
     document.getElementById('description').innerHTML = '<label for="description">Description:</label><textarea name="description" id="descriptionText"> ' + response.description + ' </textarea>';
+
 
     document.getElementById('tags').innerHTML = '<label for="tags">Tags:</label><input type="text" name="tags" id="tags" value="' + response.tags.join(", ") + '">';
 
@@ -66,7 +85,7 @@ const editRecipe = async(event) => {
         appendEStep(fillSteps[i]);
     }
 
-    let fillIngredients = response.ingredient;
+    let fillIngredients = response.ingredients;
     for (let key in fillIngredients) {
         console.log(key);
         appendEIngredient(key, fillIngredients[key]);
@@ -144,7 +163,7 @@ const onSubmitRecipe = async(event) => {
         _id: pageId
     }
     console.log(newRecipe);
-    insertRecipe(newRecipe);
+    await updateRecipeById(pageId, newRecipe);
 };
 
 

@@ -386,8 +386,8 @@
                 <label for="ingredients">Ingredients:</label>
 
                 <div id="addIngredients">
-                    <input type="button" onclick="appendIngredient()" value="Add Ingredient"></button>
-                    <input type="button" onclick="deleteIngredient()" value="Delete Ingredient"></button>
+                    <input type="button" id="addIngr" value="Add Ingredient"></button>
+                    <input type="button" id="delIngr" value="Delete Ingredient"></button>
                 </div>
                 <div id="addIngredients" class='float-container'>
                     <div class='float-child'>
@@ -402,15 +402,15 @@
             <div id="steps" class="formItem">
                 <label for="steps">Steps:</label>
                 <div id="addSteps">
-                    <input type="button" onclick="appendStep()" value="Add Step"></button>
-                    <input type="button" onclick="deleteStep()" value="Delete Step"></button>
+                    <input type="button" id="addStep" value="Add Step"></button>
+                    <input type="button" id="delStep" value="Delete Step"></button>
                 </div>
                 <div id="newStepId"></div>
             </div>
 
             <div class="float-container">
                 <div id="delete" class="float-child">
-                    <input onclick="deleteRecipe()" type="button" value="Delete">
+                    <input type="button" value="Delete">
                 </div>
                 <div id="cancel" class="float-child">
                     <input type="button" value="Cancel">

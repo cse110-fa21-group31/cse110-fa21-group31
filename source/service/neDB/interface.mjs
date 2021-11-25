@@ -6,12 +6,11 @@
  */
 export async function createRecipe(recipe, recipeCollection) {
     let insertedDoc = new Promise((resolve, reject) => {
-        recipeCollection.insert(recipe, function (err, doc) {
+        recipeCollection.insert(recipe, function(err, doc) {
             if (err) {
                 console.log(err);
                 reject(err);
-            }
-            else {
+            } else {
                 resolve(doc);
             }
         });
@@ -25,7 +24,7 @@ export async function createRecipe(recipe, recipeCollection) {
  * @param {string} id unique string identifier of the desired recipe
  * @param {*} recipeCollection the database to search in
  */
- export async function deleteRecipe(id, recipeCollection) {
+export async function deleteRecipe(id, recipeCollection) {
     recipeCollection.deleteOne({ _id: id });
 }
 
@@ -37,13 +36,11 @@ export async function createRecipe(recipe, recipeCollection) {
  * @param {*} recipeCollection the database to search in
  * @returns {Array<recipe>} the updated recipe
  */
- export async function updateRecipe(id, recipe, recipeCollection) {
+export async function updateRecipe(id, recipe, recipeCollection) {
     let updatedRecipes = new Promise((resolve, reject) => {
-        recipeCollection.updateOne(
-            { _id: id },
-            recipe,
-            { returnUpdatedDocs: true },
-            function (err, numAffected, affectedDocs, upsert) {
+        recipeCollection.update({ _id: id },
+            recipe, { returnUpdatedDocs: true },
+            function(err, numAffected, affectedDocs, upsert) {
                 if (!err) {
                     console.log("Updated " + numAffected + " documents");
                     console.log(affectedDocs);
@@ -65,12 +62,11 @@ export async function createRecipe(recipe, recipeCollection) {
  */
 export async function getAllRecipe(recipeCollection) {
     let foundDocs = new Promise((resolve, reject) => {
-        recipeCollection.find({}, function (err, docs) {
+        recipeCollection.find({}, function(err, docs) {
             if (err) {
                 console.log(err);
                 reject(err);
-            }
-            else{
+            } else {
                 resolve(docs);
             }
         });
@@ -85,21 +81,21 @@ export async function getAllRecipe(recipeCollection) {
  * @param {*} recipeCollection the database to search in
  * @returns {Array<recipe>} the matching recipes
  */
-export async function getRecipesByNameAndTags(searchParams, recipeCollection){
+export async function getRecipesByNameAndTags(searchParams, recipeCollection) {
     let filters = {}
-    if (searchParams.name){
+    if (searchParams.name) {
         // TODO (Bjorn): Create a list of common words to ignore
         let keywords = [];
         for (let n of searchParams.name.split(" ")) {
             let pattern = new RegExp(n, 'i');
-            keywords.push({name: {$regex: pattern}});
+            keywords.push({ name: { $regex: pattern } });
         }
         filters.$or = keywords;
     }
-    if (searchParams.tags){
+    if (searchParams.tags) {
         let tags = [];
         for (let t of searchParams.tags.split(',')) {
-            tags.push({tags: t.toLowerCase()});
+            tags.push({ tags: t.toLowerCase() });
         }
         filters.$and = tags;
     }
@@ -109,8 +105,7 @@ export async function getRecipesByNameAndTags(searchParams, recipeCollection){
             if (err) {
                 console.log(err);
                 reject(err);
-            }
-            else {
+            } else {
                 resolve(docs);
             }
         });
@@ -126,7 +121,17 @@ export async function getRecipesByNameAndTags(searchParams, recipeCollection){
  * @returns {null} if not found
  */
 export function getRecipeById(id, recipeCollection) {
-    return getRecipesByIds([id], recipeCollection);
+    let foundDocs = new Promise((resolve, reject) => {
+        recipeCollection.findOne({ _id: id }, function(err, docs) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                resolve(docs);
+            }
+        });
+    });
+    return foundDocs
 }
 
 
@@ -137,12 +142,11 @@ export function getRecipeById(id, recipeCollection) {
  */
 export function getRecipesByIds(ids, recipeCollection) {
     let foundDocs = new Promise((resolve, reject) => {
-        recipeCollection.find({ _id: { $in: ids } }, function (err, docs) {
+        recipeCollection.find({ _id: { $in: ids } }, function(err, docs) {
             if (err) {
                 console.log(err);
                 reject(err);
-            }
-            else {
+            } else {
                 resolve(docs);
             }
         });

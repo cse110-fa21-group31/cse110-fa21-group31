@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Edit/Create</title>
-        <meta charset="utf-8">
-        <script type="module" src="../scripts/editCreate.js"></script>
-       <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
-       <link rel='stylesheet' href="/source/assets/styles/cards.css">
-    </head>
-    <body>
-        <div class="navBar">
-            <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
-        </div>
-        <!-- A complete form for editing a recipe -->
-        <!-- This can probably just be a really basic form -->
-        <!-- 
+<head>
+    <title>Edit/Create</title>
+    <meta charset="utf-8">
+    <script type="module" src="../scripts/editCreate.js"></script>
+    <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
+    <link rel='stylesheet' href="/source/assets/styles/cards.css">
+</head>
+
+<body>
+    <div class="navBar">
+        <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+    </div>
+    <!-- A complete form for editing a recipe -->
+    <!-- This can probably just be a really basic form -->
+    <!-- 
 
 <style>
     .navbar ul {
@@ -321,12 +322,12 @@
         -->
 
 
-        <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
-        
-        
-        <!-- Generate a complete recipe editing page. -->
+    <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
 
-                
+
+    <!-- Generate a complete recipe editing page. -->
+
+
 
     <!-- https://www.w3docs.com/tools/editor/5953 Check this out? -->
 
@@ -345,7 +346,7 @@
                 <input type="file" name="picture" id="picture">
             </div>
 
-            
+
             <div id="description" class="formItem">
                 <label for="description">Description:</label>
                 <textarea name="description" id="descriptionText"></textarea>
@@ -384,8 +385,8 @@
                 <label for="ingredients">Ingredients:</label>
 
                 <div id="addIngredients">
-                    <input type="button" onclick="appendIngredient()" value="Add Ingredient"></button>
-                    <input type="button" onclick="deleteIngredient()" value="Delete Ingredient"></button>
+                    <input type="button" id="addIngr" value="Add Ingredient"></button>
+                    <input type="button" id="delIngr" value="Delete Ingredient"></button>
                 </div>
                 <div id="addIngredients" class='float-container'>
                     <div class='float-child'>
@@ -400,23 +401,23 @@
             <div id="steps" class="formItem">
                 <label for="steps">Steps:</label>
                 <div id="addSteps">
-                    <input type="button" onclick="appendStep()" value="Add Step"></button>
-                    <input type="button" onclick="deleteStep()" value="Delete Step"></button>
+                    <input type="button" id="addStep" value="Add Step"></button>
+                    <input type="button" id="delStep" value="Delete Step"></button>
                 </div>
                 <div id="newStepId"></div>
             </div>
-        
+
             <div class="float-container">
-            <div id="delete" class="float-child">
-                <input type="button" value="Delete">
+                <div id="delete" class="float-child">
+                    <input type="button" value="Delete">
+                </div>
+                <div id="cancel" class="float-child">
+                    <input type="button" value="Cancel">
+                </div>
+                <div id="submit" class="float-child">
+                    <input type="submit" value="Save">
+                </div>
             </div>
-            <div id="cancel" class="float-child">
-                <input type="button" value="Cancel">
-            </div>
-            <div id="submit" class="float-child">
-                <input type="submit" value="Save">
-            </div>
-        </div>
     </div>
 
     <!-- Users can add entries into a sorted display list -->
