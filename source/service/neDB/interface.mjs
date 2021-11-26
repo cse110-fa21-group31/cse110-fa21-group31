@@ -1,4 +1,4 @@
-const CARDS_PER_PAGE = 6;
+import { CARDS_PER_PAGE } from "../util.js";
 /**
  * insert a single recipe to database
  * @param {recipe} recipe the recipe to insert
@@ -41,7 +41,7 @@ export async function updateRecipe(id, recipe, recipeCollection) {
     let updatedRecipes = new Promise((resolve, reject) => {
         recipeCollection.update({ _id: id },
             recipe, { returnUpdatedDocs: true },
-            function (err, numAffected, affectedDocs, upsert) {
+            function (err, numAffected, affectedDocs) {
                 if (!err) {
                     console.log("Updated " + numAffected + " documents");
                     console.log(affectedDocs);
@@ -62,20 +62,10 @@ export async function updateRecipe(id, recipe, recipeCollection) {
  * @returns {Array<recipe>} all recipes in the database
  */
 export async function getRecipeByPage(recipeCollection, page) {
-    page = Math.max(page, 1);
-    let skippedRecipe = CARDS_PER_PAGE * (page - 1);
-    let foundDocs = new Promise((resolve, reject) => {
-        recipeCollection.find({}).sort({ _id: 1 }).skip(skippedRecipe)
-            .limit(CARDS_PER_PAGE).exec(function (err, docs) {
-                if (err) {
-                    console.log(err);
-                    reject(err);
-                } else {
-                    resolve(docs);
-                }
-            });
-    });
-    return foundDocs;
+    console.log("~~~~~~");
+    console.log(page);
+    let dbCursor = recipeCollection.find({});
+    return sortAndPaginateResults(dbCursor, page);
 }
 
 /**
@@ -102,18 +92,8 @@ export async function getRecipesByNameAndTags(searchParams, recipeCollection) {
         }
         filters.$and = tags;
     }
-
-    let foundDocs = new Promise((resolve, reject) => {
-        recipeCollection.find(filters, (err, docs) => {
-            if (err) {
-                console.log(err);
-                reject(err);
-            } else {
-                resolve(docs);
-            }
-        });
-    });
-    return foundDocs;
+    let dbCursor = recipeCollection.find(filters);
+    return sortAndPaginateResults(dbCursor);
 }
 
 
@@ -124,17 +104,8 @@ export async function getRecipesByNameAndTags(searchParams, recipeCollection) {
  * @returns {null} if not found
  */
 export function getRecipeById(id, recipeCollection) {
-    let foundDocs = new Promise((resolve, reject) => {
-        recipeCollection.findOne({ _id: id }, function (err, docs) {
-            if (err) {
-                console.log(err);
-                reject(err);
-            } else {
-                resolve(docs);
-            }
-        });
-    });
-    return foundDocs
+    let dbCursor = recipeCollection.findOne({ _id: id });
+    return sortAndPaginateResults(dbCursor);
 }
 
 
@@ -144,8 +115,30 @@ export function getRecipeById(id, recipeCollection) {
  * @returns {Array<recipe>} the recipes matching any of the given ids
  */
 export function getRecipesByIds(ids, recipeCollection) {
+    let dbCursor = recipeCollection.find({ _id: { $in: ids } });
+    return sortAndPaginateResults(dbCursor);
+}
+
+
+/**
+ * sorts the db query results and returns results corresponding to correct
+ * current page number
+ * @param dbCursor the result of the db query
+ * @param curr_page the current page of results to display
+ * @returns 
+ */
+export function sortAndPaginateResults(dbCursor, curr_page){
+    if(curr_page == undefined){
+        curr_page = 1;
+    }
+    curr_page = Math.max(curr_page, 1);
+    let resultsToSkip = CARDS_PER_PAGE * (curr_page - 1);
     let foundDocs = new Promise((resolve, reject) => {
-        recipeCollection.find({ _id: { $in: ids } }, function (err, docs) {
+        dbCursor
+        //.sort({ planet: 1 })
+        .skip(resultsToSkip)
+        .limit(CARDS_PER_PAGE)
+        .exec(function (err, docs) {
             if (err) {
                 console.log(err);
                 reject(err);
@@ -154,5 +147,5 @@ export function getRecipesByIds(ids, recipeCollection) {
             }
         });
     });
-    return foundDocs
+    return foundDocs;
 }

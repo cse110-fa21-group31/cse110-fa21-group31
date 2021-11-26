@@ -58,8 +58,7 @@ export async function fetchRecipeByPage(pageNum) {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
-            return data
+            return data;
         })
         .catch((err) => {
             console.error('Error finding recipes: ' + err.message);
