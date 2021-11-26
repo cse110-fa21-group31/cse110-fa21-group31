@@ -14,7 +14,7 @@ export class Router {
      * @param {string} pageName - The name of the page.
      * @param {function} callback - The callback to call when the page is visited.
      */
-    setPage(pageName, callback) {
+    addPage(pageName, callback) {
         this[pageName] = callback;
     }
 
