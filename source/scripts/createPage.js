@@ -37,7 +37,8 @@ export function setupCreatePage() {
 
 let numSteps = 0;
 let numIngredients = 0;
-
+//TODO: update/find a way to assign value to this variable
+let isUpdate = false
 const onSubmitRecipe = async (event) => {
 
     console.log("SUBMITTED NEW RECIPE");
@@ -78,7 +79,9 @@ const onSubmitRecipe = async (event) => {
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
+        //TODO: how to store image
         image: formData.get('picture'),
+        //TODO: get user ID from a global variable
         author: "HZRfg63gUu5M8S0F",
 
         description: formData.get('description'),

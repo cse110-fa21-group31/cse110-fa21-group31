@@ -128,8 +128,18 @@ function bindRecipeCard(recipeCard, pageName) {
  * @param {*} pageName 
  * @param {*} callback function
  */
-export function routerAddCreatePage(pageName) {
-    router.addPage(pageName, function () {
+export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
+    if (isUpdate) {
+        router.addPage(pageName, function () {
+            homePage.classList.remove("shown");
+            recipeDetailPage.classList.remove("shown");
+            userInfoPage.classList.remove("shown");
+            createRecipePage.classList.remove("shown");
+            editRecipePage.classList.add("shown");
+            populateEditPage(recipeObj)
+        })
+    }
+    else router.addPage(pageName, function () {
         homePage.classList.remove("shown");
         recipeDetailPage.classList.remove("shown");
         userInfoPage.classList.remove("shown");
