@@ -81,6 +81,10 @@
     <!-- recipe detail page -->
     <section id="recipeDetail">
 
+        <!-- buttons for edit and delete -->
+        <button id="editRecipeButton">Edit</button>
+        <button id="deleteRecipeButton">Delete</button>
+
         <!-- Displaying recipe title, creation date, author-->
         <p id="recipeTitle">Recipe title</p>
         <p id="date">The Date of Creation</p>
@@ -291,6 +295,100 @@
             </form>
         </div>
     </section>
+
+    <!-- recipe edit page -->
+    <section id="editRecipe">
+        <div class="recipeEdit">
+            <form id="editRecipeForm" onSubmit=onUpdateRecipe(event)>
+
+                <div id="editName" class="formItem">
+                    <label for="name">Recipe Name: *</label>
+                    <input type="text" name="name" id="name" required>
+
+                </div>
+
+                <div id="editPicture" class="formItem">
+                    <label for="picture">Picture:</label>
+                    <input type="file" name="picture" id="picture">
+                </div>
+
+
+                <div id="editDescription" class="formItem">
+                    <label for="description">Description:</label>
+                    <textarea name="description" id="descriptionText"></textarea>
+                </div>
+
+                <!-- Tags will be sent to the backend as a big comma delimited string -->
+                <div id="editTags" class="formItem">
+                    <label for="tags">Tags:</label>
+                    <input type="text" name="tags" id="tags">
+                </div>
+
+
+                <div id="editCookTime" class="formItem">
+                    <label for="cookTime">Cook Time:</label>
+                    <input type="text" name="cookTime" id="prepTime">
+                </div>
+
+                <div id="editServingSize" class="formItem">
+                    <label for="servingSize">Serving Size:</label>
+                    <input type="text" name="servingSize" id="servingSize">
+                </div>
+
+                <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
+                <div id="editDifficulty" class="formItem">
+                    <label for="difficulty">Difficulty:</label>
+                    <select name="difficulty" id="difficulty">
+                        <option value="1">1 star</option>
+                        <option value="2">2 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="4">4 stars</option>
+                        <option value="5">5 stars</option>
+                    </select>
+                </div>
+
+                <div id="ingredients" class="formItem">
+                    <label for="ingredients">Ingredients:</label>
+
+                    <div id="addIngredients">
+                        <input type="button" id="addIngr" value="Add Ingredient"></button>
+                        <input type="button" id="delIngr" value="Delete Ingredient"></button>
+                    </div>
+                    <div id="addIngredients" class='float-container'>
+                        <div class='float-child'>
+                            <div id="editNewIngredientId"></div>
+                        </div>
+                        <div class='float-child'>
+                            <div id="editNewIngredientAmountId"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="steps" class="formItem">
+                    <label for="steps">Steps:</label>
+                    <div id="addSteps">
+                        <input type="button" id="addStep" value="Add Step"></button>
+                        <input type="button" id="delStep" value="Delete Step"></button>
+                    </div>
+                    <div id="editNewStepId"></div>
+                </div>
+
+                <div class="float-container">
+                    <div id="delete" class="float-child">
+                        <input type="button" value="Delete">
+                    </div>
+                    <div id="cancel" class="float-child">
+                        <input type="button" value="Cancel">
+                    </div>
+                    <div id="submit" class="float-child">
+                        <input type="submit" value="Save">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
 </body>
 <footer>
     <iframe src="/source/cards/footer.html"

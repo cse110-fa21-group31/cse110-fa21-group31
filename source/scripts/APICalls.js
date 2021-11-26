@@ -1,5 +1,5 @@
 export const url = "http://127.0.0.1:3030/api"
-
+export default {}
 /**
  * sends an HTTP request to the server to insert a single recipe to the database
  * @param {recipe} recipe the recipe object to insert
@@ -90,7 +90,7 @@ export async function updateRecipeById(id, update) {
         method: 'PUT',
         body: JSON.stringify(update)
     })
-        .then((response) => response.json())
+        .then((response) => { console.log(response); return response.json() })
         .then((data) => {
             return data
         })

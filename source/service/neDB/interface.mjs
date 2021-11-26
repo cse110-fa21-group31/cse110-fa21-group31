@@ -26,7 +26,7 @@ export async function createRecipe(recipe, recipeCollection) {
  * @param {*} recipeCollection the database to search in
  */
 export async function deleteRecipe(id, recipeCollection) {
-    recipeCollection.deleteOne({ _id: id });
+    recipeCollection.remove({ _id: id });
 }
 
 
