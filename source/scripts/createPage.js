@@ -2,6 +2,7 @@
 import { insertRecipe } from "./APICalls.js"
 import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
 import { RECIPE_ROUTE } from './util.js'
+export default {}
 export function setupCreatePage() {
     console.log("setupCreatePage() called");
 
@@ -15,7 +16,7 @@ export function setupCreatePage() {
 
     // Submitting the entire recipe
 
-    const recipeForm = document.getElementById("recipeForm");
+    const recipeForm = document.getElementById("editRecipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
     //document.getElementById("addIngr").onclick = appendIngredient();
 

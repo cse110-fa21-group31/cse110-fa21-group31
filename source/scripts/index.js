@@ -1,8 +1,12 @@
 // import RecipeClass from "./recipeClass";
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
-
+export default {}
 // RecipeExpand.js
-window.addEventListener("DOMContentLoaded", init);
+if (typeof window !== "undefined") {
+    window.addEventListener("DOMContentLoaded", init);
+
+}
+
 
 // THESE SHOULD BE GIVEN VIA API
 import { Router } from './router/Router.js'
@@ -21,9 +25,10 @@ const homePage = document.getElementById('homePage')
 const recipeDetailPage = document.getElementById('recipeDetail')
 const userInfoPage = document.getElementById('userInfo')
 const createRecipePage = document.getElementById('createRecipe')
+const editRecipePage = document.getElementById('editRecipe')
 
 
-window.addEventListener('DOMContentLoaded', init);
+
 
 const router = new Router(function () {
     console.log("Test router");
@@ -32,6 +37,7 @@ const router = new Router(function () {
     recipeDetailPage.classList.remove("shown");
     userInfoPage.classList.remove("shown");
     createRecipePage.classList.remove("shown");
+    editRecipePage.classList.remove("shown");
 });
 
 async function init() {
@@ -74,6 +80,8 @@ function createRecipeCards() {
         // console.log(recipeCard.data);
         redirectRecipeDetail(recipeObj)
         // click event
+        const page = recipeObj._id;
+        const routeUrl = RECIPE_ROUTE + page
         recipeCard.addEventListener('click', e => {
             // if (e.path[0].nodeName == 'A') return;
             router.navigate(routeUrl);
@@ -95,6 +103,7 @@ export function redirectRecipeDetail(recipeObj) {
         recipeDetailPage.classList.add("shown");
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
+        editRecipePage.classList.remove("shown");
         recipeDetailPage.data = recipeObj;
         // console.log(recipeDetailPage.data)
         fillOutRecipe(recipeObj)
@@ -125,7 +134,24 @@ export function routerAddCreatePage(pageName) {
         recipeDetailPage.classList.remove("shown");
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.add("shown");
+        editRecipePage.classList.remove("shown");
         setupCreatePage()
+    })
+}
+
+/**
+ * 
+ * @param {*} pageName 
+ * @param {*} callback function
+ */
+export function routerAddEditPage(pageName, recipeObj) {
+    router.addPage(pageName, function () {
+        homePage.classList.remove("shown");
+        recipeDetailPage.classList.remove("shown");
+        userInfoPage.classList.remove("shown");
+        createRecipePage.classList.remove("shown");
+        editRecipePage.classList.add("shown");
+        populateEditPage(recipeObj)
     })
 }
 
@@ -143,6 +169,7 @@ export function bindUserProfile(profile) {
         homePage.classList.remove("shown");
         recipeDetailPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
+        editRecipePage.classList.remove("shown");
         userInfoPage.classList.add("shown");
         userInfoPage.data = profile
         // TODO: populate user data in userInfo page 

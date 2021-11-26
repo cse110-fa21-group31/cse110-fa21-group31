@@ -5,7 +5,7 @@
  * sign-in and log-out
  * Dependency: navBarWithGoogle.html
  */
-
+export default {}
 import {
     ELE_CLASS_PROFILE_IMAGE,
     ELE_ID_PROFILE,

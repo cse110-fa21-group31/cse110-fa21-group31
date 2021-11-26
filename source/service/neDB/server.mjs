@@ -20,12 +20,6 @@ fastify.register(Cors, {
 const port = process.env.PORT || 3030;
 
 
-// Declare a route
-fastify.get("/", async () => {
-    // recipe = request.body
-    //return index.html
-    return { hello: "world" };
-});
 
 /*
 fastify.get("/api", async (_, reply) => {
@@ -59,7 +53,10 @@ fastify.post("/api", async (request, reply) => {
 });
 
 fastify.put("/api", async (request, reply) => {
+    console.log(request.body)
     let body = JSON.parse(request.body)
+    console.log(body)
+
     if (!body.name ||
         !body.author ||
         !body.steps ||
@@ -72,7 +69,7 @@ fastify.put("/api", async (request, reply) => {
         reply.send(
             await updateRecipe(
                 body._id,
-                request.body,
+                body,
                 recipeDB
             )
         );
@@ -80,6 +77,7 @@ fastify.put("/api", async (request, reply) => {
 });
 
 fastify.delete("/api", async (request, reply) => {
+    console.log(request.query)
     reply.send(await deleteRecipe(request.query.id, recipeDB));
 });
 

@@ -1,9 +1,10 @@
 // import RecipeClass from "./recipeClass";
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
-
+export default {}
 // RecipeExpand.js
-import { RECIPE_ROUTE } from "./util.js"
-import { fetchRecipeById } from "./APICalls.js"
+import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js"
+import { deleteRecipe, fetchRecipeById } from "./APICalls.js"
+import { routerAddEditPage, routerNavigateWrapper } from "./index.js";
 const recipeData = {};
 
 /**
@@ -29,27 +30,23 @@ export function fillOutRecipe(data) {
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
     if (data.ingredients) document.getElementById("ingredients").innerHTML = data.ingredients;
     document.getElementById("steps").innerHTML = data.steps;
-
+    const editRecipeButton = document.getElementById('editRecipeButton')
+    const delRecipeButton = document.getElementById('deleteRecipeButton')
+    const page = data._id;
+    const routeUrl = TEMP_EDIT_CREATE_ROUTE + page
+    routerAddEditPage(routeUrl, data)
+    editRecipeButton.addEventListener('click', () => {
+        //redirect to edit page and populate the page
+        routerNavigateWrapper(routeUrl)
+    })
+    const home = 'home'
+    delRecipeButton.addEventListener('click', () => {
+        //redirect to edit page and populate the page
+        deleteRecipe(data._id)
+        routerNavigateWrapper(home)
+    })
     /** 
-    console.log(getTitle(data));
-    console.log(getYield(data));
-    console.log(getCategories(data));
-    console.log(getDescription(data));
-    console.log(getImage(data));
-    console.log(getOrganization(data));
-    console.log(getIngredients(data));
-    console.log(getInstructions(data));
-    document.getElementById("recipeTitle").innerHTML = getTitle(data);
-    //document.getElementById("tags").innerHTML=getCategories(data);
-    document.getElementById("recipeImage").setAttribute("src", getImage(data));
-    document.getElementById("description").innerHTML = getDescription(data);
-    document.getElementById("servingSize").innerHTML = getYield(data);
-    document.getElementById("author").innerHTML = getOrganization(data);
-    document.getElementById("cookTime").innerHTML = convertTime(
-        searchForKey(data, "totalTime")
-
-        
-    );
+    
     */
 
     /** 
