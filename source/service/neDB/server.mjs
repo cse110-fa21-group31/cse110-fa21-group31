@@ -30,6 +30,7 @@ fastify.get("/api", async (_, reply) => {
 */
 
 fastify.get("/api", async (request, reply) => {
+    console.log(request);
     if (request.query.id) {
         const recipe = await getRecipeById(request.query.id, recipeDB)
         console.log(recipe);
@@ -66,6 +67,14 @@ fastify.put("/api", async (request, reply) => {
         err.statusCode = 400;
         reply.send(err);
     } else {
+        let response = await updateRecipe(
+            body._id,
+            body,
+            recipeDB
+        );
+        console.log(response);
+        reply.send(response);
+        /*
         reply.send(
             await updateRecipe(
                 body._id,
@@ -73,6 +82,7 @@ fastify.put("/api", async (request, reply) => {
                 recipeDB
             )
         );
+        */
     }
 });
 

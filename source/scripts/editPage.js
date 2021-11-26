@@ -1,13 +1,17 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
 import { deleteRecipe, updateRecipeById } from "./APICalls.js"
-import { RECIPE_ROUTE } from "./util.js"
+import { RECIPE_ROUTE, TEMP_EDIT } from "./util.js"
 import { redirectRecipeDetail, routerNavigateWrapper } from "./index.js";
-const url = "http://127.0.0.1:3030/api"
+const url = window.location.href;
 //var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
-var pageId = 'zWLApN1kvM5MezgL'; // test page, delete if you want
+
+//let pageId = "2PHVAmmfeQgnyT7s" // ID for chicken stir fry
+const recipeId = url.substring(url.indexOf('#') + TEMP_EDIT.length + 1);
 let imageSrc = ''
 export default {}
 export function populateEditPage(recipeObj) {
+    console.log(window.location.href);
+    console.log("RECIPE ID AT START IS " + recipeId);
 
     console.log("editCreate.js init called");
 
@@ -41,7 +45,7 @@ export function populateEditPage(recipeObj) {
 }
 
 const deleteRecipeButton = async (event) => {
-    await deleteRecipe(pageId);
+    await deleteRecipe(recipeId);
 }
 
 
@@ -53,7 +57,7 @@ export const fillOutEditPage = (recipeObj) => {
     console.log("EDITTED RECIPE");
 
     // get recipe info and fill it out
-    // let response = await fetchRecipeById(pageId);
+    // let response = await fetchRecipeById(recipeId);
     //TODO: update the variable from response to recipeObj
     let response = recipeObj
     console.log(response);
@@ -164,10 +168,12 @@ const onUpdateRecipe = async (event) => {
         difficulty: formData.get('difficulty'),
         ingredientAmounts: ingrAmountArr,
         steps: stepsArr,
-        _id: pageId
+        _id: recipeId
     }
     console.log(newRecipe);
-    const updatedRecipe = await updateRecipeById(pageId, newRecipe);
+    console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
+    const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
+    console.log(updatedRecipe);
     //TODO: fix update API calls: not actually update so return undefined to us
     redirectRecipeDetail(newRecipe)
     const page = newRecipe._id;

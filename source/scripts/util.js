@@ -8,5 +8,6 @@ export const ELE_CLASS_PROFILE_IMAGE = "profileImage";
 export const RECIPE_ROUTE = "recipe/"
 export const USER_ROUTE = "user/"
 export const EDIT_CREATE_ROUTE = "editcreate/"
+export const TEMP_EDIT = "tempedit/"
 // TODO: change editcreate route name
 export const TEMP_EDIT_CREATE_ROUTE = "tempedit/"
