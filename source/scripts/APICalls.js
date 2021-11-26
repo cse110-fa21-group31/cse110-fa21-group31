@@ -1,4 +1,4 @@
-const url = "http://127.0.0.1:3030/api"
+export const url = "http://127.0.0.1:3030/api"
 
 /**
  * sends an HTTP request to the server to insert a single recipe to the database
@@ -14,7 +14,7 @@ export async function insertRecipe(recipe) {
             return data;
         })
         .catch((err) => {
-            console.err(err);
+            console.error(err);
         });
     return response;
 }
@@ -27,13 +27,35 @@ export async function deleteRecipe(id) {
     let queryURL = url + "?id=" + id;
     let response = await fetch(queryURL, {
         method: 'DEL',
+        "Access-Control-Allow-Origin": "*",
+        mode: 'no-cors'
     })
         .then((response) => response.json())
         .then((data) => {
             return data
         })
         .catch((err) => {
-            console.err('Error deleting recipe: ' + err.message);
+            console.error('Error deleting recipe: ' + err.message);
+        });
+    return response
+}
+
+/**
+ * sends an HTTP request to the server to fetch a single recipe
+ * @param {string} id the id of the desired recipe
+ */
+export async function fetchRecipeByPage(pageNum) {
+    let queryURL = url + "?page=" + pageNum;
+    let response = await fetch(queryURL, {
+        method: 'GET',
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            return data
+        })
+        .catch((err) => {
+            console.error('Error finding recipes: ' + err.message);
         });
     return response
 }
@@ -52,7 +74,7 @@ export async function fetchRecipeById(id) {
             return data
         })
         .catch((err) => {
-            console.err('Error finding recipe: ' + err.message);
+            console.error('Error finding recipe: ' + err.message);
         });
     return response
 }
@@ -63,7 +85,7 @@ export async function fetchRecipeById(id) {
  * @param {object} update the fields and corresponding values of the recipe to change
  */
 export async function updateRecipeById(id, update) {
-    let queryURL = url + "?id=" + id;
+    let queryURL = url;
     let response = await fetch(queryURL, {
         method: 'PUT',
         body: JSON.stringify(update)
@@ -73,7 +95,7 @@ export async function updateRecipeById(id, update) {
             return data
         })
         .catch((err) => {
-            console.err('Error updating recipe: ' + err.message);
+            console.error('Error updating recipe: ' + err.message);
         });
     return response
 }
@@ -100,7 +122,7 @@ export async function submitSearch(keywords, tags) {
             return data
         })
         .catch((err) => {
-            console.err('Error searching for recipes: ' + err.message);
+            console.error('Error searching for recipes: ' + err.message);
         });
     return response
 }

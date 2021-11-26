@@ -1,8 +1,10 @@
 /* Footer */
-a.footerCopyright{
+
+a.footerCopyright {
     font-size: 50%
 }
-  
+
+
 /* .topRight > li a {
     display: block;
     color: white;
@@ -23,7 +25,7 @@ ul.footer {
     font-family: 'OpenSans', sans-serif;
 }
 
-ul.footer > li a {
+ul.footer>li a {
     display: block;
     color: white;
     text-align: center;
@@ -31,7 +33,7 @@ ul.footer > li a {
     text-decoration: none;
 }
 
-ul.footer > li a.logo {
+ul.footer>li a.logo {
     border-right: 1px solid #bbb;
     border-left: 1px solid #bbb;
     color: #FF8C42;
@@ -39,7 +41,9 @@ ul.footer > li a.logo {
     font-weight: bold;
 }
 
+
 /* Nav bar */
+
 ul.topRight {
     list-style-type: none;
     margin: 0;
@@ -66,7 +70,7 @@ li a.loginSignup {
     text-decoration: none;
 }
 
-ul.topRight > li a.logo {
+ul.topRight>li a.logo {
     float: left;
     color: #FF8C42;
     font-family: 'Rammetto One', cursive;
@@ -82,6 +86,6 @@ li a.loginSignup:hover {
     background-color: #F9C784;
 }
 
-ul.topRight > li a.logo:hover {
+ul.topRight>li a.logo:hover {
     color: #F9C784;
 }

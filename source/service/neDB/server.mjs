@@ -1,5 +1,5 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
-import { createRecipe, deleteRecipe, updateRecipe, getAllRecipe,getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
+import { createRecipe, deleteRecipe, updateRecipe, getRecipeByPage, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
 import Datastore from "nedb";
 // the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
@@ -14,16 +14,16 @@ const fastify = Fastify({ logger: true });
 // const path = require('path')
 import Cors from 'fastify-cors';
 fastify.register(Cors, {
-    origin: true
+    origin: true,
+    methods: ['GET', 'PUT', 'POST', 'DEL']
 })
-
 const port = process.env.PORT || 3030;
 
 
 // Declare a route
 fastify.get("/", async () => {
     // recipe = request.body
-
+    //return index.html
     return { hello: "world" };
 });
 
@@ -37,9 +37,11 @@ fastify.get("/api", async (_, reply) => {
 
 fastify.get("/api", async (request, reply) => {
     if (request.query.id) {
+        const recipe = await getRecipeById(request.query.id, recipeDB)
+        console.log(recipe);
         reply.send(await getRecipeById(request.query.id, recipeDB));
     } else if (request.query.page) {
-        reply.send(await getAllRecipe(recipeDB));
+        reply.send(await getRecipeByPage(recipeDB, request.query.page));
     }
 });
 
@@ -57,11 +59,11 @@ fastify.post("/api", async (request, reply) => {
 });
 
 fastify.put("/api", async (request, reply) => {
-    if (
-        !request.body.name ||
-        !request.body.author ||
-        !request.body.steps ||
-        !request.body._id
+    let body = JSON.parse(request.body)
+    if (!body.name ||
+        !body.author ||
+        !body.steps ||
+        !body._id
     ) {
         const err = new Error();
         err.statusCode = 400;
@@ -69,7 +71,7 @@ fastify.put("/api", async (request, reply) => {
     } else {
         reply.send(
             await updateRecipe(
-                request.body._id,
+                body._id,
                 request.body,
                 recipeDB
             )

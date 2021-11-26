@@ -24,35 +24,6 @@ class RecipeClass extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
     }
-    /*
-    constructor(
-        recipeID,
-        name,
-        authorID,
-        datePosted,
-        coverImage,
-        cookingTime,
-        difficulty,
-        tags,
-        ingredients,
-        steps
-    ) {
-        super();
-        this.attachShadow({ mode: 'open' });
-        this.recipeID = recipeID;
-        this.name = name;
-        this.authorID = authorID;
-        this.datePosted = datePosted;
-        this.coverImage = coverImage;
-        this.cookingTime = cookingTime;
-        this.difficulty = difficulty;
-        this.tags = tags;
-        this.ingredients = ingredients;
-        this.steps = steps;
-
-        this.comments = [];
-    }
-    */
 
     // setters for all changable properties
     set data(data) {
@@ -117,27 +88,29 @@ class RecipeClass extends HTMLElement {
         const nameText = getName(data);
         const name = document.createElement('p');
         name.innerText = nameText;
-        //console.log(nameText);
+        // console.log(nameText);
 
         //Get tagssss
         const tagsData = getTags(data);
         const tags = document.createElement('div');
         tags.classList.add("tags");
-        console.log(tagsData);
+        // console.log(tagsData);
 
         const tagsList = document.createElement('ul');
         tagsList.classList.add("tagsList");
-        tagsList.setAttribute('id','tag');
-
-        for (let i = 0; i < tagsData.length; i++) {
-            const individualTag = document.createElement('li');
-            individualTag.classList.add("individualTag");
-            individualTag.innerText = tagsData[i];
-            tagsList.appendChild(individualTag);
+        tagsList.setAttribute('id', 'tag');
+        if (tagsData) {
+            for (let i = 0; i < tagsData.length; i++) {
+                const individualTag = document.createElement('li');
+                individualTag.classList.add("individualTag");
+                individualTag.innerText = tagsData[i];
+                tagsList.appendChild(individualTag);
+            }
         }
 
+
         // Add all of the elements to the card
-        tags.appendChild(tagsList);
+        if (tagsData) tags.appendChild(tagsList);
         card.appendChild(image);
         card.appendChild(name);
         card.appendChild(tags);
@@ -172,6 +145,7 @@ class RecipeClass extends HTMLElement {
     set tags(tags) {
         this.tags = tags;
     }
+
     addTag(tag) {
         this.tags.push(tag);
     }
@@ -182,6 +156,15 @@ class RecipeClass extends HTMLElement {
     set ingredients(ingredients) {
         this.ingredients = ingredients;
     }
+
+    set ingredientAmounts(ingredientAmounts) {
+        this.ingredientAmounts = ingredientAmounts;
+    }
+
+    set steps(steps) {
+        this.steps = steps;
+    }
+
 
     insertStep(step, stepIndex = this.steps.length) {
         this.steps.splice(stepIndex, 0, step);
@@ -233,6 +216,10 @@ class RecipeClass extends HTMLElement {
         return this.ingredients;
     }
 
+    get ingredientAmounts() {
+        return this.ingredientAmounts;
+    }
+
     get steps() {
         return this.steps;
     }
@@ -254,7 +241,7 @@ class RecipeClass extends HTMLElement {
  * @param {String} key the key that you are looking for in the object
  * @returns {*} the value of the found key
  */
- function searchForKey(object, key) {
+function searchForKey(object, key) {
     var value;
     Object.keys(object).some(function (k) {
         if (k === key) {
@@ -274,7 +261,7 @@ class RecipeClass extends HTMLElement {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the recipe title
  */
- function getName(data) {
+function getName(data) {
     if (data.name) return data.name;
     /*
     if (data['@graph']) {
@@ -286,7 +273,7 @@ class RecipeClass extends HTMLElement {
     }
     */
     return null;
-  }
+}
 
 /**
  * Extract the author of the recipe from the given recipe schema JSON obejct
@@ -313,7 +300,7 @@ function getDescription(data) {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the URL of the image as a string, otherwise null
  */
- function getImage(data) {
+function getImage(data) {
     if (data["image"]) return data["image"];
     else return null;
 }
@@ -323,7 +310,7 @@ function getDescription(data) {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns tags as a array, otherwise null
  */
- function getTags(data) {
+function getTags(data) {
     if (data.tags) return data.tags;
     else return null;
 }
@@ -374,7 +361,7 @@ function getSteps(data) {
                 }
                 if (
                     data["@graph"][i]["recipeInstructions"][0][
-                        "itemListElement"
+                    "itemListElement"
                     ]
                 ) {
                     const instructionArr = [];
