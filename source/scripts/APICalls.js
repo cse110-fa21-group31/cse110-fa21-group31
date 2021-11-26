@@ -14,7 +14,7 @@ export async function insertRecipe(recipe) {
             return data;
         })
         .catch((err) => {
-            console.error(err);
+            //console.error(err);
         });
     return response;
 }
@@ -35,7 +35,7 @@ export async function deleteRecipe(id) {
             return data
         })
         .catch((err) => {
-            console.error('Error deleting recipe: ' + err.message);
+            //console.error('Error deleting recipe: ' + err.message);
         });
     return response
 }
@@ -54,7 +54,7 @@ export async function fetchRecipeById(id) {
             return data
         })
         .catch((err) => {
-            console.error('Error finding recipe: ' + err.message);
+            //console.error('Error finding recipe: ' + err.message);
         });
     return response
 }
@@ -66,17 +66,23 @@ export async function fetchRecipeById(id) {
  */
 export async function updateRecipeById(id, update) {
     let queryURL = url;
+    console.log(update);
+    console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
             method: 'PUT',
             body: JSON.stringify(update)
+
         })
         .then((response) => response.json())
         .then((data) => {
+            console.log(data);
             return data
+
         })
         .catch((err) => {
-            console.error('Error updating recipe: ' + err.message);
+            //console.error('Error updating recipe: ' + err.message);
         });
+
     return response
 }
 
@@ -102,7 +108,7 @@ export async function submitSearch(keywords, tags) {
             return data
         })
         .catch((err) => {
-            console.error('Error searching for recipes: ' + err.message);
+            //console.error('Error searching for recipes: ' + err.message);
         });
     return response
 }

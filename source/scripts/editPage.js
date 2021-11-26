@@ -5,9 +5,18 @@ import { fetchRecipeById, deleteRecipe, updateRecipeById } from "./APICalls.js"
 
 const url = "http://127.0.0.1:3030/api"
     //var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
-var pageId = 'zWLApN1kvM5MezgL'; // test page, delete if you want
+var pageId = 'FDZwXzmQa5J7tYbn'; // test page, delete if you want
 function init() {
     console.log("editCreate.js init called");
+
+    /**
+     let response = await fetch(url + "?id=" + pageId, {
+        method: 'DEL'
+    })
+    .catch((err) => {
+        //console.error('Error updating recipe: ' + err.message);
+    });
+     */
 
     editRecipe();
 
@@ -39,6 +48,7 @@ function init() {
 }
 
 const deleteRecipeButton = async(event) => {
+    console.log('deleting');
     await deleteRecipe(pageId);
 }
 
@@ -52,6 +62,7 @@ const editRecipe = async(event) => {
 
     // get recipe info and fill it out
     let response = await fetchRecipeById(pageId);
+    console.log(response);
 
     console.log(response);
     // get ingredients from data
@@ -145,24 +156,24 @@ const onSubmitRecipe = async(event) => {
     }
 
     const recipeCard = document.createElement('recipe-card');
-    console.log(formData.get('picture'));
+    //console.log(formData.get('picture'));
     // CREATE NEW RECIPE
     let newRecipe = {
-        name: formData.get('name'),
-        datePosted: Date.now(),
-        image: formData.get('picture'),
-        author: "HZRfg63gUu5M8S0F",
-        description: formData.get('description'),
-        tags: strTags,
-        servingSize: formData.get('servingSize'),
-        cookTime: formData.get('cookTime'),
-        ingredients: ingArr,
-        difficulty: formData.get('difficulty'),
-        ingredientAmounts: ingrAmountArr,
-        steps: stepsArr,
-        _id: pageId
-    }
-    console.log(newRecipe);
+            name: formData.get('name'),
+            datePosted: Date.now(),
+            image: formData.get('picture'),
+            author: "HZRfg63gUu5M8S0F", // TODO: DYNAMICALLY GET AUTHORID
+            description: formData.get('description'),
+            tags: strTags,
+            servingSize: formData.get('servingSize'),
+            cookTime: formData.get('cookTime'),
+            ingredients: ingArr,
+            difficulty: formData.get('difficulty'),
+            ingredientAmounts: ingrAmountArr,
+            steps: stepsArr,
+            _id: pageId
+        }
+        //console.log(newRecipe);
     await updateRecipeById(pageId, newRecipe);
 };
 

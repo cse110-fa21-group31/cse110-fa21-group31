@@ -48,7 +48,7 @@ fastify.get("/api", async(request, reply) => {
 });
 
 fastify.post("/api", async(request, reply) => {
-    // console.log(JSON.parse(request.body))
+    console.log(JSON.parse(request.body))
     let body = JSON.parse(request.body)
     if (!body.name || !body.author || !body.steps) {
         const err = new Error();
@@ -62,6 +62,8 @@ fastify.post("/api", async(request, reply) => {
 
 fastify.put("/api", async(request, reply) => {
     let body = JSON.parse(request.body)
+    console.log(body);
+
     if (!body.name ||
         !body.author ||
         !body.steps ||
@@ -74,7 +76,7 @@ fastify.put("/api", async(request, reply) => {
         reply.send(
             await updateRecipe(
                 body._id,
-                request.body,
+                body,
                 recipeDB
             )
         );
@@ -83,6 +85,7 @@ fastify.put("/api", async(request, reply) => {
 
 fastify.delete("/api", async(request, reply) => {
     reply.send(await deleteRecipe(request.query.id, recipeDB));
+
 });
 
 /****************** User APIs ************************/

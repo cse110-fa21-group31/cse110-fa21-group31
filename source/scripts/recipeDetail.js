@@ -5,28 +5,30 @@
 const url = "http://127.0.0.1:3030/api"
 window.addEventListener("DOMContentLoaded", init);
 
-import {fetchRecipeById} from "./APICalls.js"
+import { fetchRecipeById } from "./APICalls.js"
 
 // THESE SHOULD BE GIVEN VIA API
 const recipeIDs = [
-    "uYaCV6U4XGfQHYg2"
+    "FDZwXzmQa5J7tYbn"
 ]
 const recipeData = {};
 
 async function init() {
-    let recipeID = 'VZsAA6HuzytdIQT2';
-    let recipe = fetchRecipeById(recipeID);
+    let recipeID = 'FDZwXzmQa5J7tYbn';
+    let recipe = await fetchRecipeById(recipeID);
 
     fillOutRecipe(recipe);
-    fetchRecipes();
+    //fetchRecipes();
 }
 
-async function fetchRecipes(){
-    for(let id of recipeIDs){
+/** 
+async function fetchRecipes() {
+    for (let id of recipeIDs) {
         let recipe = await fetchRecipeById(id);
         recipeData[id] = recipe;
     }
 }
+*/
 
 /**
  * Generates the <recipeCard> elements from the fetched recipes and
@@ -62,8 +64,9 @@ function createRecipeCards() {
 
 function fillOutRecipe(data) {
     document.getElementById("recipeTitle").innerHTML = data.name;
+
     document.getElementById("tags").innerHTML = data.tags;
-    document.getElementById("recipeImage").setAttribute("src", data.image);
+    //document.getElementById("recipeImage").setAttribute("src", data.image);
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
     document.getElementById("description").innerHTML = data.description;
     document.getElementById("servingSize").innerHTML = data.servingSize;
@@ -71,6 +74,7 @@ function fillOutRecipe(data) {
     document.getElementById("cookTime").innerHTML = data.cookTime;
     document.getElementById("ingredients").innerHTML = data.ingredients;
     document.getElementById("steps").innerHTML = data.steps;
+
 
     /** 
     console.log(getTitle(data));

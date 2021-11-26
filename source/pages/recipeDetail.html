@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>RecipeDetail</title>
-        <meta charset="utf-8">
-        <script src="../scripts/recipeDetail.js"></script>
-        <link rel="stylesheet" href="/source/assets/styles/baseStyle.css">
-        <link rel="stylesheet" href="/source/assets/styles/cards.css">
-    </head>
-    <body>
-        <div class="navBar">
-            <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
-        </div>
-        <!-- Displaying recipe details-->
-        <div id="recipeDetail">
 
-            <!-- Displaying recipe title, creation date, author-->
-                <p id="recipeTitle">Recipe title</p>
-                <p id="date">The Date of Creation</p>
-                <p id="author">The Author</p>
+<head>
+    <title>RecipeDetail</title>
+    <meta charset="utf-8">
+    <script type="module" src="../scripts/recipeDetail.js"></script>
+    <link rel="stylesheet" href="/source/assets/styles/baseStyle.css">
+    <link rel="stylesheet" href="/source/assets/styles/cards.css">
+</head>
 
-                <!-- Displaying recipe image-->
-                <img id="recipeImage" src="" alt="" width="500" height="300">
+<body>
+    <div class="navBar">
+        <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+    </div>
+    <!-- Displaying recipe details-->
+    <div id="recipeDetail">
 
-                <!-- Displaying recipe description-->
-                <div id="description">Description</div>
+        <!-- Displaying recipe title, creation date, author-->
+        <p id="recipeTitle">Recipe title</p>
+        <p id="date">The Date of Creation</p>
+        <p id="author">The Author</p>
 
-                <!-- Displaying serving size-->
-                <p id ="servingSize">servingSize</p>
-                
-                <!-- Displaying recipe tags-->
+        <!-- Displaying recipe image-->
+        <img id="recipeImage" src="" alt="" width="500" height="300">
 
-                <label for="tags">Tags:</label>
-                <div id="tags">
-                    <ul id="tag" class="tagsList"></ul>
+        <!-- Displaying recipe description-->
+        <div id="description">Description</div>
 
-                </div>
+        <!-- Displaying serving size-->
+        <p id="servingSize">servingSize</p>
 
-                <!-- Displaying recipe cooktime-->
-                <label for="cookTime">Cook Time:</label>
-                <p id="cookTime">cook Time</p>
+        <!-- Displaying recipe tags-->
 
-                <!-- Displaying recipe ingredients-->
-                <div class="ingredients" id="ingredients">
-                    <label for="ingredients">Ingredients:</label>
-                    <ul id="ingr" class="ingredientsList"></ul>
-                </div>
-
-                <!-- Displaying recipe steps-->
-                <div class="steps" id="steps">
-                    <label for="steps">Steps:</label>
-                    <ol id="stps" class="ingredientsList"></ol>
-                </div>
+        <label for="tags">Tags:</label>
+        <div id="tags">
+            <ul id="tag" class="tagsList"></ul>
 
         </div>
-    </body>
+
+        <!-- Displaying recipe cooktime-->
+        <label for="cookTime">Cook Time:</label>
+        <p id="cookTime">cook Time</p>
+
+        <!-- Displaying recipe ingredients-->
+        <div class="ingredients" id="ingredients">
+            <label for="ingredients">Ingredients:</label>
+            <ul id="ingr" class="ingredientsList"></ul>
+        </div>
+
+        <!-- Displaying recipe steps-->
+        <div class="steps" id="steps">
+            <label for="steps">Steps:</label>
+            <ol id="stps" class="ingredientsList"></ol>
+        </div>
+
+    </div>
+</body>
+
 </html>

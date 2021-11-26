@@ -15,7 +15,7 @@ function init() {
     //addStepButton.addEventListener('click', appendRow);
 
     // Submitting the entire recipe
-
+    console.log(document.getElementsByName('picture')[0].files);
     const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
     //document.getElementById("addIngr").onclick = appendIngredient();
@@ -71,13 +71,19 @@ const onSubmitRecipe = async(event) => {
     }
 
     const recipeCard = document.createElement('recipe-card');
-    console.log(formData.get('picture'));
+    //console.log(document.getElementsByName('picture')[0].files[0]);
+    let pic = null;
+    const img = null
+    if (document.getElementsByName('picture')[0].files.length > 0) {
+        pic = document.getElementsByName('picture')[0].files[0];
+        img = window.URL.createObjectURL(fileObj);
+    }
     // CREATE NEW RECIPE
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
-        image: formData.get('picture'),
-        author: "HZRfg63gUu5M8S0F",
+        image: img,
+        author: "HZRfg63gUu5M8S0F", // TODO: DYNAMICALLY GET AUTHORID
         description: formData.get('description'),
         tags: strTags,
         servingSize: formData.get('servingSize'),
