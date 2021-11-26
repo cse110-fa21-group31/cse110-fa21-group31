@@ -2,74 +2,32 @@
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
 
 // RecipeExpand.js
-const url = "http://127.0.0.1:3030/api"
-window.addEventListener("DOMContentLoaded", init);
-
-import {fetchRecipeById} from "./APICalls.js"
-
-// THESE SHOULD BE GIVEN VIA API
-const recipeIDs = [
-    "uYaCV6U4XGfQHYg2"
-]
+import { RECIPE_ROUTE } from "./util.js"
+import { fetchRecipeById } from "./APICalls.js"
 const recipeData = {};
 
-async function init() {
-    let recipeID = 'VZsAA6HuzytdIQT2';
-    let recipe = fetchRecipeById(recipeID);
-
-    fillOutRecipe(recipe);
-    fetchRecipes();
-}
-
-async function fetchRecipes(){
-    for(let id of recipeIDs){
-        let recipe = await fetchRecipeById(id);
-        recipeData[id] = recipe;
-    }
-}
-
 /**
- * Generates the <recipeCard> elements from the fetched recipes and
- * appends them to the page
+ * Populates the recipe detail pages by fetching recipe json and filling in 
+ * properties in html components. 
  */
-function createRecipeCards() {
-    // Makes a new recipe card
-    const recipeCard = document.createElement('recipeCard');
-    // Inputs the data for the card. This is just the first recipe in the recipes array,
-    // being used as the key for the recipeData object
-    recipeCard.data = recipeData[recipeIDs[0]];
-
-    for (let id of recipeIDs) {
-        const recipeCard = document.createElement('recipe-card');
-        console.log("Created recipe-card");
-        recipeCard.data = recipeData[id];
-        console.log(recipeCard.data);
-        /*
-        const page = recipeData[json]['page-name'];
-        router.addPage(page, function () {
-          document.querySelector('.section--recipe-cards').classList.remove('shown');
-          document.querySelector('.section--recipe-expand').classList.add('shown');
-          document.querySelector('recipe-expand').data = recipeData[json];
-        });
-        if (i > 2) {
-          recipeCard.classList.add('hidden');
-        }
-        */
-        //bindRecipeCard(recipeCard, page);
-        document.querySelector('.myRecipeCardGridContainer').appendChild(recipeCard);
-    }
+export async function populateRecipeDetail() {
+    const url = parent.document.URL;
+    let recipeID = url.substring(url.indexOf('#') + RECIPE_ROUTE.length + 1, url.length);
+    // let recipeID = "AJlpmnCbp6gry18v";
+    let recipe = await fetchRecipeById(recipeID);
+    fillOutRecipe(recipe);
 }
 
-function fillOutRecipe(data) {
+export function fillOutRecipe(data) {
     document.getElementById("recipeTitle").innerHTML = data.name;
-    document.getElementById("tags").innerHTML = data.tags;
+    if (data.tags) document.getElementById("tags").innerHTML = data.tags;
     document.getElementById("recipeImage").setAttribute("src", data.image);
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
-    document.getElementById("description").innerHTML = data.description;
-    document.getElementById("servingSize").innerHTML = data.servingSize;
+    if (data.description) document.getElementById("description").innerHTML = data.description;
+    if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;
     document.getElementById("author").innerHTML = data.author;
-    document.getElementById("cookTime").innerHTML = data.cookTime;
-    document.getElementById("ingredients").innerHTML = data.ingredients;
+    if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
+    if (data.ingredients) document.getElementById("ingredients").innerHTML = data.ingredients;
     document.getElementById("steps").innerHTML = data.steps;
 
     /** 
