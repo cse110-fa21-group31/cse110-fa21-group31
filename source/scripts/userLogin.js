@@ -14,7 +14,8 @@ import {
     SIGN_OUT_BUTTON_ID,
 } from "./util.js";
 
-import { bindUserProfile } from "./index.js";
+import { populateUserInfoPage } from './userInfo.js'
+import { bindUserProfile, setGlobalUserData, clearGlobalUserData } from "./index.js";
 
 // Constant variables
 const DISPLAY_NONE = "none";
@@ -74,6 +75,8 @@ function onSignIn(googleUser) {
     imageWrapper.append(image);
     profileImage.append(imageWrapper);
     bindUserProfile(profile);
+    setGlobalUserData(profile);
+    populateUserInfoPage()
 }
 
 /**
@@ -98,5 +101,6 @@ async function userSignedOut() {
     const auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log("User signed out.");
+        clearGlobalUserData();
     });
 }
