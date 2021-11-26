@@ -9,7 +9,7 @@ const recipeData = {};
 
 /**
  * 
- * @param {*} profile 
+ * @param {*} profile user profile object defined in wiki
  */
 export const populateUserInfoPage = (profile) => {
     const createPageUrl = EDIT_CREATE_ROUTE

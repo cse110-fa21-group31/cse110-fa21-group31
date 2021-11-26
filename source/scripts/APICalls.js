@@ -1,6 +1,13 @@
 export const url = "http://127.0.0.1:3030/api"
 export default {}
 /**
+ * 
+ * want the return json object from server:
+ * const response = await <api call>
+ * Otherwise 
+ * (await) <api call>
+ */
+/**
  * sends an HTTP request to the server to insert a single recipe to the database
  * @param {recipe} recipe the recipe object to insert
  */

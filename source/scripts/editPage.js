@@ -117,7 +117,10 @@ export const fillOutEditPage = (recipeObj) => {
     */
 };
 
-
+/**
+ * 
+ * @param {*} event 
+ */
 const onUpdateRecipe = async (event) => {
     event.preventDefault();
     console.log("SUBMITTED NEW RECIPE");
