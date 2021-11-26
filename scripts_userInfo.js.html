@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: scripts/indexSearch.js</title>
+    <title>JSDoc: Source: scripts/userInfo.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: scripts/indexSearch.js</h1>
+    <h1 class="page-title">Source: scripts/userInfo.js</h1>
 
     
 
@@ -26,21 +26,75 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>//This file is when the user searches a keyword in index.html page
-window.addEventListener("DOMContentLoaded", init);
-export default {}
-import { submitSearch } from "./APICalls.js"
+            <pre class="prettyprint source linenums"><code>/**
+ * This is the skeleton page to populate the user info page based on user profile json object
+ */
+
+import { routerAddCreatePage, routerNavigateWrapper } from "./index.js";
+import { EDIT_CREATE_ROUTE, USER_ROUTE } from "./util.js"
+// import { fetchUserById } from "./APICalls.js"
+const recipeData = {};
 
 /**
- * initializes search functionality through the frontend
+ * 
+ * @param {*} profile 
  */
-async function init() {
-    let searchBar = document.querySelector("#searchBar");
-    let searchButton = document.querySelector("#searchButton");
-    searchButton.addEventListener("click", function () {
-        // TODO: Add a tags field to the search bar and make use of it
-        submitSearch(searchBar.value);
-    });
+export const populateUserInfoPage = (profile) => {
+    const createPageUrl = EDIT_CREATE_ROUTE
+    //redirect to the create page
+    const createRecipePageBut = document.getElementById("createRecipePageButton")
+    routerAddCreatePage(createPageUrl)
+    createRecipePageBut.addEventListener('click', () => {
+        routerNavigateWrapper(createPageUrl)
+    })
+}
+
+/**
+ * Populates the recipe detail pages by fetching recipe json and filling in 
+ * properties in html components. 
+ */
+// export async function populateRecipeDetail() {
+//     const url = parent.document.URL;
+//     let recipeID = url.substring(url.indexOf('#') + RECIPE_ROUTE.length + 1, url.length);
+//     // let recipeID = "AJlpmnCbp6gry18v";
+//     let recipe = await fetchRecipeById(recipeID);
+//     fillOutRecipe(recipe);
+// }
+
+
+export function fillOutProfile(profile) {
+    document.getElementById("recipeTitle").innerHTML = data.name;
+    if (data.tags) document.getElementById("tags").innerHTML = data.tags;
+    document.getElementById("recipeImage").setAttribute("src", data.image);
+    document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
+    if (data.description) document.getElementById("description").innerHTML = data.description;
+    if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;
+    document.getElementById("author").innerHTML = data.author;
+    if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
+    if (data.ingredients) document.getElementById("ingredients").innerHTML = data.ingredients;
+    document.getElementById("steps").innerHTML = data.steps;
+
+    function convertTime(time) {
+        let timeStr = '';
+
+        // Remove the 'PT'
+        time = time.slice(2);
+
+        let timeArr = time.split('');
+        if (time.includes('H')) {
+            for (let i = 0; i &lt; timeArr.length; i++) {
+                if (timeArr[i] == 'H') return `${timeStr} hr`;
+                timeStr += timeArr[i];
+            }
+        } else {
+            for (let i = 0; i &lt; timeArr.length; i++) {
+                if (timeArr[i] == 'M') return `${timeStr} min`;
+                timeStr += timeArr[i];
+            }
+        }
+
+        return '';
+    }
 }</code></pre>
         </article>
     </section>

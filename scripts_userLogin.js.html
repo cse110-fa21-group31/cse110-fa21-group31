@@ -33,7 +33,7 @@
  * sign-in and log-out
  * Dependency: navBarWithGoogle.html
  */
-
+export default {}
 import {
     ELE_CLASS_PROFILE_IMAGE,
     ELE_ID_PROFILE,
@@ -41,7 +41,9 @@ import {
     SIGN_IN_BUTTON_ID,
     SIGN_OUT_BUTTON_ID,
 } from "./util.js";
-import { userSignedIn, userSignedOut } from "../service/user/googleLogin.js";
+
+import { populateUserInfoPage } from './userInfo.js'
+import { bindUserProfile, setGlobalUserData, clearGlobalUserData } from "./index.js";
 
 // Constant variables
 const DISPLAY_NONE = "none";
@@ -62,10 +64,14 @@ window.signOut = signOut;
  * @param {*} googleUser User profile provided by Google sign-in API.
  */
 function onSignIn(googleUser) {
-    var profile = {
+    // TODO: fake user for now, dynamically get user info here. 
+    const profile = {
         name: googleUser.getBasicProfile().getName(),
         imageURL: googleUser.getBasicProfile().getImageUrl(),
         email: googleUser.getBasicProfile().getEmail(),
+        _id: "MMAfv3oCQDiL4u10",
+        savedRecipe: ["VZsAA6HuzytdIQT2"],
+        myRecipe: ["AJlpmnCbp6gry18v", "uYaCV6U4XGfQHYg2"],
     };
 
     console.log("User login activity caught by frontend:");
@@ -74,9 +80,6 @@ function onSignIn(googleUser) {
     console.log("Name: " + profile.name);
     console.log("Image URL: " + profile.imageURL);
     console.log("Email: " + profile.email);
-
-    // Send data to backend: service/user/googleLogin.js
-    userSignedIn(profile);
 
     // When logged in, show profile image and sign-out button, remove sign-in
     // button
@@ -93,12 +96,15 @@ function onSignIn(googleUser) {
     // profile page
     var imageWrapper = document.createElement(HTML_ELE_A);
     imageWrapper.id = ELE_ID_PROFILE_WRAPPER;
-    imageWrapper.onclick = () => {
-        alert("Test: Profile Picture Clicked");
-    };
+    //TODO: call backend getUserByEmail
+    const userObj = {
 
+    }
     imageWrapper.append(image);
     profileImage.append(imageWrapper);
+    bindUserProfile(profile);
+    setGlobalUserData(profile);
+    populateUserInfoPage()
 }
 
 /**
@@ -114,11 +120,18 @@ async function signOut() {
     // sign-out button
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_BLOCK;
     document.getElementById(SIGN_OUT_BUTTON_ID).style.display = DISPLAY_NONE;
-    var profileImage = document.getElementById(ELE_ID_PROFILE);
+    const profileImage = document.getElementById(ELE_ID_PROFILE);
     profileImage.removeChild(profileImage.firstChild);
     profileImage.style.display = DISPLAY_NONE;
 }
-</code></pre>
+
+async function userSignedOut() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log("User signed out.");
+        clearGlobalUserData();
+    });
+}</code></pre>
         </article>
     </section>
 
@@ -128,13 +141,13 @@ async function signOut() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getHelloWorld">getHelloWorld</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fillOutProfile">fillOutProfile</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#populateRecipeDetail">populateRecipeDetail</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Nov 26 2021 07:37:02 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Nov 26 2021 17:47:52 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
