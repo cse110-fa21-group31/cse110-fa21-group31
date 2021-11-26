@@ -16,5 +16,6 @@
   "plugins": ["jest"],
   "rules": {
     "no-unused-vars": 0
-  }
+  },
+  "ignorePatterns": ["**/admin/*", "**/cypress/*", "**/specs/*"]
 }

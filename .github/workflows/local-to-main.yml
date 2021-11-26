@@ -77,6 +77,8 @@ jobs:
         VALIDATE_MARKDOWN: false
         VALIDATE_NATURAL_LANGUAGE: false
         VALIDATE_ENV: false
+        IGNORE_GITIGNORED_FILES: true
+        IGNORE_GENERATED_FILES: true
 
   formatting:
 
