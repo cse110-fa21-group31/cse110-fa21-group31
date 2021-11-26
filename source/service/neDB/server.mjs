@@ -1,11 +1,12 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
 import { createRecipe, deleteRecipe, updateRecipe, getRecipeByPage, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
+import { USER_DB_PATH, RECIPE_DB_PATH } from "../util.js";
 import Datastore from "nedb";
+
 // the following are "collection" object for the users, recipes, and tags tables
-const USER_DB_PATH = "source/service/.data/users";
 const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
-const RECIPE_DB_PATH = "source/service/.data/recipes"
 const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
+
 
 // Require the framework and instantiate it
 import Fastify from 'fastify';
@@ -19,15 +20,6 @@ fastify.register(Cors, {
 })
 const port = process.env.PORT || 3030;
 
-
-
-/*
-fastify.get("/api", async (_, reply) => {
-    const fs = require("fs");
-    const stream = fs.createReadStream("./index.html");
-    reply.type("text/html").send(stream);
-});
-*/
 
 fastify.get("/api", async (request, reply) => {
     if (request.query.id) {

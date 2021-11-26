@@ -1,7 +1,6 @@
 import { createRecipe } from "./interface.mjs";
-
+import { RECIPE_DB_PATH } from "../util.js";
 import Datastore from "nedb";
-const RECIPE_DB_PATH = "source/service/.data/recipes"
 const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 
 let recipes = [
