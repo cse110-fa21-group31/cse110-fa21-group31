@@ -1,50 +1,43 @@
 // Router.js
-// Taken from Lab 7
+
 export class Router {
-    static routes = {};
-
     /**
-     * Sets up the home function, the page name should always be 'home', which
-     * is why no page name variable is passed in.
-     * @param {Function} homeFunc The function to run to set the home route
-     *                            visually
-     */
-    constructor(homeFunc) {
-        this.home = homeFunc;
+     * Sets up the home function. The home function will always be in this.home
+     */ 
+    constructor(homeCallback) {
+        this.home = homeCallback;
     }
 
     /**
-     * Adds a page name & function so to the router so that the function
-     * can be called later when the page is passed in
-     * @param {String} page The name of the page to route to (this is used
-     *                      as the page's hash as well in the URL)
-     * @param {Function} pageFunc The function to run when the page is called
+     * Associate a callback to a page name.
+     * If the page is visited, the callback will be called.
+     * @param {string} pageName - The name of the page.
+     * @param {function} callback - The callback to call when the page is visited.
      */
-    addPage(page, pageFunc) {
-        this[page] = pageFunc;
+    setPage(pageName, callback) {
+        this[pageName] = callback;
     }
 
     /**
-     * Changes the page visually to the page that has been passed in. statePopped
-     * is used to avoid pushing a new history state on back/forward button presses
-     * @param {String} page The name of the page to route to
-     * @param {Boolean} statePopped True if this function is being called from a
-     *                              'popstate' event instead of a normal card click
+     * Call the callback associated with pageName.
+     * This should usually result in a visual change.
+     * @param {string} pageName - The name of the page to 'navigate' to (call its callback function).
+     * @param {boolean} statePopped - Set to true if you don't want to mutate the history stack.
      */
-    navigate(page, statePopped) {
-        console.log(`navigate() function called, requested page: ${page}`);
-        if (typeof this[page] === 'function') {
+    navigate(pageName, statePopped) {
+        console.log(`navigate() function called, requested pageName: ${pageName}`);
+        if (typeof this[pageName] === 'function') {
             let hash;
-            if (page === 'home') {
+            if (pageName === 'home') {
                 hash = '';
             } else {
-                hash = `#${page}`;
+                hash = `#${pageName}`;
             }
             if ((!statePopped) && (window.location.hash != hash)) {
                 const oldHash = window.location.hash;
-                history.pushState({ page }, page, window.location.href.replace(oldHash, '') + hash);
+                history.pushState({ pageName }, pageName, window.location.href.replace(oldHash, '') + hash);
             }
-            this[page]();
+            this[pageName]();
         }
     }
 }
