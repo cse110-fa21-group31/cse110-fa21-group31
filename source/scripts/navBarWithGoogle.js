@@ -38,7 +38,13 @@ function createHead() {
     googleScript1.async = true;
     
     let googleScript2 = document.createElement('script');
-    googleScript2.src = "source/scripts/userLogin.js";
+    if(window.location.href.endsWith("index.html")) {
+        googleScript2.src = "/source/scripts/userLogin.js";
+    }
+    else {
+        googleScript2.src = "../scripts/userLogin.js";
+    }
+    
     googleScript2.type = "module";
 
     head.appendChild(googleMeta);
@@ -48,7 +54,7 @@ function createHead() {
 
 function createLandingHeader() {
 
-    let landingHeader = document.getElementById("landingHeader");
+    let landingHeader = document.getElementById("header");
 
     let navBar = document.createElement("nav");
     navBar.id = "navbar";
@@ -63,7 +69,7 @@ function createLandingHeader() {
     //Logo nav link button
     let logo = document.createElement("a");
     logo.className = "logo";
-    logo.href="/cse110-fa21-group31/index.html";
+    logo.href="/source/pages/homePage.html";
     logo.innerText="Olive U";
     navLogo.appendChild(logo);
 

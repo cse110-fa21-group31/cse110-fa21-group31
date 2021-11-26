@@ -34,7 +34,7 @@ window.signOut = signOut;
  * @param {*} googleUser User profile provided by Google sign-in API.
  */
 function onSignIn(googleUser) {
-    var profile = {
+    let profile = {
         name: googleUser.getBasicProfile().getName(),
         imageURL: googleUser.getBasicProfile().getImageUrl(),
         email: googleUser.getBasicProfile().getEmail(),
@@ -54,25 +54,27 @@ function onSignIn(googleUser) {
     // button
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_NONE;
     document.getElementById(SIGN_OUT_BUTTON_ID).style.display = DISPLAY_BLOCK;
-    var profileImage = document.getElementById(ELE_ID_PROFILE);
+    let profileImage = document.getElementById(ELE_ID_PROFILE);
     profileImage.style.display = DISPLAY_BLOCK;
     // Display profile image
-    var image = document.createElement(HTML_ELE_IMG);
+    let image = document.createElement(HTML_ELE_IMG);
     image.src = profile.imageURL;
     image.classList.add(ELE_CLASS_PROFILE_IMAGE);
     image.referrerpolicy = IMG_NO_REFERRER;
     // Create a wrapper of type <a> for image, in preparing for linking to
     // profile page
-    var imageWrapper = document.createElement(HTML_ELE_A);
+    let imageWrapper = document.createElement(HTML_ELE_A);
     imageWrapper.id = ELE_ID_PROFILE_WRAPPER;
     imageWrapper.onclick = () => {
-        alert("Test: Profile Picture Clicked");
+        window.location.replace("/source/pages/userInfo.html");
     };
 
     imageWrapper.append(image);
     profileImage.append(imageWrapper);
 
-    window.location.replace("/source/pages/homePage.html");
+    if (window.location.href.endsWith("index.html")) {
+        window.location.replace("/source/pages/homePage.html");
+    }
 }
 
 /**
