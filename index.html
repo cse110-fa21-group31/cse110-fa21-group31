@@ -11,12 +11,16 @@
     <script type="module" src='/source/scripts/indexSearch.js'></script>
     <script src="/source/scripts/classes/recipeClass.js" type="module"></script>
     <script src="/source/scripts/recipeDetail.js" type="module"></script>
+    <script src="/source/scripts/createPage.js" type="module"></script>
+    <script src="/source/scripts/editPage.js" type="module"></script>
     <script src="/source/scripts/router/Router.js" type="module"></script>
     <script src="/source/scripts/index.js" type="module"></script>
     <meta name="google-signin-client_id"
         content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script src="/source/scripts/userLogin.js" type="module"></script>
+    <script src="/source/scripts/userInfo.js" type="module"></script>
+
 
     <style>
         .hidden {
@@ -148,7 +152,7 @@
                 <img id="profile" src="../assets/profile.png" width=80 height=80 />
                 <h1 id="userName"> Name </h1>
                 <h2 id="userEmail"> Email </h2>
-                <button id="createRecipe" type="button"> New Recipe </button>
+                <button id="createRecipePageButton" type="button"> New Recipe </button>
                 <button id="userSettings" type="button"> Account Settings </button>
                 <button id="logout" type="button"> Logout </button>
             </div>
@@ -194,6 +198,97 @@
                 </div>
             </div>
         </div>
+        </div>
+    </section>
+
+    <!-- recipe create page -->
+    <section id="createRecipe">
+        <div class="recipeEdit">
+            <form id="recipeForm" onSubmit=formSubmit(event)>
+
+                <div id="name" class="formItem">
+                    <label for="name">Recipe Name: *</label>
+                    <input type="text" name="name" id="name" required>
+                </div>
+
+                <div id="picture" class="formItem">
+                    <label for="picture">Picture:</label>
+                    <input type="file" name="picture" id="picture">
+                </div>
+
+
+                <div id="description" class="formItem">
+                    <label for="description">Description:</label>
+                    <textarea name="description" id="descriptionText"></textarea>
+                </div>
+
+                <!-- Tags will be sent to the backend as a big comma delimited string -->
+                <div id="tags" class="formItem">
+                    <label for="tags">Tags:</label>
+                    <input type="text" name="tags" id="tags">
+                </div>
+
+
+                <div id="cookTime" class="formItem">
+                    <label for="cookTime">Cook Time:</label>
+                    <input type="text" name="cookTime" id="prepTime">
+                </div>
+
+                <div id="servingSize" class="formItem">
+                    <label for="servingSize">Serving Size:</label>
+                    <input type="text" name="servingSize" id="servingSize">
+                </div>
+
+                <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
+                <div id="difficulty" class="formItem">
+                    <label for="difficulty">Difficulty:</label>
+                    <select name="difficulty" id="difficulty">
+                        <option value="1">1 star</option>
+                        <option value="2">2 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="4">4 stars</option>
+                        <option value="5">5 stars</option>
+                    </select>
+                </div>
+
+                <div id="ingredients" class="formItem">
+                    <label for="ingredients">Ingredients:</label>
+
+                    <div id="addIngredients">
+                        <input type="button" id="addIngr" value="Add Ingredient"></button>
+                        <input type="button" id="delIngr" value="Delete Ingredient"></button>
+                    </div>
+                    <div id="addIngredients" class='float-container'>
+                        <div class='float-child'>
+                            <div id="newIngredientId"></div>
+                        </div>
+                        <div class='float-child'>
+                            <div id="newIngredientAmountId"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="steps" class="formItem">
+                    <label for="steps">Steps:</label>
+                    <div id="addSteps">
+                        <input type="button" id="addStep" value="Add Step"></button>
+                        <input type="button" id="delStep" value="Delete Step"></button>
+                    </div>
+                    <div id="newStepId"></div>
+                </div>
+
+                <div class="float-container">
+                    <div id="delete" class="float-child">
+                        <input type="button" value="Delete">
+                    </div>
+                    <div id="cancel" class="float-child">
+                        <input type="button" value="Cancel">
+                    </div>
+                    <div id="submit" class="float-child">
+                        <input type="submit" value="Save">
+                    </div>
+                </div>
+            </form>
         </div>
     </section>
 </body>

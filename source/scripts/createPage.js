@@ -1,10 +1,9 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
-window.addEventListener("DOMContentLoaded", init);
-
 import { insertRecipe } from "./APICalls.js"
-
-function init() {
-    console.log("editCreate.js init called");
+import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
+import { RECIPE_ROUTE } from './util.js'
+export function setupCreatePage() {
+    console.log("setupCreatePage() called");
 
 
 
@@ -74,11 +73,13 @@ const onSubmitRecipe = async (event) => {
     const recipeCard = document.createElement('recipe-card');
     console.log(formData.get('picture'));
     // CREATE NEW RECIPE
+    console.log("test global user data", userData)
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
         image: formData.get('picture'),
         author: "HZRfg63gUu5M8S0F",
+
         description: formData.get('description'),
         tags: strTags,
         servingSize: formData.get('servingSize'),
@@ -89,7 +90,11 @@ const onSubmitRecipe = async (event) => {
         steps: stepsArr
     }
     console.log(newRecipe);
-    // await insertRecipe(newRecipe);
+    await insertRecipe(newRecipe);
+    redirectRecipeDetail(newRecipe)
+    const page = newRecipe._id;
+    const routeUrl = RECIPE_ROUTE + page
+    routerNavigateWrapper(routeUrl)
 };
 
 

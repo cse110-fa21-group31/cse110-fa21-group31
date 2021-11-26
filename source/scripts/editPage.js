@@ -1,12 +1,10 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
-window.addEventListener("DOMContentLoaded", init);
-
 import { fetchRecipeById, deleteRecipe, updateRecipeById } from "./APICalls.js"
 
 const url = "http://127.0.0.1:3030/api"
-    //var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
+//var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
 var pageId = 'zWLApN1kvM5MezgL'; // test page, delete if you want
-function init() {
+export function populateEditPage() {
     console.log("editCreate.js init called");
 
     editRecipe();
@@ -21,24 +19,24 @@ function init() {
 
     const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
-    document.getElementById("addIngr").addEventListener("click", function() {
+    document.getElementById("addIngr").addEventListener("click", function () {
         appendIngredient();
     });
-    document.getElementById("addStep").addEventListener("click", function() {
+    document.getElementById("addStep").addEventListener("click", function () {
         appendStep();
     });
-    document.getElementById("delIngr").addEventListener("click", function() {
+    document.getElementById("delIngr").addEventListener("click", function () {
         deleteIngredient();
     });
-    document.getElementById("delStep").addEventListener("click", function() {
+    document.getElementById("delStep").addEventListener("click", function () {
         deleteIngredient();
     });
-    document.getElementById("delete").addEventListener("click", function() {
+    document.getElementById("delete").addEventListener("click", function () {
         deleteRecipeButton();
     });
 }
 
-const deleteRecipeButton = async(event) => {
+const deleteRecipeButton = async (event) => {
     await deleteRecipe(pageId);
 }
 
@@ -46,7 +44,7 @@ const deleteRecipeButton = async(event) => {
 let numSteps = 0;
 let numIngredients = 0;
 
-const editRecipe = async(event) => {
+const editRecipe = async (event) => {
 
     console.log("EDITTED RECIPE");
 
@@ -112,7 +110,7 @@ const editRecipe = async(event) => {
 };
 
 
-const onSubmitRecipe = async(event) => {
+const onSubmitRecipe = async (event) => {
 
     console.log("SUBMITTED NEW RECIPE");
     event.preventDefault();

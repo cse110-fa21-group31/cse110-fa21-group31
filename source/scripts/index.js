@@ -9,13 +9,18 @@ import { Router } from './router/Router.js'
 import { url, fetchRecipeByPage } from './APICalls.js'
 import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE } from './util.js'
 import { fillOutRecipe } from './recipeDetail.js'
+import { populateUserInfoPage } from './userInfo.js'
+import { setupCreatePage } from './createPage.js'
+import { populateEditPage } from './editPage.js'
 var recipeData = [];
 const NumRecipePerPage = 6
 const currPage = 1
+export var userData = null;
 
 const homePage = document.getElementById('homePage')
 const recipeDetailPage = document.getElementById('recipeDetail')
 const userInfoPage = document.getElementById('userInfo')
+const createRecipePage = document.getElementById('createRecipe')
 
 
 window.addEventListener('DOMContentLoaded', init);
@@ -26,6 +31,7 @@ const router = new Router(function () {
     homePage.classList.add("shown");
     recipeDetailPage.classList.remove("shown");
     userInfoPage.classList.remove("shown");
+    createRecipePage.classList.remove("shown");
 });
 
 async function init() {
@@ -66,15 +72,7 @@ function createRecipeCards() {
         // console.log("Created recipe-card");
         recipeCard.data = recipeObj;
         // console.log(recipeCard.data);
-        const page = recipeObj._id;
-        const routeUrl = RECIPE_ROUTE + page
-        router.addPage(routeUrl, function () {
-            homePage.classList.remove("shown");
-            recipeDetailPage.classList.add("shown");
-            recipeDetailPage.data = recipeObj;
-            // console.log(recipeDetailPage.data)
-            fillOutRecipe(recipeObj)
-        });
+        redirectRecipeDetail(recipeObj)
         // click event
         recipeCard.addEventListener('click', e => {
             // if (e.path[0].nodeName == 'A') return;
@@ -85,6 +83,23 @@ function createRecipeCards() {
     })
 }
 
+/**
+ * Adds the function in Router that redirects to recipeDetail
+ * @param recipeObj The object of the created recipe. 
+ */
+export function redirectRecipeDetail(recipeObj) {
+    const page = recipeObj._id;
+    const routeUrl = RECIPE_ROUTE + page
+    router.addPage(routeUrl, function () {
+        homePage.classList.remove("shown");
+        recipeDetailPage.classList.add("shown");
+        userInfoPage.classList.remove("shown");
+        createRecipePage.classList.remove("shown");
+        recipeDetailPage.data = recipeObj;
+        // console.log(recipeDetailPage.data)
+        fillOutRecipe(recipeObj)
+    });
+}
 /**
  * Binds the click event listener to the <recipe-card> elements added to the page
  * so that when they are clicked, their card expands into the full recipe view mode
@@ -100,6 +115,24 @@ function bindRecipeCard(recipeCard, pageName) {
 }
 
 /**
+ * 
+ * @param {*} pageName 
+ * @param {*} callback function
+ */
+export function routerAddCreatePage(pageName) {
+    router.addPage(pageName, function () {
+        homePage.classList.remove("shown");
+        recipeDetailPage.classList.remove("shown");
+        userInfoPage.classList.remove("shown");
+        createRecipePage.classList.add("shown");
+        setupCreatePage()
+    })
+}
+
+export function routerNavigateWrapper(pageName) {
+    router.navigate(pageName);
+}
+/**
  * Binds the click event listener to the <profileWrapper> elements added to the page
  * so that when they are clicked, their card expands into the full recipe view mode
  * @param {Element} profile the user profile json file
@@ -109,10 +142,10 @@ export function bindUserProfile(profile) {
     router.addPage(pageName, function () {
         homePage.classList.remove("shown");
         recipeDetailPage.classList.remove("shown");
+        createRecipePage.classList.remove("shown");
         userInfoPage.classList.add("shown");
         userInfoPage.data = profile
-        console.log(userInfoPage.data)
-        fillOutRecipe(recipeObj)
+        // TODO: populate user data in userInfo page 
     });
 
     const profileButton = document.getElementById(ELE_ID_PROFILE_WRAPPER)
@@ -168,3 +201,18 @@ function bindPopstate() {
     });
 }
 
+
+/**
+ * Save profile to global variable userData in index.js.
+ * @param profile The json file of the user data
+ */
+export function setGlobalUserData(profile) {
+    userData = profile;
+}
+
+/**
+ * Clear global variable userData in index.js.
+ */
+export function clearGlobalUserData() {
+    userData = null;
+}
