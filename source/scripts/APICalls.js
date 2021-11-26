@@ -1,5 +1,5 @@
-const url = "http://127.0.0.1:3030/api"
-
+export const url = "http://127.0.0.1:3030/api"
+export default {}
 /**
  * sends an HTTP request to the server to insert a single recipe to the database
  * @param {recipe} recipe the recipe object to insert
@@ -7,9 +7,9 @@ const url = "http://127.0.0.1:3030/api"
 export async function insertRecipe(recipe) {
     //for update, change the method of PUT
     const response = await fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(recipe)
-        }).then((response) => response.json())
+        method: 'POST',
+        body: JSON.stringify(recipe)
+    }).then((response) => response.json())
         .then((data) => {
             return data;
         })
@@ -26,10 +26,10 @@ export async function insertRecipe(recipe) {
 export async function deleteRecipe(id) {
     let queryURL = url + "?id=" + id;
     let response = await fetch(queryURL, {
-            method: 'DEL',
-            "Access-Control-Allow-Origin": "*",
-            mode: 'no-cors'
-        })
+        method: 'DEL',
+        "Access-Control-Allow-Origin": "*",
+        mode: 'no-cors'
+    })
         .then((response) => response.json())
         .then((data) => {
             return data
@@ -44,11 +44,31 @@ export async function deleteRecipe(id) {
  * sends an HTTP request to the server to fetch a single recipe
  * @param {string} id the id of the desired recipe
  */
+export async function fetchRecipeByPage(pageNum) {
+    let queryURL = url + "?page=" + pageNum;
+    let response = await fetch(queryURL, {
+        method: 'GET',
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            return data
+        })
+        .catch((err) => {
+            console.error('Error finding recipes: ' + err.message);
+        });
+    return response
+}
+
+/**
+ * sends an HTTP request to the server to fetch a single recipe
+ * @param {string} id the id of the desired recipe
+ */
 export async function fetchRecipeById(id) {
     let queryURL = url + "?id=" + id;
     let response = await fetch(queryURL, {
-            method: 'GET',
-        })
+        method: 'GET',
+    })
         .then((response) => response.json())
         .then((data) => {
             return data
@@ -69,11 +89,10 @@ export async function updateRecipeById(id, update) {
     console.log(update);
     console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
-            method: 'PUT',
-            body: JSON.stringify(update)
-
-        })
-        .then((response) => response.json())
+        method: 'PUT',
+        body: JSON.stringify(update)
+    })
+        .then((response) => { console.log(response); return response.json() })
         .then((data) => {
             console.log(data);
             return data
@@ -99,8 +118,8 @@ export async function submitSearch(keywords, tags) {
     }
     let queryURL = url + "/search?" + query
     let response = await fetch(queryURL, {
-            method: 'GET',
-        })
+        method: 'GET',
+    })
         .then((response) => response.json())
         .then((data) => {
             console.log("Search Results:");

@@ -1,4 +1,5 @@
-/** 
+export default {}
+/**
 class RecipeExpand extends HTMLElement {
     constructor() {
         super();
@@ -26,7 +27,7 @@ class RecipeExpand extends HTMLElement {
           justify-items: center;
           margin-top: 10px;
         }
-        
+
         div.rating--wrapper > img {
           height: auto;
           display: inline-block;
@@ -68,7 +69,7 @@ class RecipeExpand extends HTMLElement {
           color: gray;
           font-style: italic;
         }
-        header > div.meta--wrapper 
+        header > div.meta--wrapper
         :is(.meta--yield, .meta--total-time, .meta--categories) {
           color: black;
           font-style: normal;
@@ -146,7 +147,7 @@ class RecipeExpand extends HTMLElement {
  * Sets the recipe that will be used inside the <recipe-expand> element.
  * Overwrites the previous recipe, fair warning.
  */
-/** 
+/**
     set data(data) {
         this.json = data;
 
@@ -246,7 +247,7 @@ class RecipeExpand extends HTMLElement {
 /**
  * Returns the object of the currect recipe being used.
  */
-/** 
+/**
     get data() {
         return this.json;
     }
@@ -258,7 +259,7 @@ class RecipeExpand extends HTMLElement {
  * @param {String} key the key that you are looking for in the object
  * @returns {*} the value of the found key
  */
-/** 
+/**
 function searchForKey(object, key) {
     var value;
     Object.keys(object).some(function(k) {
@@ -279,7 +280,7 @@ function searchForKey(object, key) {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the recipe title
  */
-/** 
+/**
 function getTitle(data) {
     if (data.name) return data.name;
     if (data['@graph']) {
@@ -297,7 +298,7 @@ function getTitle(data) {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the recipe yield
  */
-/** 
+/**
 function getYield(data) {
     if (data.recipeYield) return data.recipeYield;
     if (data['@graph']) {
@@ -321,7 +322,7 @@ function getYield(data) {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the recipe categories as a string
  */
-/** 
+/**
 function getCategories(data) {
     let categories = null;
     if (data.recipeCategory) {
@@ -344,7 +345,7 @@ function getCategories(data) {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the recipe description
  */
-/** 
+/**
 function getDescription(data) {
     if (data.description) return data.description;
     if (data['@graph']) {
@@ -363,7 +364,7 @@ function getDescription(data) {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {String} If found, returns the URL of the image as a string, otherwise null
  */
-/** 
+/**
 function getImage(data) {
     if (data.image ? .url) return data.image.url;
     if (data.image ? .contentUrl) return data.image.contentUrl;
@@ -385,7 +386,7 @@ function getImage(data) {
  * @param {Object} data Raw recipe JSON to find the URL of
  * @returns {String} If found, it returns the URL as a string, otherwise null
  */
-/** 
+/**
 function getUrl(data) {
     if (data.url) return data.url;
     if (data['@graph']) {
@@ -402,7 +403,7 @@ function getUrl(data) {
  * @param {Object} data Raw recipe JSON to find the org string of
  * @returns {String} If found, it retuns the name of the org as a string, otherwise null
  */
-/** 
+/**
 function getOrganization(data) {
     if (data.publisher ? .name) return data.publisher ? .name;
     if (data['@graph']) {
@@ -421,7 +422,7 @@ function getOrganization(data) {
  * @param {String} time time string to format
  * @return {String} formatted time string
  */
-/** 
+/**
 function convertTime(time) {
     let timeStr = '';
 
@@ -449,7 +450,7 @@ function convertTime(time) {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {Array} If found, returns the recipe ingredients
  */
-/** 
+/**
 function getIngredients(data) {
     if (data.recipeIngredient) {
         if (typeof data.recipeIngredient == 'string') {
@@ -476,7 +477,7 @@ function getIngredients(data) {
  * @param {Object} data Raw recipe JSON to find the image of
  * @returns {Array} If found, returns the recipe instructions
  */
-/** 
+/**
 function getInstructions(data) {
     if (data.recipeInstructions) {
         if (typeof data.recipeInstructions == 'string') {

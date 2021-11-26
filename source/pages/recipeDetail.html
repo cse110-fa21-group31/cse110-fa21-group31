@@ -4,14 +4,15 @@
 <head>
     <title>RecipeDetail</title>
     <meta charset="utf-8">
-    <script type="module" src="../scripts/recipeDetail.js"></script>
+    <script src="../scripts/recipeDetail.js" type="module"></script>
     <link rel="stylesheet" href="/source/assets/styles/baseStyle.css">
     <link rel="stylesheet" href="/source/assets/styles/cards.css">
 </head>
 
 <body>
     <div class="navBar">
-        <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+        <iframe src="/source/cards/navBar.html"
+            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
     </div>
     <!-- Displaying recipe details-->
     <div id="recipeDetail">
