@@ -94,68 +94,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="populateUserInfoPage"><span class="type-signature">(constant) </span>populateUserInfoPage<span class="type-signature"></span></h4>
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_userInfo.js.html">scripts/userInfo.js</a>, <a href="scripts_userInfo.js.html#line14">line 14</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -166,7 +104,7 @@
     
 
     
-    <h4 class="name" id="bindEscKey"><span class="type-signature"></span>bindEscKey<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="createNavBarWithGoogle"><span class="type-signature"></span>createNavBarWithGoogle<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -174,8 +112,7 @@
 
 
 <div class="description">
-    Binds the 'keydown' event listener to the Escape key (esc) such that when
-it is clicked, the home page is returned to
+    The function that's called to create the nav bar containing Google login
 </div>
 
 
@@ -219,487 +156,7 @@ it is clicked, the home page is returned to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line236">line 236</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="bindPopstate"><span class="type-signature"></span>bindPopstate<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Binds the 'popstate' event on the window (which fires when the back &
-forward buttons are pressed) so the navigation will continue to work 
-as expected. (Hint - you should be passing in which page you are on
-in your Router when you push your state so you can access that page
-info in your popstate function)
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line257">line 257</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="bindRecipeCard"><span class="type-signature"></span>bindRecipeCard<span class="signature">(recipeCard, pageName)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Binds the click event listener to the <recipe-card> elements added to the page
-so that when they are clicked, their card expands into the full recipe view mode
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>recipeCard</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Element</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the <recipe-card> element you wish to bind the event
-                            listeners to</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>pageName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the name of the page to navigate to on click</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line156">line 156</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="bindUserProfile"><span class="type-signature"></span>bindUserProfile<span class="signature">(profile)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Binds the click event listener to the <profileWrapper> elements added to the page
-so that when they are clicked, their card expands into the full recipe view mode
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>profile</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Element</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the user profile json file</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line213">line 213</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="clearGlobalUserData"><span class="type-signature"></span>clearGlobalUserData<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Clear global variable userData in index.js.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line290">line 290</a>
+        <a href="scripts_userLogin.js.html">scripts/userLogin.js</a>, <a href="scripts_userLogin.js.html#line129">line 129</a>
     </li></ul></dd>
     
 
@@ -947,7 +404,7 @@ appends them to the page
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line107">line 107</a>
+        <a href="scripts_recipeDetail.js.html">scripts/recipeDetail.js</a>, <a href="scripts_recipeDetail.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -1084,7 +541,7 @@ appends them to the page
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line33">line 33</a>
+        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -1221,144 +678,7 @@ appends them to the page
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line75">line 75</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="fetchRecipeByPage"><span class="type-signature"></span>fetchRecipeByPage<span class="signature">(id)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    sends an HTTP request to the server to fetch a single recipe
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the id of the desired recipe</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line55">line 55</a>
+        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line47">line 47</a>
     </li></ul></dd>
     
 
@@ -1495,7 +815,7 @@ appends them to the page
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line283">line 283</a>
+        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line310">line 310</a>
     </li></ul></dd>
     
 
@@ -1654,7 +974,7 @@ appends them to the page
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line293">line 293</a>
+        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line320">line 320</a>
     </li></ul></dd>
     
 
@@ -1703,6 +1023,118 @@ appends them to the page
     
 
 
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getHelloWorld"><span class="type-signature"></span>getHelloWorld<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns a string that says "Hello World!".
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_example.js.html">scripts/example.js</a>, <a href="scripts_example.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>//returns "Hello World!"
+getHelloWorld();</code></pre>
 
 
 
@@ -1813,7 +1245,7 @@ appends them to the page
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line303">line 303</a>
+        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line330">line 330</a>
     </li></ul></dd>
     
 
@@ -1972,7 +1404,7 @@ appends them to the page
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line323">line 323</a>
+        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line350">line 350</a>
     </li></ul></dd>
     
 
@@ -2131,7 +1563,7 @@ appends them to the page
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line264">line 264</a>
+        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line291">line 291</a>
     </li></ul></dd>
     
 
@@ -2291,7 +1723,7 @@ This ones a bit messy and optimally should be refactored but it works.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line349">line 349</a>
+        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line376">line 376</a>
     </li></ul></dd>
     
 
@@ -2450,7 +1882,7 @@ This ones a bit messy and optimally should be refactored but it works.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line313">line 313</a>
+        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line340">line 340</a>
     </li></ul></dd>
     
 
@@ -2856,7 +2288,7 @@ This ones a bit messy and optimally should be refactored but it works.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line14">line 14</a>
+        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line7">line 7</a>
     </li></ul></dd>
     
 
@@ -2994,673 +2426,7 @@ Passes user profile to backend and displays user profile in html.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_userLogin.js.html">scripts/userLogin.js</a>, <a href="scripts_userLogin.js.html#line40">line 40</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="onUpdateRecipe"><span class="type-signature">(async) </span>onUpdateRecipe<span class="signature">(event)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>event</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_editPage.js.html">scripts/editPage.js</a>, <a href="scripts_editPage.js.html#line125">line 125</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="populateRecipeDetail"><span class="type-signature"></span>populateRecipeDetail<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Populates the recipe detail pages by fetching recipe json and filling in 
-properties in html components.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_recipeDetail.js.html">scripts/recipeDetail.js</a>, <a href="scripts_recipeDetail.js.html#line14">line 14</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="redirectRecipeDetail"><span class="type-signature"></span>redirectRecipeDetail<span class="signature">(recipeObj)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Adds the function in Router that redirects to recipeDetail
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>recipeObj</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The object of the created recipe.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line135">line 135</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="routerAddCreatePage"><span class="type-signature"></span>routerAddCreatePage<span class="signature">(pageName, callback)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pageName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">function</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line168">line 168</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="routerAddEditPage"><span class="type-signature"></span>routerAddEditPage<span class="signature">(pageName, callback)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pageName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">function</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line194">line 194</a>
+        <a href="scripts_userLogin.js.html">scripts/userLogin.js</a>, <a href="scripts_userLogin.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -3820,7 +2586,7 @@ properties in html components.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line244">line 244</a>
+        <a href="scripts_classes_recipeClass.js.html">scripts/classes/recipeClass.js</a>, <a href="scripts_classes_recipeClass.js.html#line271">line 271</a>
     </li></ul></dd>
     
 
@@ -3867,138 +2633,6 @@ properties in html components.
 </dl>
 
     
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="setGlobalUserData"><span class="type-signature"></span>setGlobalUserData<span class="signature">(profile)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Save profile to global variable userData in index.js.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>profile</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The json file of the user data</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_index.js.html">scripts/index.js</a>, <a href="scripts_index.js.html#line283">line 283</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -4064,7 +2698,7 @@ in html.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_userLogin.js.html">scripts/userLogin.js</a>, <a href="scripts_userLogin.js.html#line89">line 89</a>
+        <a href="scripts_userLogin.js.html">scripts/userLogin.js</a>, <a href="scripts_userLogin.js.html#line113">line 113</a>
     </li></ul></dd>
     
 
@@ -4224,7 +2858,7 @@ in html.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line117">line 117</a>
+        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line89">line 89</a>
     </li></ul></dd>
     
 
@@ -4406,7 +3040,7 @@ in html.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line95">line 95</a>
+        <a href="scripts_APICalls.js.html">scripts/APICalls.js</a>, <a href="scripts_APICalls.js.html#line67">line 67</a>
     </li></ul></dd>
     
 
@@ -4542,13 +3176,13 @@ Calls Google log-out api.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateRecipeDetail">populateRecipeDetail</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createNavBarWithGoogle">createNavBarWithGoogle</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getHelloWorld">getHelloWorld</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat Nov 27 2021 06:16:47 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat Nov 27 2021 08:27:13 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
