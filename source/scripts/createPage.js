@@ -16,7 +16,7 @@ export function setupCreatePage() {
 
     // Submitting the entire recipe
 
-    const recipeForm = document.getElementById("editRecipeForm");
+    const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
     //document.getElementById("addIngr").onclick = appendIngredient();
 

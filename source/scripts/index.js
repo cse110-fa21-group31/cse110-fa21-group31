@@ -66,6 +66,7 @@ async function fetchRecipes() {
 
 
 // the jankiest solution to ever exist (sorry)
+// any suggestion to make this better or placed somewhere else is welcome
 let observedMutationEvent = new Event('observedMutation')
 let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -105,30 +106,26 @@ observer.observe(document.body, {
  */
 function createRecipeCards() {
     // Makes new recipe cards
-    
-    // Wait until the gridContainer is loaded, then print hi
-    console.log("Waiting for recipecardgrid");
-    let gridContainer = waitForSelector('.myRecipeCardGridContainer');
-    gridContainer.then(gridContainer => {
-        console.log("Done waiting");
-        recipeData.forEach(recipeObj => {
-
-            if (!recipeObj) return
-            const recipeCard = document.createElement('recipe-card');
-            // console.log("Created recipe-card");
-            recipeCard.data = recipeObj;
-            // console.log(recipeCard.data);
-            redirectRecipeDetail(recipeObj)
-            // click event
-            const page = recipeObj._id;
-            const routeUrl = RECIPE_ROUTE + page
-            recipeCard.addEventListener('click', e => {
-                // if (e.path[0].nodeName == 'A') return;
-                router.navigate(routeUrl);
-            });
-            gridContainer.appendChild(recipeCard);
-        })
-    });
+    // Wait until the gridContainer is loaded
+    waitForSelector('.myRecipeCardGridContainer')
+        .then(gridContainer => {
+            recipeData.forEach(recipeObj => {
+                if (!recipeObj) return
+                const recipeCard = document.createElement('recipe-card');
+                // console.log("Created recipe-card");
+                recipeCard.data = recipeObj;
+                // console.log(recipeCard.data);
+                redirectRecipeDetail(recipeObj)
+                // click event
+                const page = recipeObj._id;
+                const routeUrl = RECIPE_ROUTE + page
+                recipeCard.addEventListener('click', e => {
+                    // if (e.path[0].nodeName == 'A') return;
+                    router.navigate(routeUrl);
+                });
+                gridContainer.appendChild(recipeCard);
+            })
+        });
 }
 
 /**
