@@ -60,7 +60,7 @@ async function createRecipes() {
 }
 
 async function fetchRecipes() {
-    let response = await fetchRecipeByPage(currPage)
+    let response = await fetchRecipeByPage(currPage);
     recipeData = response;
 }
 

@@ -4,7 +4,6 @@ export default {}
 // RecipeExpand.js
 import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js"
 import { deleteRecipe, fetchRecipeById } from "./APICalls.js";
-import { fetchUserById } from "./userAPICalls.js";
 import { routerAddEditPage, routerNavigateWrapper } from "./index.js";
 const recipeData = {};
 
@@ -12,7 +11,7 @@ const recipeData = {};
  * Populates the recipe detail pages by fetching recipe json and filling in 
  * properties in html components. 
  */
-// Is this even used? Seems like fillOutRecipe is called elsewhere without this function
+/*
 export async function populateRecipeDetail() {
     const url = parent.document.URL;
     let recipeID = url.substring(url.indexOf('#') + RECIPE_ROUTE.length + 1, url.length);
@@ -20,9 +19,9 @@ export async function populateRecipeDetail() {
     let recipe = await fetchRecipeById(recipeID);
     fillOutRecipe(recipe);
 }
+*/
 
 export async function fillOutRecipe(data) {
-    const author = await getAuthorInfo(data.author);
     document.getElementById("recipeTitle").innerHTML = data.name;
     if (data.tags) document.getElementById("tags").innerHTML = data.tags;
     document.getElementById("recipeImage").setAttribute("src", data.image);
@@ -30,7 +29,7 @@ export async function fillOutRecipe(data) {
     if (data.description) document.getElementById("description").innerHTML = data.description;
     if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;
     // Now rendering username rather than user id
-    document.getElementById("author").innerHTML = author.username;
+    if (data.author.username) document.getElementById("author").innerHTML = data.author.username;
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
     if (data.ingredients) document.getElementById("ingredients").innerHTML = data.ingredients;
     document.getElementById("steps").innerHTML = data.steps;
@@ -101,9 +100,4 @@ export async function fillOutRecipe(data) {
 
         return '';
     }
-}
-
-export async function getAuthorInfo(userId) {
-    const author = await fetchUserById(userId);
-    return author;
 }

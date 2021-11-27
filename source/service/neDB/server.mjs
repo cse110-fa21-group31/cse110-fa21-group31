@@ -54,9 +54,9 @@ fastify.post("/api", async (request, reply) => {
 });
 
 fastify.put("/api", async (request, reply) => {
-    console.log(request.body)
-    let body = JSON.parse(request.body)
-    console.log(body)
+    console.log(request.body);
+    let body = JSON.parse(request.body);
+    console.log(body);
 
     if (!body.name ||
         !body.author ||
@@ -121,9 +121,10 @@ fastify.get("/api/user", async (req, reply) => {
  */
 fastify.post("/api/user", async (req, reply) => {
     // check if user exists. false if not.
+    let body = JSON.parse(req.body)
     let data = await hasUser(userDB, req.query.email);
     if (!data) {
-        data = await createUser(userDB, req.body);
+        data = await createUser(userDB, body);
     }
     reply.status(200).send(data);
 });
