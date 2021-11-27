@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Router<span class="signature">(homeFunc)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Router<span class="signature">()</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="Router"><span class="type-signature"></span>new Router<span class="signature">(homeFunc)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Router"><span class="type-signature"></span>new Router<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,8 +49,7 @@
 
 
 <div class="description">
-    Sets up the home function, the page name should always be 'home', which
-is why no page name variable is passed in.
+    Sets up the home function. The home function will always be in this.home
 </div>
 
 
@@ -59,56 +58,6 @@ is why no page name variable is passed in.
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>homeFunc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The function to run to set the home route
-                           visually</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -144,7 +93,7 @@ is why no page name variable is passed in.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_router_Router.js.html">scripts/router/Router.js</a>, <a href="scripts_router_Router.js.html#line12">line 12</a>
+        <a href="scripts_router_Router.js.html">scripts/router/Router.js</a>, <a href="scripts_router_Router.js.html#line7">line 7</a>
     </li></ul></dd>
     
 
@@ -206,13 +155,13 @@ is why no page name variable is passed in.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchRecipesByIds">fetchRecipesByIds</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateRecipeDetail">populateRecipeDetail</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateRecipeDetail">populateRecipeDetail</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat Nov 27 2021 00:26:33 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat Nov 27 2021 05:57:09 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
