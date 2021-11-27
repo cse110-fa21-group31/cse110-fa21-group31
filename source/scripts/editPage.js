@@ -6,7 +6,7 @@ const url = "http://127.0.0.1:3030/api"
 //var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
 var pageId = 'zWLApN1kvM5MezgL'; // test page, delete if you want
 let imageSrc = ''
-export default {}
+export default {populateEditPage}
 export function populateEditPage(recipeObj) {
 
     console.log("editCreate.js init called");
@@ -40,7 +40,7 @@ export function populateEditPage(recipeObj) {
     });
 }
 
-const deleteRecipeButton = async (event) => {
+export const deleteRecipeButton = async (event) => {
     await deleteRecipe(pageId);
 }
 

@@ -1,6 +1,8 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
 import { createRecipe, deleteRecipe, updateRecipe, getRecipeByPage, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
 import Datastore from "nedb";
+import path from 'path'
+import fstatic from 'fastify-static'
 // the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
 const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
@@ -10,6 +12,14 @@ const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 // Require the framework and instantiate it
 import Fastify from 'fastify';
 const fastify = Fastify({ logger: true });
+
+import fileRoutes from "./fileRoutes.js"
+// Require the framework and instantiate it
+fastify.register(fileRoutes.routes)
+fastify.register(fstatic, {
+    root: path.join('C:/Users/ericf/Desktop/CSE 110/routerIntegration11.26', 'cse110-fa21-group31'),
+  //prefix: '/public/', // optional: default '/'
+})
 
 // const path = require('path')
 import Cors from 'fastify-cors';

@@ -2,7 +2,7 @@
 import { insertRecipe } from "./APICalls.js"
 import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
 import { RECIPE_ROUTE } from './util.js'
-export default {}
+export default {setupCreatePage}
 export function setupCreatePage() {
     console.log("setupCreatePage() called");
 

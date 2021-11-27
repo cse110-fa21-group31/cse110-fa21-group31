@@ -5,7 +5,7 @@
  * sign-in and log-out
  * Dependency: navBarWithGoogle.html
  */
-export default {}
+export default {onSignIn}
 import {
     ELE_CLASS_PROFILE_IMAGE,
     ELE_ID_PROFILE,
@@ -26,8 +26,10 @@ const IMG_NO_REFERRER = "no-referrer";
 
 // Set functions onSignIn and signOut to global scope, otherwise they're not
 // accessible in html
+if (typeof window === 'object') {
 window.onSignIn = onSignIn;
 window.signOut = signOut;
+}
 
 /**
  * The function that's called when sign-in button is clicked and success.
