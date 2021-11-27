@@ -17,22 +17,8 @@ body {
 }
 
 /*
-Landing Background
-*/
-
-.landingHeader {
-    width: 0%;
-}
-
-#homepageImage {
-    padding-top:4rem;
-}
-
-/*
 Search Bar
 */
-
-
 #searchButton {
     width: 20%;
     padding: 10px;

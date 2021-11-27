@@ -281,7 +281,7 @@ class RecipeExpand extends HTMLElement {
       for (let i = 0; i < data['@graph'].length; i++) {
         if (data['@graph'][i]['@type'] == 'Recipe') {
           if (data['@graph'][i]['name']) return data['@graph'][i]['name'];
-        };
+        }
       }
     }
     return null;
@@ -325,7 +325,7 @@ class RecipeExpand extends HTMLElement {
           if (data['@graph'][i]['recipeCategory']) {
             categories = data['@graph'][i]['recipeCategory'];
           }
-        };
+        }
       }
     }
     if (Array.isArray(categories)) categories = categories.join(', ');
@@ -364,7 +364,7 @@ class RecipeExpand extends HTMLElement {
           if (data['@graph'][i]['url']) return data['@graph'][i]['url'];
           if (data['@graph'][i]['contentUrl']) return data['@graph'][i]['contentUrl'];
           if (data['@graph'][i]['thumbnailUrl']) return data['@graph'][i]['thumbnailUrl'];
-        };
+        }
       }
     }
     return null;
@@ -381,7 +381,7 @@ class RecipeExpand extends HTMLElement {
       for (let i = 0; i < data['@graph'].length; i++) {
         if (data['@graph'][i]['@type'] == 'Recipe') return data['@graph'][i]['@id'];
       }
-    };
+    }
     return null;
   }
   
@@ -399,7 +399,7 @@ class RecipeExpand extends HTMLElement {
           return data['@graph'][i].name;
         }
       }
-    };
+    }
     return null;
   }
   
@@ -442,7 +442,7 @@ class RecipeExpand extends HTMLElement {
         return data.recipeIngredient.slit('. ');
       }
       return data.recipeIngredient;
-    };
+    }
     if (data['@graph']) {
       for (let i = 0; i < data['@graph'].length; i++) {
         if (data['@graph'][i]['@type'] == 'Recipe') {
@@ -450,7 +450,7 @@ class RecipeExpand extends HTMLElement {
             return data['@graph'][i]['recipeIngredient'].slit('. ');
           }
           return data['@graph'][i]['recipeIngredient'];
-        };
+        }
       }
     }
     return null;
@@ -468,7 +468,7 @@ class RecipeExpand extends HTMLElement {
         return data.recipeInstructions.split('. ');
       }
       return data.recipeInstructions;
-    };
+    }
     if (data['@graph']) {
       for (let i = 0; i < data['@graph'].length; i++) {
         if (data['@graph'][i]['@type'] == 'Recipe') {
@@ -486,7 +486,7 @@ class RecipeExpand extends HTMLElement {
           } else {
             return data['@graph'][i]['recipeInstructions'].map(instr => instr.text);
           }
-        };
+        }
       }
     }
     return null;
