@@ -24,6 +24,8 @@ const HTML_ELE_IMG = "img";
 const HTML_ELE_A = "a";
 const IMG_NO_REFERRER = "no-referrer";
 
+/* global gapi */
+
 // Set functions onSignIn and signOut to global scope, otherwise they're not
 // accessible in html
 window.onSignIn = onSignIn;
