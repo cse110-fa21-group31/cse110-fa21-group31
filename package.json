@@ -40,6 +40,8 @@
         "fastify-cors": "^6.0.2",
         "fastify-static": "^4.5.0",
         "fs": "^0.0.1-security",
+        "ignore-errors": "^2.0.0",
+        "import-http": "^0.3.1",
         "nedb": "^1.8.0",
         "path": "^0.12.7"
     },

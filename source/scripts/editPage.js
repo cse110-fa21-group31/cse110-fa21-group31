@@ -1,8 +1,13 @@
+
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
-import { deleteRecipe, updateRecipeById } from "./APICalls.js"
-import { RECIPE_ROUTE } from "./util.js"
-import { redirectRecipeDetail, routerNavigateWrapper } from "./index.js";
-const url = "http://127.0.0.1:3030/api"
+const url = "http://127.0.0.1:3030/"
+
+//import files from '/Users/ericf/Desktop/CSE 110/routerIntegration11.26/cse110-fa21-group31/source/scripts/APICalls.js'
+import files from './APICalls.js'
+
+//import data from './util.js'
+import something from './index.js';
+
 //var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
 var pageId = 'zWLApN1kvM5MezgL'; // test page, delete if you want
 let imageSrc = ''
@@ -259,3 +264,4 @@ const appendEStep = (existingStep) => {
     numSteps++;
 
 };
+

@@ -1,4 +1,10 @@
 ###First
 GET http://127.0.0.1:3030/source/service/neDB/addFakeData.js
 ###Second
-GET http://127.0.0.1:3030/recipeDetail
+GET http://127.0.0.1:3030/utilJS
+###Second
+GET http://127.0.0.1:3030/APICalls
+###Second
+GET http://127.0.0.1:3030/indexJS
+###Second
+GET http://127.0.0.1:3030/index.html
