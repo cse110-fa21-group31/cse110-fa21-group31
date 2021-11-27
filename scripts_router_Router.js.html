@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: service/user/googleLogin.js</title>
+    <title>JSDoc: Source: scripts/router/Router.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: service/user/googleLogin.js</h1>
+    <h1 class="page-title">Source: scripts/router/Router.js</h1>
 
     
 
@@ -26,82 +26,56 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Filename: googleLogin.js
- * Date: 11/18/2021
- * Description: functions for handling Google sign-in / log-out and related
- *  changes of profile display.
- * Dependency: navBarWithGoogle.html
- * Note: Google Login doesn't work for 127.0.0.1. Type localhost instead.
- */
+            <pre class="prettyprint source linenums"><code>// Router.js
+// Taken from Lab 7
+export class Router {
+    static routes = {};
 
-/**
- * This function will be called by the front end function userLogin.js/onSignIn
- * when Google API returns sign-in success.
- * Simply print out user profile for now.
- *
- * @param {...object} profile User profile passed from front end. Includes:
- *  { name, imageURL, email }
- */
+    /**
+     * Sets up the home function, the page name should always be 'home', which
+     * is why no page name variable is passed in.
+     * @param {Function} homeFunc The function to run to set the home route
+     *                            visually
+     */
+    constructor(homeFunc) {
+        this.home = homeFunc;
+    }
 
-/* global gapi */
+    /**
+     * Adds a page name &amp; function so to the router so that the function
+     * can be called later when the page is passed in
+     * @param {String} page The name of the page to route to (this is used
+     *                      as the page's hash as well in the URL)
+     * @param {Function} pageFunc The function to run when the page is called
+     */
+    addPage(page, pageFunc) {
+        this[page] = pageFunc;
+    }
 
-function userSignedIn(profile) {
-    console.log("User login data passed to backend: ");
-    console.log("name: " + profile.name);
-    console.log("imageURL: " + profile.imageURL);
-    // This is null if the 'email' scope is not present.
-    console.log("email: " + profile.email);
+    /**
+     * Changes the page visually to the page that has been passed in. statePopped
+     * is used to avoid pushing a new history state on back/forward button presses
+     * @param {String} page The name of the page to route to
+     * @param {Boolean} statePopped True if this function is being called from a
+     *                              'popstate' event instead of a normal card click
+     */
+    navigate(page, statePopped) {
+        console.log(`navigate() function called, requested page: ${page}`);
+        if (typeof this[page] === 'function') {
+            let hash;
+            if (page === 'home') {
+                hash = '';
+            } else {
+                hash = `#${page}`;
+            }
+            if ((!statePopped) &amp;&amp; (window.location.hash != hash)) {
+                const oldHash = window.location.hash;
+                history.pushState({ page }, page, window.location.href.replace(oldHash, '') + hash);
+            }
+            this[page]();
+        }
+    }
 }
-
-/**
- * Checks whether a user already exists in the database.
- *
- * @param {...string} email
- * @returns True if a user already exists, false if it's a new account.
- */
-function hasUser(email) {
-    console.log('hasUser("' + email + '") called');
-    // Simply returns false for now
-    return false;
-}
-
-/**
- * This function creates a new user in the database.
- *
- * @param {...object} profile The profile of the new user.
- * @returns False for now.
- */
-function createNewUser(profile) {
-    console.log("Create new user " + profile.email);
-    return false;
-}
-
-/**
- * This function gets data of a user based on the email.
- * @param {...string} email The email of the user to get data for.
- * @returns A json file of the user data.
- */
-/* eslint-disable no-unused-vars*/
-function getUserData(email) {
-    var data = {};
-    return data.stringify();
-}
-/* eslint-enable no-unused-vars*/
-
-/**
- * This function will be called by the front end function userLogin.js/signedOut
- * when the user clicks sign-out button.
- * Calls Google log-out api.
- */
-function userSignedOut() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log("User signed out.");
-    });
-}
-
-export { userSignedIn, userSignedOut, hasUser, getUserData, createNewUser };
 </code></pre>
         </article>
     </section>
