@@ -32,18 +32,27 @@ export async function insertRecipe(recipe) {
  */
 export async function deleteRecipe(id) {
     let queryURL = url + "?id=" + id;
+    console.log("Step 0, " + queryURL);
     let response = await fetch(queryURL, {
         method: 'DEL',
         "Access-Control-Allow-Origin": "*",
-        mode: 'no-cors'
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        // mode: 'no-cors'
     })
-        .then((response) => response.json())
+        .then((response) => {
+            console.log("Step 1");
+            return response.json()
+        })
         .then((data) => {
+            console.log("Step 2");
             return data
         })
         .catch((err) => {
+            console.log("Step 3");
             console.error('Error deleting recipe: ' + err.message);
         });
+    
+    console.log("Step Return");
     return response
 }
 

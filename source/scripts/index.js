@@ -65,30 +65,70 @@ async function fetchRecipes() {
 }
 
 
+// the jankiest solution to ever exist (sorry)
+let observedMutationEvent = new Event('observedMutation')
+let observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (!mutation.addedNodes) return;
+        // something was added
+        document.dispatchEvent(observedMutationEvent);
+    });
+});
+
+const waitForSelector = (selectorStr) => {
+    // Use the previously defined observer to watch for the selectorStr to return something not null
+    return new Promise((resolve, reject) => {
+        const element = document.querySelector(selectorStr);
+        if (element) {
+            resolve(element);
+        } else {
+            document.addEventListener('observedMutation', () => {
+                const element = document.querySelector(selectorStr);
+                if (element) {
+                    resolve(element);
+                }
+            });
+        }
+    });
+}
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: false,
+    characterData: false,
+});
+
 /**
  * Generates the <recipeCard> elements from the fetched recipes and
  * appends them to the page
  */
 function createRecipeCards() {
     // Makes new recipe cards
-    recipeData.forEach(recipeObj => {
+    
+    // Wait until the gridContainer is loaded, then print hi
+    console.log("Waiting for recipecardgrid");
+    let gridContainer = waitForSelector('.myRecipeCardGridContainer');
+    gridContainer.then(gridContainer => {
+        console.log("Done waiting");
+        recipeData.forEach(recipeObj => {
 
-        if (!recipeObj) return
-        const recipeCard = document.createElement('recipe-card');
-        // console.log("Created recipe-card");
-        recipeCard.data = recipeObj;
-        // console.log(recipeCard.data);
-        redirectRecipeDetail(recipeObj)
-        // click event
-        const page = recipeObj._id;
-        const routeUrl = RECIPE_ROUTE + page
-        recipeCard.addEventListener('click', e => {
-            // if (e.path[0].nodeName == 'A') return;
-            router.navigate(routeUrl);
-        });
-
-        document.querySelector('.myRecipeCardGridContainer').appendChild(recipeCard);
-    })
+            if (!recipeObj) return
+            const recipeCard = document.createElement('recipe-card');
+            // console.log("Created recipe-card");
+            recipeCard.data = recipeObj;
+            // console.log(recipeCard.data);
+            redirectRecipeDetail(recipeObj)
+            // click event
+            const page = recipeObj._id;
+            const routeUrl = RECIPE_ROUTE + page
+            recipeCard.addEventListener('click', e => {
+                // if (e.path[0].nodeName == 'A') return;
+                router.navigate(routeUrl);
+            });
+            gridContainer.appendChild(recipeCard);
+        })
+    });
 }
 
 /**

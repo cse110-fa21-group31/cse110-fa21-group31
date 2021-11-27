@@ -41,6 +41,7 @@ export function populateEditPage(recipeObj) {
 }
 
 const deleteRecipeButton = async (event) => {
+    console.log("delete button clicked");
     await deleteRecipe(pageId);
 }
 
@@ -173,6 +174,10 @@ const onUpdateRecipe = async (event) => {
     const page = newRecipe._id;
     const routeUrl = RECIPE_ROUTE + page
     routerNavigateWrapper(routeUrl)
+
+    // What does this function do overall?
+    // ANSWER: This function serves to
+     
 };
 
 
