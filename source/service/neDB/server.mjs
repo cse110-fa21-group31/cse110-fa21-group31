@@ -1,5 +1,5 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
-import { createRecipe, deleteRecipe, updateRecipe, getRecipeByPage, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
+import { createRecipe, deleteRecipe, updateRecipe, getRecipeById, getRecipesByQuery } from "./interface.mjs";
 import { USER_DB_PATH, RECIPE_DB_PATH } from "../util.js";
 import Datastore from "nedb";
 
@@ -20,14 +20,18 @@ fastify.register(Cors, {
 })
 const port = process.env.PORT || 3030;
 
-
 fastify.get("/api", async (request, reply) => {
     if (request.query.id) {
-        const recipe = await getRecipeById(request.query.id, recipeDB)
-        console.log(recipe);
-        reply.send(await getRecipeById(request.query.id, recipeDB));
-    } else if (request.query.page) {
-        reply.send(await getRecipeByPage(recipeDB, request.query.page));
+        reply.status(200)
+        .send(await getRecipeById(request.query.id, recipeDB));
+    } 
+    else if(request.query.ids){
+        reply.status(200)
+        .send(await getRecipesById(request.query.ids, recipeDB));
+    }
+    else {
+        reply.status(200)
+        .send(await getRecipesByQuery(request.query, recipeDB));
     }
 });
 
@@ -144,12 +148,6 @@ fastify.delete("/api/user/saved", async (req, reply) => {
     console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
-
-
-fastify.get('/api/search', async (request, reply) => {
-    let data = await getRecipesByNameAndTags(request.query, recipeDB);
-    reply.status(200).send(data);
-})
 
 // Run the server!
 const start = async () => {

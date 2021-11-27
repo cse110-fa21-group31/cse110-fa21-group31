@@ -1,5 +1,4 @@
-export const url = "http://127.0.0.1:3030/api"
-export default {}
+import { API_URL } from "./util.js";
 /**
  * 
  * want the return json object from server:
@@ -13,7 +12,7 @@ export default {}
  */
 export async function insertRecipe(recipe) {
     //for update, change the method of PUT
-    const response = await fetch(url, {
+    const response = await fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify(recipe)
     }).then((response) => response.json())
@@ -31,7 +30,7 @@ export async function insertRecipe(recipe) {
  * @param {string} id the id of the desired recipe
  */
 export async function deleteRecipe(id) {
-    let queryURL = url + "?id=" + id;
+    let queryURL = API_URL + "?id=" + id;
     let response = await fetch(queryURL, {
         method: 'DEL',
         "Access-Control-Allow-Origin": "*",
@@ -52,7 +51,7 @@ export async function deleteRecipe(id) {
  * @param {string} id the id of the desired recipe
  */
 export async function fetchRecipeByPage(pageNum) {
-    let queryURL = url + "?page=" + pageNum;
+    let queryURL = API_URL + "?page=" + pageNum;
     let response = await fetch(queryURL, {
         method: 'GET',
     })
@@ -62,6 +61,7 @@ export async function fetchRecipeByPage(pageNum) {
         })
         .catch((err) => {
             console.error('Error finding recipes: ' + err.message);
+            console.error(err);
         });
     return response
 }
@@ -71,7 +71,7 @@ export async function fetchRecipeByPage(pageNum) {
  * @param {string} id the id of the desired recipe
  */
 export async function fetchRecipeById(id) {
-    let queryURL = url + "?id=" + id;
+    let queryURL = API_URL + "?id=" + id;
     let response = await fetch(queryURL, {
         method: 'GET',
     })
@@ -91,7 +91,7 @@ export async function fetchRecipeById(id) {
  * @param {object} update the fields and corresponding values of the recipe to change
  */
 export async function updateRecipeById(id, update) {
-    let queryURL = url;
+    let queryURL = API_URL;
     let response = await fetch(queryURL, {
         method: 'PUT',
         body: JSON.stringify(update)
@@ -113,11 +113,11 @@ export async function updateRecipeById(id, update) {
  * @returns {Array<recipe>} the recipes returned by the search engine
  */
 export async function submitSearch(keywords, tags) {
-    let query = "name=" + keywords;
+    let query = "?name=" + keywords;
     if (tags) {
         query = query + '&' + "tags=" + JSON.stringify(tags);
     }
-    let queryURL = url + "/search?" + query
+    let queryURL = API_URL + query
     let response = await fetch(queryURL, {
         method: 'GET',
     })

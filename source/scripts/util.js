@@ -10,3 +10,4 @@ export const USER_ROUTE = "user/"
 export const EDIT_CREATE_ROUTE = "editcreate/"
 // TODO: change editcreate route name
 export const TEMP_EDIT_CREATE_ROUTE = "tempedit/"
+export const API_URL = "http://127.0.0.1:3030/api"

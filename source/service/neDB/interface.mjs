@@ -57,43 +57,35 @@ export async function updateRecipe(id, recipe, recipeCollection) {
 
 
 /**
- * fetches all recipes
- * @param {*} recipeCollection the database to search in
- * @returns {Array<recipe>} all recipes in the database
- */
-export async function getRecipeByPage(recipeCollection, page) {
-    console.log("~~~~~~");
-    console.log(page);
-    let dbCursor = recipeCollection.find({});
-    return sortAndPaginateResults(dbCursor, page);
-}
-
-/**
  * retrieves all recipes with overlap in the names and all tags match
- * @param {*} searchParams the content to search for
+ * @param {*} query the content to search for
  * @param {*} recipeCollection the database to search in
  * @returns {Array<recipe>} the matching recipes
  */
-export async function getRecipesByNameAndTags(searchParams, recipeCollection) {
+export async function getRecipesByQuery(query, recipeCollection) {
     let filters = {}
-    if (searchParams.name) {
+    if (query.name) {
         // TODO (Bjorn): Create a list of common words to ignore
         let keywords = [];
-        for (let n of searchParams.name.split(" ")) {
+        for (let n of query.name.split(" ")) {
             let pattern = new RegExp(n, 'i');
             keywords.push({ name: { $regex: pattern } });
         }
         filters.$or = keywords;
     }
-    if (searchParams.tags) {
+    if (query.tags) {
         let tags = [];
-        for (let t of searchParams.tags.split(',')) {
+        for (let t of query.tags.split(',')) {
             tags.push({ tags: t.toLowerCase() });
         }
         filters.$and = tags;
     }
+    let page = undefined;
+    if (query.page) {
+        page = query.page;
+    }
     let dbCursor = recipeCollection.find(filters);
-    return sortAndPaginateResults(dbCursor);
+    return sortAndPaginateResults(dbCursor, page);
 }
 
 
@@ -104,8 +96,17 @@ export async function getRecipesByNameAndTags(searchParams, recipeCollection) {
  * @returns {null} if not found
  */
 export function getRecipeById(id, recipeCollection) {
-    let dbCursor = recipeCollection.findOne({ _id: id });
-    return sortAndPaginateResults(dbCursor);
+    let foundDoc = new Promise((resolve, reject) => {
+        recipeCollection.findOne({ _id: id }, function (err, doc) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                resolve(doc);
+            }
+        });
+    });
+    return foundDoc;
 }
 
 
@@ -135,7 +136,7 @@ export function sortAndPaginateResults(dbCursor, curr_page){
     let resultsToSkip = CARDS_PER_PAGE * (curr_page - 1);
     let foundDocs = new Promise((resolve, reject) => {
         dbCursor
-        //.sort({ planet: 1 })
+        .sort({ datePosted: -1 })
         .skip(resultsToSkip)
         .limit(CARDS_PER_PAGE)
         .exec(function (err, docs) {
