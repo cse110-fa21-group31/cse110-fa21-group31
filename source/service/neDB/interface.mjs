@@ -112,10 +112,11 @@ export function getRecipeById(id, recipeCollection) {
 
 /**
  * retrieves a number of recipes based on their ids
- * @param {Array<string>} ids 
+ * @param {string} idsString comma separated list of strings
  * @returns {Array<recipe>} the recipes matching any of the given ids
  */
-export function getRecipesByIds(ids, recipeCollection) {
+export function getRecipesByIds(idsString, recipeCollection) {
+    let ids = idsString.split(",")
     let dbCursor = recipeCollection.find({ _id: { $in: ids } });
     return sortAndPaginateResults(dbCursor);
 }

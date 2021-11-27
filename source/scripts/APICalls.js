@@ -66,6 +66,7 @@ export async function fetchRecipeByPage(pageNum) {
     return response
 }
 
+
 /**
  * sends an HTTP request to the server to fetch a single recipe
  * @param {string} id the id of the desired recipe
@@ -81,6 +82,25 @@ export async function fetchRecipeById(id) {
         })
         .catch((err) => {
             console.error('Error finding recipe: ' + err.message);
+        });
+    return response
+}
+
+/**
+ * sends an HTTP request to the server to fetch recipes
+ * @param {Array<string>} ids the ids of the desired recipes
+ */
+ export async function fetchRecipesByIds(ids) {
+    let queryURL = API_URL + "?ids=" + ids.join(",");
+    let response = await fetch(queryURL, {
+        method: 'GET',
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            return data
+        })
+        .catch((err) => {
+            console.error('Error finding recipes: ' + err.message);
         });
     return response
 }

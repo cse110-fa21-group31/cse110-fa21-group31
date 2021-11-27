@@ -1,5 +1,5 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
-import { createRecipe, deleteRecipe, updateRecipe, getRecipeById, getRecipesByQuery } from "./interface.mjs";
+import { createRecipe, deleteRecipe, updateRecipe, getRecipeById, getRecipesByIds, getRecipesByQuery } from "./interface.mjs";
 import { USER_DB_PATH, RECIPE_DB_PATH } from "../util.js";
 import Datastore from "nedb";
 
@@ -27,7 +27,7 @@ fastify.get("/api", async (request, reply) => {
     } 
     else if(request.query.ids){
         reply.status(200)
-        .send(await getRecipesById(request.query.ids, recipeDB));
+        .send(await getRecipesByIds(request.query.ids, recipeDB));
     }
     else {
         reply.status(200)
