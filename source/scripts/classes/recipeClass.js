@@ -172,6 +172,7 @@ class RecipeClass extends HTMLElement {
     set tags(tags) {
         this.tags = tags;
     }
+    
     addTag(tag) {
         this.tags.push(tag);
     }
@@ -182,6 +183,15 @@ class RecipeClass extends HTMLElement {
     set ingredients(ingredients) {
         this.ingredients = ingredients;
     }
+
+    set ingredientAmounts(ingredientAmounts) {
+        this.ingredientAmounts = ingredientAmounts;
+    }
+
+    set steps(steps) {
+        this.steps = steps;
+    }
+
 
     insertStep(step, stepIndex = this.steps.length) {
         this.steps.splice(stepIndex, 0, step);
@@ -231,6 +241,10 @@ class RecipeClass extends HTMLElement {
 
     get ingredients() {
         return this.ingredients;
+    }
+
+    get ingredientAmounts() {
+        return this.ingredientAmounts;
     }
 
     get steps() {
