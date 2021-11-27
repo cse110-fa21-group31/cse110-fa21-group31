@@ -2,15 +2,15 @@
 import { deleteRecipe, updateRecipeById } from "./APICalls.js"
 import { RECIPE_ROUTE, TEMP_EDIT } from "./util.js"
 import { redirectRecipeDetail, routerNavigateWrapper } from "./index.js";
-const url = window.location.href;
 //var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
 
 //let pageId = "2PHVAmmfeQgnyT7s" // ID for chicken stir fry
-const recipeId = url.substring(url.indexOf('#') + TEMP_EDIT.length + 1);
+let recipeId = "";
+
 let imageSrc = ''
 export default {}
 export function populateEditPage(recipeObj) {
-    console.log(window.location.href);
+    recipeId = recipeObj._id;
     console.log("RECIPE ID AT START IS " + recipeId);
 
     console.log("editCreate.js init called");
