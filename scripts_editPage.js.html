@@ -28,18 +28,14 @@
         <article>
             <pre class="prettyprint source linenums"><code>// This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
 import { deleteRecipe, updateRecipeById } from "./APICalls.js"
-import { RECIPE_ROUTE, TEMP_EDIT } from "./util.js"
+import { RECIPE_ROUTE } from "./util.js"
 import { redirectRecipeDetail, routerNavigateWrapper } from "./index.js";
-const url = window.location.href;
+const url = "http://127.0.0.1:3030/api"
 //var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
-
-//let pageId = "2PHVAmmfeQgnyT7s" // ID for chicken stir fry
-const recipeId = url.substring(url.indexOf('#') + TEMP_EDIT.length + 1);
+var pageId = 'zWLApN1kvM5MezgL'; // test page, delete if you want
 let imageSrc = ''
 export default {}
 export function populateEditPage(recipeObj) {
-    console.log(window.location.href);
-    console.log("RECIPE ID AT START IS " + recipeId);
 
     console.log("editCreate.js init called");
 
@@ -73,7 +69,7 @@ export function populateEditPage(recipeObj) {
 }
 
 const deleteRecipeButton = async (event) => {
-    await deleteRecipe(recipeId);
+    await deleteRecipe(pageId);
 }
 
 
@@ -85,7 +81,7 @@ export const fillOutEditPage = (recipeObj) => {
     console.log("EDITTED RECIPE");
 
     // get recipe info and fill it out
-    // let response = await fetchRecipeById(recipeId);
+    // let response = await fetchRecipeById(pageId);
     //TODO: update the variable from response to recipeObj
     let response = recipeObj
     console.log(response);
@@ -196,12 +192,10 @@ const onUpdateRecipe = async (event) => {
         difficulty: formData.get('difficulty'),
         ingredientAmounts: ingrAmountArr,
         steps: stepsArr,
-        _id: recipeId
+        _id: pageId
     }
     console.log(newRecipe);
-    console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
-    const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
-    console.log(updatedRecipe);
+    const updatedRecipe = await updateRecipeById(pageId, newRecipe);
     //TODO: fix update API calls: not actually update so return undefined to us
     redirectRecipeDetail(newRecipe)
     const page = newRecipe._id;
@@ -302,13 +296,13 @@ const appendEStep = (existingStep) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateRecipeDetail">populateRecipeDetail</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat Nov 27 2021 19:40:30 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun Nov 28 2021 00:08:21 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
