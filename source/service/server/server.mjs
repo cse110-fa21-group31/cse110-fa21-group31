@@ -2,22 +2,34 @@ import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userIn
 import { createRecipe, deleteRecipe, updateRecipe, getRecipeById, getRecipesByIds, getRecipesByQuery } from "./interface.mjs";
 import { USER_DB_PATH, RECIPE_DB_PATH } from "../util.js";
 import Datastore from "nedb";
+import path from 'path';
+import fstatic from 'fastify-static';
 
 // the following are "collection" object for the users, recipes, and tags tables
-const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
-const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
+export const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
+export const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 
+// correct dir name of current repo
+const __dirname = path.normalize(path.resolve());
 
 // Require the framework and instantiate it
 import Fastify from 'fastify';
 const fastify = Fastify({ logger: true });
+
+import fileRoutes from "./fileRoutes.js";
+// Require the framework and instantiate it
+fastify.register(fileRoutes.routes);
+fastify.register(fstatic, {
+    root: __dirname,
+  //prefix: '/public/', // optional: default '/'
+});
 
 // const path = require('path')
 import Cors from 'fastify-cors';
 fastify.register(Cors, {
     origin: true,
     methods: ['GET', 'PUT', 'POST', 'DEL']
-})
+});
 const port = process.env.PORT || 3030;
 
 fastify.get("/api", async (request, reply) => {
@@ -36,7 +48,6 @@ fastify.get("/api", async (request, reply) => {
 });
 
 fastify.post("/api", async (request, reply) => {
-    // console.log(JSON.parse(request.body))
     let body = JSON.parse(request.body)
     if (!body.name || !body.author || !body.steps) {
         const err = new Error();
@@ -49,10 +60,7 @@ fastify.post("/api", async (request, reply) => {
 });
 
 fastify.put("/api", async (request, reply) => {
-    console.log(request.body)
     let body = JSON.parse(request.body)
-    console.log(body)
-
     if (!body.name ||
         !body.author ||
         !body.steps ||
@@ -62,19 +70,25 @@ fastify.put("/api", async (request, reply) => {
         err.statusCode = 400;
         reply.send(err);
     } else {
-        reply.send(
-            await updateRecipe(
-                body._id,
-                body,
-                recipeDB
-            )
+        let response = await updateRecipe(
+            body._id,
+            body,
+            recipeDB
         );
+        // console.log(response);
+        reply.send(response);
     }
 });
 
-fastify.delete("/api", async (request, reply) => {
-    console.log(request.query)
-    reply.send(await deleteRecipe(request.query.id, recipeDB));
+fastify.get('/api/search', async (request, reply) => {
+    let data = await getRecipesByNameAndTags(request.query, recipeDB);
+    reply.status(200).send(data);
+});
+
+fastify.delete('/api', async (request, reply) => {
+    let id = request.query.id;
+    let data = await deleteRecipe(id, recipeDB);
+    reply.status(200).send(data);
 });
 
 /****************** User APIs ************************/
@@ -106,9 +120,10 @@ fastify.get("/api/user", async (req, reply) => {
  */
 fastify.post("/api/user", async (req, reply) => {
     // check if user exists. false if not.
+    let body = JSON.parse(req.body);
     let data = await hasUser(userDB, req.query.email);
     if (!data) {
-        data = await createUser(userDB, req.body);
+        data = await createUser(userDB, body);
     }
     reply.status(200).send(data);
 });
@@ -127,7 +142,7 @@ fastify.put("/api/user/saved", async (req, reply) => {
         req.query.recipeId
     );
     let data = await getUser(userDB, req.query.userId);
-    console.log("SAVE RECIPE: Number of document updated: " + numUpdated);
+    // console.log("SAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
 
@@ -145,7 +160,7 @@ fastify.delete("/api/user/saved", async (req, reply) => {
         req.query.recipeId
     );
     let data = await getUser(userDB, req.query.userId);
-    console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
+    // console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
 

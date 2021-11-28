@@ -1,4 +1,6 @@
 import { CARDS_PER_PAGE } from "../util.js";
+import { getUser } from "./userInterface.mjs";
+import { userDB, recipeDB } from "./server.mjs";
 /**
  * insert a single recipe to database
  * @param {recipe} recipe the recipe to insert
@@ -27,6 +29,7 @@ export async function createRecipe(recipe, recipeCollection) {
  */
 export async function deleteRecipe(id, recipeCollection) {
     recipeCollection.remove({ _id: id });
+    console.log("DELET RECIPE SLFHISJFD" + id);
 }
 
 
@@ -38,7 +41,8 @@ export async function deleteRecipe(id, recipeCollection) {
  * @returns {Array<recipe>} the updated recipe
  */
 export async function updateRecipe(id, recipe, recipeCollection) {
-    let updatedRecipes = new Promise((resolve, reject) => {
+    recipe.author = recipe.author._id;
+    let updatedRecipes = await new Promise((resolve, reject) => {
         recipeCollection.update({ _id: id },
             recipe, { returnUpdatedDocs: true },
             function (err, numAffected, affectedDocs) {
@@ -52,6 +56,13 @@ export async function updateRecipe(id, recipe, recipeCollection) {
             }
         );
     });
+    // console.log(updatedRecipes);
+    // let recipes = [];
+    // if(foundDocs){
+    //     recipes.push(updatedRecipes);
+    //     updatedRecipes = await convertUserIdToObj(recipes);
+    //     updatedRecipes = updatedRecipes[0];
+    // }
     return updatedRecipes;
 }
 
@@ -92,11 +103,12 @@ export async function getRecipesByQuery(query, recipeCollection) {
 /**
  * retrieves a single recipe based on id
  * @param {string} id unique string identifier of the desired recipe
- * @returns {Array<recipe>} the found recipe
+ * @param {*} recipeCollection the database to search in
+ * @returns {recipe} the found recipe
  * @returns {null} if not found
  */
-export function getRecipeById(id, recipeCollection) {
-    let foundDoc = new Promise((resolve, reject) => {
+export async function getRecipeById(id, recipeCollection) {
+    let foundDoc = await new Promise((resolve, reject) => {
         recipeCollection.findOne({ _id: id }, function (err, doc) {
             if (err) {
                 console.log(err);
@@ -113,9 +125,10 @@ export function getRecipeById(id, recipeCollection) {
 /**
  * retrieves a number of recipes based on their ids
  * @param {string} idsString comma separated list of strings
+ * @param {*} recipeCollection the database to search in
  * @returns {Array<recipe>} the recipes matching any of the given ids
  */
-export function getRecipesByIds(idsString, recipeCollection) {
+export async function getRecipesByIds(idsString, recipeCollection) {
     let ids = idsString.split(",")
     let dbCursor = recipeCollection.find({ _id: { $in: ids } });
     return sortAndPaginateResults(dbCursor);
@@ -127,7 +140,7 @@ export function getRecipesByIds(idsString, recipeCollection) {
  * current page number
  * @param dbCursor the result of the db query
  * @param curr_page the current page of results to display
- * @returns 
+ * @returns {Array<recipe>} the recipes corresponding to the query
  */
 export function sortAndPaginateResults(dbCursor, curr_page){
     if(curr_page == undefined){
@@ -150,4 +163,22 @@ export function sortAndPaginateResults(dbCursor, curr_page){
         });
     });
     return foundDocs;
+}
+
+/**
+ * Changes all user ids in recipes into user object. 
+ * 
+ * @deprecated
+ * @param recipes Recipes to convert user.
+ * @returns recipes with converted user. 
+ */
+export async function convertUserIdToObj(recipes) {
+    recipes = await Promise.all(recipes.map(async (recipe) => {
+        recipe.author = await getUser(userDB, recipe.author);
+        return recipe;
+    }));
+    // console.log("After convert: ");
+    // console.log(recipes);
+    
+    return recipes;
 }

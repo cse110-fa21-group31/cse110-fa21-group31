@@ -1,13 +1,12 @@
-// This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
-import { deleteRecipe, updateRecipeById } from "./APICalls.js"
-import { RECIPE_ROUTE } from "./util.js"
-import { redirectRecipeDetail, routerNavigateWrapper } from "./index.js";
-const url = "http://127.0.0.1:3030/api"
-//var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
-var pageId = 'zWLApN1kvM5MezgL'; // test page, delete if you want
+import { updateRecipeById } from "./APICalls.js"
+import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
+import { RECIPE_ROUTE } from './util.js'
 let imageSrc = ''
-export default {}
+let recipeId;
+export default {populateEditPage}
 export function populateEditPage(recipeObj) {
+    recipeId = recipeObj._id;
+    console.log("RECIPE ID AT START IS " + recipeId);
 
     console.log("editCreate.js init called");
 
@@ -40,8 +39,8 @@ export function populateEditPage(recipeObj) {
     });
 }
 
-const deleteRecipeButton = async (event) => {
-    await deleteRecipe(pageId);
+export const deleteRecipeButton = async (event) => {
+    // await deleteRecipe(pageId);
 }
 
 
@@ -53,7 +52,7 @@ export const fillOutEditPage = (recipeObj) => {
     console.log("EDITTED RECIPE");
 
     // get recipe info and fill it out
-    // let response = await fetchRecipeById(pageId);
+    // let response = await fetchRecipeById(recipeId);
     //TODO: update the variable from response to recipeObj
     let response = recipeObj
     console.log(response);
@@ -155,7 +154,8 @@ const onUpdateRecipe = async (event) => {
         //TODO: figure out the way to store image. Not update it for now
         // image: formData.get('picture'),
         image: imageSrc,
-        author: "HZRfg63gUu5M8S0F",
+        //TODO: after we verify a user is logged in, change this to userData.id only
+        author: userData ? userData._id : "MMAfv3oCQDiL4u10",
         description: formData.get('description'),
         tags: strTags,
         servingSize: formData.get('servingSize'),
@@ -164,15 +164,19 @@ const onUpdateRecipe = async (event) => {
         difficulty: formData.get('difficulty'),
         ingredientAmounts: ingrAmountArr,
         steps: stepsArr,
-        _id: pageId
+        _id: recipeId
     }
     console.log(newRecipe);
-    const updatedRecipe = await updateRecipeById(pageId, newRecipe);
-    //TODO: fix update API calls: not actually update so return undefined to us
-    redirectRecipeDetail(newRecipe)
-    const page = newRecipe._id;
+    console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
+    const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
+    redirectRecipeDetail(updatedRecipe)
+    const page = updatedRecipe._id;
     const routeUrl = RECIPE_ROUTE + page
     routerNavigateWrapper(routeUrl)
+
+    // What does this function do overall?
+    // ANSWER: This function serves to
+     
 };
 
 
@@ -259,3 +263,4 @@ const appendEStep = (existingStep) => {
     numSteps++;
 
 };
+

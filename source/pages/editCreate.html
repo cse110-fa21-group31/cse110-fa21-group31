@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Edit/Create</title>
     <meta charset="utf-8">
-    <script type="module" src="../scripts/editCreate.js"></script>
+    <script type="module" src="../scripts/createPage.js"></script>
     <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
     <link rel='stylesheet' href="/source/assets/styles/cards.css">
+
+  <script src="/source/scripts/userLogin.js" type="module"></script>
 </head>
 
 <body>
-    <div class="navBar">
-        <iframe src="/source/cards/navBar.html"
-            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
-    </div>
+    <div id="header"> </div>
     <!-- A complete form for editing a recipe -->
     <!-- This can probably just be a really basic form -->
     <!-- 
@@ -335,7 +333,7 @@
 
     <!-- Generate a complete recipe editing page. -->
     <div class="recipeEdit">
-        <form id="recipeForm" onSubmit=formSubmit(event)>
+        <form id="recipeForm">
 
             <div id="name" class="formItem">
                 <label for="name">Recipe Name: *</label>

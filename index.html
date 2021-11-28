@@ -1,68 +1,45 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Landing Page</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
+        <link rel='stylesheet' href="/source/assets/styles/cards.css">
+        <script type="module" src='/source/scripts/indexSearch.js'></script>
+        <script src="/source/scripts/classes/recipeClass.js" type="module"></script>
+        <script src="/source/scripts/recipeDetail.js" type="module"></script>
+        <script src="/source/scripts/createPage.js" type="module"></script>
+        <script src="/source/scripts/editPage.js" type="module"></script>
+        <script src="/source/scripts/router/Router.js" type="module"></script>
+        <script src="/source/scripts/index.js" type="module"></script>
+        <meta name="google-signin-client_id"
+            content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+        <script src="/source/scripts/userLogin.js" type="module"></script>
+        <script src="/source/scripts/userInfo.js" type="module"></script>
+       
+        <style>
+              .hidden {
+                  display: none;
+              }
 
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Landing Page</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
-    <link rel='stylesheet' href="/source/assets/styles/cards.css">
-    <script type="module" src='/source/scripts/indexSearch.js'></script>
-    <script src="/source/scripts/classes/recipeClass.js" type="module"></script>
-    <script src="/source/scripts/recipeDetail.js" type="module"></script>
-    <script src="/source/scripts/createPage.js" type="module"></script>
-    <script src="/source/scripts/editPage.js" type="module"></script>
-    <script src="/source/scripts/router/Router.js" type="module"></script>
-    <script src="/source/scripts/index.js" type="module"></script>
-    <meta name="google-signin-client_id"
-        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-    <script src="/source/scripts/userLogin.js" type="module"></script>
-    <script src="/source/scripts/userInfo.js" type="module"></script>
+              .show {
+                  display: inline;
+              }
 
+              section:not(section.shown) {
+                  display: none;
+              }
+       </style>
+    </head>
+    <body>
+       <div id="header"> </div>
 
-    <style>
-        .hidden {
-            display: none;
-        }
-
-        .show {
-            display: inline;
-        }
-
-        section:not(section.shown) {
-            display: none;
-        }
-    </style>
-
-</head>
-
-<body>
-    <!-- Nav Bar -->
-    <nav id="navbar">
-        <ul id="nav" class="topRight">
-            <li id="navLogo">
-                <a class="logo" href="/cse110-fa21-group31/index.html">Olive U</a>
-            </li>
-            <li id="signInButton">
-                <!-- when sign-in success, call frontend function onSignIn() in 
-              scripts/util.js -->
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            </li>
-            <li id="profile">
-                <div id="signOutButton">
-                    <a href="#" onclick="signOut();">Sign out</a>
-                </div>
-            </li>
-            <!-- <li><a href="#" onclick="signOut();">Sign out</a></li> -->
-        </ul>
-    </nav>
-
-    <!-- home page -->
+        <!-- home page -->
     <section id="homePage" class="shown">
         <div id="landingHeader">
-
 
             <!-- Search Bar -->
             <div class="searchBarHomepage">
@@ -76,52 +53,50 @@
         </div>
         <!-- Recipe Section -->
         <div class="myRecipeCardGridContainer"></div>
-    </section>
+      
+        <section id="recipeDetail">
 
-    <!-- recipe detail page -->
-    <section id="recipeDetail">
+          <!-- buttons for edit and delete -->
+          <button id="editRecipeButton">Edit</button>
+          <button id="deleteRecipeButton">Delete</button>
 
-        <!-- buttons for edit and delete -->
-        <button id="editRecipeButton">Edit</button>
-        <button id="deleteRecipeButton">Delete</button>
+          <!-- Displaying recipe title, creation date, author-->
+          <p id="recipeTitle">Recipe title</p>
+          <p id="date">The Date of Creation</p>
+          <p id="author">The Author</p>
 
-        <!-- Displaying recipe title, creation date, author-->
-        <p id="recipeTitle">Recipe title</p>
-        <p id="date">The Date of Creation</p>
-        <p id="author">The Author</p>
+          <!-- Displaying recipe image-->
+          <img id="recipeImage" src="" alt="" width="500" height="300">
 
-        <!-- Displaying recipe image-->
-        <img id="recipeImage" src="" alt="" width="500" height="300">
+          <!-- Displaying recipe description-->
+          <div id="description">Description</div>
 
-        <!-- Displaying recipe description-->
-        <div id="description">Description</div>
+          <!-- Displaying serving size-->
+          <p id="servingSize">servingSize</p>
 
-        <!-- Displaying serving size-->
-        <p id="servingSize">servingSize</p>
+          <!-- Displaying recipe tags-->
 
-        <!-- Displaying recipe tags-->
+          <label for="tags">Tags:</label>
+          <div id="tags">
+              <ul id="tag" class="tagsList"></ul>
 
-        <label for="tags">Tags:</label>
-        <div id="tags">
-            <ul id="tag" class="tagsList"></ul>
+          </div>
 
-        </div>
+          <!-- Displaying recipe cooktime-->
+          <label for="cookTime">Cook Time:</label>
+          <p id="cookTime">cook Time</p>
 
-        <!-- Displaying recipe cooktime-->
-        <label for="cookTime">Cook Time:</label>
-        <p id="cookTime">cook Time</p>
+          <!-- Displaying recipe ingredients-->
+          <div class="ingredients" id="ingredients">
+              <label for="ingredients">Ingredients:</label>
+              <ul id="ingr" class="ingredientsList"></ul>
+          </div>
 
-        <!-- Displaying recipe ingredients-->
-        <div class="ingredients" id="ingredients">
-            <label for="ingredients">Ingredients:</label>
-            <ul id="ingr" class="ingredientsList"></ul>
-        </div>
-
-        <!-- Displaying recipe steps-->
-        <div class="steps" id="steps">
-            <label for="steps">Steps:</label>
-            <ol id="stps" class="ingredientsList"></ol>
-        </div>
+          <!-- Displaying recipe steps-->
+          <div class="steps" id="steps">
+              <label for="steps">Steps:</label>
+              <ol id="stps" class="ingredientsList"></ol>
+          </div>
 
     </section>
 
@@ -153,7 +128,7 @@
         <div class="userInfoGridContainer">
             <!-- User Profile, left side -->
             <div class="userInfoGridItem">
-                <img id="profile" src="../assets/profile.png" width=80 height=80 />
+                <img id="profile" src="./source/assets/profile.png" width=80 height=80 />
                 <h1 id="userName"> Name </h1>
                 <h2 id="userEmail"> Email </h2>
                 <button id="createRecipePageButton" type="button"> New Recipe </button>
@@ -165,17 +140,17 @@
                 <h1> My Recipes </h1>
                 <div class="myRecipeCardGridContainer">
                     <recipeCard>
-                        <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                        <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                         <p> Title </p>
                         <customTags> Beef, Easy, Entree </customTags>
                     </recipeCard>
                     <recipeCard>
-                        <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                        <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                         <p> Title </p>
                         <customTags> Beef, Easy, Entree </customTags>
                     </recipeCard>
                     <recipeCard>
-                        <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                        <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                         <p> Title </p>
                         <customTags> Beef, Easy, Entree </customTags>
                     </recipeCard>
@@ -184,17 +159,17 @@
                 <div class="savedRecipes">
                     <div class="myRecipeCardGridContainer">
                         <recipeCard>
-                            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                            <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                             <p> Title </p>
                             <customTags> Beef, Easy, Entree </customTags>
                         </recipeCard>
                         <recipeCard>
-                            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                            <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                             <p> Title </p>
                             <customTags> Beef, Easy, Entree </customTags>
                         </recipeCard>
                         <recipeCard>
-                            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                            <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                             <p> Title </p>
                             <customTags> Beef, Easy, Entree </customTags>
                         </recipeCard>
@@ -208,7 +183,7 @@
     <!-- recipe create page -->
     <section id="createRecipe">
         <div class="recipeEdit">
-            <form id="recipeForm" onSubmit=formSubmit(event)>
+            <form id="recipeForm">
 
                 <div id="name" class="formItem">
                     <label for="name">Recipe Name: *</label>
@@ -299,7 +274,7 @@
     <!-- recipe edit page -->
     <section id="editRecipe">
         <div class="recipeEdit">
-            <form id="editRecipeForm" onSubmit=onUpdateRecipe(event)>
+            <form id="editRecipeForm">
 
                 <div id="editName" class="formItem">
                     <label for="name">Recipe Name: *</label>
@@ -318,7 +293,6 @@
                     <textarea name="description" id="descriptionText"></textarea>
                 </div>
 
-                <!-- Tags will be sent to the backend as a big comma delimited string -->
                 <div id="editTags" class="formItem">
                     <label for="tags">Tags:</label>
                     <input type="text" name="tags" id="tags">
@@ -335,7 +309,6 @@
                     <input type="text" name="servingSize" id="servingSize">
                 </div>
 
-                <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
                 <div id="editDifficulty" class="formItem">
                     <label for="difficulty">Difficulty:</label>
                     <select name="difficulty" id="difficulty">
@@ -377,9 +350,7 @@
                     <div id="delete" class="float-child">
                         <input type="button" value="Delete">
                     </div>
-                    <div id="cancel" class="float-child">
-                        <input type="button" value="Cancel">
-                    </div>
+                    <div id="cancel" class="float-child"></div>
                     <div id="submit" class="float-child">
                         <input type="submit" value="Save">
                     </div>
@@ -388,11 +359,12 @@
         </div>
     </section>
 
+    <!-- footer -->
+    <footer>
+        <iframe src="/source/cards/footer.html"
+            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+    </footer>
 
 </body>
-<footer>
-    <iframe src="/source/cards/footer.html"
-        onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
-</footer>
 
 </html>
