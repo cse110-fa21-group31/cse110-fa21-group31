@@ -39,6 +39,7 @@ const recipeData = {};
  * Populates the recipe detail pages by fetching recipe json and filling in 
  * properties in html components. 
  */
+/*
 export async function populateRecipeDetail() {
     const url = parent.document.URL;
     let recipeID = url.substring(url.indexOf('#') + RECIPE_ROUTE.length + 1, url.length);
@@ -46,6 +47,7 @@ export async function populateRecipeDetail() {
     let recipe = await fetchRecipeById(recipeID);
     fillOutRecipe(recipe);
 }
+*/
 
 export function fillOutRecipe(data) {
     document.getElementById("recipeTitle").innerHTML = data.name;
@@ -57,7 +59,9 @@ export function fillOutRecipe(data) {
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
     if (data.description) document.getElementById("description").innerHTML = data.description;
     if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;
-    document.getElementById("author").innerHTML = data.author;
+    // display author name. If no name, display whatever is in there
+    console.log(data.author);
+    document.getElementById("author").innerHTML = (typeof data.author == "object") ? data.author.username : data.author;
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
     if (data.ingredients) document.getElementById("ingredients").innerHTML = data.ingredients;
     document.getElementById("steps").innerHTML = data.steps;
@@ -138,13 +142,13 @@ export function fillOutRecipe(data) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateRecipeDetail">populateRecipeDetail</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun Nov 28 2021 03:09:02 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun Nov 28 2021 04:57:30 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
