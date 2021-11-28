@@ -1,4 +1,4 @@
-export const url = "http://127.0.0.1:3030/api"
+export const url = "/api"
 export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
 updateRecipeById, submitSearch, url}
 /**
@@ -33,18 +33,18 @@ export async function insertRecipe(recipe) {
  */
 export async function deleteRecipe(id) {
     let queryURL = url + "?id=" + id;
+    // console.log("Step 0, " + queryURL);
     let response = await fetch(queryURL, {
-        method: 'DEL',
+        method: 'DELETE',
         "Access-Control-Allow-Origin": "*",
-        mode: 'no-cors'
+        // "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     })
-        .then((response) => response.json())
-        .then((data) => {
-            return data
-        })
         .catch((err) => {
+            console.log("Step 3");
             console.error('Error deleting recipe: ' + err.message);
         });
+    
+    // console.log("Step Return");
     return response
 }
 
