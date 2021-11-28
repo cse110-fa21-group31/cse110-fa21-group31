@@ -23,11 +23,12 @@ const NumRecipePerPage = 6
 const currPage = 1
 export var userData = null;
 
-const homePage = null; // = document.getElementById('homePage')
-const recipeDetailPage = null; // = document.getElementById('recipeDetail')
-const userInfoPage = null; // = document.getElementById('userInfo')
-const createRecipePage = null; // = document.getElementById('createRecipe')
-const editRecipePage = null; // = document.getElementById('editRecipe')
+let homePage = null; // = document.getElementById('homePage')
+let recipeDetailPage = null; // = document.getElementById('recipeDetail')
+let userInfoPage = null; // = document.getElementById('userInfo')
+let createRecipePage = null; // = document.getElementById('createRecipe')
+let editRecipePage = null; // = document.getElementById('editRecipe')
+
 if (typeof window === 'object') {
     console.log('Yaay, window is defined');  
     if (typeof window.document === 'object') {

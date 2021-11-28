@@ -9,6 +9,9 @@ const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 const RECIPE_DB_PATH = "source/service/.data/recipes"
 const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 
+// correct dir name of current repo
+const __dirname = path.normalize(path.resolve());
+
 // Require the framework and instantiate it
 import Fastify from 'fastify';
 const fastify = Fastify({ logger: true });
@@ -17,7 +20,7 @@ import fileRoutes from "./fileRoutes.js"
 // Require the framework and instantiate it
 fastify.register(fileRoutes.routes)
 fastify.register(fstatic, {
-    root: path.join('C:/Users/ericf/Desktop/CSE 110/routerIntegration11.26', 'cse110-fa21-group31'),
+    root: __dirname,
   //prefix: '/public/', // optional: default '/'
 })
 
@@ -40,6 +43,8 @@ fastify.get("/api", async (_, reply) => {
 */
 
 fastify.get("/api", async (request, reply) => {
+    console.log("dirname: " + __dirname);
+
     if (request.query.id) {
         const recipe = await getRecipeById(request.query.id, recipeDB)
         console.log(recipe);
