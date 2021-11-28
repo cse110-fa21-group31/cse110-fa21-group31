@@ -9,15 +9,17 @@
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
     <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
     <link rel='stylesheet' href='/source/assets/styles/cards.css'>
+    <link rel='stylesheet' href='/source/assets/styles/homePage.css'>
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script type="module" src='/source/scripts/index.js'></script>
     <script type="module" src='/source/scripts/classes/recipeClass.js'></script>
     <script type="module" src='/source/scripts/APICalls.js'></script>
+    <script type="module" src='/source/scripts/indexSearch.js'></script>
     <style>
         h1 {
             line-height: 0px;
         }
-
+    </style>
 </head>
 
 <body>
@@ -28,6 +30,12 @@
         <div id="keyword" class="formItem">
             <label for="keyword">Search:</label>
             <input type="text" name="keyword" id="keyword">
+        </div>
+        <div id="selectTag" class="formItem">
+            <input type="button" name="selectTag" id="selectTagButton" value="Choose tags here">
+            <div id="tagsList">
+                <!-- populated in indexSearch.js -->
+            </div>
         </div>
         <div id="submit" class="formItem">
             <input type="submit" value="Submit">

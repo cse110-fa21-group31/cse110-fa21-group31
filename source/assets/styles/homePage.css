@@ -1,0 +1,53 @@
+.searchBar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tagsList {
+    display:hidden;
+}
+
+/*
+    Search Tag
+*/
+
+#selectTagButton {
+    width: 80%;
+    padding: 2%, 4%;
+    background: #FCAF58;
+    color: white;
+    font-size: 100%;
+    border: 7px solid #FCAF58;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tagButton {
+    width: 80%;
+    padding: 10px;
+    background: #FCAF58;
+    color: white;
+    font-size: 70%;
+    border: 7px solid #FCAF58;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#tagsList {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto, minmax(200px, 1fr));
+    /* grid-template-columns: 1fr, 1fr, 1fr; */
+    grid-gap: 1rem;
+}
+
+#submit {
+    width: 80%;
+    padding: 2%, 4%;
+    background: #FCAF58;
+    color: white;
+    font-size: 100%;
+    border: 7px solid #FCAF58;
+    border-radius: 5px;
+    cursor: pointer;
+}
