@@ -42,7 +42,7 @@ window.signOut = signOut;
 function onSignIn(googleUser) {
     // TODO: fake user for now, dynamically get user info here. 
     const profile = {
-        name: googleUser.getBasicProfile().getName(),
+        username: googleUser.getBasicProfile().getName(),
         imageURL: googleUser.getBasicProfile().getImageUrl(),
         email: googleUser.getBasicProfile().getEmail(),
         _id: "MMAfv3oCQDiL4u10",
