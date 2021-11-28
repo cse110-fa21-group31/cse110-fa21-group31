@@ -21,50 +21,39 @@ async function init() {
         });
     }
 
-    let tagsSelect = document.getElementById("selectTagButton");
+    let tagsSelect = document.getElementById("tagsList");
     //console.log(tagsSelect);
     if (tagsSelect) {
-        //console.log("found tag");
-        tagsSelect.addEventListener("click", (event) => {
-            chooseTag(this);
-            event.stopPropagation();
-            let tagButtons = document.getElementsByClassName("tagButton");
-            for (let i = 0; i < tagButtons.length; i++) {
-                //e.stopPropagation();
-                tagButtons[i].addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    clickedOnATag(tagButtons[i]);
-                });
-            }
-        });
+        chooseTag(this);
+        let tagButtons = document.getElementsByClassName("tagButton");
+        for (let i = 0; i < tagButtons.length; i++) {
+            //e.stopPropagation();
+            tagButtons[i].addEventListener('click', (e) => {
+                clickedOnATag(tagButtons[i]);
+            });
+        }
     }
 }
 
 function chooseTag(e) {
     let tagsList = document.querySelector("#tagsList");
-    if (document.getElementsByClassName("tagButton").length > 0) {
-        //remove tag options
-        tagsList = document.getElementsByClassName("tagButton");
-        let tagsLength = tagsList.length;
-        for (let i = 0 ; i < tagsLength; i++) {
-            tagsList[0].remove();
-        }
-    } else {
-        let tagsList = document.querySelector("#tagsList");
-        tagsList.style.display = "grid";
-        for (let i = 0 ; i < allTags.length; i++) {
-            let addTagButton = document.createElement("button");
-            addTagButton.classList.add("tagButton");
-            addTagButton.innerText = allTags[i];
-            addTagButton.id = allTags[i];
-            tagsList.appendChild(addTagButton);
-        }
+    tagsList.style.display = "grid";
+    for (let i = 0 ; i < allTags.length; i++) {
+        let addTagButton = document.createElement("button");
+        addTagButton.classList.add("tagButton");
+        addTagButton.innerText = allTags[i];
+        addTagButton.id = allTags[i];
+        tagsList.appendChild(addTagButton);
     }
-    return Promise.resolve(tagsList);
 }
 
 function clickedOnATag(e) {
-    console.log("Clicked on tag");
-    selectedTags.push(e.innerText);
-    console.log(selectedTags);
+    let index = selectedTags.indexOf(e.innerText);
+    if (index > -1) {
+        e.style.color = "white";
+        selectedTags.splice(index,1);
+    } else {
+        e.style.color = "red";
+        selectedTags.push(e.innerText);
+    }
 }
