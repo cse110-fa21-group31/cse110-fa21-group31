@@ -43,7 +43,7 @@
     <nav id="navbar">
         <ul id="nav" class="topRight">
             <li id="navLogo">
-                <a class="logo" href="/cse110-fa21-group31/index.html">Olive U</a>
+                <a class="logo" href="/">Olive U</a>
             </li>
             <li id="signInButton">
                 <!-- when sign-in success, call frontend function onSignIn() in 
@@ -153,7 +153,7 @@
         <div class="userInfoGridContainer">
             <!-- User Profile, left side -->
             <div class="userInfoGridItem">
-                <img id="profile" src="../assets/profile.png" width=80 height=80 />
+                <img id="profile" src="./source/assets/profile.png" width=80 height=80 />
                 <h1 id="userName"> Name </h1>
                 <h2 id="userEmail"> Email </h2>
                 <button id="createRecipePageButton" type="button"> New Recipe </button>
@@ -165,17 +165,17 @@
                 <h1> My Recipes </h1>
                 <div class="myRecipeCardGridContainer">
                     <recipeCard>
-                        <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                        <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                         <p> Title </p>
                         <customTags> Beef, Easy, Entree </customTags>
                     </recipeCard>
                     <recipeCard>
-                        <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                        <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                         <p> Title </p>
                         <customTags> Beef, Easy, Entree </customTags>
                     </recipeCard>
                     <recipeCard>
-                        <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                        <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                         <p> Title </p>
                         <customTags> Beef, Easy, Entree </customTags>
                     </recipeCard>
@@ -184,17 +184,17 @@
                 <div class="savedRecipes">
                     <div class="myRecipeCardGridContainer">
                         <recipeCard>
-                            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                            <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                             <p> Title </p>
                             <customTags> Beef, Easy, Entree </customTags>
                         </recipeCard>
                         <recipeCard>
-                            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                            <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                             <p> Title </p>
                             <customTags> Beef, Easy, Entree </customTags>
                         </recipeCard>
                         <recipeCard>
-                            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+                            <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
                             <p> Title </p>
                             <customTags> Beef, Easy, Entree </customTags>
                         </recipeCard>
@@ -208,7 +208,7 @@
     <!-- recipe create page -->
     <section id="createRecipe">
         <div class="recipeEdit">
-            <form id="recipeForm" onSubmit=formSubmit(event)>
+            <form id="recipeForm">
 
                 <div id="name" class="formItem">
                     <label for="name">Recipe Name: *</label>
@@ -299,7 +299,7 @@
     <!-- recipe edit page -->
     <section id="editRecipe">
         <div class="recipeEdit">
-            <form id="editRecipeForm" onSubmit=onUpdateRecipe(event)>
+            <form id="editRecipeForm">
 
                 <div id="editName" class="formItem">
                     <label for="name">Recipe Name: *</label>
@@ -384,11 +384,12 @@
         </div>
     </section>
 
+    <!-- footer -->
+    <footer>
+        <iframe src="/source/cards/footer.html"
+            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+    </footer>
 
 </body>
-<footer>
-    <iframe src="/source/cards/footer.html"
-        onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
-</footer>
 
 </html>

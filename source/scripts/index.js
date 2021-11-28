@@ -1,6 +1,8 @@
 // import RecipeClass from "./recipeClass";
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
-export default {}
+export default {createRecipeCards, redirectRecipeDetail, bindRecipeCard, 
+routerAddCreatePage, routerAddEditPage, routerNavigateWrapper,
+bindUserProfile, bindEscKey, bindPopstate, setGlobalUserData, clearGlobalUserData}
 // RecipeExpand.js
 if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", init);
@@ -21,45 +23,61 @@ const NumRecipePerPage = 6
 const currPage = 1
 export var userData = null;
 
-const homePage = document.getElementById('homePage')
-const recipeDetailPage = document.getElementById('recipeDetail')
-const userInfoPage = document.getElementById('userInfo')
-const createRecipePage = document.getElementById('createRecipe')
-const editRecipePage = document.getElementById('editRecipe')
+let homePage = null; // = document.getElementById('homePage')
+let recipeDetailPage = null; // = document.getElementById('recipeDetail')
+let userInfoPage = null; // = document.getElementById('userInfo')
+let createRecipePage = null; // = document.getElementById('createRecipe')
+let editRecipePage = null; // = document.getElementById('editRecipe')
+
+if (typeof window === 'object') {
+    if (typeof window.document === 'object') {
+       homePage = document.getElementById('homePage')
+       recipeDetailPage = document.getElementById('recipeDetail')
+       userInfoPage = document.getElementById('userInfo')
+       createRecipePage = document.getElementById('createRecipe')
+       editRecipePage = document.getElementById('editRecipe')
+    }
+}
 
 
 
 
-const router = new Router(function () {
-    console.log("Test router");
+export const router = new Router(function () {
+    // console.log("Test router");
     // TODO: array and for loop in the future
     homePage.classList.add("shown");
     recipeDetailPage.classList.remove("shown");
     userInfoPage.classList.remove("shown");
     createRecipePage.classList.remove("shown");
     editRecipePage.classList.remove("shown");
+    updateRecipeListInfo(currPage);
 });
 
-async function init() {
+export async function init() {
     try {
         await createRecipes();
     } catch (err) {
         console.log(`Error fetching recipes: ${err}`);
         return;
     }
-    await fetchRecipes();
-    createRecipeCards();
+    updateRecipeListInfo(currPage);
     bindEscKey();
     bindPopstate();
 }
 
+// TODO: fetch and update homepage recipe by pageID
+export async function updateRecipeListInfo(pageId) {
+    await fetchRecipes()
+    createRecipeCards();
+}
+
 //fills the recipes into the recipes Array
 //should help pull info from the api call, or makes the api call here
-async function createRecipes() {
+export async function createRecipes() {
     //do nothing for now!
 }
 
-async function fetchRecipes() {
+export async function fetchRecipes() {
     let response = await fetchRecipeByPage(currPage)
     recipeData = response;
 }
@@ -104,11 +122,14 @@ observer.observe(document.body, {
  * Generates the <recipeCard> elements from the fetched recipes and
  * appends them to the page
  */
-function createRecipeCards() {
+export function createRecipeCards() {
     // Makes new recipe cards
     // Wait until the gridContainer is loaded
     waitForSelector('.myRecipeCardGridContainer')
         .then(gridContainer => {
+            while (gridContainer.firstChild) {
+                gridContainer.removeChild(gridContainer.firstChild);
+            }
             recipeData.forEach(recipeObj => {
                 if (!recipeObj) return
                 const recipeCard = document.createElement('recipe-card');
@@ -153,7 +174,7 @@ export function redirectRecipeDetail(recipeObj) {
  *                             listeners to
  * @param {String} pageName the name of the page to navigate to on click
  */
-function bindRecipeCard(recipeCard, pageName) {
+export function bindRecipeCard(recipeCard, pageName) {
     recipeCard.addEventListener('click', e => {
         if (e.path[0].nodeName == 'A') return;
         router.navigate(pageName);
@@ -233,7 +254,7 @@ export function bindUserProfile(profile) {
  * Binds the 'keydown' event listener to the Escape key (esc) such that when
  * it is clicked, the home page is returned to
  */
-function bindEscKey() {
+export function bindEscKey() {
     /**
      * TODO - Part 1 Step 5
      * For this step, add an event listener to document for the 'keydown' event,
@@ -254,7 +275,7 @@ function bindEscKey() {
  * in your Router when you push your state so you can access that page
  * info in your popstate function)
  */
-function bindPopstate() {
+export function bindPopstate() {
     /**
      * TODO - Part 1 Step 6
      * Finally, add an event listener to the window object for the 'popstate'

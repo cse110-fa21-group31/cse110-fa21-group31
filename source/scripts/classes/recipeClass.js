@@ -81,7 +81,10 @@ class RecipeClass extends HTMLElement {
         const imageData = getImage(data);
         const image = document.createElement('img');
         image.href = imageData;
-        image.src = imageData;
+        // show placeholder image if imageData not availables
+        // TODO: change these conditions after figuring out how to upload and store image
+        image.src = (imageData == null || typeof imageData == "object" || imageData == "") 
+            ? "./source/assets/Images/recipeCardPlaceholder.png" : imageData;
         //console.log(imageData);
 
         // Grab the name

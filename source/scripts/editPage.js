@@ -1,12 +1,8 @@
-// This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
-import { deleteRecipe, updateRecipeById } from "./APICalls.js"
-import { RECIPE_ROUTE } from "./util.js"
-import { redirectRecipeDetail, routerNavigateWrapper } from "./index.js";
-const url = "http://127.0.0.1:3030/api"
-//var pageId = 'TRLJBrD85YE6oS0b'; // Gojo page DO NOT DELETE
-var pageId = 'zWLApN1kvM5MezgL'; // test page, delete if you want
+import { updateRecipeById } from "./APICalls.js"
+import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
+import { RECIPE_ROUTE } from './util.js'
 let imageSrc = ''
-export default {}
+export default {populateEditPage}
 export function populateEditPage(recipeObj) {
 
     console.log("editCreate.js init called");
@@ -40,8 +36,7 @@ export function populateEditPage(recipeObj) {
     });
 }
 
-const deleteRecipeButton = async (event) => {
-    console.log("delete button clicked");
+export const deleteRecipeButton = async (event) => {
     await deleteRecipe(pageId);
 }
 
@@ -156,7 +151,8 @@ const onUpdateRecipe = async (event) => {
         //TODO: figure out the way to store image. Not update it for now
         // image: formData.get('picture'),
         image: imageSrc,
-        author: "HZRfg63gUu5M8S0F",
+        //TODO: after we verify a user is logged in, change this to userData.id only
+        author: userData ? userData.id : "HZRfg63gUu5M8S0F",
         description: formData.get('description'),
         tags: strTags,
         servingSize: formData.get('servingSize'),
@@ -264,3 +260,4 @@ const appendEStep = (existingStep) => {
     numSteps++;
 
 };
+
