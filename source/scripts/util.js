@@ -5,8 +5,10 @@ export const SIGN_OUT_BUTTON_ID = "signOutButton";
 export const ELE_ID_PROFILE = "profile";
 export const ELE_ID_PROFILE_WRAPPER = "profileWrapper";
 export const ELE_CLASS_PROFILE_IMAGE = "profileImage";
-export const RECIPE_ROUTE = "recipe/"
-export const USER_ROUTE = "user/"
-export const EDIT_CREATE_ROUTE = "editcreate/"
+export const RECIPE_ROUTE = "recipe/";
+export const USER_ROUTE = "user/";
+export const EDIT_CREATE_ROUTE = "editcreate/";
 // TODO: change editcreate route name
-export const TEMP_EDIT_CREATE_ROUTE = "tempedit/"
+export const TEMP_EDIT_CREATE_ROUTE = "tempedit/";
+export const RECIPE_DB_PATH = "source/service/.data/recipes";
+export const TEST_RECIPE_DB_PATH = "source/service/.data/testrecipes";

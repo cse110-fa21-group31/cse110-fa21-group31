@@ -1,19 +1,14 @@
 import { createRecipe } from "../source/service/server/interface.mjs";
-import { RECIPE_DB_PATH } from "../source/scripts/util.js";
+import { TEST_RECIPE_DB_PATH } from "../source/scripts/util.js";
 import Datastore from "nedb";
-const getHelloWorld = require("../source/scripts/example.js");
-const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
-
-test('getHelloWorld should return "Hello World!"', () => {
-    expect(getHelloWorld()).toBe("Hello World!");
-});
+const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
 
 // I'm copying over all these recipes instead of just editing addInitialRecipes
 // since these tests would easily break if that one function changed
 let recipes = [
     {
         name: "Pumpkin Pie",
-        author: "MMAfv3oCQDiL4u10",
+        author: "jest",
         description: "The perfect ending to a Thanksgiving feast!",
         datePosted: Date(),
         servingSize: 8,
@@ -26,7 +21,7 @@ let recipes = [
     },
     {
         name: "Chicken Stir Fry",
-        author: "MMAfv3oCQDiL4u10",
+        author: "jest",
         description: "This chicken and vegetable stir fry will become your easy go-to dinner. You will wow your guests and family alike, even the picky eaters with approve!",
         datePosted: Date(),
         servingSize: 4,
@@ -39,7 +34,7 @@ let recipes = [
     },
     {
         name: "Chicken Fajitas",
-        author: "MMAfv3oCQDiL4u10",
+        author: "jest",
         description: "Chicken fajitas are an easy and flavorful weeknight meal.",
         datePosted: Date(),
         servingSize: 6,
@@ -51,11 +46,14 @@ let recipes = [
         steps: ["In a large bowl, whisk together 1⁄2 cup oil, lime juice, cumin, and red pepper flakes. Season chicken with salt and pepper, then add to bowl and toss to coat. Let marinate in the fridge at least 30 minutes and up to 2 hours.", "When ready to cook, heat remaining tablespoon oil in a large skillet over medium heat. Add chicken and cook until golden and cooked through, 8 minutes per side. Let rest 10 minutes, then slice into strips.", "Add bell peppers and onion to skillet and cook until soft, 5 minutes. Add chicken and toss until combined. Serve with tortillas."]
     },
 ]
+console.log("TESTING CONSOLE");
 
-for (let recipe in recipes) {
-    await createRecipe(recipe, recipeDB);
-}
+recipes.forEach((recipe) => {
+    console.log("TESTETSTETSETETSTE");
+    console.log(recipeObj);
+    await createRecipe(recipe, testDB);
+});
 
 test('should have recipes in our fake database', () => {
-    expect(recipeDB.count).toBeGreaterThan(0);
+    expect(testDB.count).toBeGreaterThan(0);
 });
