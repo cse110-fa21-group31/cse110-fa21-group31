@@ -26,11 +26,12 @@
     <div id="header">
         <!-- imported from navBarWithGoogle.js -->
     </div>
-    <div class="searchBar">
-        <div id="keyword" class="formItem">
-            <label for="keyword">Search:</label>
-            <input type="text" name="keyword" id="keyword">
-        </div>
+    <div class="searchBarHomePage">
+        <form class="searchItems" class="formItem" action='source/scripts/indexSearch.js' id="searchBarFormHomepage"> 
+                <input type="search" name="keyword" id="searchBarHome" placeholder="Search...">
+                <input type="button" name="submit" id="searchButtonHome" value="Search"> 
+        </form>
+    </div>
         <div id="selectTag" class="formItem">
             <input type="button" name="selectTag" id="selectTagButton" value="Choose tags here">
             <div id="tagsList">
@@ -38,7 +39,7 @@
             </div>
         </div>
         <div id="submit" class="formItem">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" id="submitButton">
         </div>
     </div>
     <div class="myRecipeCardGridContainer"> </div>
