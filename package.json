@@ -18,11 +18,13 @@
         "nodemon": "^2.0.15",
         "prettier": "2.4.1",
         "puppeteer": "^11.0.0",
+        "start-server-and-test": "^1.14.0",
         "stylelint": "^14.1.0",
         "stylelint-config-standard": "^24.0.0"
     },
     "scripts": {
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js & start-server-and-test start http://localhost:3030 cy:run",
+        "cy:run": "cypress run",
         "start": "node --experimental-modules source/service/server/server.mjs",
         "dev": "nodemon source/service/server/server.js",
         "eslint": "npx eslint '**/*.js' '**/*.json' '**/*.mjs'",

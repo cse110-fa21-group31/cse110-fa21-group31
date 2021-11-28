@@ -1,7 +1,10 @@
 // Cypress end-to-end testing
 
-describe("cypress pipeline test", () => {
-    it("successfully loads", () => {
-        cy.visit("index.html");
+describe("Cypress Pipeline v2", () => {
+    it("Loads home page by default", () => {
+        cy.visit("/");
+    })
+    it("Can see recipes at the bottom", () => {
+        cy.contains("Christmas Cake");
     })
 })
