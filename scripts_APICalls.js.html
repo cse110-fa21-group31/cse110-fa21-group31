@@ -26,10 +26,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>export const url = "/api"
-export const userUrl = "/api/user"
+            <pre class="prettyprint source linenums"><code>import { API_URL, USER_URL } from "./util.js";
 export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
-    updateRecipeById, submitSearch, url, userUrl}
+    updateRecipeById, submitSearch}
 /**
  * 
  * want the return json object from server:
@@ -43,7 +42,7 @@ export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
  */
 export async function insertRecipe(recipe) {
     //for update, change the method of PUT
-    const response = await fetch(url, {
+    const response = await fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify(recipe)
     }).then((response) => response.json())
@@ -61,8 +60,7 @@ export async function insertRecipe(recipe) {
  * @param {string} id the id of the desired recipe
  */
 export async function deleteRecipe(id) {
-    let queryURL = url + "?id=" + id;
-    // console.log("Step 0, " + queryURL);
+    let queryURL = API_URL + "?id=" + id;
     let response = await fetch(queryURL, {
         method: 'DELETE',
         "Access-Control-Allow-Origin": "*",
@@ -81,7 +79,7 @@ export async function deleteRecipe(id) {
  * @param {string} id the id of the desired recipe
  */
 export async function fetchRecipeByPage(pageNum) {
-    let queryURL = url + "?page=" + pageNum;
+    let queryURL = API_URL + "?page=" + pageNum;
     let response = await fetch(queryURL, {
         method: 'GET',
     })
@@ -90,20 +88,22 @@ export async function fetchRecipeByPage(pageNum) {
             data.forEach(async (recipe) => {
                 recipe.author = await fetchUserById(recipe.author);
             });
-            return data
+            return data;
         })
         .catch((err) => {
             console.error('Error finding recipes: ' + err.message);
+            console.error(err);
         });
     return response
 }
+
 
 /**
  * sends an HTTP request to the server to fetch a single recipe
  * @param {string} id the id of the desired recipe
  */
 export async function fetchRecipeById(id) {
-    let queryURL = url + "?id=" + id;
+    let queryURL = API_URL + "?id=" + id;
     let response = await fetch(queryURL, {
         method: 'GET',
     })
@@ -119,14 +119,31 @@ export async function fetchRecipeById(id) {
 }
 
 /**
+ * sends an HTTP request to the server to fetch recipes
+ * @param {Array&lt;string>} ids the ids of the desired recipes
+ */
+ export async function fetchRecipesByIds(ids) {
+    let queryURL = API_URL + "?ids=" + ids.join(",");
+    let response = await fetch(queryURL, {
+        method: 'GET',
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            return data
+        })
+        .catch((err) => {
+            console.error('Error finding recipes: ' + err.message);
+        });
+    return response
+}
+
+/**
  * sends an HTTP request to the server to update a single recipe
  * @param {string} id the id of the desired recipe
  * @param {object} update the fields and corresponding values of the recipe to change
  */
 export async function updateRecipeById(id, update) {
-    let queryURL = url;
-    console.log(update);
-    console.log(JSON.stringify(update));
+    let queryURL = API_URL;
     let response = await fetch(queryURL, {
         method: 'PUT',
         body: JSON.stringify(update)
@@ -151,11 +168,11 @@ export async function updateRecipeById(id, update) {
  * @returns {Array&lt;recipe>} the recipes returned by the search engine
  */
 export async function submitSearch(keywords, tags) {
-    let query = "name=" + keywords;
+    let query = "?name=" + keywords;
     if (tags) {
         query = query + '&amp;' + "tags=" + JSON.stringify(tags);
     }
-    let queryURL = url + "/search?" + query
+    let queryURL = API_URL + query
     let response = await fetch(queryURL, {
         method: 'GET',
     })
@@ -179,7 +196,7 @@ export async function submitSearch(keywords, tags) {
  * @param {string} id the id of the desired user
  */
 export async function fetchUserById(id) {
-    let queryURL = userUrl + "?id=" + id;
+    let queryURL = USER_URL + "?id=" + id;
     let response = await fetch(queryURL, {
         method: 'GET',
     })
@@ -194,7 +211,7 @@ export async function fetchUserById(id) {
 }
 
 export async function addSavedRecipeById(userId, recipeId) {
-    let queryURL = userUrl + "?userId=" + userId + "?recipeId=" + recipeId;
+    let queryURL = USER_URL + "?userId=" + userId + "?recipeId=" + recipeId;
     let response = await fetch(queryURL, {
         method: 'PUT'
     })
@@ -212,7 +229,7 @@ export async function addSavedRecipeById(userId, recipeId) {
 }
 
 export async function deleteSavedRecipeById(userId, recipeId) {
-    let queryURL = userUrl + "?userId=" + userId + "?recipeId=" + recipeId;
+    let queryURL = USER_URL + "?userId=" + userId + "?recipeId=" + recipeId;
     let response = await fetch(queryURL, {
         method: 'DEL',
         "Access-Control-Allow-Origin": "*",
@@ -236,13 +253,13 @@ export async function deleteSavedRecipeById(userId, recipeId) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNavBarWithGoogle">createNavBarWithGoogle</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNavBarWithGoogle">createNavBarWithGoogle</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchRecipesByIds">fetchRecipesByIds</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun Nov 28 2021 19:33:21 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun Nov 28 2021 22:27:36 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
