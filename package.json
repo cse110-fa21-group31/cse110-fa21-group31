@@ -23,7 +23,7 @@
         "stylelint-config-standard": "^24.0.0"
     },
     "scripts": {
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js & start-server-and-test start http://localhost:3030 cy:run",
+        "test": "start-server-and-test start http://localhost:3030 cy:run & node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
         "cy:run": "cypress run",
         "start": "node --experimental-modules source/service/server/server.mjs",
         "dev": "nodemon source/service/server/server.js",
