@@ -9,6 +9,7 @@
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
     <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
     <link rel='stylesheet' href='/source/assets/styles/cards.css'>
+    <script src="/source/scripts/userLogin.js" type="module"></script>
     <script type="module" src='/source/scripts/index.js'></script>
     <script type="module" src='/source/scripts/classes/recipeClass.js'></script>
     <script type="module" src='/source/scripts/APICalls.js'></script>
@@ -17,19 +18,11 @@
             line-height: 0px;
         }
 
-        .searchBar {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            padding: 10px;
-            margin-left: 60px;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="navBar">
-        <iframe src="/source/cards/navBar.html"
-            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+    <div id="header">
+        <!-- imported from navBarWithGoogle.js -->
     </div>
     <div class="searchBar">
         <div id="keyword" class="formItem">
@@ -40,42 +33,11 @@
             <input type="submit" value="Submit">
         </div>
     </div>
-    <div class="myRecipeCardGridContainer">
+    <div class="myRecipeCardGridContainer"> </div>
 
+    <div class="tagsSearchContainer">
+        <input type="button" id="addTagButton" value="Add Tags">
     </div>
-    </div>
-    <!-- <div class="myRecipeCardGridContainer">
-        <recipeCard>
-            <img id="profile" src="../assets/profile.png" width=40 height=40 />
-            <p> Title </p>
-            <customTags> Beef, Easy, Entree </customTags>
-        </recipeCard>
-        <recipeCard>
-            <img id="profile" src="../assets/profile.png" width=40 height=40 />
-            <p> Title </p>
-            <customTags> Beef, Easy, Entree </customTags>
-        </recipeCard>
-        <recipeCard>
-            <img id="profile" src="../assets/profile.png" width=40 height=40 />
-            <p> Title </p>
-            <customTags> Beef, Easy, Entree </customTags>
-        </recipeCard>
-        <recipeCard>
-            <img id="profile" src="../assets/profile.png" width=40 height=40 />
-            <p> Title </p>
-            <customTags> Beef, Easy, Entree </customTags>
-        </recipeCard>
-        <recipeCard>
-            <img id="profile" src="../assets/profile.png" width=40 height=40 />
-            <p> Title </p>
-            <customTags> Beef, Easy, Entree </customTags>
-        </recipeCard>
-        <recipeCard>
-            <img id="profile" src="../assets/profile.png" width=40 height=40 />
-            <p> Title </p>
-            <customTags> Beef, Easy, Entree </customTags>
-        </recipeCard>
-    </div> -->
-</body>
+    <div class="myRecipeCardGridContainer"> </div>
 
 </html>
