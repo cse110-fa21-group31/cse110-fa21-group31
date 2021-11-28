@@ -56,7 +56,7 @@ const onSubmitRecipe = async (event) => {
         console.log(formData.get('ingredientAmount'+i));
         */
     }
-    console.log(ingArr);
+    // console.log(ingArr);
 
     // get steps from form
     for (let i = 0; i < numSteps; i++) {
@@ -65,7 +65,13 @@ const onSubmitRecipe = async (event) => {
     }
 
     const recipeCard = document.createElement('recipe-card');
-    console.log(formData.get('picture'));
+    //console.log(document.getElementsByName('picture')[0].files[0]);
+    let pic = null;
+    const img = null
+    if (document.getElementsByName('picture')[0].files.length > 0) {
+        pic = document.getElementsByName('picture')[0].files[0];
+        img = window.URL.createObjectURL(fileObj);
+    }
     // CREATE NEW RECIPE
     let newRecipe = {
         name: formData.get('name'),
@@ -74,7 +80,6 @@ const onSubmitRecipe = async (event) => {
         image: formData.get('picture'),
         //TODO: get user ID from a global variable, is it working?
         author: userData._id,
-
         description: formData.get('description'),
         tags: strTags,
         servingSize: formData.get('servingSize'),
@@ -84,10 +89,11 @@ const onSubmitRecipe = async (event) => {
         ingredientAmounts: ingrAmountArr,
         steps: stepsArr
     }
-
+    console.log(newRecipe);
     // get response from POST API, get the new recipe, 
     const responseRecipe = await insertRecipe(newRecipe);
     redirectRecipeDetail(responseRecipe)
+    console.log(responseRecipe);
     const page = responseRecipe._id;
     const routeUrl = RECIPE_ROUTE + page
     routerNavigateWrapper(routeUrl)

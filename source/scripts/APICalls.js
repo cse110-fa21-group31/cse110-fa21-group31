@@ -40,7 +40,6 @@ export async function deleteRecipe(id) {
         // "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     })
         .catch((err) => {
-            console.log("Step 3");
             console.error('Error deleting recipe: ' + err.message);
         });
     
@@ -94,17 +93,22 @@ export async function fetchRecipeById(id) {
  */
 export async function updateRecipeById(id, update) {
     let queryURL = url;
+    console.log(update);
+    console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
         method: 'PUT',
         body: JSON.stringify(update)
     })
         .then((response) => { console.log(response); return response.json() })
         .then((data) => {
+            console.log(data);
             return data
+
         })
         .catch((err) => {
             console.error('Error updating recipe: ' + err.message);
         });
+
     return response
 }
 

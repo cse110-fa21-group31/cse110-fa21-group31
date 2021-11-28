@@ -11,6 +11,7 @@ const recipeData = {};
  * Populates the recipe detail pages by fetching recipe json and filling in 
  * properties in html components. 
  */
+/*
 export async function populateRecipeDetail() {
     const url = parent.document.URL;
     let recipeID = url.substring(url.indexOf('#') + RECIPE_ROUTE.length + 1, url.length);
@@ -18,6 +19,7 @@ export async function populateRecipeDetail() {
     let recipe = await fetchRecipeById(recipeID);
     fillOutRecipe(recipe);
 }
+*/
 
 export function fillOutRecipe(data) {
     document.getElementById("recipeTitle").innerHTML = data.name;
@@ -29,7 +31,9 @@ export function fillOutRecipe(data) {
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
     if (data.description) document.getElementById("description").innerHTML = data.description;
     if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;
-    document.getElementById("author").innerHTML = data.author;
+    // display author name. If no name, display whatever is in there
+    console.log(data.author);
+    document.getElementById("author").innerHTML = (typeof data.author == "object") ? data.author.username : data.author;
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
     if (data.ingredients) document.getElementById("ingredients").innerHTML = data.ingredients;
     document.getElementById("steps").innerHTML = data.steps;
