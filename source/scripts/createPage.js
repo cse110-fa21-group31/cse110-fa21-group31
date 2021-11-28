@@ -1,10 +1,10 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
-window.addEventListener("DOMContentLoaded", init);
-
 import { insertRecipe } from "./APICalls.js"
-
-function init() {
-    console.log("editCreate.js init called");
+import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
+import { RECIPE_ROUTE } from './util.js'
+export default {}
+export function setupCreatePage() {
+    console.log("setupCreatePage() called");
 
 
 
@@ -16,20 +16,20 @@ function init() {
 
     // Submitting the entire recipe
 
-    const recipeForm = document.getElementById("recipeForm");
+    const recipeForm = document.getElementById("editRecipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
     //document.getElementById("addIngr").onclick = appendIngredient();
 
-    document.getElementById("addIngr").addEventListener("click", function() {
+    document.getElementById("addIngr").addEventListener("click", function () {
         appendIngredient();
     });
-    document.getElementById("addStep").addEventListener("click", function() {
+    document.getElementById("addStep").addEventListener("click", function () {
         appendStep();
     });
-    document.getElementById("delIngr").addEventListener("click", function() {
+    document.getElementById("delIngr").addEventListener("click", function () {
         deleteIngredient();
     });
-    document.getElementById("delStep").addEventListener("click", function() {
+    document.getElementById("delStep").addEventListener("click", function () {
         deleteIngredient();
     });
 
@@ -37,8 +37,9 @@ function init() {
 
 let numSteps = 0;
 let numIngredients = 0;
-
-const onSubmitRecipe = async(event) => {
+//TODO: update/find a way to assign value to this variable
+let isUpdate = false
+const onSubmitRecipe = async (event) => {
 
     console.log("SUBMITTED NEW RECIPE");
     event.preventDefault();
@@ -49,7 +50,8 @@ const onSubmitRecipe = async(event) => {
     let ingrArr = [];
     let ingrAmountArr = [];
     let stepsArr = [];
-    let strTags = formData.get('tags').replace(/\s+/g, '').split(',');
+    //should be empty array if no input
+    let strTags = formData.get('tags') ? formData.get('tags').replace(/\s+/g, '').split(',') : [];
     //let tagsArr = strTags.split(',');
 
     let ingArr = {};
@@ -73,11 +75,15 @@ const onSubmitRecipe = async(event) => {
     const recipeCard = document.createElement('recipe-card');
     console.log(formData.get('picture'));
     // CREATE NEW RECIPE
+    console.log("test global user data", userData)
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
+        //TODO: how to store image
         image: formData.get('picture'),
+        //TODO: get user ID from a global variable
         author: "HZRfg63gUu5M8S0F",
+
         description: formData.get('description'),
         tags: strTags,
         servingSize: formData.get('servingSize'),
@@ -89,6 +95,10 @@ const onSubmitRecipe = async(event) => {
     }
     console.log(newRecipe);
     await insertRecipe(newRecipe);
+    redirectRecipeDetail(newRecipe)
+    const page = newRecipe._id;
+    const routeUrl = RECIPE_ROUTE + page
+    routerNavigateWrapper(routeUrl)
 };
 
 
