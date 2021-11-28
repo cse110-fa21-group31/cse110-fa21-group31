@@ -1,3 +1,6 @@
+import { getUser } from "./userInterface.mjs";
+import { userDB, recipeDB } from "./server.mjs";
+
 const CARDS_PER_PAGE = 6;
 /**
  * insert a single recipe to database
@@ -39,7 +42,8 @@ export async function deleteRecipe(id, recipeCollection) {
  * @returns {Array<recipe>} the updated recipe
  */
 export async function updateRecipe(id, recipe, recipeCollection) {
-    let updatedRecipes = new Promise((resolve, reject) => {
+    recipe.author = recipe.author._id;
+    let updatedRecipes = await new Promise((resolve, reject) => {
         recipeCollection.update({ _id: id },
             recipe, { returnUpdatedDocs: true },
             function (err, numAffected, affectedDocs, upsert) {
@@ -53,6 +57,13 @@ export async function updateRecipe(id, recipe, recipeCollection) {
             }
         );
     });
+    // console.log(updatedRecipes);
+    // let recipes = [];
+    // if(foundDocs){
+    //     recipes.push(updatedRecipes);
+    //     updatedRecipes = await convertUserIdToObj(recipes);
+    //     updatedRecipes = updatedRecipes[0];
+    // }
     return updatedRecipes;
 }
 
@@ -121,11 +132,11 @@ export async function getRecipesByNameAndTags(searchParams, recipeCollection) {
 /**
  * retrieves a single recipe based on id
  * @param {string} id unique string identifier of the desired recipe
- * @returns {Array<recipe>} the found recipe
+ * @returns {recipe} the found recipe
  * @returns {null} if not found
  */
-export function getRecipeById(id, recipeCollection) {
-    let foundDocs = new Promise((resolve, reject) => {
+export async function getRecipeById(id, recipeCollection) {
+    let foundDocs = await new Promise((resolve, reject) => {
         recipeCollection.findOne({ _id: id }, function (err, docs) {
             if (err) {
                 console.log(err);
@@ -135,7 +146,14 @@ export function getRecipeById(id, recipeCollection) {
             }
         });
     });
-    return foundDocs
+    // convert
+    // let recipes = [];
+    // if(foundDocs){
+    //     recipes.push(foundDocs);
+    //     foundDocs = await convertUserIdToObj(recipes);
+    //     foundDocs = foundDocs[0];
+    // }
+    return foundDocs;
 }
 
 
@@ -144,7 +162,7 @@ export function getRecipeById(id, recipeCollection) {
  * @param {Array<string>} ids 
  * @returns {Array<recipe>} the recipes matching any of the given ids
  */
-export function getRecipesByIds(ids, recipeCollection) {
+export async function getRecipesByIds(ids, recipeCollection) {
     let foundDocs = new Promise((resolve, reject) => {
         recipeCollection.find({ _id: { $in: ids } }, function (err, docs) {
             if (err) {
@@ -156,4 +174,22 @@ export function getRecipesByIds(ids, recipeCollection) {
         });
     });
     return foundDocs
+}
+
+/**
+ * Changes all user ids in recipes into user object. 
+ * 
+ * @deprecated
+ * @param recipes Recipes to convert user.
+ * @returns recipes with converted user. 
+ */
+export async function convertUserIdToObj(recipes) {
+    recipes = await Promise.all(recipes.map(async (recipe) => {
+        recipe.author = await getUser(userDB, recipe.author);
+        return recipe;
+    }));
+    // console.log("After convert: ");
+    // console.log(recipes);
+    
+    return recipes;
 }

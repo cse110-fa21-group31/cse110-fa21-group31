@@ -5,9 +5,9 @@ import path from 'path'
 import fstatic from 'fastify-static'
 // the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
-const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
+export const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 const RECIPE_DB_PATH = "source/service/.data/recipes"
-const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
+export const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 
 // correct dir name of current repo
 const __dirname = path.normalize(path.resolve());
@@ -43,11 +43,9 @@ fastify.get("/api", async (_, reply) => {
 */
 
 fastify.get("/api", async (request, reply) => {
-    console.log("dirname: " + __dirname);
-
     if (request.query.id) {
         const recipe = await getRecipeById(request.query.id, recipeDB)
-        console.log(recipe);
+        // console.log(recipe);
         reply.send(await getRecipeById(request.query.id, recipeDB));
     } else if (request.query.page) {
         reply.send(await getRecipeByPage(recipeDB, request.query.page));
@@ -68,9 +66,9 @@ fastify.post("/api", async (request, reply) => {
 });
 
 fastify.put("/api", async (request, reply) => {
-    console.log(request.body)
+    // console.log(request.body)
     let body = JSON.parse(request.body)
-    console.log(body)
+    // console.log(body)
 
     if (!body.name ||
         !body.author ||
@@ -81,6 +79,14 @@ fastify.put("/api", async (request, reply) => {
         err.statusCode = 400;
         reply.send(err);
     } else {
+        let response = await updateRecipe(
+            body._id,
+            body,
+            recipeDB
+        );
+        // console.log(response);
+        reply.send(response);
+        /*
         reply.send(
             await updateRecipe(
                 body._id,
@@ -88,6 +94,7 @@ fastify.put("/api", async (request, reply) => {
                 recipeDB
             )
         );
+        */
     }
 });
 
@@ -106,6 +113,7 @@ fastify.delete('/api', async (request, reply) => {
 fastify.delete("/api", async (request, reply) => {
     console.log(request.query)
     reply.send(await deleteRecipe(request.query.id, recipeDB));
+
 });
 */
 /****************** User APIs ************************/
@@ -137,9 +145,10 @@ fastify.get("/api/user", async (req, reply) => {
  */
 fastify.post("/api/user", async (req, reply) => {
     // check if user exists. false if not.
+    let body = JSON.parse(req.body)
     let data = await hasUser(userDB, req.query.email);
     if (!data) {
-        data = await createUser(userDB, req.body);
+        data = await createUser(userDB, body);
     }
     reply.status(200).send(data);
 });
@@ -158,7 +167,7 @@ fastify.put("/api/user/saved", async (req, reply) => {
         req.query.recipeId
     );
     let data = await getUser(userDB, req.query.userId);
-    console.log("SAVE RECIPE: Number of document updated: " + numUpdated);
+    // console.log("SAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
 
@@ -176,7 +185,7 @@ fastify.delete("/api/user/saved", async (req, reply) => {
         req.query.recipeId
     );
     let data = await getUser(userDB, req.query.userId);
-    console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
+    // console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
 

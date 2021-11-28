@@ -2,8 +2,11 @@ import { updateRecipeById } from "./APICalls.js"
 import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
 import { RECIPE_ROUTE } from './util.js'
 let imageSrc = ''
+let recipeId;
 export default {populateEditPage}
 export function populateEditPage(recipeObj) {
+    recipeId = recipeObj._id;
+    console.log("RECIPE ID AT START IS " + recipeId);
 
     console.log("editCreate.js init called");
 
@@ -37,7 +40,7 @@ export function populateEditPage(recipeObj) {
 }
 
 export const deleteRecipeButton = async (event) => {
-    await deleteRecipe(pageId);
+    // await deleteRecipe(pageId);
 }
 
 
@@ -49,7 +52,7 @@ export const fillOutEditPage = (recipeObj) => {
     console.log("EDITTED RECIPE");
 
     // get recipe info and fill it out
-    // let response = await fetchRecipeById(pageId);
+    // let response = await fetchRecipeById(recipeId);
     //TODO: update the variable from response to recipeObj
     let response = recipeObj
     console.log(response);
@@ -152,7 +155,7 @@ const onUpdateRecipe = async (event) => {
         // image: formData.get('picture'),
         image: imageSrc,
         //TODO: after we verify a user is logged in, change this to userData.id only
-        author: userData ? userData.id : "HZRfg63gUu5M8S0F",
+        author: userData ? userData._id : "MMAfv3oCQDiL4u10",
         description: formData.get('description'),
         tags: strTags,
         servingSize: formData.get('servingSize'),
@@ -161,13 +164,13 @@ const onUpdateRecipe = async (event) => {
         difficulty: formData.get('difficulty'),
         ingredientAmounts: ingrAmountArr,
         steps: stepsArr,
-        _id: pageId
+        _id: recipeId
     }
     console.log(newRecipe);
-    const updatedRecipe = await updateRecipeById(pageId, newRecipe);
-    //TODO: fix update API calls: not actually update so return undefined to us
-    redirectRecipeDetail(newRecipe)
-    const page = newRecipe._id;
+    console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
+    const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
+    redirectRecipeDetail(updatedRecipe)
+    const page = updatedRecipe._id;
     const routeUrl = RECIPE_ROUTE + page
     routerNavigateWrapper(routeUrl)
 
