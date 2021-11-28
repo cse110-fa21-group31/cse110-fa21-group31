@@ -30,7 +30,6 @@ let createRecipePage = null; // = document.getElementById('createRecipe')
 let editRecipePage = null; // = document.getElementById('editRecipe')
 
 if (typeof window === 'object') {
-    console.log('Yaay, window is defined');  
     if (typeof window.document === 'object') {
        homePage = document.getElementById('homePage')
        recipeDetailPage = document.getElementById('recipeDetail')

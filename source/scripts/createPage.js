@@ -6,17 +6,9 @@ export default {setupCreatePage}
 export function setupCreatePage() {
     console.log("setupCreatePage() called");
 
-
-
-    // Adding steps to the recipe
-    /* eslint-disable no-unused-vars*/
-    const addStepButton = document.querySelector("#addSteps button");
-    /* eslint-enable no-unused-vars*/
-    //addStepButton.addEventListener('click', appendRow);
-
     // Submitting the entire recipe
 
-    const recipeForm = document.getElementById("editRecipeForm");
+    const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
     //document.getElementById("addIngr").onclick = appendIngredient();
 
@@ -75,14 +67,13 @@ const onSubmitRecipe = async (event) => {
     const recipeCard = document.createElement('recipe-card');
     console.log(formData.get('picture'));
     // CREATE NEW RECIPE
-    console.log("test global user data", userData)
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
         //TODO: how to store image
         image: formData.get('picture'),
-        //TODO: get user ID from a global variable
-        author: "HZRfg63gUu5M8S0F",
+        //TODO: get user ID from a global variable, is it working?
+        author: userData._id,
 
         description: formData.get('description'),
         tags: strTags,
@@ -93,10 +84,11 @@ const onSubmitRecipe = async (event) => {
         ingredientAmounts: ingrAmountArr,
         steps: stepsArr
     }
-    console.log(newRecipe);
-    await insertRecipe(newRecipe);
-    redirectRecipeDetail(newRecipe)
-    const page = newRecipe._id;
+
+    // get response from POST API, get the new recipe, 
+    const responseRecipe = await insertRecipe(newRecipe);
+    redirectRecipeDetail(responseRecipe)
+    const page = responseRecipe._id;
     const routeUrl = RECIPE_ROUTE + page
     routerNavigateWrapper(routeUrl)
 };

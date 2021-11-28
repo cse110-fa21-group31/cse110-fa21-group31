@@ -59,7 +59,7 @@ export async function fetchRecipeByPage(pageNum) {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
+            // console.log(data)
             return data
         })
         .catch((err) => {
