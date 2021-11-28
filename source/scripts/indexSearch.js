@@ -25,21 +25,25 @@ async function init() {
     //console.log(tagsSelect);
     if (tagsSelect) {
         //console.log("found tag");
-        tagsSelect.addEventListener("click", async function () {
-            let response = await chooseTag();
-
+        tagsSelect.addEventListener("click", (event) => {
+            chooseTag(this);
+            event.stopPropagation();
             let tagButtons = document.getElementsByClassName("tagButton");
-            tagButtons.forEach(tag => {
-                tag.addEventListener('click', clickedOnATag(tag));
-            });
+            for (let i = 0; i < tagButtons.length; i++) {
+                //e.stopPropagation();
+                tagButtons[i].addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    clickedOnATag(tagButtons[i]);
+                });
+            }
         });
     }
 }
 
-async function chooseTag(e) {
+function chooseTag(e) {
+    console.log("chose tag entered");
     if (document.getElementsByClassName("tagButton").length > 0) {
-        console.log(e);
-        clickedOnATag(e);
+        //remove tag options
     }
     let tagsList = document.querySelector("#tagsList");
     tagsList.style.display = "grid";
@@ -51,6 +55,8 @@ async function chooseTag(e) {
         tagsList.appendChild(addTagButton);
         //addTagButton.addEventListener("click", clickedOnATag(addTagButton));
     }
+    //e.stopPropagation();
+    return Promise.resolve(tagsList);
     // //document.getElementsByClassName("tagButton").addEventListener("click", clickedOnATag);
     // const tagOptions = document.querySelectorAll('.tagButton');
     // // adding the event listener by looping
@@ -60,9 +66,7 @@ async function chooseTag(e) {
 }
 
 function clickedOnATag(e) {
-    console.log(e);
-    console.log(e.id);
-    console.log(e.innerText);
+    console.log("Clicked on tag");
     selectedTags.push(e.innerText);
     console.log(selectedTags);
 }

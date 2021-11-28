@@ -52,7 +52,6 @@ window.addEventListener("DOMContentLoaded", init);
 
 async function init() {
     if (document.getElementById(ELE_ID_HEADER)) {
-        console.log("beep beep making navBar");
         createNavBarWithGoogle();
     }
 }
