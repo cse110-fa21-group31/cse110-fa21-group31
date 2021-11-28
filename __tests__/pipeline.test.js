@@ -26,14 +26,24 @@ Promise.race(recipes.map(recipe => {
 
 const beginDatabaseTests = () => {
     test('should have recipes in our fake database', (done) => {
+        console.log("flag1");
         new Promise((resolve) => {
+        console.log("flag2");
             testDB.count({}, (err, count) => {
+        console.log("flag3");
                 resolve(count);
             });
         }).then((count) => {
+        console.log("flag4");
             expect(count).toBe(recipes.length);
+        }).catch((reason) => {
+        console.log("flag5");
+            console.log(reason);
+        }).finally(() => {
+        console.log("flag6");
             done();
         });
+        console.log("flag7");
     });
 }
     

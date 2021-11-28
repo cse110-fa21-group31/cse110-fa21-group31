@@ -1,4 +1,5 @@
 {
     "integrationFolder": "__tests__",
-    "ignoreTestFiles": "**/!(*.spec.js)"
+    "ignoreTestFiles": "**/!(*.spec.js)",
+    "pluginsFile": false
 }
