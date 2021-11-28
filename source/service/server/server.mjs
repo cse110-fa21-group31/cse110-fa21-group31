@@ -1,15 +1,28 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
 import { createRecipe, deleteRecipe, updateRecipe, getRecipeByPage, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
 import Datastore from "nedb";
+import path from 'path'
+import fstatic from 'fastify-static'
 // the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
 const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 const RECIPE_DB_PATH = "source/service/.data/recipes"
 const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 
+// correct dir name of current repo
+const __dirname = path.normalize(path.resolve());
+
 // Require the framework and instantiate it
 import Fastify from 'fastify';
 const fastify = Fastify({ logger: true });
+
+import fileRoutes from "./fileRoutes.js"
+// Require the framework and instantiate it
+fastify.register(fileRoutes.routes)
+fastify.register(fstatic, {
+    root: __dirname,
+  //prefix: '/public/', // optional: default '/'
+})
 
 // const path = require('path')
 import Cors from 'fastify-cors';
@@ -30,6 +43,8 @@ fastify.get("/api", async (_, reply) => {
 */
 
 fastify.get("/api", async (request, reply) => {
+    console.log("dirname: " + __dirname);
+
     if (request.query.id) {
         const recipe = await getRecipeById(request.query.id, recipeDB)
         console.log(recipe);
@@ -76,11 +91,23 @@ fastify.put("/api", async (request, reply) => {
     }
 });
 
+fastify.get('/api/search', async (request, reply) => {
+    let data = await getRecipesByNameAndTags(request.query, recipeDB);
+    reply.status(200).send(data);
+})
+
+fastify.delete('/api', async (request, reply) => {
+    let id = request.query.id;
+    let data = await deleteRecipe(id, recipeDB);
+    reply.status(200).send(data);
+})
+
+/*
 fastify.delete("/api", async (request, reply) => {
     console.log(request.query)
     reply.send(await deleteRecipe(request.query.id, recipeDB));
 });
-
+*/
 /****************** User APIs ************************/
 
 /**
@@ -154,10 +181,6 @@ fastify.delete("/api/user/saved", async (req, reply) => {
 });
 
 
-fastify.get('/api/search', async (request, reply) => {
-    let data = await getRecipesByNameAndTags(request.query, recipeDB);
-    reply.status(200).send(data);
-})
 
 // Run the server!
 const start = async () => {

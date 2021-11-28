@@ -1,6 +1,8 @@
 //This file is when the user searches a keyword in index.html page
+export default {init}
+if (typeof window === 'object') {
 window.addEventListener("DOMContentLoaded", init);
-export default {}
+}
 import { submitSearch } from "./APICalls.js"
 
 /**

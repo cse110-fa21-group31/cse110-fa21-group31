@@ -27,6 +27,7 @@ export async function createRecipe(recipe, recipeCollection) {
  */
 export async function deleteRecipe(id, recipeCollection) {
     recipeCollection.remove({ _id: id });
+    console.log("DELET RECIPE SLFHISJFD" + id);
 }
 
 

@@ -5,6 +5,7 @@
 import { routerAddCreatePage, routerNavigateWrapper } from "./index.js";
 import { EDIT_CREATE_ROUTE, USER_ROUTE } from "./util.js"
 // import { fetchUserById } from "./APICalls.js"
+export default {}
 const recipeData = {};
 
 /**
