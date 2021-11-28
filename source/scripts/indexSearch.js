@@ -41,28 +41,26 @@ async function init() {
 }
 
 function chooseTag(e) {
-    console.log("chose tag entered");
+    let tagsList = document.querySelector("#tagsList");
     if (document.getElementsByClassName("tagButton").length > 0) {
         //remove tag options
+        tagsList = document.getElementsByClassName("tagButton");
+        let tagsLength = tagsList.length;
+        for (let i = 0 ; i < tagsLength; i++) {
+            tagsList[0].remove();
+        }
+    } else {
+        let tagsList = document.querySelector("#tagsList");
+        tagsList.style.display = "grid";
+        for (let i = 0 ; i < allTags.length; i++) {
+            let addTagButton = document.createElement("button");
+            addTagButton.classList.add("tagButton");
+            addTagButton.innerText = allTags[i];
+            addTagButton.id = allTags[i];
+            tagsList.appendChild(addTagButton);
+        }
     }
-    let tagsList = document.querySelector("#tagsList");
-    tagsList.style.display = "grid";
-    for (let i = 0 ; i < allTags.length; i++) {
-        let addTagButton = document.createElement("button");
-        addTagButton.classList.add("tagButton");
-        addTagButton.innerText = allTags[i];
-        addTagButton.id = allTags[i];
-        tagsList.appendChild(addTagButton);
-        //addTagButton.addEventListener("click", clickedOnATag(addTagButton));
-    }
-    //e.stopPropagation();
     return Promise.resolve(tagsList);
-    // //document.getElementsByClassName("tagButton").addEventListener("click", clickedOnATag);
-    // const tagOptions = document.querySelectorAll('.tagButton');
-    // // adding the event listener by looping
-    // tagOptions.forEach(tag => {
-    //     tag.addEventListener('click', clickedOnATag(tag));
-    // });
 }
 
 function clickedOnATag(e) {
