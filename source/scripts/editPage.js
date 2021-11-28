@@ -155,7 +155,7 @@ const onUpdateRecipe = async (event) => {
         // image: formData.get('picture'),
         image: imageSrc,
         //TODO: after we verify a user is logged in, change this to userData.id only
-        author: userData ? userData._id : "HZRfg63gUu5M8S0F",
+        author: userData ? userData._id : "MMAfv3oCQDiL4u10",
         description: formData.get('description'),
         tags: strTags,
         servingSize: formData.get('servingSize'),

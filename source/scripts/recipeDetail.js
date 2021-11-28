@@ -3,7 +3,7 @@
 export default {fillOutRecipe}
 // RecipeExpand.js
 import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js"
-import { deleteRecipe, fetchRecipeById } from "./APICalls.js"
+import { deleteRecipe, fetchRecipeById } from "./APICalls.js";
 import { routerAddEditPage, routerNavigateWrapper } from "./index.js";
 const recipeData = {};
 
@@ -21,7 +21,7 @@ export async function populateRecipeDetail() {
 }
 */
 
-export function fillOutRecipe(data) {
+export async function fillOutRecipe(data) {
     document.getElementById("recipeTitle").innerHTML = data.name;
     if (data.tags) document.getElementById("tags").innerHTML = data.tags;
     // TODO: fix condition after fixing image upload issue
@@ -31,9 +31,8 @@ export function fillOutRecipe(data) {
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
     if (data.description) document.getElementById("description").innerHTML = data.description;
     if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;
-    // display author name. If no name, display whatever is in there
-    console.log(data.author);
-    document.getElementById("author").innerHTML = (typeof data.author == "object") ? data.author.username : data.author;
+    // Now rendering username rather than user id
+    if (data.author && data.author.username) document.getElementById("author").innerHTML = data.author.username;
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
     if (data.ingredients) document.getElementById("ingredients").innerHTML = data.ingredients;
     document.getElementById("steps").innerHTML = data.steps;

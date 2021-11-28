@@ -67,10 +67,10 @@ const onSubmitRecipe = async (event) => {
     const recipeCard = document.createElement('recipe-card');
     //console.log(document.getElementsByName('picture')[0].files[0]);
     let pic = null;
-    const img = null
+    let img = null
     if (document.getElementsByName('picture')[0].files.length > 0) {
         pic = document.getElementsByName('picture')[0].files[0];
-        img = window.URL.createObjectURL(fileObj);
+        // img = window.URL.createObjectURL(fileObj);
     }
     // CREATE NEW RECIPE
     let newRecipe = {

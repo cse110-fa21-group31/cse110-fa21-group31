@@ -145,9 +145,10 @@ fastify.get("/api/user", async (req, reply) => {
  */
 fastify.post("/api/user", async (req, reply) => {
     // check if user exists. false if not.
+    let body = JSON.parse(req.body)
     let data = await hasUser(userDB, req.query.email);
     if (!data) {
-        data = await createUser(userDB, req.body);
+        data = await createUser(userDB, body);
     }
     reply.status(200).send(data);
 });
