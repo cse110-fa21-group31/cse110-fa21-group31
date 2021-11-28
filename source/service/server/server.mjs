@@ -1,15 +1,28 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
-import { createRecipe, deleteRecipe, updateRecipe, getAllRecipe, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
+import { createRecipe, deleteRecipe, updateRecipe, getRecipeByPage, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
 import Datastore from "nedb";
+import path from 'path'
+import fstatic from 'fastify-static'
 // the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
-const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
+export const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 const RECIPE_DB_PATH = "source/service/.data/recipes"
-const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
+export const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
+
+// correct dir name of current repo
+const __dirname = path.normalize(path.resolve());
 
 // Require the framework and instantiate it
 import Fastify from 'fastify';
 const fastify = Fastify({ logger: true });
+
+import fileRoutes from "./fileRoutes.js"
+// Require the framework and instantiate it
+fastify.register(fileRoutes.routes)
+fastify.register(fstatic, {
+    root: __dirname,
+  //prefix: '/public/', // optional: default '/'
+})
 
 // const path = require('path')
 import Cors from 'fastify-cors';
@@ -17,16 +30,9 @@ fastify.register(Cors, {
     origin: true,
     methods: ['GET', 'PUT', 'POST', 'DEL']
 })
-
 const port = process.env.PORT || 3030;
 
 
-// Declare a route
-fastify.get("/", async() => {
-    // recipe = request.body
-
-    return { hello: "world" };
-});
 
 /*
 fastify.get("/api", async (_, reply) => {
@@ -36,18 +42,17 @@ fastify.get("/api", async (_, reply) => {
 });
 */
 
-fastify.get("/api", async(request, reply) => {
-
+fastify.get("/api", async (request, reply) => {
     if (request.query.id) {
         const recipe = await getRecipeById(request.query.id, recipeDB)
-        console.log(recipe);
+        // console.log(recipe);
         reply.send(await getRecipeById(request.query.id, recipeDB));
     } else if (request.query.page) {
-        reply.send(await getAllRecipe(recipeDB));
+        reply.send(await getRecipeByPage(recipeDB, request.query.page));
     }
 });
 
-fastify.post("/api", async(request, reply) => {
+fastify.post("/api", async (request, reply) => {
     // console.log(JSON.parse(request.body))
     let body = JSON.parse(request.body)
     if (!body.name || !body.author || !body.steps) {
@@ -60,8 +65,11 @@ fastify.post("/api", async(request, reply) => {
     }
 });
 
-fastify.put("/api", async(request, reply) => {
+fastify.put("/api", async (request, reply) => {
+    // console.log(request.body)
     let body = JSON.parse(request.body)
+    // console.log(body)
+
     if (!body.name ||
         !body.author ||
         !body.steps ||
@@ -71,20 +79,43 @@ fastify.put("/api", async(request, reply) => {
         err.statusCode = 400;
         reply.send(err);
     } else {
+        let response = await updateRecipe(
+            body._id,
+            body,
+            recipeDB
+        );
+        // console.log(response);
+        reply.send(response);
+        /*
         reply.send(
             await updateRecipe(
                 body._id,
-                request.body,
+                body,
                 recipeDB
             )
         );
+        */
     }
 });
 
-fastify.delete("/api", async(request, reply) => {
-    reply.send(await deleteRecipe(request.query.id, recipeDB));
-});
+fastify.get('/api/search', async (request, reply) => {
+    let data = await getRecipesByNameAndTags(request.query, recipeDB);
+    reply.status(200).send(data);
+})
 
+fastify.delete('/api', async (request, reply) => {
+    let id = request.query.id;
+    let data = await deleteRecipe(id, recipeDB);
+    reply.status(200).send(data);
+})
+
+/*
+fastify.delete("/api", async (request, reply) => {
+    console.log(request.query)
+    reply.send(await deleteRecipe(request.query.id, recipeDB));
+
+});
+*/
 /****************** User APIs ************************/
 
 /**
@@ -93,7 +124,7 @@ fastify.delete("/api", async(request, reply) => {
  * req.query.id: the id to search for.
  * reply: user json if found, 404 if not found.
  */
-fastify.get("/api/user", async(req, reply) => {
+fastify.get("/api/user", async (req, reply) => {
     let data = await getUser(userDB, req.query.id);
     if (data == null) {
         reply
@@ -112,11 +143,12 @@ fastify.get("/api/user", async(req, reply) => {
  * NOTE: req.query.email and req.body.email MUST be the same!
  * reply: user json.
  */
-fastify.post("/api/user", async(req, reply) => {
+fastify.post("/api/user", async (req, reply) => {
     // check if user exists. false if not.
+    let body = JSON.parse(req.body)
     let data = await hasUser(userDB, req.query.email);
     if (!data) {
-        data = await createUser(userDB, req.body);
+        data = await createUser(userDB, body);
     }
     reply.status(200).send(data);
 });
@@ -128,14 +160,14 @@ fastify.post("/api/user", async(req, reply) => {
  * req.query.userId: the user id to save the recipe into.
  * reply: user json.
  */
-fastify.put("/api/user/saved", async(req, reply) => {
+fastify.put("/api/user/saved", async (req, reply) => {
     let numUpdated = await saveRecipe(
         userDB,
         req.query.userId,
         req.query.recipeId
     );
     let data = await getUser(userDB, req.query.userId);
-    console.log("SAVE RECIPE: Number of document updated: " + numUpdated);
+    // console.log("SAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
 
@@ -146,25 +178,21 @@ fastify.put("/api/user/saved", async(req, reply) => {
  * req.query.userId: the user id to remove the recipe from.
  * reply: user json.
  */
-fastify.delete("/api/user/saved", async(req, reply) => {
+fastify.delete("/api/user/saved", async (req, reply) => {
     let numUpdated = await unsaveRecipe(
         userDB,
         req.query.userId,
         req.query.recipeId
     );
     let data = await getUser(userDB, req.query.userId);
-    console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
+    // console.log("UNSAVE RECIPE: Number of document updated: " + numUpdated);
     reply.status(200).send(data);
 });
 
 
-fastify.get('/api/search', async(request, reply) => {
-    let data = await getRecipesByNameAndTags(request.query, recipeDB);
-    reply.status(200).send(data);
-})
 
 // Run the server!
-const start = async() => {
+const start = async () => {
     try {
         await fastify.listen(port);
     } catch (err) {

@@ -5,7 +5,7 @@
  * sign-in and log-out
  * Dependency: navBarWithGoogle.html
  */
-
+export default {onSignIn}
 import {
     ELE_CLASS_PROFILE_IMAGE,
     ELE_ID_PROFILE,
@@ -13,7 +13,9 @@ import {
     SIGN_IN_BUTTON_ID,
     SIGN_OUT_BUTTON_ID,
 } from "./util.js";
-import { userSignedIn, userSignedOut } from "../service/user/googleLogin.js";
+
+import { populateUserInfoPage } from './userInfo.js'
+import { bindUserProfile, setGlobalUserData, clearGlobalUserData } from "./index.js";
 
 // Constant variables
 const DISPLAY_NONE = "none";
@@ -37,10 +39,14 @@ const ELE_ID_LOGO = "logo";
 const ELE_ID_HEADER = "header";
 const IMG_NO_REFERRER = "no-referrer";
 
+/* global gapi */
+
 // Set functions onSignIn and signOut to global scope, otherwise they're not
 // accessible in html
+if (typeof window === 'object') {
 window.onSignIn = onSignIn;
 window.signOut = signOut;
+}
 
 window.addEventListener("DOMContentLoaded", init);
 
@@ -58,10 +64,14 @@ async function init() {
  * @param {*} googleUser User profile provided by Google sign-in API.
  */
 function onSignIn(googleUser) {
-    let profile = {
-        name: googleUser.getBasicProfile().getName(),
+    // TODO: fake user for now, dynamically get user info here. 
+    const profile = {
+        username: googleUser.getBasicProfile().getName(),
         imageURL: googleUser.getBasicProfile().getImageUrl(),
         email: googleUser.getBasicProfile().getEmail(),
+        _id: "MMAfv3oCQDiL4u10",
+        savedRecipe: ["VZsAA6HuzytdIQT2"],
+        myRecipe: ["AJlpmnCbp6gry18v", "uYaCV6U4XGfQHYg2"],
     };
 
     console.log("User login activity caught by frontend:");
@@ -70,9 +80,6 @@ function onSignIn(googleUser) {
     console.log("Name: " + profile.name);
     console.log("Image URL: " + profile.imageURL);
     console.log("Email: " + profile.email);
-
-    // Send data to backend: service/user/googleLogin.js
-    userSignedIn(profile);
 
     // When logged in, show profile image and sign-out button, remove sign-in
     // button
@@ -103,6 +110,14 @@ function onSignIn(googleUser) {
     if (window.location.href.endsWith("index.html")) {
         window.location.replace("/source/pages/homePage.html");
     }
+    //TODO: call backend getUserByEmail
+    const userObj = {
+
+    }
+    
+    bindUserProfile(profile);
+    setGlobalUserData(profile);
+    populateUserInfoPage();
 }
 
 /**
@@ -117,8 +132,8 @@ async function signOut() {
     // When logged out, show sign-in button, remove profile image and
     // sign-out button
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_BLOCK;
-    document.getElementById(ELE_ID_PROFILE_WRAPPER).style.display = DISPLAY_NONE;
-    var profileImage = document.getElementById(ELE_ID_PROFILE);
+    document.getElementById(SIGN_OUT_BUTTON_ID).style.display = DISPLAY_NONE;
+    const profileImage = document.getElementById(ELE_ID_PROFILE);
     profileImage.removeChild(profileImage.firstChild);
     profileImage.style.display = DISPLAY_NONE;
 }
@@ -217,4 +232,12 @@ function createNavBarWithGoogle() {
     navList.appendChild(profileWrapper);
     navBar.appendChild(navList);
     landingHeader.prepend(navBar);
+}
+
+async function userSignedOut() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log("User signed out.");
+        clearGlobalUserData();
+    });
 }
