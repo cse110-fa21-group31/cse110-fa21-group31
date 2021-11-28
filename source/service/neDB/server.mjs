@@ -75,12 +75,12 @@ fastify.put("/api", async (request, reply) => {
         );
     }
 });
-
+/*
 fastify.delete("/api", async (request, reply) => {
     console.log(request.query)
     reply.send(await deleteRecipe(request.query.id, recipeDB));
 });
-
+*/
 /****************** User APIs ************************/
 
 /**
@@ -156,6 +156,12 @@ fastify.delete("/api/user/saved", async (req, reply) => {
 
 fastify.get('/api/search', async (request, reply) => {
     let data = await getRecipesByNameAndTags(request.query, recipeDB);
+    reply.status(200).send(data);
+})
+
+fastify.post('/api/delete', async (request, reply) => {
+    let id = request.query.id;
+    let data = await deleteRecipe(id, recipeDB);
     reply.status(200).send(data);
 })
 

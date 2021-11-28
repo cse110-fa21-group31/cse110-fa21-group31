@@ -31,19 +31,20 @@ export async function insertRecipe(recipe) {
  * @param {string} id the id of the desired recipe
  */
 export async function deleteRecipe(id) {
-    let queryURL = url + "?id=" + id;
+    let queryURL = url + "/delete?id=" + id;
+    console.log("Step 0, " + queryURL);
     let response = await fetch(queryURL, {
-        method: 'DEL',
+        method: 'POST',
         "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         mode: 'no-cors'
     })
-        .then((response) => response.json())
-        .then((data) => {
-            return data
-        })
         .catch((err) => {
+            console.log("Step 3");
             console.error('Error deleting recipe: ' + err.message);
         });
+    
+    console.log("Step Return");
     return response
 }
 
