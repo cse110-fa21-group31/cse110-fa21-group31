@@ -80,7 +80,7 @@ export async function fetchRecipeById(id) {
         method: 'GET',
     })
         .then((response) => response.json())
-        .then((data) => {
+        .then(async (data) => {
             data.author = await fetchUserById(data.author);
             return data
         })
@@ -132,7 +132,7 @@ export async function submitSearch(keywords, tags) {
         method: 'GET',
     })
         .then((response) => response.json())
-        .then((data) => {
+        .then(async (data) => {
             data.forEach(async (recipe) => {
                 recipe.author = await fetchUserById(recipe.author);
             });

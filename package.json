@@ -24,7 +24,7 @@
         "test": "jest",
         "start": "node --experimental-modules source/service/server/server.mjs",
         "dev": "nodemon source/service/server/server.js",
-        "eslint": "npx eslint '**/*.js' '**/*.json'",
+        "eslint": "npx eslint '**/*.js' '**/*.json' '**/*.mjs'",
         "stylelint": "npx stylelint '**/*.css'",
         "htmlhint": "npx htmlhint '**/*.html'",
         "prettier": "npx prettier --write '**/*.js'",
