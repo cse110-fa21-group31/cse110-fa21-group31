@@ -50,7 +50,6 @@ export async function populateRecipeDetail() {
 */
 
 export async function fillOutRecipe(data) {
-    if (!data) return
     document.getElementById("recipeTitle").innerHTML = data.name;
     if (data.tags) {
         let tagList = document.getElementById("tags");
@@ -79,10 +78,6 @@ export async function fillOutRecipe(data) {
     if (data.ingredients) {
         console.log("Ingredients object: " + data.ingredients);
         let ingredientsList = document.getElementById("ingr");
-        //clear old ingredients
-        while (ingredientsList.firstChild) {
-            ingredientsList.removeChild(ingredientsList.firstChild);
-        }
         for (let ingredient in data.ingredients) {
             let item = document.createElement("li");
             ingredientsList.appendChild(item);
@@ -92,18 +87,17 @@ export async function fillOutRecipe(data) {
             ingredientsHTML.innerHTML += ingredient + ": " + data.ingredients[ingredient] + "\n";
             */
         }
+        let stepsList = document.getElementById("stps");
+        for (let i = 0; i &lt; data.steps.length; i++) {
+            let item = document.createElement("li");
+            stepsList.appendChild(item);
+            item.innerHTML = data.steps[i];
+            /*
+            console.log("Ingredient: " + ingredient);
+            ingredientsHTML.innerHTML += ingredient + ": " + data.ingredients[ingredient] + "\n";
+            */
+        }
     }
-    //clear old steps
-    let stepsList = document.getElementById("stps");
-    while (stepsList.firstChild) {
-        stepsList.removeChild(stepsList.firstChild);
-    }
-    for (let i = 0; i &lt; data.steps.length; i++) {
-        let item = document.createElement("li");
-        stepsList.appendChild(item);
-        item.innerHTML = data.steps[i];
-    }
-
     //document.getElementById("steps").innerHTML = data.steps;
     const editRecipeButton = document.getElementById('editRecipeButton')
     const delRecipeButton = document.getElementById('deleteRecipeButton')
@@ -116,64 +110,64 @@ export async function fillOutRecipe(data) {
     })
     const home = 'home'
     delRecipeButton.addEventListener('click', () => {
-        //redirect to edit page and populate the page
-        deleteRecipe(data._id)
-        routerNavigateWrapper(home)
-    })
-}
-/** 
- 
-*/
+            //redirect to edit page and populate the page
+            deleteRecipe(data._id)
+            routerNavigateWrapper(home)
+        })
+        /** 
+    
+        */
 
-/** 
-document.getElementById("dateOfCreation").innerHTML = searchForKey(
-    data,
-    "datePublished"
-).split("T")[0];
+    /** 
+    document.getElementById("dateOfCreation").innerHTML = searchForKey(
+        data,
+        "datePublished"
+    ).split("T")[0];
 
-const tagss = getCategories(data).split(",");
-tagss.forEach((tag) => {
-    const listItem = document.createElement("li");
-    listItem.innerHTML = tag;
-    document.getElementById("tags").append(listItem);
-});
+    const tagss = getCategories(data).split(",");
+    tagss.forEach((tag) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = tag;
+        document.getElementById("tags").append(listItem);
+    });
 
-const ingredients = getIngredients(data);
-ingredients.forEach((ingredient) => {
-    const listItem = document.createElement("li");
-    listItem.innerHTML = ingredient;
-    document.getElementById("ingredients").append(listItem);
-});
+    const ingredients = getIngredients(data);
+    ingredients.forEach((ingredient) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = ingredient;
+        document.getElementById("ingredients").append(listItem);
+    });
 
-const instructions = getInstructions(data);
-instructions.forEach((instruction) => {
-    const listItem = document.createElement("li");
-    listItem.innerHTML = instruction;
-    document.getElementById("steps").append(listItem);
-});
-*/
-function convertTime(time) {
-    let timeStr = '';
+    const instructions = getInstructions(data);
+    instructions.forEach((instruction) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = instruction;
+        document.getElementById("steps").append(listItem);
+    });
+    */
 
-    // Remove the 'PT'
-    time = time.slice(2);
+    function convertTime(time) {
+        let timeStr = '';
 
-    let timeArr = time.split('');
-    if (time.includes('H')) {
-        for (let i = 0; i &lt; timeArr.length; i++) {
-            if (timeArr[i] == 'H') return `${timeStr} hr`;
-            timeStr += timeArr[i];
+        // Remove the 'PT'
+        time = time.slice(2);
+
+        let timeArr = time.split('');
+        if (time.includes('H')) {
+            for (let i = 0; i &lt; timeArr.length; i++) {
+                if (timeArr[i] == 'H') return `${timeStr} hr`;
+                timeStr += timeArr[i];
+            }
+        } else {
+            for (let i = 0; i &lt; timeArr.length; i++) {
+                if (timeArr[i] == 'M') return `${timeStr} min`;
+                timeStr += timeArr[i];
+            }
         }
-    } else {
-        for (let i = 0; i &lt; timeArr.length; i++) {
-            if (timeArr[i] == 'M') return `${timeStr} min`;
-            timeStr += timeArr[i];
-        }
+
+        return '';
     }
-
-    return '';
-}
-</code></pre>
+}</code></pre>
         </article>
     </section>
 
@@ -183,13 +177,13 @@ function convertTime(time) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#convertTime">convertTime</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 23:06:44 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 23:40:31 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
