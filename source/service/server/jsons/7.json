@@ -1,0 +1,56 @@
+{
+    "name": "Big Night Pizza",
+    "author": "MMAfv3oCQDiL4u10",
+    "description": "Enjoy the pizza",
+    "datePosted": 1638172867145,
+    "servingSize": 10,
+    "imageURL": "http://upload.wikimedia.org/wikipedia/commons/c/c7/Spinach_pizza.jpg",
+    "tags": ["dinner", "Easy"],
+    "cookTime": "1 hr 30mins",
+    "difficulty": "2 star",
+
+    "ingredients": [
+        {
+            "yeast": 5
+      
+        },
+        {
+            "flour":5
+           
+        },
+        {
+            "vegetable oil":4
+          
+        },
+        {
+            "sugar":2
+          
+        },
+        {
+           "salt":2
+     
+        },
+        {
+            "hot water":2
+          
+        },
+        {
+            "pizza sauce": 1
+         
+        },
+        {
+            "mozzarella cheese": 1
+     
+        }
+    ],
+    "steps": [
+            "Add hot water to yeast in a large bowl and let sit for 15 minutes.",
+            "Mix in oil, sugar, salt, and flour and let sit for 1 hour.",
+            "Knead the dough and spread onto a pan.",
+            "Spread pizza sauce and sprinkle cheese.",
+            "Add any optional toppings as you wish.",
+            "Bake at 400 deg Fahrenheit for 15 minutes.",
+            "Enjoy!"
+    ]
+    
+}

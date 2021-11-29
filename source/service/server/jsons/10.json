@@ -1,0 +1,55 @@
+{
+    "name": "Blueberry Oatmeal Squares",
+    "author": "MMAfv3oCQDiL4u10",
+    "description": "Enjoy the breakfast",
+    "datePosted": 1638172867145,
+    "servingSize": 2,
+    "imageURL": "http://www.canadianliving.com/img/photos/biz/blueberry-oatmeal-squares5801359401371.jpg","tags": ["Breakfast", "Easy"],
+    "cookTime": "60mins",
+    "difficulty": "2 star",
+
+    "ingredients": [
+        {
+            "rolled oats, (not instant)": 2.5
+        },
+        {
+            "all-purpose flour": 1
+        },
+        {
+            "grated orange rind": 1
+        },
+        {
+            "salt": 1
+        },
+        {
+           
+            "cold butter, cubed": 1
+        },
+        {
+            "packed brown sugar": 0.5
+        },
+        {
+            "fresh blueberries": 3
+        },
+        {
+           "granulated sugar": 0.5
+        },
+        {
+          "orange juice": 1
+        },
+        {
+           "cornstarch": 4
+        }
+    ],
+    "steps": [
+        "Filling: In saucepan, bring blueberries, sugar and orange juice to boil; reduce heat and simmer until tender, about 10 minutes.",
+            "Whisk cornstarch with 2 tbsp (25 mL) water; whisk into blueberries and boil, stirring, until thickened, about 1 minute.",
+            "Place plastic wrap directly on surface; refrigerate until cooled, about 1 hour.",
+            "In large bowl, whisk together oats, flour, sugar, orange rind and salt ; with pastry blender, cut in butter until in coarse crumbs.",
+            "Press half into 8-inch (2 L) square parchment paper–lined metal cake pan; spread with blueberry filling.",
+            "Bake in centre of 350°F oven until light golden, about 45 minutes.",
+            "Let cool on rack before cutting into squares.",
+            "(Make-ahead: Cover and refrigerate for up to 2 days or overwrap with heavy-duty foil and freeze for up to 2 weeks.)"
+    ]
+    
+}

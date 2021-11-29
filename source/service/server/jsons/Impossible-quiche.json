@@ -1,0 +1,41 @@
+{
+    "name": "Impossible quiche",
+    "author": "MMAfv3oCQDiL4u10",
+    "description": "A beautiful golden brown ham and cheese quiche that will delight the whole family.",
+    "datePosted": 1638172867145,
+    "servingSize": 6,
+    "imageURL": "https://img.taste.com.au/NPadfZm_/w720-h480-cfill-q80/taste/2016/11/impossible-quiche-24036-1.jpeg",
+    "tags": ["Dinner", "Intermediate"],
+    "cookTime": "40mins",
+    "difficulty": "3 star",
+
+    "ingredients": [
+        {
+            "ham, chopped": 125
+        },
+        {
+            "small onion, finely chopped": 1
+        },
+        {
+            "grated Devondale Tasty Cheese Block": 2.5
+        },
+        {
+            "self-raising flour": 1
+        },
+        {
+            "Salt & freshly ground pepper, to season": 2
+        },
+        {
+            "eggs": 4
+        },
+        {
+            "milk": 2
+        }
+    ],
+    "steps": [
+        "Preheat oven to 200°C. Grease a 5 cup capacity pie dish.",
+        "Combine ham, onion, cheese, flour, salt and pepper in a medium bowl. Scatter over base of dish.",
+        "Whisk eggs and milk together in a large jug and pour over ham mixture. Cook for about 40 minutes or until puffed and golden. Cool slightly. Serve warm or cold."
+    ]
+    
+}
