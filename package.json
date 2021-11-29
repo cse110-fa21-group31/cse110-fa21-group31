@@ -24,7 +24,7 @@
     },
     "scripts": {
         "test": "cypress run & node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
-        "jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
+        "unittest": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit --detectOpenHandles",
         "start-server": "npm start",
         "ci": "start-server-and-test start-server http://localhost:3030 test",
         "cypress": "npx cypress run --headed --no-exit",

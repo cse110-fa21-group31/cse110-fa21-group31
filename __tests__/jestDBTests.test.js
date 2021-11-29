@@ -6,6 +6,7 @@ import Datastore from "nedb";
 import recipes from "./testRecipes.js";
 import crypto from "crypto";
 
+const RANDOM_RECIPE_COUNT = 10;
 const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
 
 /**
@@ -15,6 +16,7 @@ const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
 const generateRandomTag = () => {
     return "tag" + Math.floor(Math.random() * 100);
 };
+
 /**
  * Generates a random recipe for testing
  * @returns {recipe}
@@ -52,87 +54,129 @@ const generateRandomRecipe = () => {
 };
 
 // ACTUAL TESTING
+test("smaple test", (done) => {
+    expect(1).toBe(1);
+    done();
+})
 
 // make sure we start off with a clean slate every time or else
 // tests will keep adding and adding the same recipes
-testDB.remove({}, { multi: true }, function (err, numRemoved) {
-    testDB.loadDatabase();
-});
+const clearDatabase = () => {
+    return new Promise((resolve) => {
+        testDB.remove({}, { multi: true }, function (err, numRemoved) {
+            testDB.loadDatabase();
+            console.log("FLAG DONE REMOVING RECIPES");
+            resolve();
+        });
+    });
+}
+const populateDatabase = () => {
+    return new Promise((resolve) => {
+        // insert some predefined ones...
+        recipes.map((recipe) => {
+            console.log(`Inserting recipe ${recipe.name}`);
+            return Interface.createRecipe(recipe, testDB).catch((err) =>
+                console.log(err)
+            );
+        })
 
-test("should have no recipes to begin with", (done) => {
+        // ... as well as some random ones
+        for (let i = 0; i < RANDOM_RECIPE_COUNT; i++) {
+            Interface.createRecipe(generateRandomRecipe(), testDB);
+        }
+
+        resolve();
+    });
+};
+const getDatabaseCount = () => {
+    return new Promise((resolve) => {
+        testDB.count({}, (err, count) => {
+            resolve(count);
+        });
+    });
+};
+
+let currCount = await getDatabaseCount();
+console.log(`CurrCount: ${currCount}`);
+await clearDatabase();
+currCount = await getDatabaseCount();
+console.log(`CurrCount: ${currCount}`);
+await populateDatabase();
+currCount = await getDatabaseCount();
+console.log(`CurrCount: ${currCount}`);
+
+/*
+async function testDatabases() {
+    await clearDatabase();
+    test("should have no recipes begin with", async (done) => {
+        console.log("CLEARED");
+        testDB.find({}, (err, docs) => {
+            expect(docs.length).toBe(0);
+            console.log("DONE RUNNING CLEARED TEST");
+            done();
+        });
+    });
+}
+
+console.log("FLAG DONE WITH TEST 1");
+await populateDatabase();
+console.log("POPULATE");
+
+test("should have new recipes", (done) => {
     testDB.find({}, (err, docs) => {
-        expect(docs).toBe(0);
+        expect(docs.length).toBe(recipes.length + RANDOM_RECIPE_COUNT);
         done();
     });
 });
 
-console.log("Inserting recipes into test database");
-Promise.race(
-    recipes.map((recipe) => {
-        console.log(`Inserting recipe ${recipe.name}`);
-        return Interface.createRecipe(recipe, testDB).catch((err) =>
-            console.log(err)
-        );
-    })
-)
-    .catch((reason) => {
-        console.log("An error occured during the race:");
-        console.log(reason);
-    })
-    .then(() => {
-        console.log("Done inserting recipes");
-        test("should have recipes in our fake database", (done) => {
-            new Promise((resolve) => {
-                testDB
-                    .find({}, (err, docs) => {
-                        expect(docs).toBe(recipes.length);
-                        resolve(docs);
-                    })
-                    .catch((reason) => {
-                        console.log(reason);
-                    })
-                    .finally(() => {
-                        done();
-                    });
-            });
-            test("should handle adding new recipes", (done) => {
-                // generate random amounts of random recipes
-                const randomRecipes = [];
-                for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
-                    randomRecipes.push(generateRandomRecipe());
-                }
+console.log("FLAG 4");
 
-                // add the random recipes to the database
-                Promise.all(
-                    randomRecipes.map((recipe) => {
-                        return Interface.createRecipe(recipe, testDB);
-                    })
-                )
-                    .then(() => {
-                        // check that the database has the correct amount of recipes
-                        new Promise((resolve) => {
-                            testDB.find({}, (err, docs) => {
-                                resolve(docs);
-                            });
-                        })
-                            .then((docs) => {
-                                expect(docs.length).toBe(
-                                    recipes.length + randomRecipes.length
-                                );
-                            })
-                            .catch((reason) => {
-                                console.log(reason);
-                            })
-                            .finally(() => {
-                                done();
-                            });
-                    })
-                    .catch((reason) => {
-                        console.log(reason);
-                    })
-                    .finally(() => {
-                        done();
-                    });
-            });
+
+*/
+
+/*
+await Promise.race(
+).catch((reason) => {
+    console.log("An error occured during the race:");
+    console.log(reason);
+});
+
+console.log("FLAG 3");
+console.log("Done inserting recipes");
+
+test("should have recipes in our fake database", (done) => {
+    console.log("FLAG 4");
+    testDB.find({}, (err, docs) => {
+        expect(docs.length).toBe(recipes.length);
+        done();
+    })
+});
+test("should handle adding new recipes", (done) => {
+    // generate random amounts of random recipes
+        .then(() => {
+            // check that the database has the correct amount of recipes
+            new Promise((resolve) => {
+                testDB.find({}, (err, docs) => {
+                    resolve(docs);
+                });
+            })
+                .then((docs) => {
+                    expect(docs.length).toBe(
+                        recipes.length + randomRecipes.length
+                    );
+                })
+                .catch((reason) => {
+                    console.log(reason);
+                })
+                .finally(() => {
+                    done();
+                });
+        })
+        .catch((reason) => {
+            console.log(reason);
+        })
+        .finally(() => {
+            done();
         });
-    });
+});
+*/

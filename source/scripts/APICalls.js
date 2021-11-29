@@ -27,9 +27,9 @@ export async function insertRecipe(recipe) {
         method: "POST",
         body: JSON.stringify(recipe),
     })
-        .then((response) => response.json())
-        .then((data) => {
-            return data;
+        .then((data) => data.json())
+        .then((jsonData) => {
+            return jsonData;
         })
         .catch((err) => {
             console.error(err);
@@ -111,13 +111,13 @@ export async function updateRecipeById(id, update) {
         method: "PUT",
         body: JSON.stringify(update),
     })
-        .then((response) => {
-            console.log(response);
-            return response.json();
-        })
         .then((data) => {
             console.log(data);
-            return data;
+            return data.json();
+        })
+        .then((jsonData) => {
+            console.log(jsonData);
+            return jsonData;
         })
         .catch((err) => {
             console.error("Error updating recipe: " + err.message);
@@ -180,13 +180,13 @@ export async function addSavedRecipeById(userId, recipeId) {
     let response = await fetch(queryURL, {
         method: "PUT",
     })
-        .then((response) => {
-            console.log(response);
-            return response.json();
-        })
         .then((data) => {
             console.log(data);
-            return data;
+            return data.json();
+        })
+        .then((jsonData) => {
+            console.log(jsonData);
+            return jsonData;
         })
         .catch((err) => {
             //console.error('Error updating recipe: ' + err.message);
