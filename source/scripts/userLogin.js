@@ -5,7 +5,7 @@
  * sign-in and log-out
  * Dependency: navBarWithGoogle.html
  */
-export default {onSignIn}
+export default { onSignIn };
 import {
     ELE_CLASS_PROFILE_IMAGE,
     ELE_ID_PROFILE,
@@ -14,8 +14,12 @@ import {
     SIGN_OUT_BUTTON_ID,
 } from "./util.js";
 
-import { populateUserInfoPage } from './userInfo.js'
-import { bindUserProfile, setGlobalUserData, clearGlobalUserData } from "./index.js";
+import { populateUserInfoPage } from "./userInfo.js";
+import {
+    bindUserProfile,
+    setGlobalUserData,
+    clearGlobalUserData,
+} from "./index.js";
 
 // Constant variables
 const DISPLAY_NONE = "none";
@@ -28,9 +32,9 @@ const IMG_NO_REFERRER = "no-referrer";
 
 // Set functions onSignIn and signOut to global scope, otherwise they're not
 // accessible in html
-if (typeof window === 'object') {
-window.onSignIn = onSignIn;
-window.signOut = signOut;
+if (typeof window === "object") {
+    window.onSignIn = onSignIn;
+    window.signOut = signOut;
 }
 
 /**
@@ -40,7 +44,7 @@ window.signOut = signOut;
  * @param {*} googleUser User profile provided by Google sign-in API.
  */
 function onSignIn(googleUser) {
-    // TODO: fake user for now, dynamically get user info here. 
+    // TODO: fake user for now, dynamically get user info here.
     const profile = {
         username: googleUser.getBasicProfile().getName(),
         imageURL: googleUser.getBasicProfile().getImageUrl(),
@@ -73,14 +77,12 @@ function onSignIn(googleUser) {
     var imageWrapper = document.createElement(HTML_ELE_A);
     imageWrapper.id = ELE_ID_PROFILE_WRAPPER;
     //TODO: call backend getUserByEmail
-    const userObj = {
-
-    }
+    const userObj = {};
     imageWrapper.append(image);
     profileImage.append(imageWrapper);
     bindUserProfile(profile);
     setGlobalUserData(profile);
-    populateUserInfoPage()
+    populateUserInfoPage();
 }
 
 /**

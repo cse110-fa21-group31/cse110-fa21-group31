@@ -1,8 +1,12 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
-import { insertRecipe } from "./APICalls.js"
-import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
-import { RECIPE_ROUTE } from './util.js'
-export default {setupCreatePage}
+import { insertRecipe } from "./APICalls.js";
+import {
+    redirectRecipeDetail,
+    routerNavigateWrapper,
+    userData,
+} from "./index.js";
+import { RECIPE_ROUTE } from "./util.js";
+export default { setupCreatePage };
 export function setupCreatePage() {
     console.log("setupCreatePage() called");
 
@@ -24,15 +28,13 @@ export function setupCreatePage() {
     document.getElementById("delStep").addEventListener("click", function () {
         deleteIngredient();
     });
-
 }
 
 let numSteps = 0;
 let numIngredients = 0;
 //TODO: update/find a way to assign value to this variable
-let isUpdate = false
+let isUpdate = false;
 const onSubmitRecipe = async (event) => {
-
     console.log("SUBMITTED NEW RECIPE");
     event.preventDefault();
     const recipeF = document.getElementById("recipeForm");
@@ -43,12 +45,16 @@ const onSubmitRecipe = async (event) => {
     let ingrAmountArr = [];
     let stepsArr = [];
     //should be empty array if no input
-    let strTags = formData.get('tags') ? formData.get('tags').replace(/\s+/g, '').split(',') : [];
+    let strTags = formData.get("tags")
+        ? formData.get("tags").replace(/\s+/g, "").split(",")
+        : [];
     //let tagsArr = strTags.split(',');
 
     let ingArr = {};
     for (let i = 0; i < numIngredients; i++) {
-        ingArr[formData.get('ingredient' + i)] = formData.get('ingredientAmount' + i);
+        ingArr[formData.get("ingredient" + i)] = formData.get(
+            "ingredientAmount" + i
+        );
         /** 
         ingrArr.push(formData.get('ingredient'+i));
         ingrAmountArr.push(formData.get('ingredientAmount'+i));
@@ -60,45 +66,44 @@ const onSubmitRecipe = async (event) => {
 
     // get steps from form
     for (let i = 0; i < numSteps; i++) {
-        stepsArr.push(formData.get('step' + i));
-        console.log(formData.get('step' + i));
+        stepsArr.push(formData.get("step" + i));
+        console.log(formData.get("step" + i));
     }
 
-    const recipeCard = document.createElement('recipe-card');
+    const recipeCard = document.createElement("recipe-card");
     //console.log(document.getElementsByName('picture')[0].files[0]);
     let pic = null;
-    let img = null
-    if (document.getElementsByName('picture')[0].files.length > 0) {
-        pic = document.getElementsByName('picture')[0].files[0];
+    let img = null;
+    if (document.getElementsByName("picture")[0].files.length > 0) {
+        pic = document.getElementsByName("picture")[0].files[0];
         // img = window.URL.createObjectURL(fileObj);
     }
     // CREATE NEW RECIPE
     let newRecipe = {
-        name: formData.get('name'),
+        name: formData.get("name"),
         datePosted: Date.now(),
         //TODO: how to store image
-        image: formData.get('picture'),
+        image: formData.get("picture"),
         //TODO: get user ID from a global variable, is it working?
         author: userData._id,
-        description: formData.get('description'),
+        description: formData.get("description"),
         tags: strTags,
-        servingSize: formData.get('servingSize'),
-        cookTime: formData.get('cookTime'),
+        servingSize: formData.get("servingSize"),
+        cookTime: formData.get("cookTime"),
         ingredients: ingArr,
-        difficulty: formData.get('difficulty'),
+        difficulty: formData.get("difficulty"),
         ingredientAmounts: ingrAmountArr,
-        steps: stepsArr
-    }
+        steps: stepsArr,
+    };
     console.log(newRecipe);
-    // get response from POST API, get the new recipe, 
+    // get response from POST API, get the new recipe,
     const responseRecipe = await insertRecipe(newRecipe);
-    redirectRecipeDetail(responseRecipe)
+    redirectRecipeDetail(responseRecipe);
     console.log(responseRecipe);
     const page = responseRecipe._id;
-    const routeUrl = RECIPE_ROUTE + page
-    routerNavigateWrapper(routeUrl)
+    const routeUrl = RECIPE_ROUTE + page;
+    routerNavigateWrapper(routeUrl);
 };
-
 
 /* eslint-disable no-unused-vars*/
 const appendStep = () => {
@@ -107,12 +112,13 @@ const appendStep = () => {
     var newTextBox = document.createElement("div");
 
     newTextBox.innerHTML =
-        "<textarea cols='40' rows='4' id='textAreaBox' name='step" + numSteps + "' placeholder='Step #" +
+        "<textarea cols='40' rows='4' id='textAreaBox' name='step" +
+        numSteps +
+        "' placeholder='Step #" +
         numSteps +
         "'></textarea>";
     document.getElementById("newStepId").appendChild(newTextBox);
     numSteps++;
-
 };
 /* eslint-enable no-unused-vars*/
 
@@ -130,12 +136,16 @@ const deleteStep = () => {
 const appendIngredient = () => {
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
-        "<input type='text' id='newInputBox' name='ingredient" + numIngredients + "' placeholder='ingredient'>";
+        "<input type='text' id='newInputBox' name='ingredient" +
+        numIngredients +
+        "' placeholder='ingredient'>";
     document.getElementById("newIngredientId").appendChild(newTextBox);
 
     var newAmountBox = document.createElement("div");
     newAmountBox.innerHTML =
-        "<input type='text' id='newInputBox' name='ingredientAmount" + numIngredients + "' placeholder='amount'>";
+        "<input type='text' id='newInputBox' name='ingredientAmount" +
+        numIngredients +
+        "' placeholder='amount'>";
     document.getElementById("newIngredientAmountId").appendChild(newAmountBox);
     numIngredients++;
 };

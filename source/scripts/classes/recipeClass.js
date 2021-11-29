@@ -22,7 +22,7 @@
 class RecipeClass extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' });
+        this.attachShadow({ mode: "open" });
     }
 
     // setters for all changable properties
@@ -31,7 +31,7 @@ class RecipeClass extends HTMLElement {
 
         // Used to access the actual data object
         this.json = data;
-        const style = document.createElement('style');
+        const style = document.createElement("style");
 
         style.innerHTML = `
         .recipeCard {
@@ -74,43 +74,44 @@ class RecipeClass extends HTMLElement {
         }
         `;
 
-        const card = document.createElement('div');
+        const card = document.createElement("div");
         card.classList.add("recipeCard");
 
         //Grab image
         const imageData = getImage(data);
-        const image = document.createElement('img');
+        const image = document.createElement("img");
         image.href = imageData;
         // show placeholder image if imageData not availables
         // TODO: change these conditions after figuring out how to upload and store image
-        image.src = (imageData == null || typeof imageData == "object" || imageData == "") 
-            ? "./source/assets/Images/recipeCardPlaceholder.png" : imageData;
+        image.src =
+            imageData == null || typeof imageData == "object" || imageData == ""
+                ? "./source/assets/Images/recipeCardPlaceholder.png"
+                : imageData;
         //console.log(imageData);
 
         // Grab the name
         const nameText = getName(data);
-        const name = document.createElement('p');
+        const name = document.createElement("p");
         name.innerText = nameText;
         // console.log(nameText);
 
         //Get tagssss
         const tagsData = getTags(data);
-        const tags = document.createElement('div');
+        const tags = document.createElement("div");
         tags.classList.add("tags");
         // console.log(tagsData);
 
-        const tagsList = document.createElement('ul');
+        const tagsList = document.createElement("ul");
         tagsList.classList.add("tagsList");
-        tagsList.setAttribute('id', 'tag');
+        tagsList.setAttribute("id", "tag");
         if (tagsData) {
             for (let i = 0; i < tagsData.length; i++) {
-                const individualTag = document.createElement('li');
+                const individualTag = document.createElement("li");
                 individualTag.classList.add("individualTag");
                 individualTag.innerText = tagsData[i];
                 tagsList.appendChild(individualTag);
             }
         }
-
 
         // Add all of the elements to the card
         if (tagsData) tags.appendChild(tagsList);
@@ -167,7 +168,6 @@ class RecipeClass extends HTMLElement {
     set steps(steps) {
         this.steps = steps;
     }
-
 
     insertStep(step, stepIndex = this.steps.length) {
         this.steps.splice(stepIndex, 0, step);
@@ -364,7 +364,7 @@ function getSteps(data) {
                 }
                 if (
                     data["@graph"][i]["recipeInstructions"][0][
-                    "itemListElement"
+                        "itemListElement"
                     ]
                 ) {
                     const instructionArr = [];
@@ -387,8 +387,6 @@ function getSteps(data) {
     return null;
 }
 
-
-
 // export default RecipeClass;
 
-customElements.define('recipe-card', RecipeClass);
+customElements.define("recipe-card", RecipeClass);
