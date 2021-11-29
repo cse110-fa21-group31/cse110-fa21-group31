@@ -22,7 +22,6 @@ jobs:
   testing-job:
     # For unit and end to end testing
     runs-on: ubuntu-latest
-    needs: cypress-server-start
     
     steps:
     - name: Checkout branch
