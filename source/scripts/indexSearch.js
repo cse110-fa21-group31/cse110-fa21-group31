@@ -8,16 +8,13 @@ import { createRecipeCards } from "./index.js";
 
 let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
 let selectedTags = [];
-
-let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
-let selectedTags = [];
-
 /**
  * initializes search functionality through the frontend
  */
 async function init() {
-    let searchBar = document.querySelector("#searchBarHome");
-    let searchButton = document.querySelector("#searchButtonHome");
+    // TODO: Make sure this works for both landing and home pages
+    let searchBar = document.querySelector("#searchBar");
+    let searchButton = document.querySelector("#searchButton");
     if (searchButton) {
         searchButton.addEventListener("click", async function () {
             let searchResults = await submitSearch(searchBar.value, selectedTags);
@@ -26,7 +23,7 @@ async function init() {
     }
 
     let tagsSelect = document.getElementById("tagsList");
-    //console.log(tagsSelect);
+    console.log(tagsSelect);
     if (tagsSelect) {
         chooseTag(this);
         let tagButtons = document.getElementsByClassName("tagButton");

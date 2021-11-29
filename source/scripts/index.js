@@ -131,7 +131,6 @@ export function createRecipeCards(recipes) {
     if(recipes){
         newRecipes = recipes;
     }
-    console.log(newRecipes);
     // Makes new recipe cards
     // Wait until the gridContainer is loaded
     waitForSelector('.myRecipeCardGridContainer')
@@ -140,8 +139,6 @@ export function createRecipeCards(recipes) {
                 gridContainer.removeChild(gridContainer.firstChild);
             }
             newRecipes.forEach(recipeObj => {
-                console.log("Creating card for recipe");
-                console.log(recipeObj);
                 if (!recipeObj) return
                 const recipeCard = document.createElement('recipe-card');
                 // console.log("Created recipe-card");
