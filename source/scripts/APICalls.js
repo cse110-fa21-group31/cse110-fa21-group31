@@ -125,9 +125,9 @@ export async function updateRecipeById(id, update) {
 export async function submitSearch(keywords, tags) {
     let query = "name=" + keywords;
     if (tags) {
-        query = query + '&' + "tags=" + JSON.stringify(tags);
+        query = query + '&' + "tags=" + tags.join(",");
     }
-    let queryURL = url + "/search?" + query
+    let queryURL = url + "/search?" + query;
     let response = await fetch(queryURL, {
         method: 'GET',
     })
