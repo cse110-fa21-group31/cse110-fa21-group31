@@ -30,5 +30,4 @@ describe("Cypress Pipeline v2", () => {
             .should("have.length", 4)
             .then(console.log);
     });
-    // next tests should try the edit, delete, creation process
 });

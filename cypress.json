@@ -1,6 +1,14 @@
 {
     "integrationFolder": "__tests__",
     "ignoreTestFiles": "**/!(*.spec.js)",
-    "pluginsFile": false,
-    "baseUrl": "http://localhost:3030"
+    "baseUrl": "http://localhost:3030",
+    "env": {
+        "REACT_APP_GOOGLE_CLIENTID": "540165433279-spiffkj5356cn57keeho8tc66clhpd92.apps.googleusercontent.com",
+        "REACT_APP_GOOGLE_CLIENT_SECRET": "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",
+        "GOOGLE_REFRESH_TOKEN": "1//04_bv_0JkeoVdCgYIARAAGAQSNwF-L9IrSyN-Zcfji83hFc63QnpezDC8a_1Tg6W3171wwdJ4BXXi0ZCDKWFLZ_u9BSR2C_xm52g"
+    },
+    "compilerOptions": {
+        "module": "esnext",
+        "allowJs": true
+    }
 }

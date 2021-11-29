@@ -7,11 +7,9 @@
 
 // EUVIN: this file is for exploratory stuff in cypress, don't mind
 describe("Cypress Pipeline v2", () => {
-    it.skip("Loads home page by default", () => {
+    it("Loads home page by default", () => {
         cy.visit("http://localhost:3030");
-        cy.document().then((doc) => {
-            console.log(doc.body.innerHTML);
-        });
-        cy.get("recipe-card").shadow().contains("Cake");
+        cy.get('.abcRioButtonContentWrapper').click();
+        
     });
 });
