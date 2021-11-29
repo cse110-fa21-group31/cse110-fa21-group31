@@ -1,0 +1,41 @@
+{
+    "name": "Easy Meatloaf",
+    "author": "MMAfv3oCQDiL4u10",
+    "description": "This is a very easy and no fail recipe for meatloaf. It won't take long to make at all, and it's quite good!",
+    "datePosted": 1638172867145,
+    "servingSize": 8,
+    "imageURL": "https://www.spendwithpennies.com/wp-content/uploads/2019/05/New-The-BEST-Meatloaf-7.jpg",
+    "cookTime": "1 hrs 30 mins",
+    "difficulty": "2 star",
+
+    "ingredients": [
+        {
+            "pounds ground beef": 2
+        },
+        {
+            "egg": 1
+        },
+        {
+            "onion,chopped": 1
+        },
+        {
+            "milk": 1
+        },
+        {
+            "brown sugar": 2
+        },
+        {
+            "prepared mustard": 2
+        },
+        {
+            "ketchup": 0.5
+        }
+    ],
+    "steps": [
+        "Preheat oven to 350 degrees F (175 degrees C).",
+        "In a large bowl, combine the beef, egg, onion, milk and bread OR cracker crumbs. Season with salt and pepper to taste and place in a lightly greased 9x5-inch loaf pan, or form into a loaf and place in a lightly greased 9x13-inch baking dish.",
+        "In a separate small bowl, combine the brown sugar, mustard and ketchup. Mix well and pour over the meatloaf.",
+        "Bake at 350 degrees F (175 degrees C) for 1 hour."
+    ]
+    
+}
