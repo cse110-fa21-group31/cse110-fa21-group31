@@ -11,8 +11,10 @@ import { submitSearch } from "./APICalls.js"
 async function init() {
     let searchBar = document.querySelector("#searchBar");
     let searchButton = document.querySelector("#searchButton");
-    searchButton.addEventListener("click", function () {
+    searchButton.addEventListener("click", async function () {
         // TODO: Add a tags field to the search bar and make use of it
-        submitSearch(searchBar.value);
+        let results = await submitSearch(searchBar.value);
+        console.log("Search Results:");
+        console.log(results);
     });
 }

@@ -43,30 +43,15 @@ export async function deleteRecipe(id) {
         });
     
     // console.log("Step Return");
-    return response
+    return response;
 }
 
 /**
  * sends an HTTP request to the server to fetch a single recipe
  * @param {string} id the id of the desired recipe
  */
-export async function fetchRecipeByPage(pageNum) {
-    let queryURL = API_URL + "?page=" + pageNum;
-    let response = await fetch(queryURL, {
-        method: 'GET',
-    })
-        .then((response) => response.json())
-        .then(async (data) => {
-            data.forEach(async (recipe) => {
-                recipe.author = await fetchUserById(recipe.author);
-            });
-            return data;
-        })
-        .catch((err) => {
-            console.error('Error finding recipes: ' + err.message);
-            console.error(err);
-        });
-    return response
+export async function fetchRecipeByPage(page) {
+    return await fetchResults(API_URL + "?", page);
 }
 
 
@@ -76,37 +61,16 @@ export async function fetchRecipeByPage(pageNum) {
  */
 export async function fetchRecipeById(id) {
     let queryURL = API_URL + "?id=" + id;
-    let response = await fetch(queryURL, {
-        method: 'GET',
-    })
-        .then((response) => response.json())
-        .then(async (data) => {
-            data.author = await fetchUserById(data.author);
-            return data
-        })
-        .catch((err) => {
-            console.error('Error finding recipe: ' + err.message);
-        });
-    return response
+    return await fetchResults(queryURL)[0];
 }
 
 /**
  * sends an HTTP request to the server to fetch recipes
  * @param {Array<string>} ids the ids of the desired recipes
  */
- export async function fetchRecipesByIds(ids) {
+ export async function fetchRecipesByIds(ids, page) {
     let queryURL = API_URL + "?ids=" + ids.join(",");
-    let response = await fetch(queryURL, {
-        method: 'GET',
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            return data
-        })
-        .catch((err) => {
-            console.error('Error finding recipes: ' + err.message);
-        });
-    return response
+    return await fetchResults(queryURL, page);
 }
 
 /**
@@ -139,28 +103,18 @@ export async function updateRecipeById(id, update) {
  * @param {Array<string>} tags tags to filter results by
  * @returns {Array<recipe>} the recipes returned by the search engine
  */
-export async function submitSearch(keywords, tags) {
+export async function submitSearch(keywords, tags, page) {
     let query = "?name=" + keywords;
     if (tags) {
-        query = query + '&' + "tags=" + JSON.stringify(tags);
+        query = query + '&' + "tags=" + tags.join(",");
     }
     let queryURL = API_URL + query
-    let response = await fetch(queryURL, {
-        method: 'GET',
-    })
-        .then((response) => response.json())
-        .then(async (data) => {
-            data.forEach(async (recipe) => {
-                recipe.author = await fetchUserById(recipe.author);
-            });
-            console.log("Search Results:");
-            console.log(data);
-            return data
-        })
-        .catch((err) => {
-            console.error('Error searching for recipes: ' + err.message);
-        });
-    return response
+    let searchResults = await fetchResults(queryURL, page);
+    let pageCount = await getPageCount(queryURL);
+    return {
+        "results":searchResults,
+        "pages": pageCount
+    };
 }
 
 /**
@@ -215,4 +169,31 @@ export async function deleteSavedRecipeById(userId, recipeId) {
             //console.error('Error deleting recipe: ' + err.message);
         });
     return response
+}
+
+
+/****************** Internal functions ************************/
+
+async function fetchResults(queryURL, page){
+    if(page){
+        queryURL = queryURL + "&page=" + page;
+    }
+    let response = await fetch(queryURL, {
+        method: 'GET',
+    })
+        .then((response) => response.json())
+        .then(async (data) => {
+            data.forEach(async (recipe) => {
+                recipe.author = await fetchUserById(recipe.author);
+            });
+            return data;
+        })
+        .catch((err) => {
+            console.error('Error finding recipes: ' + err.message);
+        });
+    return response;
+}
+
+async function getPageCount(queryURL){
+    return 1;
 }
