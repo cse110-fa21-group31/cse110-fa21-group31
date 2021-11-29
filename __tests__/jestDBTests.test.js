@@ -26,23 +26,28 @@ const generateRandomRecipe = () => {
     // This is used to test the createRecipe function.
     // Generate a random string for the name, and a variable amount of tags.
     let randomRecipe = {};
-    randomRecipe.name = "Random Recipe " + Math.floor(Math.random() * 100);
-    randomRecipe.tags = [];
+    randomRecipe.name = "Random Recipe " + Math.ceil(Math.random() * 100);
+    
+    let newtags = [];
+    for (let i = 0; i < Math.ceil(Math.random() * 10); i++) {
+        newtags.push(generateRandomTag());
+    }
+    // tags is a comma delimited string
+    randomRecipe.tags = newtags.join(",");
+
     // generate a random date
     randomRecipe.date = new Date(
-        Math.floor(
-            Math.random() * (new Date().getTime() - new Date(0).getTime())
-        ) + new Date(0).getTime()
+        Math.ceil(Math.random() * (new Date().getFullYear() - 2000)) + 2000,
+        Math.floor(Math.random() * 12),
+        Math.floor(Math.random() * 28) + 1
     );
-    for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
-        randomRecipe.tags.push(generateRandomTag());
-    }
+    
     randomRecipe.steps = [];
-    for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
+    for (let i = 0; i < Math.ceil(Math.random() * 10); i++) {
         randomRecipe.steps.push("Step " + i);
     }
     randomRecipe.ingredients = {};
-    for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
+    for (let i = 0; i < Math.ceil(Math.random() * 10); i++) {
         randomRecipe.ingredients[i] = "Ingredient " + i;
     }
     randomRecipe.description =
@@ -70,24 +75,19 @@ const clearDatabase = () => {
         });
     });
 }
-const populateDatabase = () => {
+const populateDatabase = (randomRecipes = 10) => {
     return new Promise((resolve) => {
         // insert some predefined ones...
-        recipes.map((recipe) => {
-            console.log(`Inserting recipe ${recipe.name}`);
-            return Interface.createRecipe(recipe, testDB).catch((err) =>
-                console.log(err)
-            );
-        })
-
-        // ... as well as some random ones
-        for (let i = 0; i < RANDOM_RECIPE_COUNT; i++) {
-            Interface.createRecipe(generateRandomRecipe(), testDB);
-        }
-
-        resolve();
+        // Append random recipes to already predefined recipes
+        let newRecipes = [...recipes, ...Array(randomRecipes).fill(null).map(generateRandomRecipe)];
+        Promise.race(newRecipes.map((recipe) => {
+            return Interface.createRecipe(recipe, testDB)
+        }))
+        .then(resolve)
+        .catch(console.log);
     });
 };
+
 const getDatabaseCount = () => {
     return new Promise((resolve) => {
         testDB.count({}, (err, count) => {
@@ -96,14 +96,119 @@ const getDatabaseCount = () => {
     });
 };
 
-let currCount = await getDatabaseCount();
-console.log(`CurrCount: ${currCount}`);
-await clearDatabase();
-currCount = await getDatabaseCount();
-console.log(`CurrCount: ${currCount}`);
-await populateDatabase();
-currCount = await getDatabaseCount();
-console.log(`CurrCount: ${currCount}`);
+describe("Tests database recipe functions", () => {
+    beforeAll(async () => {
+        await clearDatabase();
+        await populateDatabase();
+    });
+    /**
+     * Functions of interface.mjs:
+     * (recipeCollection is an NeDB datastore)
+     * 
+     * createRecipe(recipe, recipeCollection)
+     * insert a single recipe to database
+     * @param {recipe} recipe the recipe to insert
+     * @param {*} recipeCollection the database to search in
+     * @returns {Array<recipe>} the inserted recipe
+     * 
+     * deleteRecipe(id, recipeCollection)
+     * removes a single recipe from the database
+     * @param {string} id unique string identifier of the desired recipe
+     * @param {*} recipeCollection the database to search in
+     * 
+     * updateRecipe(id, recipe, recipeCollection)
+     * updates one recipe in the database
+     * @param {string} id unique string identifier of the desired recipe
+     * @param {*} recipe the recipe data (or subset thereof) to update
+     * @param {*} recipeCollection the database to search in
+     * @returns {Array<recipe>} the updated recipe
+     * 
+     * getRecipeByPage(recipeCollection, page)
+     * fetches all recipes
+     * @param {*} recipeCollection the database to search in
+     * @returns {Array<recipe>} all recipes in the database
+     * 
+     * getRecipesByNameAndTags(searchParams, recipeCollection)
+     * retrieves all recipes with overlap in the names and all tags match
+     * @param {*} searchParams the content to search for
+     * @param {*} recipeCollection the database to search in
+     * @returns {Array<recipe>} the matching recipes
+     *
+     * getRecipeById(id, recipeCollection)
+     * retrieves a single recipe based on id
+     * @param {string} id unique string identifier of the desired recipe
+     * @returns {recipe} the found recipe
+     * @returns {null} if not found
+     * 
+     * getRecipesByIds(ids, recipeCollection)
+     * retrieves a number of recipes based on their ids
+     * @param {Array<string>} ids 
+     * @returns {Array<recipe>} the recipes matching any of the given ids
+     * 
+     * convertUserIdToObj(recipes)
+     * Changes all user ids in recipes into user object. 
+     * @deprecated
+     * @param recipes Recipes to convert user.
+     * @returns recipes with converted user. 
+     * 
+     */
+
+    test("createRecipe", async () => {
+        let randomRecipe = generateRandomRecipe();
+        let result = await Interface.createRecipe(randomRecipe, testDB);
+        expect(result).toEqual(randomRecipe);
+        expect(result._id).toBeTruthy();
+    });
+
+    test("getRecipeById", async () => {
+        let randomRecipe = generateRandomRecipe();
+        await Interface.createRecipe(randomRecipe, testDB);
+        let result = await Interface.getRecipeById(randomRecipe._id, testDB);
+        expect(result).toEqual(randomRecipe);
+    });
+
+    test("getRecipesByIds", async () => {
+        let randomRecipe = generateRandomRecipe();
+        await Interface.createRecipe(randomRecipe, testDB);
+        let result = await Interface.getRecipesByIds([randomRecipe._id], testDB);
+        expect(result.length).toEqual(1);
+        expect(result[0]).toEqual(randomRecipe);
+    });
+
+    test("getRecipesByNameAndTags", async () => {
+        let randomRecipe = generateRandomRecipe();
+        await Interface.createRecipe(randomRecipe, testDB);
+        console.log("NAME:", randomRecipe.name);
+        console.log("TAGS:", randomRecipe.tags);
+        let result = await Interface.getRecipesByNameAndTags(
+            {
+                name: randomRecipe.name,
+                tags: randomRecipe.tags,
+            },
+            testDB
+        );
+        expect(result.length).toEqual(1);
+        expect(result[0]).toEqual(randomRecipe);
+    });
+
+    test("getRecipeByPage", async () => {
+        let randomRecipes = [];
+        // TODO
+    });
+});
+
+/*
+test("do stuff", async (done) => {
+    let currCount = await getDatabaseCount();
+    console.log(`CurrCount: ${currCount}`);
+    await clearDatabase();
+    currCount = await getDatabaseCount();
+    console.log(`CurrCount: ${currCount}`);
+    await populateDatabase(Math.random() * 100);
+    currCount = await getDatabaseCount();
+    console.log(`CurrCount: ${currCount}`);
+})
+*/
 
 /*
 async function testDatabases() {
@@ -180,3 +285,4 @@ test("should handle adding new recipes", (done) => {
         });
 });
 */
+
