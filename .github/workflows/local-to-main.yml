@@ -38,7 +38,7 @@ jobs:
 
     # unit and End to end testing
     - name: Run Unit/Jest test
-      run: npm run jest
+      run: npm run unittest
 
     - name: Run Cypress test
       uses: cypress-io/github-action@v2.9.7
