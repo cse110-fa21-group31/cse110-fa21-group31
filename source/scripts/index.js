@@ -166,6 +166,7 @@ export function redirectRecipeDetail(recipeObj) {
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
         editRecipePage.classList.remove("shown");
+        landingPage.classList.remove("shown");
         recipeDetailPage.data = recipeObj;
         // console.log(recipeDetailPage.data)
         fillOutRecipe(recipeObj)
@@ -198,6 +199,7 @@ export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
             userInfoPage.classList.remove("shown");
             createRecipePage.classList.remove("shown");
             editRecipePage.classList.add("shown");
+            landingPage.classList.remove("shown");
             populateEditPage(recipeObj)
         })
     }
@@ -207,6 +209,7 @@ export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.add("shown");
         editRecipePage.classList.remove("shown");
+        landingPage.classList.remove("shown");
         setupCreatePage()
     })
 }
@@ -222,7 +225,9 @@ export function routerAddEditPage(pageName, recipeObj) {
         recipeDetailPage.classList.remove("shown");
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
+        landingPage.classList.remove("shown");
         editRecipePage.classList.add("shown");
+        
         populateEditPage(recipeObj)
     })
 }
@@ -242,6 +247,7 @@ export function bindUserProfile(profile) {
         recipeDetailPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
         editRecipePage.classList.remove("shown");
+        landingPage.classList.remove("shown");
         userInfoPage.classList.add("shown");
         userInfoPage.data = profile
         // TODO: populate user data in userInfo page 
