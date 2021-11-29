@@ -8,6 +8,14 @@ const USER_DB_PATH = "source/service/.data/users";
 export const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 const RECIPE_DB_PATH = "source/service/.data/recipes"
 export const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
+// set up cloudinary
+import fs from "fs";
+import cloudinary from "cloudinary";
+cloudinary.config({ 
+    cloud_name: 'my-cloudinary-space', 
+    api_key: '335781374633484', 
+    api_secret: 'xoMqNrtDP33suOIzGUrMYYepSGM' 
+  });
 
 // correct dir name of current repo
 const __dirname = path.normalize(path.resolve());
@@ -23,6 +31,19 @@ fastify.register(fstatic, {
     root: __dirname,
   //prefix: '/public/', // optional: default '/'
 })
+
+/**
+ * Save image to cloudinary and return the corresponding url
+ */
+fastify.post("/api/imageUpload", async (request, reply) => {
+    console.log("Image:");
+    console.log(request);
+    let imageURL = await cloudinary.v2.uploader.upload(request, {}, (res) => {
+        console.log(res);
+    });
+    // TODO: pass in cloudinary and fs here, switch to export later
+    reply.send(imageURL);
+});
 
 // const path = require('path')
 import Cors from 'fastify-cors';
@@ -61,6 +82,7 @@ fastify.post("/api", async (request, reply) => {
         err.message = "Request body missing required recipe information";
         reply.send(err);
     } else {
+        // TODO: pass in cloudinary and fs here, switch to export later
         reply.send(await createRecipe(body, recipeDB));
     }
 });

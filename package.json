@@ -44,6 +44,7 @@
         "transform": {}
     },
     "dependencies": {
+        "cloudinary": "^1.27.1",
         "fastify": "^3.24.0",
         "fastify-cors": "^6.0.2",
         "fastify-static": "^4.5.0",

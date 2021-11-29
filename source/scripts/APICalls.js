@@ -14,6 +14,7 @@ export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
  * @param {recipe} recipe the recipe object to insert
  */
 export async function insertRecipe(recipe) {
+    console.log(recipe.image);
     //for update, change the method of PUT
     const response = await fetch(url, {
         method: 'POST',

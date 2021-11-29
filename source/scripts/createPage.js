@@ -4,7 +4,7 @@ import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.j
 import { RECIPE_ROUTE } from './util.js'
 export default {setupCreatePage}
 export function setupCreatePage() {
-    console.log("setupCreatePage() called");
+    // console.log("setupCreatePage() called");
 
     // Submitting the entire recipe
 
@@ -33,7 +33,7 @@ let numIngredients = 0;
 let isUpdate = false
 const onSubmitRecipe = async (event) => {
 
-    console.log("SUBMITTED NEW RECIPE");
+    // console.log("SUBMITTED NEW RECIPE");
     event.preventDefault();
     const recipeF = document.getElementById("recipeForm");
     let formData = new FormData(recipeF);
@@ -64,6 +64,7 @@ const onSubmitRecipe = async (event) => {
         console.log(formData.get('step' + i));
     }
 
+    // DANICA's attempt in uploading image
     const recipeCard = document.createElement('recipe-card');
     //console.log(document.getElementsByName('picture')[0].files[0]);
     let pic = null;
@@ -72,12 +73,28 @@ const onSubmitRecipe = async (event) => {
         pic = document.getElementsByName('picture')[0].files[0];
         // img = window.URL.createObjectURL(fileObj);
     }
+
+    // XIN's attempt in uploading image
+    let imgObj = formData.get('picture');
+    imgObj.toJSON = function() { return {
+        'lastModified'     : imgObj.lastModified,
+        'lastModifiedDate' : imgObj.lastModifiedDate,
+        'name'             : imgObj.name,
+        'size'             : imgObj.size,
+        'type'             : imgObj.type 
+     };}  
+    let fileBuffer = Buffer.from(imgObj, 'base64')
+      
+     // then use JSON.stringify on File object
+    console.log(fileBuffer);
+
     // CREATE NEW RECIPE
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
         //TODO: how to store image
         image: formData.get('picture'),
+        // image: formData.get('fileBuffer'),
         //TODO: get user ID from a global variable, is it working?
         author: userData._id,
         description: formData.get('description'),
@@ -155,3 +172,18 @@ const deleteIngredient = () => {
     }
 };
 /* eslint-enable no-unused-vars*/
+
+/**
+ * Tester function for saving image
+ * 
+ * @param image File image
+ * @return url to the image
+ */
+export function saveImage(image){
+        var imageAsBase64 = fs.readFileSync(formData.get('picture'), 'base64');
+        fs.writeFile('../service/.data/images/test.png', imageAsBase64, function (err) {
+            if (err) throw err;               
+            console.log('Results Received');
+          }); 
+          console.log(imageAsBase64);
+    }
