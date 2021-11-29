@@ -8,7 +8,7 @@ const USER_DB_PATH = "source/service/.data/users";
 export const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 const RECIPE_DB_PATH = "source/service/.data/recipes"
 export const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
-// set up cloudinary
+// set up cloudinary and fastify content type
 import fs from "fs";
 import cloudinary from "cloudinary";
 cloudinary.config({ 
@@ -16,25 +16,28 @@ cloudinary.config({
     api_key: '335781374633484', 
     api_secret: 'xoMqNrtDP33suOIzGUrMYYepSGM' 
   });
-
-// correct dir name of current repo
-const __dirname = path.normalize(path.resolve());
-
-// Require the framework and instantiate it
-import Fastify from 'fastify';
-const fastify = Fastify({ logger: true });
-
-import fileRoutes from "./fileRoutes.js"
-// Require the framework and instantiate it
-fastify.register(fileRoutes.routes)
-fastify.register(fstatic, {
-    root: __dirname,
-  //prefix: '/public/', // optional: default '/'
-})
-
+  
+  // correct dir name of current repo
+  const __dirname = path.normalize(path.resolve());
+  
+  // Require the framework and instantiate it
+  import Fastify from 'fastify';
+  const fastify = Fastify({ logger: true });
+  
+  import fileRoutes from "./fileRoutes.js"
+  // Require the framework and instantiate it
+  fastify.register(fileRoutes.routes)
+  fastify.register(fstatic, {
+      root: __dirname,
+      //prefix: '/public/', // optional: default '/'
+    })
+    
 /**
  * Save image to cloudinary and return the corresponding url
  */
+fastify.addContentTypeParser('multipart/form-data', (request, body, done) => {
+    console.log(request);
+} )
 fastify.post("/api/imageUpload", async (request, reply) => {
     console.log("Image:");
     console.log(request);
