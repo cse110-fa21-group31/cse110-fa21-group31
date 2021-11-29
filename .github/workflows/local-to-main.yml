@@ -181,6 +181,7 @@ jobs:
     # To apply changes to the codebase
     runs-on: ubuntu-latest
 
+    if: ${{ always() }}
     needs: [ formatting, lint ]
 
     steps:
