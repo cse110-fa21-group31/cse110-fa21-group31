@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Edit/Create</title>
     <meta charset="utf-8">
     <script type="module" src="../scripts/createPage.js"></script>
     <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
     <link rel='stylesheet' href="/source/assets/styles/cards.css">
-
-  <script src="/source/scripts/userLogin.js" type="module"></script>
 </head>
 
 <body>
-    <div id="header"> </div>
+    <div class="navBar">
+        <iframe src="/source/cards/navBar.html"
+            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+    </div>
     <!-- A complete form for editing a recipe -->
     <!-- This can probably just be a really basic form -->
     <!-- 
