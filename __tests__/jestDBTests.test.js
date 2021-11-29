@@ -101,57 +101,6 @@ describe("Tests database recipe functions", () => {
         await clearDatabase();
         await populateDatabase();
     });
-    /**
-     * Functions of interface.mjs:
-     * (recipeCollection is an NeDB datastore)
-     * 
-     * createRecipe(recipe, recipeCollection)
-     * insert a single recipe to database
-     * @param {recipe} recipe the recipe to insert
-     * @param {*} recipeCollection the database to search in
-     * @returns {Array<recipe>} the inserted recipe
-     * 
-     * deleteRecipe(id, recipeCollection)
-     * removes a single recipe from the database
-     * @param {string} id unique string identifier of the desired recipe
-     * @param {*} recipeCollection the database to search in
-     * 
-     * updateRecipe(id, recipe, recipeCollection)
-     * updates one recipe in the database
-     * @param {string} id unique string identifier of the desired recipe
-     * @param {*} recipe the recipe data (or subset thereof) to update
-     * @param {*} recipeCollection the database to search in
-     * @returns {Array<recipe>} the updated recipe
-     * 
-     * getRecipeByPage(recipeCollection, page)
-     * fetches all recipes
-     * @param {*} recipeCollection the database to search in
-     * @returns {Array<recipe>} all recipes in the database
-     * 
-     * getRecipesByNameAndTags(searchParams, recipeCollection)
-     * retrieves all recipes with overlap in the names and all tags match
-     * @param {*} searchParams the content to search for
-     * @param {*} recipeCollection the database to search in
-     * @returns {Array<recipe>} the matching recipes
-     *
-     * getRecipeById(id, recipeCollection)
-     * retrieves a single recipe based on id
-     * @param {string} id unique string identifier of the desired recipe
-     * @returns {recipe} the found recipe
-     * @returns {null} if not found
-     * 
-     * getRecipesByIds(ids, recipeCollection)
-     * retrieves a number of recipes based on their ids
-     * @param {Array<string>} ids 
-     * @returns {Array<recipe>} the recipes matching any of the given ids
-     * 
-     * convertUserIdToObj(recipes)
-     * Changes all user ids in recipes into user object. 
-     * @deprecated
-     * @param recipes Recipes to convert user.
-     * @returns recipes with converted user. 
-     * 
-     */
 
     test("createRecipe", async () => {
         let randomRecipe = generateRandomRecipe();
