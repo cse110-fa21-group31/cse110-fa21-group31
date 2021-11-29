@@ -46,9 +46,9 @@ const onSubmitRecipe = async (event) => {
     let strTags = formData.get('tags') ? formData.get('tags').replace(/\s+/g, '').split(',') : [];
     //let tagsArr = strTags.split(',');
 
-    let ingArr = {};
+    let ingWithAmountArr = {};
     for (let i = 0; i < numIngredients; i++) {
-        ingArr[formData.get('ingredient' + i)] = formData.get('ingredientAmount' + i);
+        ingWithAmountArr[formData.get('ingredient' + i)] = formData.get('ingredientAmount' + i);
         /** 
         ingrArr.push(formData.get('ingredient'+i));
         ingrAmountArr.push(formData.get('ingredientAmount'+i));
@@ -84,9 +84,8 @@ const onSubmitRecipe = async (event) => {
         tags: strTags,
         servingSize: formData.get('servingSize'),
         cookTime: formData.get('cookTime'),
-        ingredients: ingArr,
+        ingredients: ingWithAmountArr,
         difficulty: formData.get('difficulty'),
-        ingredientAmounts: ingrAmountArr,
         steps: stepsArr
     }
     console.log(newRecipe);
