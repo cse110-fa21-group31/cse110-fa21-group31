@@ -4,24 +4,26 @@ if (typeof window === 'object') {
 window.addEventListener("DOMContentLoaded", init);
 }
 import { submitSearch } from "./APICalls.js"
+import { createRecipeCards } from "./index.js";
 
 let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
 let selectedTags = [];
-
 /**
  * initializes search functionality through the frontend
  */
 async function init() {
+    // TODO: Make sure this works for both landing and home pages
     let searchBar = document.querySelector("#searchBar");
     let searchButton = document.querySelector("#searchButton");
-    searchButton.addEventListener("click", function () {
-        // TODO: Add a tags field to the search bar and make use of it
-        submitSearch(searchBar.value);
-    });
-
+    if (searchButton) {
+        searchButton.addEventListener("click", async function () {
+            let searchResults = await submitSearch(searchBar.value, selectedTags);
+            createRecipeCards(searchResults);
+        });
+    }
 
     let tagsSelect = document.getElementById("tagsList");
-    //console.log(tagsSelect);
+    console.log(tagsSelect);
     if (tagsSelect) {
         chooseTag(this);
         let tagButtons = document.getElementsByClassName("tagButton");
