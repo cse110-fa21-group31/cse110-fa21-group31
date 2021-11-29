@@ -50,7 +50,7 @@
 class RecipeClass extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
+        this.attachShadow({ mode: 'open' });
     }
 
     // setters for all changable properties
@@ -59,7 +59,7 @@ class RecipeClass extends HTMLElement {
 
         // Used to access the actual data object
         this.json = data;
-        const style = document.createElement("style");
+        const style = document.createElement('style');
 
         style.innerHTML = `
         .recipeCard {
@@ -102,44 +102,43 @@ class RecipeClass extends HTMLElement {
         }
         `;
 
-        const card = document.createElement("div");
+        const card = document.createElement('div');
         card.classList.add("recipeCard");
 
         //Grab image
         const imageData = getImage(data);
-        const image = document.createElement("img");
+        const image = document.createElement('img');
         image.href = imageData;
         // show placeholder image if imageData not availables
         // TODO: change these conditions after figuring out how to upload and store image
-        image.src =
-            imageData == null || typeof imageData == "object" || imageData == ""
-                ? "./source/assets/Images/recipeCardPlaceholder.png"
-                : imageData;
+        image.src = (imageData == null || typeof imageData == "object" || imageData == "") 
+            ? "./source/assets/Images/recipeCardPlaceholder.png" : imageData;
         //console.log(imageData);
 
         // Grab the name
         const nameText = getName(data);
-        const name = document.createElement("p");
+        const name = document.createElement('p');
         name.innerText = nameText;
         // console.log(nameText);
 
         //Get tagssss
         const tagsData = getTags(data);
-        const tags = document.createElement("div");
+        const tags = document.createElement('div');
         tags.classList.add("tags");
         // console.log(tagsData);
 
-        const tagsList = document.createElement("ul");
+        const tagsList = document.createElement('ul');
         tagsList.classList.add("tagsList");
-        tagsList.setAttribute("id", "tag");
+        tagsList.setAttribute('id', 'tag');
         if (tagsData) {
             for (let i = 0; i &lt; tagsData.length; i++) {
-                const individualTag = document.createElement("li");
+                const individualTag = document.createElement('li');
                 individualTag.classList.add("individualTag");
                 individualTag.innerText = tagsData[i];
                 tagsList.appendChild(individualTag);
             }
         }
+
 
         // Add all of the elements to the card
         if (tagsData) tags.appendChild(tagsList);
@@ -196,6 +195,7 @@ class RecipeClass extends HTMLElement {
     set steps(steps) {
         this.steps = steps;
     }
+
 
     insertStep(step, stepIndex = this.steps.length) {
         this.steps.splice(stepIndex, 0, step);
@@ -392,7 +392,7 @@ function getSteps(data) {
                 }
                 if (
                     data["@graph"][i]["recipeInstructions"][0][
-                        "itemListElement"
+                    "itemListElement"
                     ]
                 ) {
                     const instructionArr = [];
@@ -415,10 +415,11 @@ function getSteps(data) {
     return null;
 }
 
+
+
 // export default RecipeClass;
 
-customElements.define("recipe-card", RecipeClass);
-</code></pre>
+customElements.define('recipe-card', RecipeClass);</code></pre>
         </article>
     </section>
 
@@ -428,13 +429,13 @@ customElements.define("recipe-card", RecipeClass);
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchRecipesByIds">fetchRecipesByIds</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 11:34:29 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 17:46:19 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
