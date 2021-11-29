@@ -11,7 +11,8 @@ font-family: 'Rammetto One', cursive;
 
 /* Generic text */
 
-#homepage p {
+#homepage p,
+#landingPage p {
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -19,7 +20,8 @@ font-family: 'Rammetto One', cursive;
 Landing Background
 */
 
-#homepage .landingHeader {
+#homepage .landingHeader,
+#landingPage .landingHeader {
     width: 0%;
 }
 
@@ -34,7 +36,8 @@ Search Bar
     font-size: 50px;
 } */
 
-#homepage #searchButton {
+#homepage #searchButton,
+#landingPage #searchButton {
     width: 20%;
     padding: 10px;
     background: transparent;
@@ -46,7 +49,7 @@ Search Bar
     transform: translate(0%, 30%);
 }
 
-#homepage #searchBar {
+#homepage #searchBar, #landingPage #searchBar {
     border: 1px grey;
     border-radius: 5px;
     height: 2rem;
@@ -56,7 +59,7 @@ Search Bar
     font-size: 100%;
 }
 
-#homepage .searchBarHomepage {
+#homepage .searchBarHomepage, #landingPage .searchBarHomepage{
     /* margin-left: 60px; 
     display:inline-flex;
     width: 100%;
@@ -72,12 +75,13 @@ Search Bar
     font-weight: bold;
 }
 
-#homepage div.searchBarHomepage>img {
+#homepage div.searchBarHomepage>img, 
+#landingPage div.searchBarHomepage>img {
     width: 100%;
     height: 100%;
 }
 
-#homepage .formItems {
+#homepage .formItems, #landingPage .formItems {
     font-family: 'Open Sans', sans-serif;
     position: absolute;
     top: 50%;
@@ -100,7 +104,7 @@ Search Bar
 Tags
  */
 
-#homepage ul.tagsList {
+#homepage ul.tagsList, #landingPage ul.tagsList {
     font-family: 'Open Sans', sans-serif;
     list-style-type: none;
     /* white-space:nowrap; */
@@ -111,7 +115,8 @@ Tags
     overflow: auto;
 }
 
-#homepage li.individualTag {
+#homepage li.individualTag,
+#landingPage li.individualTag {
     /* border-style:solid; */
     margin: 10px 10px;
     border: 5px solid #FCAF58;
@@ -125,27 +130,31 @@ Tags
 
 /* Recipe cards + grids */
 
-#homepage .myRecipeCardGridContainer {
+#homepage .myRecipeCardGridContainer,
+#landingPage .myRecipeCardGridContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
     margin: 20px;
 }
 
-#homepage .recipeCard {
+#homepage .recipeCard,
+#landingPage .recipeCard {
     margin-top: 30px;
     margin-bottom: 30px;
     text-align: center;
 }
 
-#homepage .recipeCard>p {
+#homepage .recipeCard>p,
+#landingPage .recipeCard {
     font-family: 'Bold Open Sans', sans-serif;
     font-weight: bold;
     color: #4E598C;
     font-size: large;
 }
 
-#homepage .recipeCard>img {
+#homepage .recipeCard>img,
+#landingPage .recipeCard>img {
     width: 200px;
     height: 200px;
 }
