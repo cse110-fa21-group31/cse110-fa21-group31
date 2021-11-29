@@ -7,11 +7,7 @@ import {
 import { RECIPE_ROUTE } from "./util.js";
 let imageSrc = "";
 let recipeId;
-<<<<<<< HEAD
-export default { populateEditPage };
-=======
 export default { populateEditPage }
->>>>>>> main
 export function populateEditPage(recipeObj) {
     recipeId = recipeObj._id;
     console.log("RECIPE ID AT START IS " + recipeId);
@@ -203,10 +199,6 @@ const onUpdateRecipe = async(event) => {
 
     // What does this function do overall?
     // ANSWER: This function serves to
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 };
 
 /* eslint-disable no-unused-vars*/
@@ -240,19 +232,6 @@ const deleteStep = () => {
 const appendIngredient = () => {
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
-<<<<<<< HEAD
-        "<input type='text' id='newInputBox' name='ingredient" +
-        numIngredients +
-        "' placeholder='ingredient'>";
-    document.getElementById("newIngredientId").appendChild(newTextBox);
-
-    var newAmountBox = document.createElement("div");
-    newAmountBox.innerHTML =
-        "<input type='text' id='newInputBox' name='ingredientAmount" +
-        numIngredients +
-        "' placeholder='amount'>";
-    document.getElementById("newIngredientAmountId").appendChild(newAmountBox);
-=======
         "<input type='text' id='newInputBox' name='ingredient" + numIngredients + "' placeholder='ingredient'>";
     document.getElementById("editNewIngredientId").appendChild(newTextBox);
 
@@ -260,7 +239,6 @@ const appendIngredient = () => {
     newAmountBox.innerHTML =
         "<input type='text' id='newInputBox' name='ingredientAmount" + numIngredients + "' placeholder='amount'>";
     document.getElementById("editNewIngredientAmountId").appendChild(newAmountBox);
->>>>>>> main
     numIngredients++;
 };
 /* eslint-enable no-unused-vars*/
@@ -319,9 +297,5 @@ const appendEStep = (existingStep) => {
         "</textarea>";
     document.getElementById("editNewStepId").appendChild(newTextBox);
     numSteps++;
-<<<<<<< HEAD
-};
-=======
 
 };
->>>>>>> main

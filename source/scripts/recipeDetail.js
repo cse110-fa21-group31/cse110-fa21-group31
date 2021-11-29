@@ -1,10 +1,6 @@
 // import RecipeClass from "./recipeClass";
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
-<<<<<<< HEAD
-export default { fillOutRecipe };
-=======
 export default { fillOutRecipe }
->>>>>>> main
 // RecipeExpand.js
 import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js";
 import { deleteRecipe, fetchRecipeById } from "./APICalls.js";
@@ -40,15 +36,8 @@ export async function fillOutRecipe(data) {
         }
     }
     // TODO: fix condition after fixing image upload issue
-<<<<<<< HEAD
-    const image =
-        data.image == null || typeof data.image == "object" || data.image == ""
-            ? "./source/assets/Images/recipeCardPlaceholder.png"
-            : data.image;
-=======
     const image = (data.image == null || typeof data.image == "object" || data.image == "") ?
         "./source/assets/Images/recipeCardPlaceholder.png" : data.image;
->>>>>>> main
     document.getElementById("recipeImage").setAttribute("src", image);
     document.getElementById("date").innerHTML = new Date(
         data.datePosted * 1000
@@ -83,31 +72,14 @@ export async function fillOutRecipe(data) {
             */
         }
     }
-<<<<<<< HEAD
-    document.getElementById("steps").innerHTML = data.steps;
-    const editRecipeButton = document.getElementById("editRecipeButton");
-    const delRecipeButton = document.getElementById("deleteRecipeButton");
-=======
     //document.getElementById("steps").innerHTML = data.steps;
     const editRecipeButton = document.getElementById('editRecipeButton')
     const delRecipeButton = document.getElementById('deleteRecipeButton')
->>>>>>> main
     const page = data._id;
     const routeUrl = TEMP_EDIT_CREATE_ROUTE + page;
     routerAddEditPage(routeUrl, data);
     editRecipeButton.addEventListener("click", () => {
         //redirect to edit page and populate the page
-<<<<<<< HEAD
-        routerNavigateWrapper(routeUrl);
-    });
-    const home = "home";
-    delRecipeButton.addEventListener("click", () => {
-        //redirect to edit page and populate the page
-        deleteRecipe(data._id);
-        routerNavigateWrapper(home);
-    });
-    /** 
-=======
         routerNavigateWrapper(routeUrl)
     })
     const home = 'home'
@@ -117,7 +89,6 @@ export async function fillOutRecipe(data) {
             routerNavigateWrapper(home)
         })
         /** 
->>>>>>> main
     
         */
 
