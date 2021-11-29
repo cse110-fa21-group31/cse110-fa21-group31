@@ -7,9 +7,8 @@
 
 // EUVIN: this file is for exploratory stuff in cypress, don't mind
 describe("Cypress Pipeline v2", () => {
-    it.skip("Loads home page by default", () => {
+    it.skip("TESTING: SKIP THIS", () => {
         cy.visit("http://localhost:3030");
         cy.get('.abcRioButtonContentWrapper').click();
-        
     });
 });
