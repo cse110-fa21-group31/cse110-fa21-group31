@@ -34,7 +34,7 @@ export function populateEditPage(recipeObj) {
     document.getElementById("delStep").addEventListener("click", function () {
         deleteIngredient();
     });
-    document.getElementById("delete").addEventListener("click", function () {
+    document.getElementById("Delete").addEventListener("click", function () {
         deleteRecipeButton();
     });
 }
