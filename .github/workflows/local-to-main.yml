@@ -92,7 +92,7 @@ jobs:
       - name: Fix format
         run: npm run prettier
 
-  codacy-job:
+  sonarcloud-job:
     # For linting, formatting, and quality evaluation of code.
     runs-on: ubuntu-latest
 
@@ -107,15 +107,20 @@ jobs:
         #cache: 'npm'
 
     # Quality
-    - name: Codacy Analysis CLI
-      uses: codacy/codacy-analysis-cli-action@4.0.0
-      with:
-        fail-if-incomplete: true
-        max-allowed-issues: 0
-        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        run-docker-tools: true
-        verbose: true
-        upload: true
+    # - name: Codacy Analysis CLI
+    #   uses: codacy/codacy-analysis-cli-action@4.0.0
+    #   with:
+    #     fail-if-incomplete: true
+    #     max-allowed-issues: 0
+    #     project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+    #     run-docker-tools: true
+    #     verbose: true
+    #     upload: true
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.6
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
   doc-generation-job:
     # For automatic documentation generation
