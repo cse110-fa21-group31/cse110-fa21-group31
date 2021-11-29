@@ -43,7 +43,16 @@
   border: 0.3rem solid #fcaf58;
   border-radius: 0.3rem;
   background-color: #fcaf58;
+
   /* display: inline; */
+}
+
+.footer ul.footer > li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
 }
 
 #signOutButton > a {
@@ -84,10 +93,6 @@
   float: right;
 }
 
-#navList li .logo:hover {
-  color: #f9c784;
-}
-
 /* Footer */
 
 .footer a.footerCopyright {
@@ -109,15 +114,7 @@
 
   /* top: 0; */
   width: 100%;
-  font-family: "OpenSans", sans-serif;
-}
-
-.footer ul.footer > li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  text-decoration: none;
+  font-family: OpenSans, sans-serif;
 }
 
 .footer ul.footer > li a.logo {
@@ -142,12 +139,12 @@
   /* top: 0; */
   width: 100%;
   border-left: 1px solid #bbb;
-  font-family: "OpenSans", sans-serif;
+  font-family: OpenSans, sans-serif;
 }
 
 #navbar li a.loginSignup {
   float: right;
-  font-family: "OpenSans", sans-serif;
+  font-family: OpenSans, sans-serif;
   border: 1px solid #fff;
   border-radius: 25px;
   margin-right: 20px;

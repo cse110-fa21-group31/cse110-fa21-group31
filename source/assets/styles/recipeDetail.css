@@ -7,7 +7,7 @@ body {
 #recipeDetail {
   background: #ededed;
   box-shadow: 0 0 200px #999;
-  font-family: "Oxygen", sans-serif;
+  font-family: Oxygen, sans-serif;
   width: 65%;
   height: 385px;
   margin: 5% auto;
@@ -22,7 +22,7 @@ body {
   padding: 10px 15px;
   text-decoration: none;
   float: right;
-  font-family: "OpenSans", sans-serif;
+  font-family: OpenSans, sans-serif;
   border: 1px solid #4e598c;
   border-radius: 10px;
   margin-right: 20px;
@@ -34,13 +34,25 @@ body {
   background: #fcaf58;
 }
 
+#recipeDetail li {
+  margin-bottom: 3px;
+}
+
+#recipeDetail ol > li {
+  counter-increment: item;
+}
+
+#recipeDetail .steps li {
+  list-style-type: none;
+}
+
 #recipeDetail #tags li {
   display: block;
   color: white;
   text-align: center;
   padding: 10px 15px;
   float: left;
-  font-family: "OpenSans", sans-serif;
+  font-family: OpenSans, sans-serif;
   border: 1px solid #fcaf58;
   background: #fcaf58;
   border-radius: 10px;
@@ -65,7 +77,7 @@ body {
 }
 
 #recipeDetail #recipeTitle {
-  font-family: "Oxygen", sans-serif;
+  font-family: Oxygen, sans-serif;
   font-weight: 700;
   font-size: 25px;
   background: #4e598c;
@@ -79,7 +91,7 @@ body {
   border-left: solid 1px #ededed;
   border-right: solid 1px #ededed;
   font-size: 16px;
-  font-family: "Oxygen", sans-serif;
+  font-family: Oxygen, sans-serif;
   padding: 15px 20px;
 }
 
@@ -88,7 +100,7 @@ body {
   border-left: solid 1px #ededed;
   border-right: solid 1px #ededed;
   font-size: 16px;
-  font-family: "Oxygen", sans-serif;
+  font-family: Oxygen, sans-serif;
   padding: 15px 20px;
   padding-bottom: 50px;
 }
@@ -98,7 +110,7 @@ body {
   border-left: solid 1px #ededed;
   border-right: solid 1px #ededed;
   font-size: 16px;
-  font-family: "Oxygen", sans-serif;
+  font-family: Oxygen, sans-serif;
   padding: 15px 20px;
 }
 
@@ -108,7 +120,7 @@ body {
 
 #recipeDetail #ingredients {
   background: #ededed;
-  font-family: "Oxygen", sans-serif;
+  font-family: Oxygen, sans-serif;
   padding: 20px;
   position: center;
 }
@@ -118,20 +130,18 @@ body {
   font-weight: 700;
 }
 
+#recipeDetail ol > li::before {
+  font-weight: bold;
+  content: counter(item) ".";
+  margin-right: 8px;
+}
+
 #recipeDetail .ingr li::before {
   color: #455560;
   content: "\2713\0020";
   font-weight: 600;
   margin-left: -38px;
   margin-right: 10px;
-}
-
-#recipeDetail .steps li {
-  list-style-type: none;
-}
-
-#recipeDetail li {
-  margin-bottom: 3px;
 }
 
 #recipeDetail #steps {
@@ -159,14 +169,4 @@ body {
 
 ol {
   counter-reset: item;
-}
-
-#recipeDetail ol > li {
-  counter-increment: item;
-}
-
-#recipeDetail ol > li::before {
-  font-weight: bold;
-  content: counter(item) ".";
-  margin-right: 8px;
 }
