@@ -13,7 +13,7 @@
   padding: 0;
   overflow: hidden;
   width: 100%;
-  font-family: "OpenSans", sans-serif;
+  font-family: OpenSans, sans-serif;
 }
 
 .logo {
@@ -43,7 +43,7 @@
   border: 0.3rem solid #fcaf58;
   border-radius: 0.3rem;
   background-color: #fcaf58;
-  display: inline;
+  /* display: inline; */
 }
 
 #signOutButton > a {

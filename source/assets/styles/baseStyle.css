@@ -77,6 +77,12 @@ Search Bar
   font-weight: bold;
 }
 
+#homepage .recipeCard > img,
+#landingPage .recipeCard > img {
+  width: 200px;
+  height: 200px;
+}
+
 #homepage div.searchBarHomepage > img,
 /* #landingPage div.searchBarHomepage>img {
     width: 100%;
@@ -157,12 +163,6 @@ Tags
   font-weight: bold;
   color: #4e598c;
   font-size: large;
-}
-
-#homepage .recipeCard > img,
-#landingPage .recipeCard > img {
-  width: 200px;
-  height: 200px;
 }
 
 /*
