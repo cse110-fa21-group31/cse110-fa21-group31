@@ -6,8 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Landing Page</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <meta name="google-signin-client_id"
-        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
 
     <!-- Style Imports -->
     <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
@@ -30,8 +29,7 @@
     <script src="/source/scripts/index.js" type="module"></script>
     <script src="/source/scripts/disqus.js" type="module"></script>
 
-    <meta name="google-signin-client_id"
-        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
@@ -41,11 +39,11 @@
         .hidden {
             display: none;
         }
-
+        
         .show {
             display: inline;
         }
-
+        
         section:not(section.shown) {
             display: none;
         }
@@ -86,7 +84,7 @@
 
             <!-- Search Bar -->
             <div class="searchBar">
-                <img src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
+                <img id="olives" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
                 <!-- <p class="formItems" class="homePageTitle">Food is Love and Olive U</p>-->
                 <form class="formItems" action='source/scripts/indexSearch.js' id="searchBarForm">
                     <input type="search" name="keyword" id="searchBar" placeholder="Search...">
@@ -105,8 +103,7 @@
             <!-- imported from navBarWithGoogle.js -->
         </div>
         <div class="searchBarHomePage">
-            <form class="searchItems" class="formItem" action='source/scripts/indexSearch.js'
-                id="searchBarFormHomepage">
+            <form class="searchItems" class="formItem" action='source/scripts/indexSearch.js' id="searchBarFormHomepage">
                 <input type="search" name="keyword" id="searchBarHome" placeholder="Search...">
                 <input type="button" name="submit" id="searchButtonHome" value="Search">
             </form>
@@ -193,17 +190,17 @@
                 grid-template-columns: 1fr 2fr;
                 padding: 10px;
             }
-
+            
             .userInfoGridItem {
                 padding: 20px;
                 font-size: 30px;
                 text-align: center;
             }
-
+            
             h1 {
                 line-height: 0px;
             }
-
+            
             .myRecipeCardGridContainer {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
