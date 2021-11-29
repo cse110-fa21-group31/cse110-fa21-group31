@@ -1,11 +1,7 @@
-import { updateRecipeById } from "./APICalls.js";
-import {
-    redirectRecipeDetail,
-    routerNavigateWrapper,
-    userData,
-} from "./index.js";
-import { RECIPE_ROUTE } from "./util.js";
-let imageSrc = "";
+import { updateRecipeById } from "./APICalls.js"
+import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
+import { RECIPE_ROUTE } from './util.js'
+let imageSrc = ''
 let recipeId;
 export default { populateEditPage }
 export function populateEditPage(recipeObj) {
@@ -45,62 +41,45 @@ export function populateEditPage(recipeObj) {
 
 export const deleteRecipeButton = async(event) => {
     // await deleteRecipe(pageId);
-};
+}
+
 
 let numSteps = 0;
 let numIngredients = 0;
 
 export const fillOutEditPage = (recipeObj) => {
+
     console.log("EDITTED RECIPE");
 
     // get recipe info and fill it out
     // let response = await fetchRecipeById(recipeId);
     //TODO: update the variable from response to recipeObj
-    let response = recipeObj;
+    let response = recipeObj
     console.log(response);
     // get ingredients from data
-    document.getElementById("editName").innerHTML =
-        '<label for="name">Recipe Name: *</label><input type="text" name="name" id="name" value="' +
-        response.name +
-        '" required>';
+    document.getElementById('editName').innerHTML = '<label for="name">Recipe Name: *</label><input type="text" name="name" id="name" value="' + response.name + '" required>';
     //document.getElementById('picture').innerHTML = 'label for="picture">Picture:</label><input type="file" name="picture" id="picture" src="'+response.image+'">';
-    document.getElementById("editDescription").innerHTML =
-        '<label for="description">Description:</label><textarea name="description" id="descriptionText"> ' +
-        response.description +
-        " </textarea>";
+    document.getElementById('editDescription').innerHTML = '<label for="description">Description:</label><textarea name="description" id="descriptionText"> ' + response.description + ' </textarea>';
 
-    document.getElementById("editTags").innerHTML =
-        '<label for="tags">Tags:</label><input type="text" name="tags" id="tags" value="' +
-        response.tags.join(", ") +
-        '">';
 
-    document.getElementById("editCookTime").innerHTML =
-        '<label for="cookTime">Cook Time:</label><input type="text" name="cookTime" id="prepTime" value="' +
-        response.cookTime +
-        '">';
+    document.getElementById('editTags').innerHTML = '<label for="tags">Tags:</label><input type="text" name="tags" id="tags" value="' + response.tags.join(", ") + '">';
 
-    document.getElementById("editServingSize").innerHTML =
-        '<label for="servingSize">Serving Size:</label><input type="text" name="servingSize" id="servingSize" value="' +
-        response.servingSize +
-        '">';
+    document.getElementById('editCookTime').innerHTML = '<label for="cookTime">Cook Time:</label><input type="text" name="cookTime" id="prepTime" value="' + response.cookTime + '">';
+
+    document.getElementById('editServingSize').innerHTML = '<label for="servingSize">Serving Size:</label><input type="text" name="servingSize" id="servingSize" value="' + response.servingSize + '">';
 
     //document.getElementById('difficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select>';
     let diff = response.difficulty.charAt(0);
-    if (diff == "1") {
-        document.getElementById("editDifficulty").innerHTML =
-            '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option selected value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select>';
-    } else if (diff == "2") {
-        document.getElementById("editDifficulty").innerHTML =
-            '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option selected value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select>';
-    } else if (diff == "3") {
-        document.getElementById("editDifficulty").innerHTML =
-            '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option selected value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select>';
-    } else if (diff == "4") {
-        document.getElementById("editDifficulty").innerHTML =
-            '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option selected value="4">4 stars</option><option value="5">5 stars</option></select>';
+    if (diff == '1') {
+        document.getElementById('editDifficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option selected value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select>';
+    } else if (diff == '2') {
+        document.getElementById('editDifficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option selected value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select>';
+    } else if (diff == '3') {
+        document.getElementById('editDifficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option selected value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select>';
+    } else if (diff == '4') {
+        document.getElementById('editDifficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option selected value="4">4 stars</option><option value="5">5 stars</option></select>';
     } else {
-        document.getElementById("editDifficulty").innerHTML =
-            '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option selected value="5">5 stars</option></select>';
+        document.getElementById('editDifficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option selected value="5">5 stars</option></select>';
     }
 
     let fillSteps = response.steps;
@@ -115,7 +94,7 @@ export const fillOutEditPage = (recipeObj) => {
     }
 
     //TODO: figure out a way to store/display image
-    imageSrc = recipeObj.image;
+    imageSrc = recipeObj.image
 
     /** 
     document.getElementById('').innerHTML = '';
@@ -138,8 +117,8 @@ export const fillOutEditPage = (recipeObj) => {
 };
 
 /**
- *
- * @param {*} event
+ * 
+ * @param {*} event 
  */
 const onUpdateRecipe = async(event) => {
     event.preventDefault();
@@ -152,54 +131,54 @@ const onUpdateRecipe = async(event) => {
     let ingrArr = [];
     let ingrAmountArr = [];
     let stepsArr = [];
-    let strTags = formData.get("tags").replace(/\s+/g, "").split(",");
+    let strTags = formData.get('tags').replace(/\s+/g, '').split(',');
     //let tagsArr = strTags.split(',');
 
     let ingArr = {};
     for (let i = 0; i < numIngredients; i++) {
-        ingArr[formData.get("ingredient" + i)] = formData.get(
-            "ingredientAmount" + i
-        );
+        ingArr[formData.get('ingredient' + i)] = formData.get('ingredientAmount' + i);
     }
     console.log(ingArr);
 
     // get steps from form
     for (let i = 0; i < numSteps; i++) {
-        stepsArr.push(formData.get("step" + i));
-        console.log(formData.get("step" + i));
+        stepsArr.push(formData.get('step' + i));
+        console.log(formData.get('step' + i));
     }
 
-    console.log(formData.get("picture"));
+    console.log(formData.get('picture'));
     // CREATE NEW RECIPE
     let newRecipe = {
-        name: formData.get("name"),
+        name: formData.get('name'),
         datePosted: Date.now(),
         //TODO: figure out the way to store image. Not update it for now
         // image: formData.get('picture'),
         image: imageSrc,
         //TODO: after we verify a user is logged in, change this to userData.id only
         author: userData ? userData._id : "MMAfv3oCQDiL4u10",
-        description: formData.get("description"),
+        description: formData.get('description'),
         tags: strTags,
-        servingSize: formData.get("servingSize"),
-        cookTime: formData.get("cookTime"),
+        servingSize: formData.get('servingSize'),
+        cookTime: formData.get('cookTime'),
         ingredients: ingArr,
-        difficulty: formData.get("difficulty"),
+        difficulty: formData.get('difficulty'),
         ingredientAmounts: ingrAmountArr,
         steps: stepsArr,
-        _id: recipeId,
-    };
+        _id: recipeId
+    }
     console.log(newRecipe);
     console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
     const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
-    redirectRecipeDetail(updatedRecipe);
+    redirectRecipeDetail(updatedRecipe)
     const page = updatedRecipe._id;
-    const routeUrl = RECIPE_ROUTE + page;
-    routerNavigateWrapper(routeUrl);
+    const routeUrl = RECIPE_ROUTE + page
+    routerNavigateWrapper(routeUrl)
 
     // What does this function do overall?
     // ANSWER: This function serves to
+
 };
+
 
 /* eslint-disable no-unused-vars*/
 const appendStep = () => {
@@ -208,13 +187,12 @@ const appendStep = () => {
     var newTextBox = document.createElement("div");
     console.log("add Step")
     newTextBox.innerHTML =
-        "<textarea cols='40' rows='4' id='textAreaBox' name='step" +
-        numSteps +
-        "' placeholder='Step #" +
+        "<textarea cols='40' rows='4' id='textAreaBox' name='step" + numSteps + "' placeholder='Step #" +
         numSteps +
         "'></textarea>";
     document.getElementById("editNewStepId").appendChild(newTextBox);
     numSteps++;
+
 };
 /* eslint-enable no-unused-vars*/
 
@@ -261,23 +239,13 @@ const deleteIngredient = () => {
 const appendEIngredient = (existingIngredient, existingAmount) => {
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
-        "<input type='text' id='newInputBox' name='ingredient" +
-        numIngredients +
-        "' placeholder='ingredient' value=" +
-        existingIngredient +
-        ">";
+        "<input type='text' id='newInputBox' name='ingredient" + numIngredients + "' placeholder='ingredient' value=" + existingIngredient + ">";
     document.getElementById("editNewIngredientId").appendChild(newTextBox);
 
     var newAmountBox = document.createElement("div");
     newAmountBox.innerHTML =
-        "<input type='text' id='newInputBox' name='ingredientAmount" +
-        numIngredients +
-        "' placeholder='amount' value=" +
-        existingAmount +
-        ">";
-    document
-        .getElementById("editNewIngredientAmountId")
-        .appendChild(newAmountBox);
+        "<input type='text' id='newInputBox' name='ingredientAmount" + numIngredients + "' placeholder='amount' value=" + existingAmount + ">";
+    document.getElementById("editNewIngredientAmountId").appendChild(newAmountBox);
     numIngredients++;
 };
 /* eslint-enable no-unused-vars*/
@@ -288,13 +256,9 @@ const appendEStep = (existingStep) => {
     var newTextBox = document.createElement("div");
 
     newTextBox.innerHTML =
-        "<textarea cols='40' rows='4' id='textAreaBox' name='step" +
+        "<textarea cols='40' rows='4' id='textAreaBox' name='step" + numSteps + "' placeholder='Step #" +
         numSteps +
-        "' placeholder='Step #" +
-        numSteps +
-        "'>" +
-        existingStep +
-        "</textarea>";
+        "'>" + existingStep + "</textarea>";
     document.getElementById("editNewStepId").appendChild(newTextBox);
     numSteps++;
 

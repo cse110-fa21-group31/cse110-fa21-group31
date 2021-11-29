@@ -1,9 +1,9 @@
 //This file is when the user searches a keyword in index.html page
-export default { init };
-if (typeof window === "object") {
-    window.addEventListener("DOMContentLoaded", init);
+export default {init}
+if (typeof window === 'object') {
+window.addEventListener("DOMContentLoaded", init);
 }
-import { submitSearch } from "./APICalls.js";
+import { submitSearch } from "./APICalls.js"
 
 let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
 let selectedTags = [];

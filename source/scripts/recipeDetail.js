@@ -2,14 +2,14 @@
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
 export default { fillOutRecipe }
 // RecipeExpand.js
-import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js";
+import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js"
 import { deleteRecipe, fetchRecipeById } from "./APICalls.js";
 import { routerAddEditPage, routerNavigateWrapper } from "./index.js";
 const recipeData = {};
 
 /**
- * Populates the recipe detail pages by fetching recipe json and filling in
- * properties in html components.
+ * Populates the recipe detail pages by fetching recipe json and filling in 
+ * properties in html components. 
  */
 /*
 export async function populateRecipeDetail() {
@@ -39,13 +39,9 @@ export async function fillOutRecipe(data) {
     const image = (data.image == null || typeof data.image == "object" || data.image == "") ?
         "./source/assets/Images/recipeCardPlaceholder.png" : data.image;
     document.getElementById("recipeImage").setAttribute("src", image);
-    document.getElementById("date").innerHTML = new Date(
-        data.datePosted * 1000
-    );
-    if (data.description)
-        document.getElementById("description").innerHTML = data.description;
-    if (data.servingSize)
-        document.getElementById("servingSize").innerHTML = data.servingSize;
+    document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
+    if (data.description) document.getElementById("description").innerHTML = data.description;
+    if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;
     // Now rendering username rather than user id
     if (data.author && data.author.username) document.getElementById("author").innerHTML = data.author.username;
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
@@ -76,9 +72,9 @@ export async function fillOutRecipe(data) {
     const editRecipeButton = document.getElementById('editRecipeButton')
     const delRecipeButton = document.getElementById('deleteRecipeButton')
     const page = data._id;
-    const routeUrl = TEMP_EDIT_CREATE_ROUTE + page;
-    routerAddEditPage(routeUrl, data);
-    editRecipeButton.addEventListener("click", () => {
+    const routeUrl = TEMP_EDIT_CREATE_ROUTE + page
+    routerAddEditPage(routeUrl, data)
+    editRecipeButton.addEventListener('click', () => {
         //redirect to edit page and populate the page
         routerNavigateWrapper(routeUrl)
     })
@@ -126,19 +122,19 @@ export async function fillOutRecipe(data) {
         // Remove the 'PT'
         time = time.slice(2);
 
-        let timeArr = time.split("");
-        if (time.includes("H")) {
+        let timeArr = time.split('');
+        if (time.includes('H')) {
             for (let i = 0; i < timeArr.length; i++) {
-                if (timeArr[i] == "H") return `${timeStr} hr`;
+                if (timeArr[i] == 'H') return `${timeStr} hr`;
                 timeStr += timeArr[i];
             }
         } else {
             for (let i = 0; i < timeArr.length; i++) {
-                if (timeArr[i] == "M") return `${timeStr} min`;
+                if (timeArr[i] == 'M') return `${timeStr} min`;
                 timeStr += timeArr[i];
             }
         }
 
-        return "";
+        return '';
     }
 }

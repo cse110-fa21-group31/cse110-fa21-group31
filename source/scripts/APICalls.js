@@ -1,20 +1,12 @@
-export const url = "/api";
-export const userUrl = "/api/user";
-export default {
-    insertRecipe,
-    deleteRecipe,
-    fetchRecipeByPage,
-    fetchRecipeById,
-    updateRecipeById,
-    submitSearch,
-    url,
-    userUrl,
-};
+export const url = "/api"
+export const userUrl = "/api/user"
+export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
+    updateRecipeById, submitSearch, url, userUrl}
 /**
- *
+ * 
  * want the return json object from server:
  * const response = await <api call>
- * Otherwise
+ * Otherwise 
  * (await) <api call>
  */
 /**
@@ -24,12 +16,11 @@ export default {
 export async function insertRecipe(recipe) {
     //for update, change the method of PUT
     const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(recipe),
-    })
-        .then((data) => data.json())
-        .then((jsonData) => {
-            return jsonData;
+        method: 'POST',
+        body: JSON.stringify(recipe)
+    }).then((response) => response.json())
+        .then((data) => {
+            return data;
         })
         .catch((err) => {
             console.error(err);
@@ -45,15 +36,16 @@ export async function deleteRecipe(id) {
     let queryURL = url + "?id=" + id;
     // console.log("Step 0, " + queryURL);
     let response = await fetch(queryURL, {
-        method: "DELETE",
+        method: 'DELETE',
         "Access-Control-Allow-Origin": "*",
         // "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    }).catch((err) => {
-        console.error("Error deleting recipe: " + err.message);
-    });
-
+    })
+        .catch((err) => {
+            console.error('Error deleting recipe: ' + err.message);
+        });
+    
     // console.log("Step Return");
-    return response;
+    return response
 }
 
 /**
@@ -63,19 +55,19 @@ export async function deleteRecipe(id) {
 export async function fetchRecipeByPage(pageNum) {
     let queryURL = url + "?page=" + pageNum;
     let response = await fetch(queryURL, {
-        method: "GET",
+        method: 'GET',
     })
         .then((response) => response.json())
         .then(async (data) => {
             data.forEach(async (recipe) => {
                 recipe.author = await fetchUserById(recipe.author);
             });
-            return data;
+            return data
         })
         .catch((err) => {
-            console.error("Error finding recipes: " + err.message);
+            console.error('Error finding recipes: ' + err.message);
         });
-    return response;
+    return response
 }
 
 /**
@@ -85,17 +77,17 @@ export async function fetchRecipeByPage(pageNum) {
 export async function fetchRecipeById(id) {
     let queryURL = url + "?id=" + id;
     let response = await fetch(queryURL, {
-        method: "GET",
+        method: 'GET',
     })
         .then((response) => response.json())
         .then(async (data) => {
             data.author = await fetchUserById(data.author);
-            return data;
+            return data
         })
         .catch((err) => {
-            console.error("Error finding recipe: " + err.message);
+            console.error('Error finding recipe: ' + err.message);
         });
-    return response;
+    return response
 }
 
 /**
@@ -108,22 +100,20 @@ export async function updateRecipeById(id, update) {
     console.log(update);
     console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
-        method: "PUT",
-        body: JSON.stringify(update),
+        method: 'PUT',
+        body: JSON.stringify(update)
     })
+        .then((response) => { console.log(response); return response.json() })
         .then((data) => {
             console.log(data);
-            return data.json();
-        })
-        .then((jsonData) => {
-            console.log(jsonData);
-            return jsonData;
+            return data
+
         })
         .catch((err) => {
-            console.error("Error updating recipe: " + err.message);
+            console.error('Error updating recipe: ' + err.message);
         });
 
-    return response;
+    return response
 }
 
 /**
@@ -135,11 +125,11 @@ export async function updateRecipeById(id, update) {
 export async function submitSearch(keywords, tags) {
     let query = "name=" + keywords;
     if (tags) {
-        query = query + "&" + "tags=" + JSON.stringify(tags);
+        query = query + '&' + "tags=" + JSON.stringify(tags);
     }
-    let queryURL = url + "/search?" + query;
+    let queryURL = url + "/search?" + query
     let response = await fetch(queryURL, {
-        method: "GET",
+        method: 'GET',
     })
         .then((response) => response.json())
         .then(async (data) => {
@@ -148,12 +138,12 @@ export async function submitSearch(keywords, tags) {
             });
             console.log("Search Results:");
             console.log(data);
-            return data;
+            return data
         })
         .catch((err) => {
-            console.error("Error searching for recipes: " + err.message);
+            console.error('Error searching for recipes: ' + err.message);
         });
-    return response;
+    return response
 }
 
 /**
@@ -163,51 +153,49 @@ export async function submitSearch(keywords, tags) {
 export async function fetchUserById(id) {
     let queryURL = userUrl + "?id=" + id;
     let response = await fetch(queryURL, {
-        method: "GET",
+        method: 'GET',
     })
         .then((response) => response.json())
         .then((data) => {
-            return data;
+            return data
         })
         .catch((err) => {
             //console.error('Error finding recipe: ' + err.message);
         });
-    return response;
+    return response
 }
 
 export async function addSavedRecipeById(userId, recipeId) {
     let queryURL = userUrl + "?userId=" + userId + "?recipeId=" + recipeId;
     let response = await fetch(queryURL, {
-        method: "PUT",
+        method: 'PUT'
     })
+        .then((response) => { console.log(response); return response.json() })
         .then((data) => {
             console.log(data);
-            return data.json();
-        })
-        .then((jsonData) => {
-            console.log(jsonData);
-            return jsonData;
+            return data
+
         })
         .catch((err) => {
             //console.error('Error updating recipe: ' + err.message);
         });
 
-    return response;
+    return response
 }
 
 export async function deleteSavedRecipeById(userId, recipeId) {
     let queryURL = userUrl + "?userId=" + userId + "?recipeId=" + recipeId;
     let response = await fetch(queryURL, {
-        method: "DEL",
+        method: 'DEL',
         "Access-Control-Allow-Origin": "*",
-        mode: "no-cors",
+        mode: 'no-cors'
     })
         .then((response) => response.json())
         .then((data) => {
-            return data;
+            return data
         })
         .catch((err) => {
             //console.error('Error deleting recipe: ' + err.message);
         });
-    return response;
+    return response
 }

@@ -5,7 +5,7 @@
  * sign-in and log-out
  * Dependency: navBarWithGoogle.html
  */
-export default { onSignIn };
+export default {onSignIn}
 import {
     ELE_CLASS_PROFILE_IMAGE,
     ELE_ID_PROFILE,
@@ -14,12 +14,8 @@ import {
     SIGN_OUT_BUTTON_ID,
 } from "./util.js";
 
-import { populateUserInfoPage } from "./userInfo.js";
-import {
-    bindUserProfile,
-    setGlobalUserData,
-    clearGlobalUserData,
-} from "./index.js";
+import { populateUserInfoPage } from './userInfo.js'
+import { bindUserProfile, setGlobalUserData, clearGlobalUserData } from "./index.js";
 
 // Constant variables
 const DISPLAY_NONE = "none";
@@ -46,9 +42,9 @@ const ELE_ID_HEADER = "header";
 
 // Set functions onSignIn and signOut to global scope, otherwise they're not
 // accessible in html
-if (typeof window === "object") {
-    window.onSignIn = onSignIn;
-    window.signOut = signOut;
+if (typeof window === 'object') {
+window.onSignIn = onSignIn;
+window.signOut = signOut;
 }
 
 /**
@@ -58,7 +54,7 @@ if (typeof window === "object") {
  * @param {*} googleUser User profile provided by Google sign-in API.
  */
 function onSignIn(googleUser) {
-    // TODO: fake user for now, dynamically get user info here.
+    // TODO: fake user for now, dynamically get user info here. 
     const profile = {
         username: googleUser.getBasicProfile().getName(),
         imageURL: googleUser.getBasicProfile().getImageUrl(),
