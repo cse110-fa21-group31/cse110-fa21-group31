@@ -4,7 +4,7 @@
     "description": "Enjoy the pizza",
     "datePosted": 1638172867145,
     "servingSize": 10,
-    "imageURL": "http://upload.wikimedia.org/wikipedia/commons/c/c7/Spinach_pizza.jpg",
+    "image": "http://upload.wikimedia.org/wikipedia/commons/c/c7/Spinach_pizza.jpg",
     "tags": ["dinner", "Easy"],
     "cookTime": "1 hr 30mins",
     "difficulty": "2 star",
