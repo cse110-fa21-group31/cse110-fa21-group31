@@ -10,6 +10,9 @@ font-family: 'Rammetto One', cursive;
 
 
 /* Generic text */
+body{
+    margin: 0;
+}
 
 #homepage p,
 #landingPage p {
@@ -76,9 +79,13 @@ Search Bar
 }
 
 #homepage div.searchBarHomepage>img, 
-#landingPage div.searchBarHomepage>img {
+/* #landingPage div.searchBarHomepage>img {
     width: 100%;
     height: 100%;
+} */
+/* style for only homepage */
+#landingPage div.searchBar>img {
+    width: 100%;
 }
 
 #homepage .formItems, #landingPage .formItems {
