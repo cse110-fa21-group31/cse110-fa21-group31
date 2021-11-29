@@ -6,18 +6,29 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Landing Page</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="google-signin-client_id"
+        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
+
+    <!-- Style Imports -->
     <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
     <link rel='stylesheet' href="/source/assets/styles/cards.css">
     <link rel='stylesheet' href="/source/assets/styles/editCreate.css">
     <link rel='stylesheet' href="/source/assets/styles/recipeDetail.css">
-    <script type="module" src='/source/scripts/indexSearch.js'></script>
+    <link rel='stylesheet' href="/source/assets/styles/homePage.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap" rel="stylesheet">
+
+
+    <script src='/source/scripts/indexSearch.js' type="module"></script>
     <script src="/source/scripts/classes/recipeClass.js" type="module"></script>
     <script src="/source/scripts/recipeDetail.js" type="module"></script>
     <script src="/source/scripts/createPage.js" type="module"></script>
     <script src="/source/scripts/editPage.js" type="module"></script>
     <script src="/source/scripts/router/Router.js" type="module"></script>
     <script src="/source/scripts/index.js" type="module"></script>
-    <meta name="google-signin-client_id" content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
+
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
@@ -37,6 +48,9 @@
         }
     </style>
 
+    <script src="/source/scripts/userLogin.js" type="module"></script>
+    <script src="/source/scripts/userInfo.js" type="module"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </head>
 
 <body>
@@ -51,7 +65,8 @@
               scripts/util.js -->
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </li>
-            <li id="profile">
+            <li id="profileWrapper" class="hidden">
+                <div id="profile"> </div>
                 <div id="signOutButton">
                     <a href="#" onclick="signOut();">Sign out</a>
                 </div>
@@ -60,16 +75,17 @@
         </ul>
     </nav>
 
-    <!-- home page -->
-    <section id="homePage" class="shown">
+
+    <!-- Landing Page-->
+    <section id="landingPage" class="shown">
         <div id="landingHeader">
 
 
             <!-- Search Bar -->
-            <div class="searchBarHomepage">
+            <div class="searchBar">
                 <img src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
                 <!-- <p class="formItems" class="homePageTitle">Food is Love and Olive U</p>-->
-                <form class="formItems" action='source/scripts/indexSearch.js' id="searchBarFormHomepage">
+                <form class="formItems" action='source/scripts/indexSearch.js' id="searchBarForm">
                     <input type="search" name="keyword" id="searchBar" placeholder="Search...">
                     <input id="searchButton" type="button" name="submit" value="Search">
                 </form>
@@ -77,6 +93,30 @@
         </div>
         <!-- Recipe Section -->
         <div class="myRecipeCardGridContainer"></div>
+
+    </section>
+
+    <!-- home page -->
+    <section id="homePage">
+        <div id="header">
+            <!-- imported from navBarWithGoogle.js -->
+        </div>
+        <div class="searchBarHomePage">
+            <form class="searchItems" class="formItem" action='source/scripts/indexSearch.js' id="searchBarFormHomepage"> 
+                    <input type="search" name="keyword" id="searchBarHome" placeholder="Search...">
+                    <input type="button" name="submit" id="searchButtonHome" value="Search"> 
+            </form>
+        </div>
+            <div id="selectTag" class="formItem">
+                <div id="tagsList">
+                    <!-- populated in indexSearch.js -->
+                </div>
+            </div>
+            <div id="submit" class="formItem">
+                <input type="submit" value="Submit" id="submitButton">
+            </div>
+        </div>
+        <div class="myRecipeCardGridContainer"> </div>    
     </section>
 
     <!-- recipe detail page -->
@@ -166,29 +206,27 @@
         <div class="userInfoGridContainer">
             <!-- User Profile, left side -->
             <div class="userInfoGridItem">
-                <img id="profile" src="./source/assets/profile.png" width=80 height=80 />
+                <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
                 <h1 id="userName"> Name </h1>
                 <h2 id="userEmail"> Email </h2>
                 <button id="createRecipePageButton" type="button"> New Recipe </button>
-                <button id="userSettings" type="button"> Account Settings </button>
-                <button id="logout" type="button"> Logout </button>
             </div>
             <!-- Recipe Section -->
             <div class="userInfoGridItem">
                 <h1> My Recipes </h1>
                 <div class="myRecipeCardGridContainer">
                     <recipeCard>
-                        <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
+                        <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
                         <p> Title </p>
                         <customTags> Beef, Easy, Entree </customTags>
                     </recipeCard>
                     <recipeCard>
-                        <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
+                        <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
                         <p> Title </p>
                         <customTags> Beef, Easy, Entree </customTags>
                     </recipeCard>
                     <recipeCard>
-                        <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
+                        <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
                         <p> Title </p>
                         <customTags> Beef, Easy, Entree </customTags>
                     </recipeCard>
@@ -197,17 +235,17 @@
                 <div class="savedRecipes">
                     <div class="myRecipeCardGridContainer">
                         <recipeCard>
-                            <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
+                            <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
                             <p> Title </p>
                             <customTags> Beef, Easy, Entree </customTags>
                         </recipeCard>
                         <recipeCard>
-                            <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
+                            <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
                             <p> Title </p>
                             <customTags> Beef, Easy, Entree </customTags>
                         </recipeCard>
                         <recipeCard>
-                            <img id="profile" src="./source/assets/profile.png" width=40 height=40 />
+                            <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
                             <p> Title </p>
                             <customTags> Beef, Easy, Entree </customTags>
                         </recipeCard>
@@ -220,7 +258,6 @@
 
     <!-- recipe create page -->
     <section id="createRecipe">
-        <!--
         <div class="recipeEdit">
             <form id="recipeForm">
 
@@ -239,9 +276,7 @@
                     <label for="description">Description:</label>
                     <textarea name="description" id="descriptionText"></textarea>
                 </div>
-            -->
         <!-- Tags will be sent to the backend as a big comma delimited string -->
-        <!--
         <div id="tags" class="formItem">
             <label for="tags">Tags:</label>
             <input type="text" name="tags" id="tags">
@@ -257,9 +292,7 @@
             <label for="servingSize">Serving Size:</label>
             <input type="text" name="servingSize" id="servingSize">
         </div>
-    -->
         <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
-        <!--
         <div id="difficulty" class="formItem">
             <label for="difficulty">Difficulty:</label>
             <select name="difficulty" id="difficulty">
@@ -310,7 +343,6 @@
         </div>
         </form>
         </div>
-        -->
     </section>
 
     <!-- recipe edit page -->
