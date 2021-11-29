@@ -1,13 +1,9 @@
-import { createRecipe } from "./interface.mjs";
-
-import Datastore from "nedb";
-const RECIPE_DB_PATH = "source/service/.data/recipes";
-const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
-
-let recipes = [
+// I'm copying over all these recipes instead of just editing addInitialRecipes
+// since these tests would easily break if that one function changed
+export default [
     {
         name: "Pumpkin Pie",
-        author: "MMAfv3oCQDiL4u10",
+        author: "jest",
         description: "The perfect ending to a Thanksgiving feast!",
         datePosted: Date(),
         servingSize: 8,
@@ -32,7 +28,7 @@ let recipes = [
     },
     {
         name: "Chicken Stir Fry",
-        author: "MMAfv3oCQDiL4u10",
+        author: "jest",
         description:
             "This chicken and vegetable stir fry will become your easy go-to dinner. You will wow your guests and family alike, even the picky eaters with approve!",
         datePosted: Date(),
@@ -71,7 +67,7 @@ let recipes = [
     },
     {
         name: "Chicken Fajitas",
-        author: "MMAfv3oCQDiL4u10",
+        author: "jest",
         description:
             "Chicken fajitas are an easy and flavorful weeknight meal.",
         datePosted: Date(),
@@ -99,9 +95,3 @@ let recipes = [
         ],
     },
 ];
-
-await createRecipe(recipes[2], recipeDB);
-
-// for (let recipe in recipes) {
-//     await createRecipe(recipe, recipeDB);
-// }
