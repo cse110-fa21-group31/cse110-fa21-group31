@@ -1,7 +1,12 @@
 /* Footer */
 
+<<<<<<< HEAD
 a.footerCopyright {
   font-size: 50%;
+=======
+.footer a.footerCopyright {
+    font-size: 50%
+>>>>>>> main
 }
 
 /* .topRight > li a {
@@ -12,6 +17,7 @@ a.footerCopyright {
     text-decoration: none;
 } */
 
+<<<<<<< HEAD
 ul.footer {
   list-style-type: none;
   margin: 0;
@@ -32,6 +38,38 @@ ul.footer > li a {
   text-align: center;
   padding: 10px;
   text-decoration: none;
+=======
+.footer {
+    margin-top: auto;
+}
+
+.footer ul.footer {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4E598C;
+    /* position: fixed; */
+    /* top: 0; */
+    width: 100%;
+    font-family: 'OpenSans', sans-serif;
+}
+
+.footer ul.footer>li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+}
+
+.footer ul.footer>li a.logo {
+    border-right: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    color: #FF8C42;
+    font-family: 'Rammetto One', cursive;
+    font-weight: bold;
+>>>>>>> main
 }
 
 ul.footer > li a.logo {
@@ -44,6 +82,7 @@ ul.footer > li a.logo {
 
 /* Nav bar */
 
+<<<<<<< HEAD
 ul.topRight {
   list-style-type: none;
   margin: 0;
@@ -91,3 +130,50 @@ li a.loginSignup:hover {
 ul.topRight > li a.logo:hover {
   color: #f9c784;
 }
+=======
+#navbar ul.topRight {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4E598C;
+    /* position: fixed; */
+    /* top: 0; */
+    width: 100%;
+    border-left: 1px solid #bbb;
+    font-family: 'OpenSans', sans-serif;
+}
+
+#navbar li a.loginSignup {
+    float: right;
+    font-family: 'OpenSans', sans-serif;
+    border: 1px solid #FFFFFF;
+    border-radius: 25px;
+    margin-right: 20px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 18px;
+    text-decoration: none;
+}
+
+#navbar ul.topRight>li a.logo {
+    float: left;
+    color: #FF8C42;
+    font-family: 'Rammetto One', cursive;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    padding: 16px 18px;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+#navbar li a.loginSignup:hover {
+    background-color: #F9C784;
+}
+
+#navbar ul.topRight>li a.logo:hover {
+    color: #F9C784;
+}
+>>>>>>> main
