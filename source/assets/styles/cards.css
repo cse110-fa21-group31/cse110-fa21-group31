@@ -31,6 +31,14 @@
   padding-top: 1rem;
 }
 
+ul.footer > li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
 #signOutButton {
   font-size: 1rem;
   margin-right: 0;
@@ -93,15 +101,7 @@ ul.footer {
   overflow: hidden;
   background-color: #4e598c;
   width: 100%;
-  font-family: "OpenSans", sans-serif;
-}
-
-ul.footer > li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  text-decoration: none;
+  font-family: OpenSans, sans-serif;
 }
 
 ul.footer > li a.logo {
