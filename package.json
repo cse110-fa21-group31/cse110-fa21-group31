@@ -3,9 +3,10 @@
         "@babel/cli": "^7.16.0",
         "@babel/core": "^7.16.0",
         "@babel/eslint-parser": "^7.16.3",
+        "@babel/plugin-transform-modules-commonjs": "^7.16.0",
         "@babel/preset-env": "^7.16.4",
         "babel-jest": "^27.3.1",
-        "cypress": "^9.0.0",
+        "cypress": "^9.1.0",
         "eslint": "^8.3.0",
         "eslint-plugin-cypress": "^2.12.1",
         "eslint-plugin-jest": "^25.2.4",
@@ -17,11 +18,17 @@
         "nodemon": "^2.0.15",
         "prettier": "2.4.1",
         "puppeteer": "^11.0.0",
+        "start-server-and-test": "^1.14.0",
         "stylelint": "^14.1.0",
         "stylelint-config-standard": "^24.0.0"
     },
     "scripts": {
-        "test": "jest",
+        "test": "cypress run & node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
+        "unittest": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit --detectOpenHandles",
+        "start-server": "npm start",
+        "ci": "start-server-and-test start-server http://localhost:3030 test",
+        "cypress": "npx cypress run --headed",
+        "cypressci": "npx cypress run",
         "start": "node --experimental-modules source/service/server/server.mjs",
         "dev": "nodemon source/service/server/server.js",
         "eslint": "npx eslint '**/*.js' '**/*.json' '**/*.mjs'",
@@ -33,7 +40,8 @@
     "jest": {
         "preset": "jest-puppeteer",
         "verbose": true,
-        "testRegex": "__tests__/.*\\.test\\.js$"
+        "testRegex": "__tests__/.*\\.test\\.js$",
+        "transform": {}
     },
     "dependencies": {
         "fastify": "^3.24.0",
