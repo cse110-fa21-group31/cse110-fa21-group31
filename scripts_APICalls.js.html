@@ -28,9 +28,8 @@
         <article>
             <pre class="prettyprint source linenums"><code>export const url = "/api"
 export const userUrl = "/api/user"
-export const imageUploadUrl = "/api/imageUpload"
 export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
-    updateRecipeById, submitSearch, uploadImage, url, userUrl}
+    updateRecipeById, submitSearch, url, userUrl}
 /**
  * 
  * want the return json object from server:
@@ -43,10 +42,6 @@ export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
  * @param {recipe} recipe the recipe object to insert
  */
 export async function insertRecipe(recipe) {
-    // save image and convert to local relative path
-    const imageURL = await uploadImage(recipe.image);
-    console.log(imageURL);
-    recipe.image = imageURL;
     //for update, change the method of PUT
     const response = await fetch(url, {
         method: 'POST',
@@ -129,12 +124,8 @@ export async function fetchRecipeById(id) {
  * @param {object} update the fields and corresponding values of the recipe to change
  */
 export async function updateRecipeById(id, update) {
-    // save image and convert to relative local path
-    const imageURL = await uploadImage(update.image);
-    console.log(imageURL);
-    update.image = imageURL;
     let queryURL = url;
-    // console.log(update);
+    console.log(update);
     console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
         method: 'PUT',
@@ -235,35 +226,6 @@ export async function deleteSavedRecipeById(userId, recipeId) {
             //console.error('Error deleting recipe: ' + err.message);
         });
     return response
-}
-
-/**
- * sends an HTTP request to the server to save an image to the images folder.
- * Returns the url of the image. 
- * @param {string} recipeId the recipeId to be used as image filename. 
- * @param {File} imageFile the image file to be saved. 
- */
- export async function uploadImage(imageFile) {
-     
-    const URL = imageUploadUrl;
-    let data = new FormData()
-    data.append('file', imageFile)
-    // let formData = new FormData();
-    // for (const name in imageFile) {
-    //     formData.append(name, imageFile[name]);
-    // }
-    //for update, change the method of PUT
-    const response = await fetch(URL, {
-        method: 'POST',
-        // headers: {
-        //     "Content-Type": "multipart/form-data; charset=utf-8; boundary='a very cool boundary'"
-        // },
-        body: data
-    }).then((response) => response.json())
-        .catch((err) => {
-            console.error(err);
-        });
-    return response.path;
 }</code></pre>
         </article>
     </section>
@@ -274,13 +236,13 @@ export async function deleteSavedRecipeById(userId, recipeId) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 21:50:28 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 21:52:44 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
