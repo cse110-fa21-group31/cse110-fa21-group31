@@ -2,6 +2,7 @@ import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userIn
 import { createRecipe, deleteRecipe, updateRecipe, getRecipeByPage, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
 import Datastore from "nedb";
 import path from 'path'
+import fs from "fs";
 import fstatic from 'fastify-static'
 // the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
@@ -9,7 +10,7 @@ export const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 const RECIPE_DB_PATH = "source/service/.data/recipes"
 export const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 
-// correct dir name of current repo
+// correct dir name of current repo: CSE110-FA21-GROUP31
 const __dirname = path.normalize(path.resolve());
 
 // Require the framework and instantiate it
@@ -17,12 +18,15 @@ import Fastify from 'fastify';
 const fastify = Fastify({ logger: true });
 
 import fileRoutes from "./fileRoutes.js"
-// Require the framework and instantiate it
 fastify.register(fileRoutes.routes)
 fastify.register(fstatic, {
     root: __dirname,
-  //prefix: '/public/', // optional: default '/'
+    //prefix: '/public/', // optional: default '/'
 })
+
+// import the dependency for file transfer and buffer
+import multipart from 'fastify-multipart';
+fastify.register(multipart);
 
 // const path = require('path')
 import Cors from 'fastify-cors';
@@ -61,6 +65,7 @@ fastify.post("/api", async (request, reply) => {
         err.message = "Request body missing required recipe information";
         reply.send(err);
     } else {
+        // TODO: pass in cloudinary and fs here, switch to export later
         reply.send(await createRecipe(body, recipeDB));
     }
 });
@@ -186,7 +191,34 @@ fastify.delete("/api/user/saved", async (req, reply) => {
     reply.status(200).send(data);
 });
 
+/**
+ * Upload an image to service/.data/images folder and return image url.
+ * content-type: multipart/form-data
+ * body: key: file value: [File]
+ */
+fastify.post("/api/imageUpload", async (request, reply) => {
+    // Convert file to buffer for write
+    let file = await request.file();
+    // console.log(file);
+    let fileBuffer = await file.toBuffer();
+    // Generate file path
+    let filePath = '/source/service/.data/images/';
+    let fileName = file.filename;
+    while(fs.existsSync(__dirname + filePath + fileName)){
+        fileName = "1" + fileName;
+    }
+    filePath = filePath + fileName;
+    // Write to file
+    await fs.writeFile(__dirname + filePath, fileBuffer, 'base64', function (err) {
+        if(err){
+            console.log(err);
+        }
+    }); 
+    // Return file path
+    let data = { path: filePath };
+    reply.status(200).send(data);
 
+});
 
 // Run the server!
 const start = async () => {

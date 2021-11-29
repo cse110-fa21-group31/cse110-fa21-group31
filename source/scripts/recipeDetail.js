@@ -37,9 +37,11 @@ export async function fillOutRecipe(data) {
         }
     }
     // TODO: fix condition after fixing image upload issue
-    const image = (data.image == null || typeof data.image == "object" || data.image == "")
-        ? "./source/assets/Images/recipeCardPlaceholder.png" : data.image;
+    const image = (data.image == null || typeof data.image == "object" || data.image == "") ?
+        "./source/assets/Images/recipeCardPlaceholder.png" : data.image;
+    const imageErrorFunc = "this.onerror=null; this.src='./source/assets/Images/recipeCardPlaceholder.png'";
     document.getElementById("recipeImage").setAttribute("src", image);
+    document.getElementById("recipeImage").setAttribute("onerror", imageErrorFunc);
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
     if (data.description) document.getElementById("description").innerHTML = data.description;
     if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;

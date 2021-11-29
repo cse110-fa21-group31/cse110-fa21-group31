@@ -4,7 +4,7 @@
     "description": "Enjoy the Curried Lentils and Rice",
     "datePosted": 1638172867145,
     "servingSize": 4,
-    "imageURL": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg",
+    "image": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg",
     "tags": ["dinner", "Easy"],
     "cookTime": "40mins",
     "difficulty": "2 star",

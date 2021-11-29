@@ -128,15 +128,19 @@ observer.observe(document.body, {
  * Generates the <recipeCard> elements from the fetched recipes and
  * appends them to the page
  */
-export function createRecipeCards() {
+export function createRecipeCards(recipes) {
+    let newRecipes = recipeData;
+    if (recipes) {
+        newRecipes = recipes;
+    }
     // Makes new recipe cards
     // Wait until the gridContainer is loaded
     waitForSelector('.myRecipeCardGridContainer')
         .then(gridContainer => {
             while (gridContainer.firstChild) {
                 gridContainer.removeChild(gridContainer.firstChild);
-            } // for each recipe object, create recipe card and link the router
-            recipeData.forEach(recipeObj => {
+            }
+            newRecipes.forEach(recipeObj => {
                 if (!recipeObj) return
                 //create the recipe card
                 const recipeCard = document.createElement('recipe-card');

@@ -4,7 +4,8 @@
     "description": "Enjoy the breakfast",
     "datePosted": 1638172867145,
     "servingSize": 2,
-    "imageURL": "http://www.canadianliving.com/img/photos/biz/blueberry-oatmeal-squares5801359401371.jpg","tags": ["Breakfast", "Easy"],
+    "image": "https://www.averiecooks.com/wp-content/uploads/2015/02/blueberrycrumblebarstext.jpg",
+    "tags": ["Breakfast", "Easy"],
     "cookTime": "60mins",
     "difficulty": "2 star",
 
