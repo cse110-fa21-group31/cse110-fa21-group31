@@ -1,4 +1,8 @@
 // Cypress end-to-end testing
+const shadowconfig = {
+    matchCase: false,
+    includeShadowDom: true,
+}
 
 describe("Cypress Pipeline v2", () => {
     it("Loads home page by default", () => {
@@ -14,24 +18,16 @@ describe("Cypress Pipeline v2", () => {
     it("Can see recipes at the bottom v2", () => {
         // the custom html elements 'recipe-card' should be below
         cy.get("recipe-card").should("be.visible");
+        cy.get("recipe-card").should('have.length', 4);
     })
     it("Default recipes should be there", () => {
-        // use contains(), but also include shadow doms
-        cy.get("recipe-card").contains("Pumpkin Pie", {
-            matchCase: false,
-            includeShadowDom: true
-        }); 
-        cy.get("recipe-card").contains("Chicken Fajitas", {
-            matchCase: false,
-            includeShadowDom: true
-        }); 
-        cy.get("recipe-card").contains("Halloween Cookie Bars", {
-            matchCase: false,
-            includeShadowDom: true
-        }); 
-        cy.get("recipe-card").contains("Christmas Cake", {
-            matchCase: false,
-            includeShadowDom: true
-        }); 
+        // Here are the individual shadow doms recipe names:
+        // "pumpkin pie", "chicken fajitas", "halloween cookie bars", "christmas cake"
+        // Make sure to check each individual shadow dom exists. They will ALL be a "recipe-card".
+        // Make sure there is at least one recipe card for each recipe name.
+        cy.get("recipe-card", shadowconfig)
+            .should("be.visible")
+            .should("have.length", 4).then(console.log);
     })
+    // next tests should try the edit, delete, creation process
 })

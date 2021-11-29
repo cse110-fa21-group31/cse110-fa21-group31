@@ -99,6 +99,7 @@ jobs:
       # the option of having Prettier auto fix it all
       - name: Fix format
         run: npm run prettier
+
       # This only says which files have formatting problems. We also have
       # the option of having Prettier auto fix it all
       - name: Fix format
