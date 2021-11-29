@@ -8,40 +8,183 @@
     <link rel="stylesheet" href="/source/assets/styles/baseStyle.css">
     <link rel="stylesheet" href="/source/assets/styles/cards.css">
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Oxygen:400,700');
+    body {
+        background: #f9f9f9;
+    }
+    
+    #recipeDetail {
+        background: #ededed;
+        box-shadow: 0px 0px 200px #999;
+        font-family: 'Oxygen', sans-serif;
+        width: 65%;
+        height: 385px;
+        margin: 5% auto;
+    }
+    
+    #recipeDetail .recipeButtons #edit,
+    #recipeDetail .recipeButtons #delete,
+    #recipeDetail .recipeButtons #save {
+        display: block;
+        color: #4E598C;
+        text-align: center;
+        padding: 10px 15px;
+        text-decoration: none;
+        float: right;
+        font-family: 'OpenSans', sans-serif;
+        border: 1px solid #4E598C;
+        border-radius: 10px;
+        margin-right: 20px;
+    }
+    
+    #recipeDetail .recipeButtons:hover {
+        color: #F9C784;
+    }
+    
+    #recipeDetail .recipeButtons #edit:hover,
+    #recipeDetail .recipeButtons #delete:hover,
+    #recipeDetail .recipeButtons #save:hover {
+        background: #FCAF58;
+    }
+    
+    #recipeDetail #recipeTitle {
+        font-family: 'Oxygen', sans-serif;
+        font-weight: 700;
+        font-size: 25px;
+        background: #4E598C;
+        padding: 15px 20px;
+        color: #fff;
+        border-radius: 2px 2px 0 0;
+    }
+    
+    #recipeDetail #dateAuthor {
+        background: #fff;
+        border-left: solid 1px #ededed;
+        border-right: solid 1px #ededed;
+        font-size: 16px;
+        font-family: 'Oxygen', sans-serif;
+        padding: 15px 20px;
+    }
+    
+    #recipeDetail #descSize {
+        background: #fff;
+        border-left: solid 1px #ededed;
+        border-right: solid 1px #ededed;
+        font-size: 16px;
+        font-family: 'Oxygen', sans-serif;
+        padding: 15px 20px;
+    }
+    
+    #recipeDetail .detail-value {
+        color: #455560;
+    }
+    
+    #recipeDetail #ingredients {
+        background: #ededed;
+        font-family: 'Oxygen', sans-serif;
+        padding: 20px
+    }
+    
+    #recipeDetail .card-item-title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+    
+    #recipeDetail .ingr li:before {
+        color: #455560;
+        content: "\2713\0020";
+        font-weight: 600;
+        margin-left: -38px;
+        margin-right: 10px;
+    }
+    
+    #recipeDetail .steps li {
+        list-style-type: none;
+    }
+    
+    #recipeDetail li {
+        margin-bottom: 3px;
+    }
+    
+    #recipeDetail #steps {
+        background: #fff;
+        border-left: solid 1px #ededed;
+        border-right: solid 1px #ededed;
+        border-bottom: solid 1px #ededed;
+        padding: 20px;
+    }
+    
+    #recipeDetail #steps li {
+        list-style-position: inside;
+        margin-bottom: 10px;
+        margin-left: -38px;
+        list-style-type: none;
+    }
+    
+    #recipeDetail #recipeImage {
+        overflow: hidden;
+        height: 450px;
+        background-size: cover;
+    }
+    
+    #recipeDetail #ingredients ol {
+        counter-reset: item;
+    }
+    
+    #recipeDetail ol>li {
+        counter-increment: item;
+    }
+    
+    #recipeDetail ol>li::before {
+        font-weight: bold;
+        content: counter(item) ".";
+        margin-right: 8px;
+    }
+</style>
 
 <body>
     <div class="navBar">
-        <iframe src="/source/cards/navBar.html"
-            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+        <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
     </div>
     <!-- Displaying recipe details-->
     <div id="recipeDetail">
 
         <!-- Displaying recipe title, creation date, author-->
         <p id="recipeTitle">Recipe title</p>
-        <p id="date">The Date of Creation</p>
-        <p id="author">The Author</p>
-
+        <div id="dateAuthor">
+            <p id="date">The Date of Creation</p>
+            <p id="author">The Author</p>
+        </div>
+        <div class="recipeButtons">
+            <input type="button" id="edit" value="Edit"></button>
+            <input type="button" id="delete" value="Delete"></button>
+            <input type="button" id="save" value="Save"></button>
+        </div>
         <!-- Displaying recipe image-->
-        <img id="recipeImage" src="" alt="" width="500" height="300">
+        <!--<img id="recipeImage" src="" alt="" width="500" height="300">-->
+        <img id="recipeImage" src="" alt="">
 
         <!-- Displaying recipe description-->
-        <div id="description">Description</div>
+        <div id="descSize">
+            <div id="tags">
+                <ul id="tag" class="tagsList"></ul>
+            </div>
+            <div id="description">Description</div>
 
-        <!-- Displaying serving size-->
-        <p id="servingSize">servingSize</p>
+            <!-- Displaying serving size-->
+            <p id="servingSize">servingSize</p>
+            <label for="tags">Tags:</label>
 
+            <label for="cookTime">Cook Time:</label>
+            <p id="cookTime">cook Time</p>
+        </div>
         <!-- Displaying recipe tags-->
 
-        <label for="tags">Tags:</label>
-        <div id="tags">
-            <ul id="tag" class="tagsList"></ul>
 
-        </div>
 
         <!-- Displaying recipe cooktime-->
-        <label for="cookTime">Cook Time:</label>
-        <p id="cookTime">cook Time</p>
+
 
         <!-- Displaying recipe ingredients-->
         <div class="ingredients" id="ingredients">
@@ -52,7 +195,7 @@
         <!-- Displaying recipe steps-->
         <div class="steps" id="steps">
             <label for="steps">Steps:</label>
-            <ol id="stps" class="ingredientsList"></ol>
+            <ol id="stps" class="stepsList"></ol>
         </div>
 
     </div>

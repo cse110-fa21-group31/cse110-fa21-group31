@@ -1,6 +1,6 @@
 /* Footer */
 
-a.footerCopyright {
+.footer a.footerCopyright {
     font-size: 50%
 }
 
@@ -13,7 +13,11 @@ a.footerCopyright {
     text-decoration: none;
 } */
 
-ul.footer {
+.footer {
+    margin-top: auto;
+}
+
+.footer ul.footer {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -25,7 +29,7 @@ ul.footer {
     font-family: 'OpenSans', sans-serif;
 }
 
-ul.footer>li a {
+.footer ul.footer>li a {
     display: block;
     color: white;
     text-align: center;
@@ -33,7 +37,7 @@ ul.footer>li a {
     text-decoration: none;
 }
 
-ul.footer>li a.logo {
+.footer ul.footer>li a.logo {
     border-right: 1px solid #bbb;
     border-left: 1px solid #bbb;
     color: #FF8C42;
@@ -44,7 +48,7 @@ ul.footer>li a.logo {
 
 /* Nav bar */
 
-ul.topRight {
+#navbar ul.topRight {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -57,7 +61,7 @@ ul.topRight {
     font-family: 'OpenSans', sans-serif;
 }
 
-li a.loginSignup {
+#navbar li a.loginSignup {
     float: right;
     font-family: 'OpenSans', sans-serif;
     border: 1px solid #FFFFFF;
@@ -70,7 +74,7 @@ li a.loginSignup {
     text-decoration: none;
 }
 
-ul.topRight>li a.logo {
+#navbar ul.topRight>li a.logo {
     float: left;
     color: #FF8C42;
     font-family: 'Rammetto One', cursive;
@@ -82,10 +86,10 @@ ul.topRight>li a.logo {
     list-style-type: none;
 }
 
-li a.loginSignup:hover {
+#navbar li a.loginSignup:hover {
     background-color: #F9C784;
 }
 
-ul.topRight>li a.logo:hover {
+#navbar ul.topRight>li a.logo:hover {
     color: #F9C784;
 }
