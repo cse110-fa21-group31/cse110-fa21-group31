@@ -6,7 +6,7 @@
         "@babel/plugin-transform-modules-commonjs": "^7.16.0",
         "@babel/preset-env": "^7.16.4",
         "babel-jest": "^27.3.1",
-        "cypress": "^9.0.0",
+        "cypress": "^9.1.0",
         "eslint": "^8.3.0",
         "eslint-plugin-cypress": "^2.12.1",
         "eslint-plugin-jest": "^25.2.4",
@@ -25,9 +25,8 @@
     "scripts": {
         "test": "cypress run & node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
         "start-server": "npm start",
-
         "ci": "start-server-and-test start-server http://localhost:3030 test",
-
+        "cypress": "npx cypress run --headed --no-exit",
         "start": "node --experimental-modules source/service/server/server.mjs",
         "dev": "nodemon source/service/server/server.js",
         "eslint": "npx eslint '**/*.js' '**/*.json' '**/*.mjs'",

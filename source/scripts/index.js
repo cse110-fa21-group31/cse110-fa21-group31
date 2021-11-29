@@ -79,7 +79,10 @@ export async function createRecipes() {
 
 export async function fetchRecipes() {
     let response = await fetchRecipeByPage(currPage)
+    console.log("fetchRecipes: response is");
+    console.log(response);
     recipeData = response;
+    console.log("recipeData is now ", recipeData);
 }
 
 

@@ -1,5 +1,6 @@
 {
     "integrationFolder": "__tests__",
     "ignoreTestFiles": "**/!(*.spec.js)",
-    "pluginsFile": false
+    "pluginsFile": false,
+    "baseUrl": "http://localhost:3030"
 }
