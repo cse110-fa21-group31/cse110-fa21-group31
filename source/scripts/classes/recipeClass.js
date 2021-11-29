@@ -85,6 +85,7 @@ class RecipeClass extends HTMLElement {
         // TODO: change these conditions after figuring out how to upload and store image
         image.src = (imageData == null || typeof imageData == "object" || imageData == "") 
             ? "./source/assets/Images/recipeCardPlaceholder.png" : imageData;
+        image.onerror= "this.onerror=null; this.src='./source/assets/Images/recipeCardPlaceholder.png'";
         //console.log(imageData);
 
         // Grab the name

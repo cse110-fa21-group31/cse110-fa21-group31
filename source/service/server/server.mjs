@@ -2,51 +2,31 @@ import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userIn
 import { createRecipe, deleteRecipe, updateRecipe, getRecipeByPage, getRecipesByNameAndTags, getRecipeById, getRecipesByIds } from "./interface.mjs";
 import Datastore from "nedb";
 import path from 'path'
+import fs from "fs";
 import fstatic from 'fastify-static'
 // the following are "collection" object for the users, recipes, and tags tables
 const USER_DB_PATH = "source/service/.data/users";
 export const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 const RECIPE_DB_PATH = "source/service/.data/recipes"
 export const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
-// set up cloudinary and fastify content type
-import fs from "fs";
-import cloudinary from "cloudinary";
-cloudinary.config({ 
-    cloud_name: 'my-cloudinary-space', 
-    api_key: '335781374633484', 
-    api_secret: 'xoMqNrtDP33suOIzGUrMYYepSGM' 
-  });
-  
-  // correct dir name of current repo
-  const __dirname = path.normalize(path.resolve());
-  
-  // Require the framework and instantiate it
-  import Fastify from 'fastify';
-  const fastify = Fastify({ logger: true });
-  
-  import fileRoutes from "./fileRoutes.js"
-  // Require the framework and instantiate it
-  fastify.register(fileRoutes.routes)
-  fastify.register(fstatic, {
-      root: __dirname,
-      //prefix: '/public/', // optional: default '/'
-    })
-    
-/**
- * Save image to cloudinary and return the corresponding url
- */
-fastify.addContentTypeParser('multipart/form-data', (request, body, done) => {
-    console.log(request);
-} )
-fastify.post("/api/imageUpload", async (request, reply) => {
-    console.log("Image:");
-    console.log(request);
-    let imageURL = await cloudinary.v2.uploader.upload(request, {}, (res) => {
-        console.log(res);
-    });
-    // TODO: pass in cloudinary and fs here, switch to export later
-    reply.send(imageURL);
-});
+
+// correct dir name of current repo: CSE110-FA21-GROUP31
+const __dirname = path.normalize(path.resolve());
+
+// Require the framework and instantiate it
+import Fastify from 'fastify';
+const fastify = Fastify({ logger: true });
+
+import fileRoutes from "./fileRoutes.js"
+fastify.register(fileRoutes.routes)
+fastify.register(fstatic, {
+    root: __dirname,
+    //prefix: '/public/', // optional: default '/'
+})
+
+// import the dependency for file transfer and buffer
+import multipart from 'fastify-multipart';
+fastify.register(multipart);
 
 // const path = require('path')
 import Cors from 'fastify-cors';
@@ -211,7 +191,34 @@ fastify.delete("/api/user/saved", async (req, reply) => {
     reply.status(200).send(data);
 });
 
+/**
+ * Upload an image to service/.data/images folder and return image url.
+ * content-type: multipart/form-data
+ * body: key: file value: [File]
+ */
+fastify.post("/api/imageUpload", async (request, reply) => {
+    // Convert file to buffer for write
+    let file = await request.file();
+    // console.log(file);
+    let fileBuffer = await file.toBuffer();
+    // Generate file path
+    let filePath = '/source/service/.data/images/';
+    let fileName = file.filename;
+    while(fs.existsSync(__dirname + filePath + fileName)){
+        fileName = "1" + fileName;
+    }
+    filePath = filePath + fileName;
+    // Write to file
+    await fs.writeFile(__dirname + filePath, fileBuffer, 'base64', function (err) {
+        if(err){
+            console.log(err);
+        }
+    }); 
+    // Return file path
+    let data = { path: filePath };
+    reply.status(200).send(data);
 
+});
 
 // Run the server!
 const start = async () => {

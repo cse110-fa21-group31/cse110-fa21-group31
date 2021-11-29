@@ -74,20 +74,6 @@ const onSubmitRecipe = async (event) => {
         // img = window.URL.createObjectURL(fileObj);
     }
 
-    // XIN's attempt in uploading image
-    let imgObj = formData.get('picture');
-    imgObj.toJSON = function() { return {
-        'lastModified'     : imgObj.lastModified,
-        'lastModifiedDate' : imgObj.lastModifiedDate,
-        'name'             : imgObj.name,
-        'size'             : imgObj.size,
-        'type'             : imgObj.type 
-     };}  
-    let fileBuffer = Buffer.from(imgObj, 'base64')
-      
-     // then use JSON.stringify on File object
-    console.log(fileBuffer);
-
     // CREATE NEW RECIPE
     let newRecipe = {
         name: formData.get('name'),
@@ -172,18 +158,3 @@ const deleteIngredient = () => {
     }
 };
 /* eslint-enable no-unused-vars*/
-
-/**
- * Tester function for saving image
- * 
- * @param image File image
- * @return url to the image
- */
-export function saveImage(image){
-        var imageAsBase64 = fs.readFileSync(formData.get('picture'), 'base64');
-        fs.writeFile('../service/.data/images/test.png', imageAsBase64, function (err) {
-            if (err) throw err;               
-            console.log('Results Received');
-          }); 
-          console.log(imageAsBase64);
-    }

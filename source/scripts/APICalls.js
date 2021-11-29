@@ -1,7 +1,8 @@
 export const url = "/api"
 export const userUrl = "/api/user"
+export const imageUploadUrl = "/api/imageUpload"
 export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
-    updateRecipeById, submitSearch, url, userUrl}
+    updateRecipeById, submitSearch, uploadImage, url, userUrl}
 /**
  * 
  * want the return json object from server:
@@ -14,7 +15,10 @@ export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
  * @param {recipe} recipe the recipe object to insert
  */
 export async function insertRecipe(recipe) {
-    console.log(recipe.image);
+    // save image and convert to local relative path
+    const imageURL = await uploadImage(recipe.image);
+    console.log(imageURL);
+    recipe.image = imageURL;
     //for update, change the method of PUT
     const response = await fetch(url, {
         method: 'POST',
@@ -97,8 +101,12 @@ export async function fetchRecipeById(id) {
  * @param {object} update the fields and corresponding values of the recipe to change
  */
 export async function updateRecipeById(id, update) {
+    // save image and convert to relative local path
+    const imageURL = await uploadImage(update.image);
+    console.log(imageURL);
+    update.image = imageURL;
     let queryURL = url;
-    console.log(update);
+    // console.log(update);
     console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
         method: 'PUT',
@@ -199,4 +207,33 @@ export async function deleteSavedRecipeById(userId, recipeId) {
             //console.error('Error deleting recipe: ' + err.message);
         });
     return response
+}
+
+/**
+ * sends an HTTP request to the server to save an image to the images folder.
+ * Returns the url of the image. 
+ * @param {string} recipeId the recipeId to be used as image filename. 
+ * @param {File} imageFile the image file to be saved. 
+ */
+ export async function uploadImage(imageFile) {
+     
+    const URL = imageUploadUrl;
+    let data = new FormData()
+    data.append('file', imageFile)
+    // let formData = new FormData();
+    // for (const name in imageFile) {
+    //     formData.append(name, imageFile[name]);
+    // }
+    //for update, change the method of PUT
+    const response = await fetch(URL, {
+        method: 'POST',
+        // headers: {
+        //     "Content-Type": "multipart/form-data; charset=utf-8; boundary='a very cool boundary'"
+        // },
+        body: data
+    }).then((response) => response.json())
+        .catch((err) => {
+            console.error(err);
+        });
+    return response.path;
 }
