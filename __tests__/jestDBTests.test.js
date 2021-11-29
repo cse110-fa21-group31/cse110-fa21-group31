@@ -14,7 +14,7 @@ const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
  */
 const generateRandomTag = () => {
     return "tag" + Math.floor(Math.random() * 100);
-}
+};
 /**
  * Generates a random recipe for testing
  * @returns {recipe}
@@ -28,8 +28,9 @@ const generateRandomRecipe = () => {
     randomRecipe.tags = [];
     // generate a random date
     randomRecipe.date = new Date(
-        Math.floor(Math.random() * (new Date().getTime() - new Date(0).getTime())) +
-        new Date(0).getTime()
+        Math.floor(
+            Math.random() * (new Date().getTime() - new Date(0).getTime())
+        ) + new Date(0).getTime()
     );
     for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
         randomRecipe.tags.push(generateRandomTag());
@@ -42,10 +43,11 @@ const generateRandomRecipe = () => {
     for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
         randomRecipe.ingredients[i] = "Ingredient " + i;
     }
-    randomRecipe.description = "Random Description " + Math.floor(Math.random() * 100);
+    randomRecipe.description =
+        "Random Description " + Math.floor(Math.random() * 100);
     randomRecipe.difficulty = Math.floor(Math.random() * 5);
     randomRecipe._id = crypto.randomUUID();
-    
+
     return randomRecipe;
 };
 
@@ -57,8 +59,6 @@ testDB.remove({}, { multi: true }, function (err, numRemoved) {
     testDB.loadDatabase();
 });
 
-
-
 const beginDatabaseTests = () => {
     test("should have no recipes to begin with", (done) => {
         testDB.find({}, (err, docs) => {
@@ -66,12 +66,14 @@ const beginDatabaseTests = () => {
             done();
         });
     });
-    
+
     console.log("Inserting recipes into test database");
     Promise.race(
         recipes.map((recipe) => {
             console.log(`Inserting recipe ${recipe.name}`);
-            Interface.createRecipe(recipe, testDB).catch((err) => console.log(err));
+            Interface.createRecipe(recipe, testDB).catch((err) =>
+                console.log(err)
+            );
         })
     )
         .catch((reason) => {
@@ -82,7 +84,7 @@ const beginDatabaseTests = () => {
             console.log("Done inserting recipes");
             beginDatabaseTests();
         });
-    
+
     test("should have recipes in our fake database", (done) => {
         new Promise((resolve) => {
             testDB.docs({}, (err, docs) => {
@@ -105,12 +107,13 @@ const beginDatabaseTests = () => {
         for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
             randomRecipes.push(generateRandomRecipe());
         }
-        
+
         // add the random recipes to the database
-        Promise.
-            all(randomRecipes.map((recipe) => {
+        Promise.all(
+            randomRecipes.map((recipe) => {
                 return Interface.createRecipe(recipe, testDB);
-            }))
+            })
+        )
             .then(() => {
                 // check that the database has the correct amount of recipes
                 new Promise((resolve) => {
@@ -119,7 +122,9 @@ const beginDatabaseTests = () => {
                     });
                 })
                     .then((docs) => {
-                        expect(docs.length).toBe(recipes.length + randomRecipes.length);
+                        expect(docs.length).toBe(
+                            recipes.length + randomRecipes.length
+                        );
                     })
                     .catch((reason) => {
                         console.log(reason);
