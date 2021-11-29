@@ -70,7 +70,9 @@ console.log("Inserting recipes into test database");
 Promise.race(
     recipes.map((recipe) => {
         console.log(`Inserting recipe ${recipe.name}`);
-        Interface.createRecipe(recipe, testDB).catch((err) => console.log(err));
+        return Interface.createRecipe(recipe, testDB).catch((err) =>
+            console.log(err)
+        );
     })
 )
     .catch((reason) => {
@@ -81,57 +83,56 @@ Promise.race(
         console.log("Done inserting recipes");
         test("should have recipes in our fake database", (done) => {
             new Promise((resolve) => {
-                testDB.docs({}, (err, docs) => {
-                    resolve(docs);
-                });
-            })
-                .then((docs) => {
-                    expect(docs).toBe(recipes.length);
-                })
-                .catch((reason) => {
-                    console.log(reason);
-                })
-                .finally(() => {
-                    done();
-                });
-        });
-        test("should handle adding new recipes", (done) => {
-            // generate random amounts of random recipes
-            const randomRecipes = [];
-            for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
-                randomRecipes.push(generateRandomRecipe());
-            }
-
-            // add the random recipes to the database
-            Promise.all(
-                randomRecipes.map((recipe) => {
-                    return Interface.createRecipe(recipe, testDB);
-                })
-            )
-                .then(() => {
-                    // check that the database has the correct amount of recipes
-                    new Promise((resolve) => {
-                        testDB.find({}, (err, docs) => {
-                            resolve(docs);
-                        });
+                testDB
+                    .find({}, (err, docs) => {
+                        expect(docs).toBe(recipes.length);
+                        resolve(docs);
                     })
-                        .then((docs) => {
-                            expect(docs.length).toBe(
-                                recipes.length + randomRecipes.length
-                            );
+                    .catch((reason) => {
+                        console.log(reason);
+                    })
+                    .finally(() => {
+                        done();
+                    });
+            });
+            test("should handle adding new recipes", (done) => {
+                // generate random amounts of random recipes
+                const randomRecipes = [];
+                for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
+                    randomRecipes.push(generateRandomRecipe());
+                }
+
+                // add the random recipes to the database
+                Promise.all(
+                    randomRecipes.map((recipe) => {
+                        return Interface.createRecipe(recipe, testDB);
+                    })
+                )
+                    .then(() => {
+                        // check that the database has the correct amount of recipes
+                        new Promise((resolve) => {
+                            testDB.find({}, (err, docs) => {
+                                resolve(docs);
+                            });
                         })
-                        .catch((reason) => {
-                            console.log(reason);
-                        })
-                        .finally(() => {
-                            done();
-                        });
-                })
-                .catch((reason) => {
-                    console.log(reason);
-                })
-                .finally(() => {
-                    done();
-                });
+                            .then((docs) => {
+                                expect(docs.length).toBe(
+                                    recipes.length + randomRecipes.length
+                                );
+                            })
+                            .catch((reason) => {
+                                console.log(reason);
+                            })
+                            .finally(() => {
+                                done();
+                            });
+                    })
+                    .catch((reason) => {
+                        console.log(reason);
+                    })
+                    .finally(() => {
+                        done();
+                    });
+            });
         });
     });

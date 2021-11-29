@@ -65,20 +65,7 @@ export async function fetchRecipeByPage(pageNum) {
     let response = await fetch(queryURL, {
         method: "GET",
     })
-        .then((response) => {
-            let jsonData;
-            try {
-                jsonData = response.json();
-                // console.log(response);
-                // console.log(response.text().then((data) => {
-                //     console.log("HERE IT IS AS TEXT:")
-                //     console.log(data);
-                // }));
-            } catch (err) {
-                console.error("Error parsing JSON: " + err.message);
-            }
-            return jsonData;
-        })
+        .then((response) => response.json())
         .then(async (data) => {
             data.forEach(async (recipe) => {
                 recipe.author = await fetchUserById(recipe.author);
