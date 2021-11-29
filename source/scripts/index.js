@@ -31,14 +31,16 @@ let recipeDetailPage = null; // = document.getElementById('recipeDetail')
 let userInfoPage = null; // = document.getElementById('userInfo')
 let createRecipePage = null; // = document.getElementById('createRecipe')
 let editRecipePage = null; // = document.getElementById('editRecipe')
+let landingPage = null; // = document.getElementById('landingPage')
 
 if (typeof window === 'object') {
     if (typeof window.document === 'object') {
-        homePage = document.getElementById('homePage')
-        recipeDetailPage = document.getElementById('recipeDetail')
-        userInfoPage = document.getElementById('userInfo')
-        createRecipePage = document.getElementById('createRecipe')
-        editRecipePage = document.getElementById('editRecipe')
+        homePage = document.getElementById('homePage');
+        recipeDetailPage = document.getElementById('recipeDetail');
+        userInfoPage = document.getElementById('userInfo');
+        createRecipePage = document.getElementById('createRecipe');
+        editRecipePage = document.getElementById('editRecipe');
+        landingPage = document.getElementById('landingPage');
     }
 }
 
@@ -48,7 +50,8 @@ if (typeof window === 'object') {
 export const router = new Router(function () {
     // console.log("Test router");
     // TODO: array and for loop in the future
-    homePage.classList.add("shown");
+    landingPage.classList.add("shown");
+    homePage.classList.remove("shown");
     recipeDetailPage.classList.remove("shown");
     userInfoPage.classList.remove("shown");
     createRecipePage.classList.remove("shown");
@@ -168,9 +171,7 @@ export function redirectRecipeDetail(recipeObj) {
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
         editRecipePage.classList.remove("shown");
-        // while (recipeDetailPage.firstChild) {
-        //     recipeDetailPage.removeChild(recipeDetailPage.firstChild);
-        // }
+        landingPage.classList.remove("shown");
         recipeDetailPage.data = recipeObj;
         // console.log(recipeDetailPage.data)
         fillOutRecipe(recipeObj)
@@ -205,6 +206,7 @@ export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
             userInfoPage.classList.remove("shown");
             createRecipePage.classList.remove("shown");
             editRecipePage.classList.add("shown");
+            landingPage.classList.remove("shown");
             populateEditPage(recipeObj)
         })
     }
@@ -214,6 +216,7 @@ export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.add("shown");
         editRecipePage.classList.remove("shown");
+        landingPage.classList.remove("shown");
         setupCreatePage()
     })
 }
@@ -229,7 +232,9 @@ export function routerAddEditPage(pageName, recipeObj) {
         recipeDetailPage.classList.remove("shown");
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
+        landingPage.classList.remove("shown");
         editRecipePage.classList.add("shown");
+
         populateEditPage(recipeObj)
     })
 }
@@ -249,6 +254,7 @@ export function bindUserProfile(profile) {
         recipeDetailPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
         editRecipePage.classList.remove("shown");
+        landingPage.classList.remove("shown");
         userInfoPage.classList.add("shown");
         userInfoPage.data = profile
         // TODO: populate user data in userInfo page 
@@ -266,12 +272,6 @@ export function bindUserProfile(profile) {
  * it is clicked, the home page is returned to
  */
 export function bindEscKey() {
-    /**
-     * TODO - Part 1 Step 5
-     * For this step, add an event listener to document for the 'keydown' event,
-     * if the escape key is pressed, use your router to navigate() to the 'home'
-     * page. This will let us go back to the home page from the detailed page.
-     */
     document.addEventListener('keydown', function (e) {
         if (e.key == "Escape") {
             router.navigate("home", false);
@@ -282,22 +282,9 @@ export function bindEscKey() {
 /**
  * Binds the 'popstate' event on the window (which fires when the back &
  * forward buttons are pressed) so the navigation will continue to work 
- * as expected. (Hint - you should be passing in which page you are on
- * in your Router when you push your state so you can access that page
- * info in your popstate function)
+ * as expected. 
  */
 export function bindPopstate() {
-    /**
-     * TODO - Part 1 Step 6
-     * Finally, add an event listener to the window object for the 'popstate'
-     * event - this fires when the forward or back buttons are pressed in a browser.
-     * If your event has a state object that you passed in, navigate to that page,
-     * otherwise navigate to 'home'.
-     * 
-     * IMPORTANT: Pass in the boolean true as the second argument in navigate() here
-     * so your navigate() function does not add your going back action to the history,
-     * creating an infinite loop
-     */
     window.addEventListener('popstate', (event) => {
         if (event.state) {
             router.navigate(event.state.page, true);

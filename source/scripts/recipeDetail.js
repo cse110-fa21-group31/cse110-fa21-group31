@@ -22,8 +22,20 @@ export async function populateRecipeDetail() {
 */
 
 export async function fillOutRecipe(data) {
+    if (!data) return
     document.getElementById("recipeTitle").innerHTML = data.name;
-    if (data.tags) document.getElementById("tags").innerHTML = data.tags;
+    if (data.tags) {
+        let tagList = document.getElementById("tags");
+        for (let i = 0; i < data.tags.length; i++) {
+            let item = document.createElement("li");
+            tagList.appendChild(item);
+            item.innerHTML = data.tags[i];
+            /*
+            console.log("Ingredient: " + ingredient);
+            ingredientsHTML.innerHTML += ingredient + ": " + data.ingredients[ingredient] + "\n";
+            */
+        }
+    }
     // TODO: fix condition after fixing image upload issue
     const image = (data.image == null || typeof data.image == "object" || data.image == "")
         ? "./source/assets/Images/recipeCardPlaceholder.png" : data.image;
@@ -34,10 +46,35 @@ export async function fillOutRecipe(data) {
     // Now rendering username rather than user id
     if (data.author && data.author.username) document.getElementById("author").innerHTML = data.author.username;
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
-    if (data.ingredients) document.getElementById("ingredients").innerHTML = data.ingredients;
-    document.getElementById("steps").innerHTML = data.steps;
-    //TODO: disqus integration
-    // const disqusDiv = 
+    if (data.ingredients) {
+        console.log("Ingredients object: " + data.ingredients);
+        let ingredientsList = document.getElementById("ingr");
+        //clear old ingredients
+        while (ingredientsList.firstChild) {
+            ingredientsList.removeChild(ingredientsList.firstChild);
+        }
+        for (let ingredient in data.ingredients) {
+            let item = document.createElement("li");
+            ingredientsList.appendChild(item);
+            item.innerHTML = ingredient + ": " + data.ingredients[ingredient];
+            /*
+            console.log("Ingredient: " + ingredient);
+            ingredientsHTML.innerHTML += ingredient + ": " + data.ingredients[ingredient] + "\n";
+            */
+        }
+    }
+    //clear old steps
+    let stepsList = document.getElementById("stps");
+    while (stepsList.firstChild) {
+        stepsList.removeChild(stepsList.firstChild);
+    }
+    for (let i = 0; i < data.steps.length; i++) {
+        let item = document.createElement("li");
+        stepsList.appendChild(item);
+        item.innerHTML = data.steps[i];
+    }
+
+    //document.getElementById("steps").innerHTML = data.steps;
     const editRecipeButton = document.getElementById('editRecipeButton')
     const delRecipeButton = document.getElementById('deleteRecipeButton')
     const page = data._id;
@@ -53,56 +90,56 @@ export async function fillOutRecipe(data) {
         deleteRecipe(data._id)
         routerNavigateWrapper(home)
     })
-    /** 
-    
-    */
+}
+/** 
+ 
+*/
 
-    /** 
-    document.getElementById("dateOfCreation").innerHTML = searchForKey(
-        data,
-        "datePublished"
-    ).split("T")[0];
+/** 
+document.getElementById("dateOfCreation").innerHTML = searchForKey(
+    data,
+    "datePublished"
+).split("T")[0];
 
-    const tagss = getCategories(data).split(",");
-    tagss.forEach((tag) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = tag;
-        document.getElementById("tags").append(listItem);
-    });
+const tagss = getCategories(data).split(",");
+tagss.forEach((tag) => {
+    const listItem = document.createElement("li");
+    listItem.innerHTML = tag;
+    document.getElementById("tags").append(listItem);
+});
 
-    const ingredients = getIngredients(data);
-    ingredients.forEach((ingredient) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = ingredient;
-        document.getElementById("ingredients").append(listItem);
-    });
+const ingredients = getIngredients(data);
+ingredients.forEach((ingredient) => {
+    const listItem = document.createElement("li");
+    listItem.innerHTML = ingredient;
+    document.getElementById("ingredients").append(listItem);
+});
 
-    const instructions = getInstructions(data);
-    instructions.forEach((instruction) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = instruction;
-        document.getElementById("steps").append(listItem);
-    });
-    */
-    function convertTime(time) {
-        let timeStr = '';
+const instructions = getInstructions(data);
+instructions.forEach((instruction) => {
+    const listItem = document.createElement("li");
+    listItem.innerHTML = instruction;
+    document.getElementById("steps").append(listItem);
+});
+*/
+function convertTime(time) {
+    let timeStr = '';
 
-        // Remove the 'PT'
-        time = time.slice(2);
+    // Remove the 'PT'
+    time = time.slice(2);
 
-        let timeArr = time.split('');
-        if (time.includes('H')) {
-            for (let i = 0; i < timeArr.length; i++) {
-                if (timeArr[i] == 'H') return `${timeStr} hr`;
-                timeStr += timeArr[i];
-            }
-        } else {
-            for (let i = 0; i < timeArr.length; i++) {
-                if (timeArr[i] == 'M') return `${timeStr} min`;
-                timeStr += timeArr[i];
-            }
+    let timeArr = time.split('');
+    if (time.includes('H')) {
+        for (let i = 0; i < timeArr.length; i++) {
+            if (timeArr[i] == 'H') return `${timeStr} hr`;
+            timeStr += timeArr[i];
         }
-
-        return '';
+    } else {
+        for (let i = 0; i < timeArr.length; i++) {
+            if (timeArr[i] == 'M') return `${timeStr} min`;
+            timeStr += timeArr[i];
+        }
     }
+
+    return '';
 }
