@@ -1,7 +1,18 @@
 .tagsList {
-    display:hidden;
+    display: hidden;
 }
 
+.hidden {
+    display: none;
+}
+
+.show {
+    display: inline;
+}
+
+section:not(section.shown) {
+    display: none;
+}
 
 /*************************
     Search Tag Stylings

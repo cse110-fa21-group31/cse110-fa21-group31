@@ -9,6 +9,9 @@ import { createRecipeCards } from "./index.js";
 let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
 let selectedTags = [];
 
+let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
+let selectedTags = [];
+
 /**
  * initializes search functionality through the frontend
  */

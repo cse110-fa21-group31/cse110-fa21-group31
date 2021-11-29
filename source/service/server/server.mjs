@@ -66,10 +66,7 @@ fastify.post("/api", async (request, reply) => {
 });
 
 fastify.put("/api", async (request, reply) => {
-    // console.log(request.body)
     let body = JSON.parse(request.body)
-    // console.log(body)
-
     if (!body.name ||
         !body.author ||
         !body.steps ||

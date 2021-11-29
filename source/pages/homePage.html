@@ -19,12 +19,20 @@
         h1 {
             line-height: 0px;
         }
+
+        .searchBar {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 10px;
+            margin-left: 60px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="header">
-        <!-- imported from navBarWithGoogle.js -->
+    <div class="navBar">
+        <iframe src="/source/cards/navBar.html"
+            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
     </div>
     <div class="searchBarHomePage">
         <form class="searchItems" class="formItem" action='source/scripts/indexSearch.js' id="searchBarFormHomepage"> 
@@ -41,11 +49,42 @@
             <input type="submit" value="Submit" id="submitButton">
         </div>
     </div>
-    <div class="myRecipeCardGridContainer"> </div>
+    <div class="myRecipeCardGridContainer">
 
-    <div class="tagsSearchContainer">
-        <input type="button" id="addTagButton" value="Add Tags">
     </div>
-    <div class="myRecipeCardGridContainer"> </div>
+    </div>
+    <!-- <div class="myRecipeCardGridContainer">
+        <recipeCard>
+            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+            <p> Title </p>
+            <customTags> Beef, Easy, Entree </customTags>
+        </recipeCard>
+        <recipeCard>
+            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+            <p> Title </p>
+            <customTags> Beef, Easy, Entree </customTags>
+        </recipeCard>
+        <recipeCard>
+            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+            <p> Title </p>
+            <customTags> Beef, Easy, Entree </customTags>
+        </recipeCard>
+        <recipeCard>
+            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+            <p> Title </p>
+            <customTags> Beef, Easy, Entree </customTags>
+        </recipeCard>
+        <recipeCard>
+            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+            <p> Title </p>
+            <customTags> Beef, Easy, Entree </customTags>
+        </recipeCard>
+        <recipeCard>
+            <img id="profile" src="../assets/profile.png" width=40 height=40 />
+            <p> Title </p>
+            <customTags> Beef, Easy, Entree </customTags>
+        </recipeCard>
+    </div> -->
+</body>
 
 </html>
