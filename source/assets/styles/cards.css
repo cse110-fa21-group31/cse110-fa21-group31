@@ -64,7 +64,7 @@
     border: 3px white solid;
 }
 
-#profileWrapper, .g-signin2 {
+#profileWrapper, .gSignin2 {
     overflow: hidden;
     display: grid;
     margin-right: 4rem;
