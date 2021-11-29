@@ -53,7 +53,6 @@ const generateRandomRecipe = () => {
     randomRecipe.description =
         "Random Description " + Math.floor(Math.random() * 100);
     randomRecipe.difficulty = Math.floor(Math.random() * 5);
-    randomRecipe._id = crypto.randomUUID();
 
     return randomRecipe;
 };
