@@ -108,7 +108,6 @@ jobs:
   formatting:
 
     runs-on: ubuntu-latest
-    needs: lint
 
     steps:
       - name: Checkout Code
@@ -182,7 +181,7 @@ jobs:
     # To apply changes to the codebase
     runs-on: ubuntu-latest
 
-    needs: formatting
+    needs: [ formatting, lint ]
 
     steps:
 

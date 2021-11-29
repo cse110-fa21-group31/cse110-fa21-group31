@@ -33,24 +33,4 @@ describe("Cypress Pipeline v2", () => {
         cy.get("#editRecipe").should("be.visible");
         cy.get("#editRecipeForm").should("be.visible");
     });
-
-    // Spoof Google's API (gapi) and log in as a fake user.
-    // To do this, construct a fake gapi object and use it to
-    // mock out the gapi.auth2.getAuthInstance() call.
-    /*
-        const profile = {
-            username: googleUser.getBasicProfile().getName(),
-            imageURL: googleUser.getBasicProfile().getImageUrl(),
-            email: googleUser.getBasicProfile().getEmail(),
-            _id: "MMAfv3oCQDiL4u10",
-            savedRecipe: ["VZsAA6HuzytdIQT2"],
-            myRecipe: ["AJlpmnCbp6gry18v", "uYaCV6U4XGfQHYg2"],
-        };
-    */
-    /*
-        Should spoof the following methods:
-        googleUser.getBasicProfile().getName(),
-        googleUser.getBasicProfile().getImageUrl(),
-        googleUser.getBasicProfile().getEmail(),
-    */
 });
