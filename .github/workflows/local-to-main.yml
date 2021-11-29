@@ -105,11 +105,15 @@ jobs:
       - name: Fix format
         run: npm run prettier
       - name: Publish fixes to the pull request branch
-        uses: mikeal/publish-to-github-action@1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # make sure the fixes only get applied to our current branch
-          BRANCH_NAME: ${GITHUB_REF##*/}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automated Change from Prettier
+          commit_user_name: Automated Prettier Action
+        # uses: mikeal/publish-to-github-action@1.0.0
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #   make sure the fixes only get applied to our current branch
+        #   BRANCH_NAME: ${GITHUB_REF##*/}
 
   codacy-job:
     # For linting, formatting, and quality evaluation of code.
@@ -141,10 +145,10 @@ jobs:
     - name: Codacy Analysis CLI
       uses: codacy/codacy-analysis-cli-action@4.0.0
       with:
-        # fail-if-incomplete: true
+        fail-if-incomplete: true
         max-allowed-issues: 0
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        run-docker-tools: false
+        run-docker-tools: true
         verbose: true
         upload: true
   

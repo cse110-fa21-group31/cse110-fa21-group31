@@ -210,7 +210,7 @@ function createNavBarWithGoogle() {
     navSignIn.id = SIGN_IN_BUTTON_ID;
 
     let signInButton = document.createElement(HTML_ELE_DIV);
-    signInButton.className = "g-signin2";
+    signInButton.className = "gSignin2";
     signInButton.setAttribute("data-onsuccess", "onSignIn");
     navSignIn.appendChild(signInButton);
 

@@ -1,117 +1,113 @@
 /* Header */
 #navbar {
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #4E598C;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #4e598c;
 }
 
 #navList {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    width: 100%;
-    font-family: 'OpenSans', sans-serif;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  font-family: OpenSans, sans-serif;
 }
 
 .logo {
-    display: block;
-    color: #FF8C42;
-    font-family: 'Rammetto One', cursive;
-    font-weight: bold;
-    font-size: 1rem;
-    padding: 1.5rem;
-    text-align: center;
-    line-height: 100%;
-    text-decoration: none;
-}
-
-#navList li .logo:hover {
-    color: #F9C784;
+  display: block;
+  color: #ff8c42;
+  font-family: "Rammetto One", cursive;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  line-height: 100%;
+  text-decoration: none;
 }
 
 #signInButton {
-    padding-top: 1rem;
+  padding-top: 1rem;
 }
 
 #signOutButton {
-    display: none;
-    font-size: 1rem;
-    margin-right: 0px;
-    border: 0.3rem solid #FCAF58;
-    border-radius: 0.3rem;
-    background-color: #FCAF58;
-    display:inline;
+  font-size: 1rem;
+  margin-right: 0;
+  border: 0.3rem solid #fcaf58;
+  border-radius: 0.3rem;
+  background-color: #fcaf58;
+  display: inline;
 }
 
 #signOutButton > a {
-    margin-right: 0px;
-    text-decoration: none;
-    color: white;
+  margin-right: 0;
+  text-decoration: none;
+  color: white;
 }
 
 #profile {
-    display: block;
-    height: 100%;
+  display: block;
+  height: 100%;
 }
 
 .profileImage {
-    max-width: 70%;
-    height: auto;
-    border-radius: 50%;
-    border: 3px white solid;
+  max-width: 70%;
+  height: auto;
+  border-radius: 50%;
+  border: 3px white solid;
 }
 
-#profileWrapper, .g-signin2 {
-    overflow: hidden;
-    display: grid;
-    margin-right: 4rem;
-    align-items: center;
-    text-align: center;
-    padding-top:1rem;
-    padding-bottom:1rem;
+#profileWrapper,
+.gSignin2 {
+  overflow: hidden;
+  display: grid;
+  margin-right: 4rem;
+  align-items: center;
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 #navList li:nth-child(1) {
-    float: left;
-  }
+  float: left;
+}
 
-#navList li:nth-child(n+2){
-    float: right;
+#navList li:nth-child(n+2) {
+  float: right;
 }
 
 #navList li .logo:hover {
-    color: #F9C784;
+  color: #f9c784;
 }
 
 /* Footer */
-a.footerCopyright{
-    font-size: 50%
+a.footerCopyright {
+  font-size: 50%;
 }
 
 ul.footer {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #4E598C;
-    width: 100%;
-    font-family: 'OpenSans', sans-serif;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #4e598c;
+  width: 100%;
+  font-family: "OpenSans", sans-serif;
 }
 
 ul.footer > li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 10px 10px;
-    text-decoration: none;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
 }
 
 ul.footer > li a.logo {
-    border-right: 1px solid #bbb;
-    border-left: 1px solid #bbb;
-    color: #FF8C42;
-    font-family: 'Rammetto One', cursive;
-    font-weight: bold;
+  border-right: 1px solid #bbb;
+  border-left: 1px solid #bbb;
+  color: #ff8c42;
+  font-family: "Rammetto One", cursive;
+  font-weight: bold;
 }
