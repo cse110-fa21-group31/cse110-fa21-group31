@@ -28,9 +28,11 @@
         <article>
             <pre class="prettyprint source linenums"><code>// import RecipeClass from "./recipeClass";
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
-export default {createRecipeCards, redirectRecipeDetail, bindRecipeCard, 
-routerAddCreatePage, routerAddEditPage, routerNavigateWrapper,
-bindUserProfile, bindEscKey, bindPopstate, setGlobalUserData, clearGlobalUserData}
+export default {
+    createRecipeCards, redirectRecipeDetail, bindRecipeCard,
+    routerAddCreatePage, routerAddEditPage, routerNavigateWrapper,
+    bindUserProfile, bindEscKey, bindPopstate, setGlobalUserData, clearGlobalUserData
+}
 // RecipeExpand.js
 if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", init);
@@ -46,7 +48,8 @@ import { fillOutRecipe } from './recipeDetail.js'
 import { populateUserInfoPage } from './userInfo.js'
 import { setupCreatePage } from './createPage.js'
 import { populateEditPage } from './editPage.js'
-let recipeData = [];
+import { setupDisqusScript } from './disqus.js';
+var recipeData = [];
 const NumRecipePerPage = 6
 const currPage = 1
 export var userData = null;
@@ -60,12 +63,12 @@ let landingPage = null; // = document.getElementById('landingPage')
 
 if (typeof window === 'object') {
     if (typeof window.document === 'object') {
-       homePage = document.getElementById('homePage');
-       recipeDetailPage = document.getElementById('recipeDetail');
-       userInfoPage = document.getElementById('userInfo');
-       createRecipePage = document.getElementById('createRecipe');
-       editRecipePage = document.getElementById('editRecipe');
-       landingPage = document.getElementById('landingPage');
+        homePage = document.getElementById('homePage');
+        recipeDetailPage = document.getElementById('recipeDetail');
+        userInfoPage = document.getElementById('userInfo');
+        createRecipePage = document.getElementById('createRecipe');
+        editRecipePage = document.getElementById('editRecipe');
+        landingPage = document.getElementById('landingPage');
     }
 }
 
@@ -160,20 +163,23 @@ export function createRecipeCards() {
         .then(gridContainer => {
             while (gridContainer.firstChild) {
                 gridContainer.removeChild(gridContainer.firstChild);
-            }
+            } // for each recipe object, create recipe card and link the router
             recipeData.forEach(recipeObj => {
                 if (!recipeObj) return
+                //create the recipe card
                 const recipeCard = document.createElement('recipe-card');
-                // console.log("Created recipe-card");
-                recipeCard.data = recipeObj;
-                // console.log(recipeCard.data);
+                recipeCard.data = recipeObj
+                //create the recipeDetail page for this card and linked it to the router
                 redirectRecipeDetail(recipeObj)
                 // click event
                 const page = recipeObj._id;
                 const routeUrl = RECIPE_ROUTE + page
+                //when this card is clicked, redirect to the recipeDetail page
                 recipeCard.addEventListener('click', e => {
                     // if (e.path[0].nodeName == 'A') return;
                     router.navigate(routeUrl);
+                    const disqusScript = document.getElementById('disqus_script');
+                    disqusScript.onload = setupDisqusScript(recipeObj._id)
                 });
                 gridContainer.appendChild(recipeCard);
             })
@@ -197,6 +203,8 @@ export function redirectRecipeDetail(recipeObj) {
         recipeDetailPage.data = recipeObj;
         // console.log(recipeDetailPage.data)
         fillOutRecipe(recipeObj)
+        // const disqusScript = document.getElementById('disqus_script');
+        // disqusScript.onload = setupDisqusScript(recipeObj._id)
     });
 }
 /**
@@ -254,7 +262,7 @@ export function routerAddEditPage(pageName, recipeObj) {
         createRecipePage.classList.remove("shown");
         landingPage.classList.remove("shown");
         editRecipePage.classList.add("shown");
-        
+
         populateEditPage(recipeObj)
     })
 }
@@ -338,13 +346,13 @@ export function clearGlobalUserData() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#convertTime">convertTime</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 19:16:07 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 19:28:57 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
