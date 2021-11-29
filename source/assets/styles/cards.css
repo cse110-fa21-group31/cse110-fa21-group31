@@ -1,17 +1,94 @@
-/* Footer */
-
-a.footerCopyright {
-    font-size: 50%
+/* Header */
+#navbar {
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #4E598C;
 }
 
+#navList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    font-family: 'OpenSans', sans-serif;
+}
 
-/* .topRight > li a {
+.logo {
     display: block;
-    color: white;
+    color: #FF8C42;
+    font-family: 'Rammetto One', cursive;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 1.5rem;
     text-align: center;
-    padding: 10px 10px;
+    line-height: 100%;
     text-decoration: none;
-} */
+}
+
+#navList li .logo:hover {
+    color: #F9C784;
+}
+
+#signInButton {
+    padding-top: 1rem;
+}
+
+#signOutButton {
+    display: none;
+    font-size: 1rem;
+    margin-right: 0px;
+    border: 0.3rem solid #FCAF58;
+    border-radius: 0.3rem;
+    background-color: #FCAF58;
+    display:inline;
+}
+
+#signOutButton > a {
+    margin-right: 0px;
+    text-decoration: none;
+    color: white;
+}
+
+#profile {
+    display: block;
+    height: 100%;
+}
+
+.profileImage {
+    max-width: 70%;
+    height: auto;
+    border-radius: 50%;
+    border: 3px white solid;
+}
+
+#profileWrapper, .g-signin2 {
+    overflow: hidden;
+    display: grid;
+    margin-right: 4rem;
+    align-items: center;
+    text-align: center;
+    padding-top:1rem;
+    padding-bottom:1rem;
+}
+
+#navList li:nth-child(1) {
+    float: left;
+  }
+
+#navList li:nth-child(n+2){
+    float: right;
+}
+
+#navList li .logo:hover {
+    color: #F9C784;
+}
+
+/* Footer */
+a.footerCopyright{
+    font-size: 50%
+}
 
 ul.footer {
     list-style-type: none;
@@ -19,13 +96,11 @@ ul.footer {
     padding: 0;
     overflow: hidden;
     background-color: #4E598C;
-    /* position: fixed; */
-    /* top: 0; */
     width: 100%;
     font-family: 'OpenSans', sans-serif;
 }
 
-ul.footer>li a {
+ul.footer > li a {
     display: block;
     color: white;
     text-align: center;
@@ -33,59 +108,10 @@ ul.footer>li a {
     text-decoration: none;
 }
 
-ul.footer>li a.logo {
+ul.footer > li a.logo {
     border-right: 1px solid #bbb;
     border-left: 1px solid #bbb;
     color: #FF8C42;
     font-family: 'Rammetto One', cursive;
     font-weight: bold;
-}
-
-
-/* Nav bar */
-
-ul.topRight {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #4E598C;
-    /* position: fixed; */
-    /* top: 0; */
-    width: 100%;
-    border-left: 1px solid #bbb;
-    font-family: 'OpenSans', sans-serif;
-}
-
-li a.loginSignup {
-    float: right;
-    font-family: 'OpenSans', sans-serif;
-    border: 1px solid #FFFFFF;
-    border-radius: 25px;
-    margin-right: 20px;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 16px 18px;
-    text-decoration: none;
-}
-
-ul.topRight>li a.logo {
-    float: left;
-    color: #FF8C42;
-    font-family: 'Rammetto One', cursive;
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    padding: 16px 18px;
-    text-decoration: none;
-    list-style-type: none;
-}
-
-li a.loginSignup:hover {
-    background-color: #F9C784;
-}
-
-ul.topRight>li a.logo:hover {
-    color: #F9C784;
 }

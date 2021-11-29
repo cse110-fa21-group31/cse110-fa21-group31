@@ -9,6 +9,10 @@ export const RECIPE_ROUTE = "recipe/";
 export const USER_ROUTE = "user/";
 export const EDIT_CREATE_ROUTE = "editcreate/";
 // TODO: change editcreate route name
+<<<<<<< HEAD
 export const TEMP_EDIT_CREATE_ROUTE = "tempedit/";
 export const RECIPE_DB_PATH = "source/service/.data/recipes";
 export const TEST_RECIPE_DB_PATH = "source/service/.data/testrecipes";
+=======
+export const TEMP_EDIT_CREATE_ROUTE = "tempedit/"
+>>>>>>> 5bebf076f09f6cf1112f8ab2f09dea6d07c02f6b
