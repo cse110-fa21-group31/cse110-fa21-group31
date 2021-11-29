@@ -19,7 +19,27 @@ jobs:
   #   - name: Start server
   #     run: npm start
 
-  testing-job:
+  e2e-testing:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        # cache: 'npm'
+
+    - run: npm ci
+    - run: npm run build --if-present
+  
+    # unit testing
+    - name: Run Unit/Jest test
+      run: npm run unittest
+
+  unit-testing:
     # For unit and end to end testing
     runs-on: ubuntu-latest
     
@@ -36,10 +56,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
 
-    # unit and End to end testing
-    - name: Run Unit/Jest test
-      run: npm run unittest
-
+    # e2e testing
     - name: Run Cypress test
       uses: cypress-io/github-action@v2.9.7
       with:
