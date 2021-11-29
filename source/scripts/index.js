@@ -1,8 +1,10 @@
 // import RecipeClass from "./recipeClass";
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
-export default {createRecipeCards, redirectRecipeDetail, bindRecipeCard, 
-routerAddCreatePage, routerAddEditPage, routerNavigateWrapper,
-bindUserProfile, bindEscKey, bindPopstate, setGlobalUserData, clearGlobalUserData}
+export default {
+    createRecipeCards, redirectRecipeDetail, bindRecipeCard,
+    routerAddCreatePage, routerAddEditPage, routerNavigateWrapper,
+    bindUserProfile, bindEscKey, bindPopstate, setGlobalUserData, clearGlobalUserData
+}
 // RecipeExpand.js
 if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", init);
@@ -18,6 +20,7 @@ import { fillOutRecipe } from './recipeDetail.js'
 import { populateUserInfoPage } from './userInfo.js'
 import { setupCreatePage } from './createPage.js'
 import { populateEditPage } from './editPage.js'
+import { setupDisqusScript } from './disqus.js';
 var recipeData = [];
 const NumRecipePerPage = 6
 const currPage = 1
@@ -31,11 +34,11 @@ let editRecipePage = null; // = document.getElementById('editRecipe')
 
 if (typeof window === 'object') {
     if (typeof window.document === 'object') {
-       homePage = document.getElementById('homePage')
-       recipeDetailPage = document.getElementById('recipeDetail')
-       userInfoPage = document.getElementById('userInfo')
-       createRecipePage = document.getElementById('createRecipe')
-       editRecipePage = document.getElementById('editRecipe')
+        homePage = document.getElementById('homePage')
+        recipeDetailPage = document.getElementById('recipeDetail')
+        userInfoPage = document.getElementById('userInfo')
+        createRecipePage = document.getElementById('createRecipe')
+        editRecipePage = document.getElementById('editRecipe')
     }
 }
 
@@ -129,20 +132,23 @@ export function createRecipeCards() {
         .then(gridContainer => {
             while (gridContainer.firstChild) {
                 gridContainer.removeChild(gridContainer.firstChild);
-            }
+            } // for each recipe object, create recipe card and link the router
             recipeData.forEach(recipeObj => {
                 if (!recipeObj) return
+                //create the recipe card
                 const recipeCard = document.createElement('recipe-card');
-                // console.log("Created recipe-card");
-                recipeCard.data = recipeObj;
-                // console.log(recipeCard.data);
+                recipeCard.data = recipeObj
+                //create the recipeDetail page for this card and linked it to the router
                 redirectRecipeDetail(recipeObj)
                 // click event
                 const page = recipeObj._id;
                 const routeUrl = RECIPE_ROUTE + page
+                //when this card is clicked, redirect to the recipeDetail page
                 recipeCard.addEventListener('click', e => {
                     // if (e.path[0].nodeName == 'A') return;
                     router.navigate(routeUrl);
+                    const disqusScript = document.getElementById('disqus_script');
+                    disqusScript.onload = setupDisqusScript(recipeObj._id)
                 });
                 gridContainer.appendChild(recipeCard);
             })
@@ -162,9 +168,14 @@ export function redirectRecipeDetail(recipeObj) {
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
         editRecipePage.classList.remove("shown");
+        // while (recipeDetailPage.firstChild) {
+        //     recipeDetailPage.removeChild(recipeDetailPage.firstChild);
+        // }
         recipeDetailPage.data = recipeObj;
         // console.log(recipeDetailPage.data)
         fillOutRecipe(recipeObj)
+        // const disqusScript = document.getElementById('disqus_script');
+        // disqusScript.onload = setupDisqusScript(recipeObj._id)
     });
 }
 /**
