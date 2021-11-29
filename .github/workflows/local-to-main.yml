@@ -99,6 +99,16 @@ jobs:
       # the option of having Prettier auto fix it all
       - name: Fix format
         run: npm run prettier
+      # This only says which files have formatting problems. We also have
+      # the option of having Prettier auto fix it all
+      - name: Fix format
+        run: npm run prettier
+      - name: Publish fixes to the pull request branch
+        uses: mikeal/publish-to-github-action@1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # make sure the fixes only get applied to our current branch
+          BRANCH_NAME: ${GITHUB_REF##*/}
 
   codacy-job:
     # For linting, formatting, and quality evaluation of code.
