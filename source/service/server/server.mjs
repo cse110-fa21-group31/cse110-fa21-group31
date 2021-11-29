@@ -85,12 +85,6 @@ fastify.put("/api", async (request, reply) => {
     }
 });
 
-fastify.get('/api/search', async (request, reply) => {
-    console.log("In server search:");
-    console.log(request.query);
-    let data = await getRecipesByNameAndTags(request.query, recipeDB);
-    reply.status(200).send(data);
-});
 
 fastify.delete('/api', async (request, reply) => {
     let id = request.query.id;

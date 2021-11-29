@@ -185,7 +185,7 @@ export async function convertUserIdToObj(recipes) {
 function getFilterFromQuery(query){
     let filter = {}
     if (query.ids){
-        let ids = idsString.split(",");
+        let ids = query.ids.split(",");
         filter = { _id: { $in: ids }};
     }
     else {

@@ -175,7 +175,7 @@ export async function deleteSavedRecipeById(userId, recipeId) {
 }
 
 export async function getPageCount(queryURL){
-    queryURL = queryURL + "&counts";
+    queryURL = queryURL + "&counts=1";
     let response = await fetch(queryURL, {
         method: 'GET',
     })
