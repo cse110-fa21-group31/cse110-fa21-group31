@@ -1,6 +1,6 @@
 import { API_URL, USER_URL } from "./util.js";
-export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
-    updateRecipeById, submitSearch}
+export default { insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
+    updateRecipeById, submitSearch }
 /**
  * 
  * want the return json object from server:
@@ -104,11 +104,14 @@ export async function updateRecipeById(id, update) {
  * @returns {Array<recipe>} the recipes returned by the search engine
  */
 export async function submitSearch(keywords, tags, page) {
-    let query = "?name=" + keywords;
+    let query = "?";
+    if (keywords) {
+        query = query + "name=" + keywords;
+    }
     if (tags) {
         query = query + '&' + "tags=" + tags.join(",");
     }
-    let queryURL = API_URL + query
+    let queryURL = API_URL + query;
     let searchResults = await fetchResults(queryURL, page);
     let pageCount = await getPageCount(queryURL);
     return {
@@ -171,6 +174,20 @@ export async function deleteSavedRecipeById(userId, recipeId) {
     return response
 }
 
+export async function getPageCount(queryURL){
+    queryURL = queryURL + "&counts";
+    let response = await fetch(queryURL, {
+        method: 'GET',
+    })
+        .then((response) => response.json())
+        .then(async (data) => {
+            return data;
+        })
+        .catch((err) => {
+            console.error('Error counting results: ' + err.message);
+        });
+    return response;
+}
 
 /****************** Internal functions ************************/
 
@@ -192,8 +209,4 @@ async function fetchResults(queryURL, page){
             console.error('Error finding recipes: ' + err.message);
         });
     return response;
-}
-
-async function getPageCount(queryURL){
-    return 1;
 }

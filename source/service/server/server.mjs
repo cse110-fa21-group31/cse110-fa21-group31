@@ -26,6 +26,7 @@ fastify.register(fstatic, {
 
 // const path = require('path')
 import Cors from 'fastify-cors';
+import { getPageCountByQuery } from "./interface.mjs";
 fastify.register(Cors, {
     origin: true,
     methods: ['GET', 'PUT', 'POST', 'DEL']
@@ -33,7 +34,14 @@ fastify.register(Cors, {
 const port = process.env.PORT || 3030;
 
 fastify.get("/api", async (request, reply) => {
-    if (request.query.id) {
+    console.log("In server get:");
+    console.log(request.query);
+    console.log(request.query.counts);
+    if(request.query.counts) {
+        reply.status(200)
+        .send(await getPageCountByQuery(request.query, recipeDB));
+    }
+    else if (request.query.id) {
         reply.status(200)
         .send(await getRecipeById(request.query.id, recipeDB));
     } 
@@ -44,7 +52,8 @@ fastify.get("/api", async (request, reply) => {
 });
 
 fastify.post("/api", async (request, reply) => {
-    let body = JSON.parse(request.body)
+    let body = JSON.parse(request.body);
+    console.log(body);
     if (!body.name || !body.author || !body.steps) {
         const err = new Error();
         err.statusCode = 400;
@@ -77,6 +86,8 @@ fastify.put("/api", async (request, reply) => {
 });
 
 fastify.get('/api/search', async (request, reply) => {
+    console.log("In server search:");
+    console.log(request.query);
     let data = await getRecipesByNameAndTags(request.query, recipeDB);
     reply.status(200).send(data);
 });

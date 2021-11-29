@@ -87,8 +87,20 @@ export async function getRecipesByQuery(query, recipeCollection) {
  */
  export async function getPageCountByQuery(query, recipeCollection) {
     let filter = getFilterFromQuery(query);
-    let numRecipes = await recipeCollection.countDocuments(filter);
-    return parseInt(numRecipes/CARDS_PER_PAGE + 1);
+    let numRecipes = await new Promise((resolve, reject) => {
+        recipeCollection.count(filter, function (err, doc) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                resolve(doc);
+            }
+        });
+    });
+    return {
+        results: numRecipes,
+        pages: parseInt(numRecipes/CARDS_PER_PAGE + 1)
+    };
 }
 
 
