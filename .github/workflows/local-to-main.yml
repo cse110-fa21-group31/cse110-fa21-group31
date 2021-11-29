@@ -11,9 +11,18 @@ on:
     branches: [ main ]
 
 jobs:
+
+  # cypress-server-start:
+  #   # we need to start up the server before running cypress
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Start server
+  #     run: npm start
+
   testing-job:
     # For unit and end to end testing
     runs-on: ubuntu-latest
+    needs: cypress-server-start
     
     steps:
     - name: Checkout branch
@@ -29,10 +38,15 @@ jobs:
     - run: npm run build --if-present
 
     # unit and End to end testing
-    - name: Run unit and Cypress tests
-      #run: npx cypress run
-      # uses: cypress-io/github-action@v2.9.7
-      run: npm run ci
+    - name: Run Unit/Jest test
+      run: npm jest
+
+    - name: Run Cypress test
+      run: npx cypress run
+      uses: cypress-io/github-action@v2.9.7
+      with:
+        start: npm start
+        config-file: cypress.json
 
   # linters and formatters are being done by Kian, omitted
 
