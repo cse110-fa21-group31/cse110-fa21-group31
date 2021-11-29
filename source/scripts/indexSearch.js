@@ -4,6 +4,7 @@ if (typeof window === 'object') {
 window.addEventListener("DOMContentLoaded", init);
 }
 import { submitSearch } from "./APICalls.js"
+import { createRecipeCards } from "./index.js";
 
 let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
 let selectedTags = [];
@@ -15,9 +16,9 @@ async function init() {
     let searchBar = document.querySelector("#searchBarHome");
     let searchButton = document.querySelector("#searchButtonHome");
     if (searchButton) {
-        searchButton.addEventListener("click", function () {
-            // TODO: Add a tags field to the search bar and make use of it
-            submitSearch(searchBar.value, selectedTags);
+        searchButton.addEventListener("click", async function () {
+            let searchResults = await submitSearch(searchBar.value, selectedTags);
+            createRecipeCards(searchResults);
         });
     }
 
