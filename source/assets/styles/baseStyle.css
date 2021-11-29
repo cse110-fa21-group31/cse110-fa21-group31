@@ -12,17 +12,13 @@ p {
   font-family: "Open Sans", sans-serif;
 }
 
-
-
 /*
 Landing Background
 */
 
 .landingHeader {
-    width: 0%;
+  width: 0%;
 }
-
-
 
 /*
 Search Bar
@@ -56,7 +52,7 @@ Search Bar
 }
 
 .searchBarHomepage {
-    /* margin-left: 60px; 
+  /* margin-left: 60px;
     display:inline-flex;
     width: 100%;
     text-align: center;
@@ -79,18 +75,18 @@ Search Bar
 }
 
 div.searchBarHomepage > img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .formItems {
-    font-family: 'Open Sans', sans-serif;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color:transparent;
-    width: 50%;
+  font-family: "Open Sans", sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  width: 50%;
 }
 
 /* .searchIcon {
@@ -100,7 +96,7 @@ div.searchBarHomepage > img {
     width: 14px;
 } */
 
-/* 
+/*
 Tags
  */
 ul.tagsList {
