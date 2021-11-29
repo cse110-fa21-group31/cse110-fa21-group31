@@ -19,7 +19,7 @@ jobs:
   #   - name: Start server
   #     run: npm start
 
-  e2e-testing:
+  unit-testing:
     runs-on: ubuntu-latest
     
     steps:
@@ -39,8 +39,7 @@ jobs:
     - name: Run Unit/Jest test
       run: npm run unittest
 
-  unit-testing:
-    # For unit and end to end testing
+  e2e-testing:
     runs-on: ubuntu-latest
     
     steps:
@@ -55,6 +54,14 @@ jobs:
 
     - run: npm ci
     - run: npm run build --if-present
+
+    # Google testing OAuth
+    - run: export CYPRESS_REACT_APP_GOOGLE_CLIENTID=540165433279-spiffkj5356cn57keeho8tc66clhpd92.apps.googleusercontent.com
+    - run: export CYPRESS_REACT_APP_GOOGLE_CLIENT_SECRET=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
+    - run: export CYPRESS_GOOGLE_REFRESH_TOKEN=1//04_bv_0JkeoVdCgYIARAAGAQSNwF-L9IrSyN-Zcfji83hFc63QnpezDC8a_1Tg6W3171wwdJ4BXXi0ZCDKWFLZ_u9BSR2C_xm52g
+    - run: export cypress_googleRefreshToken=540165433279-spiffkj5356cn57keeho8tc66clhpd92.apps.googleusercontent.com
+    - run: export cypress_googleClientId=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
+    - run: export cypress_googleClientSecret=1//04_bv_0JkeoVdCgYIARAAGAQSNwF-L9IrSyN-Zcfji83hFc63QnpezDC8a_1Tg6W3171wwdJ4BXXi0ZCDKWFLZ_u9BSR2C_xm52g
 
     # e2e testing
     - name: Run Cypress test

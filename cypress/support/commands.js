@@ -25,6 +25,14 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add("loginByGoogleApi", () => {
     cy.log("Logging in to Google");
+
+    console.log(Cypress.env("googleClientId"));
+    console.log(Cypress.env("googleClientSecret"));
+    console.log(Cypress.env("googleRefreshToken"));
+    cy.log("client:"+Cypress.env("googleClientId"));
+    cy.log("secret:"+Cypress.env("googleClientSecret"));
+    cy.log("token:"+Cypress.env("googleRefreshToken"));
+    
     cy.request({
         method: "POST",
         url: "https://www.googleapis.com/oauth2/v4/token",
