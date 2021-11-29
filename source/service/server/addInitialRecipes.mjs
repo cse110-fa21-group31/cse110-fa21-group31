@@ -438,54 +438,157 @@ let sarahRecipe9 = {
 };
 
 let sarahRecipe10 = {
-    "name": "Roasted Asparagus",
+    "name": "Blueberry Oatmeal Squares",
     "author": "MMAfv3oCQDiL4u10",
-    "description": "Enjoy it!!",
+    "description": "Enjoy the breakfast",
     "datePosted": 1638172867145,
-    "servingSize": 4,
-    "imageURL": "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg",
-    "tags": ["dinner", "Easy"],
-    "cookTime": "25 mins",
+    "servingSize": 2,
+    "imageURL": "https://www.averiecooks.com/wp-content/uploads/2015/02/blueberrycrumblebarstext.jpg",
+    "tags": ["Breakfast", "Easy"],
+    "cookTime": "60mins",
     "difficulty": "2 star",
 
     "ingredients": [
         {
-            "asparagus": 1
+            "rolled oats, (not instant)": 2.5
         },
         {
-            "olive oil": 2
+            "all-purpose flour": 1
         },
         {
-            "kosher salt": 1
+            "grated orange rind": 1
+        },
+        {
+            "salt": 1
+        },
+        {  
+            "cold butter, cubed": 1
+        },
+        {
+            "packed brown sugar": 0.5
+        },
+        {
+            "fresh blueberries": 3
+        },
+        {
+           "granulated sugar": 0.5
+        },
+        {
+          "orange juice": 1
+        },
+        {
+           "cornstarch": 4
         }
     ],
-
     "steps": [
-        "Preheat oven to 425°F.",
-        "Cut off the woody bottom part of the asparagus spears and discard.",
-        "With a vegetable peeler, peel off the skin on the bottom 2-3 inches of the spears (this keeps the asparagus from being all.\",string.\", and if you eat asparagus you know what I mean by that).",
-        "Place asparagus on foil-lined baking sheet and drizzle with olive oil.",
-        "Sprinkle with salt.",
-        "With your hands, roll the asparagus around until they are evenly coated with oil and salt.",
-        "Roast for 10-15 minutes, depending on the thickness of your stalks and how tender you like them.",
-        "They should be tender when pierced with the tip of a knife.",
-        "The tips of the spears will get very brown but watch them to prevent burning.",
-        "They are great plain, but sometimes I serve them with a light vinaigrette if we need something acidic to balance out our meal."
+        "Filling: In saucepan, bring blueberries, sugar and orange juice to boil; reduce heat and simmer until tender, about 10 minutes.",
+            "Whisk cornstarch with 2 tbsp (25 mL) water; whisk into blueberries and boil, stirring, until thickened, about 1 minute.",
+            "Place plastic wrap directly on surface; refrigerate until cooled, about 1 hour.",
+            "In large bowl, whisk together oats, flour, sugar, orange rind and salt ; with pastry blender, cut in butter until in coarse crumbs.",
+            "Press half into 8-inch (2 L) square parchment paper–lined metal cake pan; spread with blueberry filling.",
+            "Bake in centre of 350°F oven until light golden, about 45 minutes.",
+            "Let cool on rack before cutting into squares.",
+            "(Make-ahead: Cover and refrigerate for up to 2 days or overwrap with heavy-duty foil and freeze for up to 2 weeks.)"
     ]
     
 };
 
-// createRecipe(sarahRecipe1, recipeDB);
-// createRecipe(sarahRecipe2, recipeDB);
-// createRecipe(sarahRecipe3, recipeDB);
-// createRecipe(sarahRecipe4, recipeDB);
+let sarahRecipe11 = {
+    "name": "Slow Cooker Root Beer BBQ Chicken",
+    "author": "MMAfv3oCQDiL4u10",
+    "description": "Slow Cooker Root Beer BBQ Chicken is an easy weeknight meal or party food made with root beer, barbecue sauce and chicken.",
+    "datePosted": 1638172867145,
+    "servingSize": 8,
+    "imageURL": "https://dinnerthendessert.com/wp-content/uploads/2019/10/Slow-Cooker-Root-Beer-Chicken-16x9-320x320.jpg",
+    "tags": ["Dinner", "Easy"],
+    "cookTime": "4 hrs",
+    "difficulty": "2 star",
+
+    "ingredients": [
+        {
+            "boneless skinless chicken breasts": 2
+        },
+        {
+            "root beer": 1
+        },
+        {
+            "barbecue sauce": 1
+        },
+        {
+            "kosher salt": 1
+        },
+        {
+            "coarse ground black pepper": 0.5
+        },
+        {
+            "amburger buns": 8
+        }
+    ],
+    "steps": [
+        "Place chicken in slow cooker.",
+        "Whisk root beer, barbecue sauce, salt and pepper together in a bowl.",
+        "Pour over the chicken.",
+        "Cook, covered, on low heat for 4-5 hours or until chicken is tender.",
+        "Remove chicken; cool slightly.",
+        "Shred chicken with 2 forks and return to slow cooker.",
+        "Serve on buns."
+    ]
+
+};
+let sarahRecipe12 = {
+    "name": "Easy Meatloaf",
+    "author": "MMAfv3oCQDiL4u10",
+    "description": "This is a very easy and no fail recipe for meatloaf. It won't take long to make at all, and it's quite good!",
+    "datePosted": 1638172867145,
+    "servingSize": 8,
+    "imageURL": "https://www.spendwithpennies.com/wp-content/uploads/2019/05/New-The-BEST-Meatloaf-7.jpg",
+    "cookTime": "1 hrs 30 mins",
+    "difficulty": "2 star",
+
+    "ingredients": [
+        {
+            "pounds ground beef": 2
+        },
+        {
+            "egg": 1
+        },
+        {
+            "onion,chopped": 1
+        },
+        {
+            "milk": 1
+        },
+        {
+            "brown sugar": 2
+        },
+        {
+            "prepared mustard": 2
+        },
+        {
+            "ketchup": 0.5
+        }
+    ],
+    "steps": [
+        "Preheat oven to 350 degrees F (175 degrees C).",
+        "In a large bowl, combine the beef, egg, onion, milk and bread OR cracker crumbs. Season with salt and pepper to taste and place in a lightly greased 9x5-inch loaf pan, or form into a loaf and place in a lightly greased 9x13-inch baking dish.",
+        "In a separate small bowl, combine the brown sugar, mustard and ketchup. Mix well and pour over the meatloaf.",
+        "Bake at 350 degrees F (175 degrees C) for 1 hour."
+    ]
+    
+};
+
+createRecipe(sarahRecipe1, recipeDB);
+createRecipe(sarahRecipe2, recipeDB);
+createRecipe(sarahRecipe3, recipeDB);
+createRecipe(sarahRecipe4, recipeDB);
 createRecipe(sarahRecipe5, recipeDB);
 createRecipe(sarahRecipe6, recipeDB);
 createRecipe(sarahRecipe7, recipeDB);
 createRecipe(sarahRecipe8, recipeDB);
 createRecipe(sarahRecipe9, recipeDB);
 createRecipe(sarahRecipe10, recipeDB);
-
+createRecipe(sarahRecipe11, recipeDB);
+createRecipe(sarahRecipe12, recipeDB);
 
 // let recipes = [
 //     {
