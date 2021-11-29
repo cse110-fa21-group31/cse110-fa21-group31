@@ -2,38 +2,40 @@
 
 /* Fonts, text styles, */
 
+
 /*
 Logo font:
 font-family: 'Rammetto One', cursive;
 */
 
+
 /* Generic text */
-p {
+
+#homepage p {
     font-family: 'Open Sans', sans-serif;
 }
-
 
 
 /*
 Landing Background
 */
 
-.landingHeader {
+#homepage .landingHeader {
     width: 0%;
 }
-
 
 
 /*
 Search Bar
 */
 
+
 /* .homePageTitle {
     color: green;
     font-size: 50px;
 } */
 
-#searchButton {
+#homepage #searchButton {
     width: 20%;
     padding: 10px;
     background: transparent;
@@ -42,10 +44,10 @@ Search Bar
     border: 7px solid white;
     border-radius: 5px;
     cursor: pointer;
-    transform: translate(0%, 30%); 
+    transform: translate(0%, 30%);
 }
 
-#searchBar {
+#homepage #searchBar {
     border: 1px grey;
     border-radius: 5px;
     height: 2rem;
@@ -55,7 +57,7 @@ Search Bar
     font-size: 100%;
 }
 
-.searchBarHomepage {
+#homepage .searchBarHomepage {
     /* margin-left: 60px; 
     display:inline-flex;
     width: 100%;
@@ -65,27 +67,27 @@ Search Bar
     display:inline;
     text-align: center;
     font-family: 'Open Sans', sans-serif; */
-
     position: relative;
     text-align: center;
     font-family: 'Bold Open Sans', sans-serif;
     font-weight: bold;
 }
 
-div.searchBarHomepage > img {
+#homepage div.searchBarHomepage>img {
     width: 100%;
     height: 100%;
 }
 
-.formItems {
+#homepage .formItems {
     font-family: 'Open Sans', sans-serif;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color:transparent;
+    background-color: transparent;
     width: 50%;
 }
+
 
 /* .searchIcon {
     position: absolute;
@@ -94,55 +96,61 @@ div.searchBarHomepage > img {
     width: 14px;
 } */
 
+
 /* 
 Tags
  */
-ul.tagsList {
+
+#homepage ul.tagsList {
     font-family: 'Open Sans', sans-serif;
     list-style-type: none;
     /* white-space:nowrap; */
-    color:white;
+    color: white;
     font-weight: bold;
-    padding-left:10px;
-    font-size:small;
-    overflow:auto; 
+    padding-left: 10px;
+    font-size: small;
+    overflow: auto;
 }
 
-li.individualTag {
+#homepage li.individualTag {
     /* border-style:solid; */
     margin: 10px 10px;
     border: 5px solid #FCAF58;
     border-radius: 5px;
-    padding-left:15px;
-    padding-right:15px;
+    padding-left: 15px;
+    padding-right: 15px;
     background-color: #FCAF58;
-    display:inline;
+    display: inline;
 }
 
+
 /* Recipe cards + grids */
-.myRecipeCardGridContainer {
+
+#homepage .myRecipeCardGridContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
     margin: 20px;
 }
 
-.recipeCard {
+#homepage .recipeCard {
     margin-top: 30px;
     margin-bottom: 30px;
-    text-align:center;
+    text-align: center;
 }
-.recipeCard > p {
+
+#homepage .recipeCard>p {
     font-family: 'Bold Open Sans', sans-serif;
     font-weight: bold;
     color: #4E598C;
     font-size: large;
 }
 
-.recipeCard > img {
-    width:200px;
-    height:200px;
+#homepage .recipeCard>img {
+    width: 200px;
+    height: 200px;
 }
+
 
 /*
 Regular text font:
