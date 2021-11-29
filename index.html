@@ -8,6 +8,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
     <link rel='stylesheet' href="/source/assets/styles/cards.css">
+    <link rel='stylesheet' href="/source/assets/styles/editCreate.css">
+    <link rel='stylesheet' href="/source/assets/styles/recipeDetail.css">
     <script type="module" src='/source/scripts/indexSearch.js'></script>
     <script src="/source/scripts/classes/recipeClass.js" type="module"></script>
     <script src="/source/scripts/recipeDetail.js" type="module"></script>
@@ -15,8 +17,7 @@
     <script src="/source/scripts/editPage.js" type="module"></script>
     <script src="/source/scripts/router/Router.js" type="module"></script>
     <script src="/source/scripts/index.js" type="module"></script>
-    <meta name="google-signin-client_id"
-        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
@@ -26,11 +27,11 @@
         .hidden {
             display: none;
         }
-
+        
         .show {
             display: inline;
         }
-
+        
         section:not(section.shown) {
             display: none;
         }
@@ -87,29 +88,41 @@
 
         <!-- Displaying recipe title, creation date, author-->
         <p id="recipeTitle">Recipe title</p>
-        <p id="date">The Date of Creation</p>
-        <p id="author">The Author</p>
+        <div id="dateAuthor">
+            <p id="date">The Date of Creation</p>
+            <p id="author">The Author</p>
+        </div>
 
         <!-- Displaying recipe image-->
         <img id="recipeImage" src="" alt="" width="500" height="300">
 
-        <!-- Displaying recipe description-->
-        <div id="description">Description</div>
 
-        <!-- Displaying serving size-->
-        <p id="servingSize">servingSize</p>
-
-        <!-- Displaying recipe tags-->
-
-        <label for="tags">Tags:</label>
         <div id="tags">
             <ul id="tag" class="tagsList"></ul>
-
         </div>
 
-        <!-- Displaying recipe cooktime-->
-        <label for="cookTime">Cook Time:</label>
-        <p id="cookTime">cook Time</p>
+        <br/>
+        <!-- Displaying recipe description-->
+
+        <div>
+            <div id="description" class="description">Description</div>
+        </div>
+        <div id=descStuff class="descStuff">
+            <!-- Displaying serving size-->
+            <div style="white-space:nowrap" id="servingS">
+                <label for="servingSize">Serving Size:</label>
+                <p id="servingSize">servingSize</p>
+            </div>
+
+            <!-- Displaying recipe tags-->
+
+
+            <!-- Displaying recipe cooktime-->
+            <div style="white-space:nowrap" id=cookT>
+                <label for="cookTime">Cook Time:</label>
+                <p id="cookTime">cook Time</p>
+            </div>
+        </div>
 
         <!-- Displaying recipe ingredients-->
         <div class="ingredients" id="ingredients">
@@ -120,7 +133,7 @@
         <!-- Displaying recipe steps-->
         <div class="steps" id="steps">
             <label for="steps">Steps:</label>
-            <ol id="stps" class="ingredientsList"></ol>
+            <ol id="stps" class="stepsList"></ol>
         </div>
 
     </section>
@@ -133,17 +146,17 @@
                 grid-template-columns: 1fr 2fr;
                 padding: 10px;
             }
-
+            
             .userInfoGridItem {
                 padding: 20px;
                 font-size: 30px;
                 text-align: center;
             }
-
+            
             h1 {
                 line-height: 0px;
             }
-
+            
             .myRecipeCardGridContainer {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
@@ -386,8 +399,7 @@
 
     <!-- footer -->
     <footer>
-        <iframe src="/source/cards/footer.html"
-            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+        <iframe src="/source/cards/footer.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
     </footer>
 
 </body>
