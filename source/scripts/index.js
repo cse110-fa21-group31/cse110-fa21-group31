@@ -18,7 +18,6 @@ import { fillOutRecipe } from './recipeDetail.js'
 import { populateUserInfoPage } from './userInfo.js'
 import { setupCreatePage } from './createPage.js'
 import { populateEditPage } from './editPage.js'
-//import { createNavBarWithGoogle } from './userLogin.js'
 
 var recipeData = [];
 const NumRecipePerPage = 6
@@ -65,7 +64,6 @@ export async function init() {
         console.log(`Error fetching recipes: ${err}`);
         return;
     }
-    //createNavBarWithGoogle();
     updateRecipeListInfo(currPage);
     bindEscKey();
     bindPopstate();

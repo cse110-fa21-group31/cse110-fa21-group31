@@ -6,26 +6,29 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Landing Page</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="google-signin-client_id"
+        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
 
     <!-- Style Imports -->
     <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
     <link rel='stylesheet' href="/source/assets/styles/cards.css">
     <link rel='stylesheet' href="/source/assets/styles/homePage.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap" rel="stylesheet">
 
 
-    <script type="module" src='/source/scripts/indexSearch.js'></script>
+    <script src='/source/scripts/indexSearch.js' type="module"></script>
     <script src="/source/scripts/classes/recipeClass.js" type="module"></script>
     <script src="/source/scripts/recipeDetail.js" type="module"></script>
     <script src="/source/scripts/createPage.js" type="module"></script>
     <script src="/source/scripts/editPage.js" type="module"></script>
     <script src="/source/scripts/router/Router.js" type="module"></script>
     <script src="/source/scripts/index.js" type="module"></script>
-    <meta name="google-signin-client_id"
-        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
-
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </head>
 
 <body>
@@ -40,7 +43,8 @@
               scripts/util.js -->
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </li>
-            <li id="profile">
+            <li id="profileWrapper" class="hidden">
+                <div id="profile"> </div>
                 <div id="signOutButton">
                     <a href="#" onclick="signOut();">Sign out</a>
                 </div>
@@ -69,8 +73,6 @@
         <div class="myRecipeCardGridContainer"></div>
 
     </section>
-
-
 
     <!-- home page -->
     <section id="homePage">
