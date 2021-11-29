@@ -44,7 +44,6 @@ export async function deleteRecipe(id, recipeCollection) {
  * @returns {Array<recipe>} the updated recipe
  */
 export async function updateRecipe(id, recipe, recipeCollection) {
-    recipe.author = recipe.author._id;
     let updatedRecipes = await new Promise((resolve, reject) => {
         recipeCollection.update({ _id: id },
             recipe, { returnUpdatedDocs: true },

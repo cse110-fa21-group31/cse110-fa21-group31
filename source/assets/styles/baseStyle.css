@@ -2,24 +2,42 @@
 
 /* Fonts, text styles, */
 
+
 /*
 Logo font:
 font-family: 'Rammetto One', cursive;
 */
 
+
 /* Generic text */
-p {
+
+#homepage p,
+#landingPage p {
     font-family: 'Open Sans', sans-serif;
 }
 
-body {
-    margin: 0;
+/*
+Landing Background
+*/
+
+#homepage .landingHeader,
+#landingPage .landingHeader {
+    width: 0%;
 }
+
 
 /*
 Search Bar
 */
-#searchButton {
+
+
+/* .homePageTitle {
+    color: green;
+    font-size: 50px;
+} */
+
+#homepage #searchButton,
+#landingPage #searchButton {
     width: 20%;
     padding: 10px;
     background: transparent;
@@ -28,23 +46,10 @@ Search Bar
     border: 7px solid white;
     border-radius: 5px;
     cursor: pointer;
-    transform: translate(0%, 30%); 
+    transform: translate(0%, 30%);
 }
 
-#searchButtonHome {
-    width: 20%;
-    padding: 10px;
-    background: transparent;
-    color: white;
-    font-size: 100%;
-    border: 7px solid #FCAF58;
-    background-color: #FCAF58;
-    border-radius: 5px;
-    cursor: pointer;
-    transform: translate(0%, 30%); 
-}
-
-#searchBar {
+#homepage #searchBar, #landingPage #searchBar {
     border: 1px grey;
     border-radius: 5px;
     height: 2rem;
@@ -54,17 +59,7 @@ Search Bar
     font-size: 100%;
 }
 
-#searchBarHome {
-    border: .2rem solid rgb(45, 58, 85);
-    border-radius: 5px;
-    height: 3rem;
-    width: 100%;
-    padding: 2px 23px 2px 30px;
-    outline: 0;
-    font-size: 100%;
-}
-
-.searchBarLandingPage {
+#homepage .searchBarHomepage, #landingPage .searchBarHomepage{
     /* margin-left: 60px; 
     display:inline-flex;
     width: 100%;
@@ -74,35 +69,28 @@ Search Bar
     display:inline;
     text-align: center;
     font-family: 'Open Sans', sans-serif; */
-
     position: relative;
     text-align: center;
     font-family: 'Bold Open Sans', sans-serif;
     font-weight: bold;
 }
 
-div.searchBarLandingPage > img {
+#homepage div.searchBarHomepage>img, 
+#landingPage div.searchBarHomepage>img {
     width: 100%;
     height: 100%;
 }
 
-.searchBarHomePage {
-    padding-top: 20%;
-    position: relative;
-    text-align: center;
-    font-family: 'Bold Open Sans', sans-serif;
-    font-weight: bold;
-}
-
-.searchItems {
+#homepage .formItems, #landingPage .formItems {
     font-family: 'Open Sans', sans-serif;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color:transparent;
+    background-color: transparent;
     width: 50%;
 }
+
 
 /* .searchIcon {
     position: absolute;
@@ -115,52 +103,62 @@ div.searchBarLandingPage > img {
 /* 
 Tags
  */
-ul.tagsList {
+
+#homepage ul.tagsList, #landingPage ul.tagsList {
     font-family: 'Open Sans', sans-serif;
     list-style-type: none;
     /* white-space:nowrap; */
-    color:white;
+    color: white;
     font-weight: bold;
-    padding-left:10px;
-    font-size:small;
-    overflow:auto; 
+    padding-left: 10px;
+    font-size: small;
+    overflow: auto;
 }
 
-li.individualTag {
+#homepage li.individualTag,
+#landingPage li.individualTag {
     /* border-style:solid; */
     margin: 10px 10px;
     border: 5px solid #FCAF58;
     border-radius: 5px;
-    padding-left:15px;
-    padding-right:15px;
+    padding-left: 15px;
+    padding-right: 15px;
     background-color: #FCAF58;
-    display:inline;
+    display: inline;
 }
 
+
 /* Recipe cards + grids */
-.myRecipeCardGridContainer {
+
+#homepage .myRecipeCardGridContainer,
+#landingPage .myRecipeCardGridContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
     margin: 20px;
 }
 
-.recipeCard {
+#homepage .recipeCard,
+#landingPage .recipeCard {
     margin-top: 30px;
     margin-bottom: 30px;
-    text-align:center;
+    text-align: center;
 }
-.recipeCard > p {
+
+#homepage .recipeCard>p,
+#landingPage .recipeCard {
     font-family: 'Bold Open Sans', sans-serif;
     font-weight: bold;
     color: #4E598C;
     font-size: large;
 }
 
-.recipeCard > img {
-    width:200px;
-    height:200px;
+#homepage .recipeCard>img,
+#landingPage .recipeCard>img {
+    width: 200px;
+    height: 200px;
 }
+
 
 /*
 Regular text font:

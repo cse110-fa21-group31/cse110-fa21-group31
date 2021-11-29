@@ -3,7 +3,7 @@ import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.j
 import { RECIPE_ROUTE } from './util.js'
 let imageSrc = ''
 let recipeId;
-export default {populateEditPage}
+export default { populateEditPage }
 export function populateEditPage(recipeObj) {
     recipeId = recipeObj._id;
     console.log("RECIPE ID AT START IS " + recipeId);
@@ -22,24 +22,24 @@ export function populateEditPage(recipeObj) {
 
     const recipeForm = document.getElementById("editRecipeForm");
     recipeForm.onsubmit = onUpdateRecipe;
-    document.getElementById("addIngr").addEventListener("click", function () {
+    document.getElementById("addIngr").addEventListener("click", function() {
         appendIngredient();
     });
-    document.getElementById("addStep").addEventListener("click", function () {
+    document.getElementById("addStep").addEventListener("click", function() {
         appendStep();
     });
-    document.getElementById("delIngr").addEventListener("click", function () {
+    document.getElementById("delIngr").addEventListener("click", function() {
         deleteIngredient();
     });
-    document.getElementById("delStep").addEventListener("click", function () {
+    document.getElementById("delStep").addEventListener("click", function() {
         deleteIngredient();
     });
-    document.getElementById("delete").addEventListener("click", function () {
+    document.getElementById("delete").addEventListener("click", function() {
         deleteRecipeButton();
     });
 }
 
-export const deleteRecipeButton = async (event) => {
+export const deleteRecipeButton = async(event) => {
     // await deleteRecipe(pageId);
 }
 
@@ -120,7 +120,7 @@ export const fillOutEditPage = (recipeObj) => {
  * 
  * @param {*} event 
  */
-const onUpdateRecipe = async (event) => {
+const onUpdateRecipe = async(event) => {
     event.preventDefault();
     console.log("SUBMITTED NEW RECIPE");
 
@@ -176,7 +176,7 @@ const onUpdateRecipe = async (event) => {
 
     // What does this function do overall?
     // ANSWER: This function serves to
-     
+
 };
 
 
@@ -185,12 +185,12 @@ const appendStep = () => {
     //let d = document.getElementById('steps');
     // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
     var newTextBox = document.createElement("div");
-
+    console.log("add Step")
     newTextBox.innerHTML =
         "<textarea cols='40' rows='4' id='textAreaBox' name='step" + numSteps + "' placeholder='Step #" +
         numSteps +
         "'></textarea>";
-    document.getElementById("newStepId").appendChild(newTextBox);
+    document.getElementById("editNewStepId").appendChild(newTextBox);
     numSteps++;
 
 };
@@ -199,10 +199,10 @@ const appendStep = () => {
 /* eslint-disable no-unused-vars*/
 const deleteStep = () => {
     //newTextBox.classList.add('stepEntry');
-    if (document.getElementById("newStepId").lastChild != null) {
+    if (document.getElementById("editNewStepId").lastChild != null) {
         document
-            .getElementById("newStepId")
-            .removeChild(document.getElementById("newStepId").lastChild);
+            .getElementById("editNewStepId")
+            .removeChild(document.getElementById("editNewStepId").lastChild);
         numSteps--;
     }
 };
@@ -211,27 +211,27 @@ const appendIngredient = () => {
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
         "<input type='text' id='newInputBox' name='ingredient" + numIngredients + "' placeholder='ingredient'>";
-    document.getElementById("newIngredientId").appendChild(newTextBox);
+    document.getElementById("editNewIngredientId").appendChild(newTextBox);
 
     var newAmountBox = document.createElement("div");
     newAmountBox.innerHTML =
         "<input type='text' id='newInputBox' name='ingredientAmount" + numIngredients + "' placeholder='amount'>";
-    document.getElementById("newIngredientAmountId").appendChild(newAmountBox);
+    document.getElementById("editNewIngredientAmountId").appendChild(newAmountBox);
     numIngredients++;
 };
 /* eslint-enable no-unused-vars*/
 
 /* eslint-disable no-unused-vars*/
 const deleteIngredient = () => {
-    if (document.getElementById("newIngredientId").lastChild != null) {
+    if (document.getElementById("editNewIngredientId").lastChild != null) {
         numIngredients--;
         document
-            .getElementById("newIngredientId")
-            .removeChild(document.getElementById("newIngredientId").lastChild);
+            .getElementById("editNewIngredientId")
+            .removeChild(document.getElementById("editNewIngredientId").lastChild);
         document
-            .getElementById("newIngredientAmountId")
+            .getElementById("editNewIngredientAmountId")
             .removeChild(
-                document.getElementById("newIngredientAmountId").lastChild
+                document.getElementById("editNewIngredientAmountId").lastChild
             );
     }
 };
@@ -263,4 +263,3 @@ const appendEStep = (existingStep) => {
     numSteps++;
 
 };
-
