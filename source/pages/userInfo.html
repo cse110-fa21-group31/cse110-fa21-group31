@@ -7,11 +7,8 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
         <link rel='stylesheet' href="/source/assets/styles/cards.css">
-
-        <!-- Nav bar js -->
-       <script src="/source/scripts/userLogin.js" type="module"></script>
-       <script src="/source/scripts/userInfo.js" type="module"></script>
-
+        <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+        <!-- <script src='main.js'></script> -->
         <style>
             .userInfoGridContainer {
                 display: grid;
@@ -37,8 +34,8 @@
         <link rel='stylesheet' href="/source/assets/styles/cards.css">
     </head>
     <body>
-        <div id="header">
-        <!-- imported from navBarWithGoogle.js -->
+        <div class="navBar">
+            <iframe src="/source/cards/navBar.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
         </div>
 
         <div class="userInfoGridContainer">
@@ -46,9 +43,10 @@
             <div class = "userInfoGridItem">
                 <img id = "profile" src="../assets/profile.png" width=80 height =80/>
                 <h1 id = "userName"> Name </h1>
-                <!-- <h2 id = "userEmail"> Email </h2> -->
-                <button id = "createRecipe" type = "button" href="/source/pages/editCreate.html"> New Recipe </button>
-                <!-- <button id = "logout" type = "button"> Logout </button> -->
+                <h2 id = "userEmail"> Email </h2>
+                <button id = "createRecipe" type = "button"> New Recipe </button>
+                <button id = "userSettings" type = "button"> Account Settings </button>
+                <button id = "logout" type = "button"> Logout </button>
             </div>
             <!-- Recipe Section -->
             <div class = "userInfoGridItem">
