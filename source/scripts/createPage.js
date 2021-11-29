@@ -50,11 +50,9 @@ const onSubmitRecipe = async (event) => {
         : [];
     //let tagsArr = strTags.split(',');
 
-    let ingArr = {};
+    let ingWithAmountArr = {};
     for (let i = 0; i < numIngredients; i++) {
-        ingArr[formData.get("ingredient" + i)] = formData.get(
-            "ingredientAmount" + i
-        );
+        ingWithAmountArr[formData.get('ingredient' + i)] = formData.get('ingredientAmount' + i);
         /** 
         ingrArr.push(formData.get('ingredient'+i));
         ingrAmountArr.push(formData.get('ingredientAmount'+i));
@@ -88,13 +86,12 @@ const onSubmitRecipe = async (event) => {
         author: userData._id,
         description: formData.get("description"),
         tags: strTags,
-        servingSize: formData.get("servingSize"),
-        cookTime: formData.get("cookTime"),
-        ingredients: ingArr,
-        difficulty: formData.get("difficulty"),
-        ingredientAmounts: ingrAmountArr,
-        steps: stepsArr,
-    };
+        servingSize: formData.get('servingSize'),
+        cookTime: formData.get('cookTime'),
+        ingredients: ingWithAmountArr,
+        difficulty: formData.get('difficulty'),
+        steps: stepsArr
+    }
     console.log(newRecipe);
     // get response from POST API, get the new recipe,
     const responseRecipe = await insertRecipe(newRecipe);

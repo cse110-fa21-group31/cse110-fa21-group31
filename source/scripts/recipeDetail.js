@@ -38,12 +38,21 @@ export async function fillOutRecipe(data) {
     if (data.servingSize)
         document.getElementById("servingSize").innerHTML = data.servingSize;
     // Now rendering username rather than user id
-    if (data.author && data.author.username)
-        document.getElementById("author").innerHTML = data.author.username;
-    if (data.cookTime)
-        document.getElementById("cookTime").innerHTML = data.cookTime;
-    if (data.ingredients)
-        document.getElementById("ingredients").innerHTML = data.ingredients;
+    if (data.author && data.author.username) document.getElementById("author").innerHTML = data.author.username;
+    if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
+    if (data.ingredients) {
+        console.log("Ingredients object: " + data.ingredients);
+        let ingredientsList = document.getElementById("ingr");
+        for (let ingredient in data.ingredients) {
+            let item = document.createElement("li");
+            ingredientsList.appendChild(item);
+            item.innerHTML = ingredient + ": " + data.ingredients[ingredient];
+            /*
+            console.log("Ingredient: " + ingredient);
+            ingredientsHTML.innerHTML += ingredient + ": " + data.ingredients[ingredient] + "\n";
+            */
+        }
+    }
     document.getElementById("steps").innerHTML = data.steps;
     const editRecipeButton = document.getElementById("editRecipeButton");
     const delRecipeButton = document.getElementById("deleteRecipeButton");
@@ -91,8 +100,9 @@ export async function fillOutRecipe(data) {
         document.getElementById("steps").append(listItem);
     });
     */
+
     function convertTime(time) {
-        let timeStr = "";
+        let timeStr = '';
 
         // Remove the 'PT'
         time = time.slice(2);
