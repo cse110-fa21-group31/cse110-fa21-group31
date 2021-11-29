@@ -28,35 +28,27 @@
         <article>
             <pre class="prettyprint source linenums"><code>// import RecipeClass from "./recipeClass";
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
-export default {
-    createRecipeCards,
-    redirectRecipeDetail,
-    bindRecipeCard,
-    routerAddCreatePage,
-    routerAddEditPage,
-    routerNavigateWrapper,
-    bindUserProfile,
-    bindEscKey,
-    bindPopstate,
-    setGlobalUserData,
-    clearGlobalUserData,
-};
+export default {createRecipeCards, redirectRecipeDetail, bindRecipeCard, 
+routerAddCreatePage, routerAddEditPage, routerNavigateWrapper,
+bindUserProfile, bindEscKey, bindPopstate, setGlobalUserData, clearGlobalUserData}
 // RecipeExpand.js
 if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", init);
+
 }
 
+
 // THESE SHOULD BE GIVEN VIA API
-import { Router } from "./router/Router.js";
-import { url, fetchRecipeByPage } from "./APICalls.js";
-import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE } from "./util.js";
-import { fillOutRecipe } from "./recipeDetail.js";
-import { populateUserInfoPage } from "./userInfo.js";
-import { setupCreatePage } from "./createPage.js";
-import { populateEditPage } from "./editPage.js";
-let recipeData = [];
-const NumRecipePerPage = 6;
-const currPage = 1;
+import { Router } from './router/Router.js'
+import { url, fetchRecipeByPage } from './APICalls.js'
+import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE } from './util.js'
+import { fillOutRecipe } from './recipeDetail.js'
+import { populateUserInfoPage } from './userInfo.js'
+import { setupCreatePage } from './createPage.js'
+import { populateEditPage } from './editPage.js'
+var recipeData = [];
+const NumRecipePerPage = 6
+const currPage = 1
 export var userData = null;
 
 let homePage = null; // = document.getElementById('homePage')
@@ -65,15 +57,18 @@ let userInfoPage = null; // = document.getElementById('userInfo')
 let createRecipePage = null; // = document.getElementById('createRecipe')
 let editRecipePage = null; // = document.getElementById('editRecipe')
 
-if (typeof window === "object") {
-    if (typeof window.document === "object") {
-        homePage = document.getElementById("homePage");
-        recipeDetailPage = document.getElementById("recipeDetail");
-        userInfoPage = document.getElementById("userInfo");
-        createRecipePage = document.getElementById("createRecipe");
-        editRecipePage = document.getElementById("editRecipe");
+if (typeof window === 'object') {
+    if (typeof window.document === 'object') {
+       homePage = document.getElementById('homePage')
+       recipeDetailPage = document.getElementById('recipeDetail')
+       userInfoPage = document.getElementById('userInfo')
+       createRecipePage = document.getElementById('createRecipe')
+       editRecipePage = document.getElementById('editRecipe')
     }
 }
+
+
+
 
 export const router = new Router(function () {
     // console.log("Test router");
@@ -100,7 +95,7 @@ export async function init() {
 
 // TODO: fetch and update homepage recipe by pageID
 export async function updateRecipeListInfo(pageId) {
-    await fetchRecipes();
+    await fetchRecipes()
     createRecipeCards();
 }
 
@@ -111,16 +106,14 @@ export async function createRecipes() {
 }
 
 export async function fetchRecipes() {
-    let response = await fetchRecipeByPage(currPage);
-    console.log("fetchRecipes: response is");
-    console.log(response);
+    let response = await fetchRecipeByPage(currPage)
     recipeData = response;
-    console.log("recipeData is now ", recipeData);
 }
+
 
 // the jankiest solution to ever exist (sorry)
 // any suggestion to make this better or placed somewhere else is welcome
-let observedMutationEvent = new Event("observedMutation");
+let observedMutationEvent = new Event('observedMutation')
 let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
         if (!mutation.addedNodes) return;
@@ -136,7 +129,7 @@ const waitForSelector = (selectorStr) => {
         if (element) {
             resolve(element);
         } else {
-            document.addEventListener("observedMutation", () => {
+            document.addEventListener('observedMutation', () => {
                 const element = document.querySelector(selectorStr);
                 if (element) {
                     resolve(element);
@@ -144,7 +137,7 @@ const waitForSelector = (selectorStr) => {
             });
         }
     });
-};
+}
 
 observer.observe(document.body, {
     childList: true,
@@ -160,36 +153,37 @@ observer.observe(document.body, {
 export function createRecipeCards() {
     // Makes new recipe cards
     // Wait until the gridContainer is loaded
-    waitForSelector(".myRecipeCardGridContainer").then((gridContainer) => {
-        while (gridContainer.firstChild) {
-            gridContainer.removeChild(gridContainer.firstChild);
-        }
-        recipeData.forEach((recipeObj) => {
-            if (!recipeObj) return;
-            const recipeCard = document.createElement("recipe-card");
-            // console.log("Created recipe-card");
-            recipeCard.data = recipeObj;
-            // console.log(recipeCard.data);
-            redirectRecipeDetail(recipeObj);
-            // click event
-            const page = recipeObj._id;
-            const routeUrl = RECIPE_ROUTE + page;
-            recipeCard.addEventListener("click", (e) => {
-                // if (e.path[0].nodeName == 'A') return;
-                router.navigate(routeUrl);
-            });
-            gridContainer.appendChild(recipeCard);
+    waitForSelector('.myRecipeCardGridContainer')
+        .then(gridContainer => {
+            while (gridContainer.firstChild) {
+                gridContainer.removeChild(gridContainer.firstChild);
+            }
+            recipeData.forEach(recipeObj => {
+                if (!recipeObj) return
+                const recipeCard = document.createElement('recipe-card');
+                // console.log("Created recipe-card");
+                recipeCard.data = recipeObj;
+                // console.log(recipeCard.data);
+                redirectRecipeDetail(recipeObj)
+                // click event
+                const page = recipeObj._id;
+                const routeUrl = RECIPE_ROUTE + page
+                recipeCard.addEventListener('click', e => {
+                    // if (e.path[0].nodeName == 'A') return;
+                    router.navigate(routeUrl);
+                });
+                gridContainer.appendChild(recipeCard);
+            })
         });
-    });
 }
 
 /**
  * Adds the function in Router that redirects to recipeDetail
- * @param recipeObj The object of the created recipe.
+ * @param recipeObj The object of the created recipe. 
  */
 export function redirectRecipeDetail(recipeObj) {
     const page = recipeObj._id;
-    const routeUrl = RECIPE_ROUTE + page;
+    const routeUrl = RECIPE_ROUTE + page
     router.addPage(routeUrl, function () {
         homePage.classList.remove("shown");
         recipeDetailPage.classList.add("shown");
@@ -198,7 +192,7 @@ export function redirectRecipeDetail(recipeObj) {
         editRecipePage.classList.remove("shown");
         recipeDetailPage.data = recipeObj;
         // console.log(recipeDetailPage.data)
-        fillOutRecipe(recipeObj);
+        fillOutRecipe(recipeObj)
     });
 }
 /**
@@ -209,15 +203,15 @@ export function redirectRecipeDetail(recipeObj) {
  * @param {String} pageName the name of the page to navigate to on click
  */
 export function bindRecipeCard(recipeCard, pageName) {
-    recipeCard.addEventListener("click", (e) => {
-        if (e.path[0].nodeName == "A") return;
+    recipeCard.addEventListener('click', e => {
+        if (e.path[0].nodeName == 'A') return;
         router.navigate(pageName);
     });
 }
 
 /**
- *
- * @param {*} pageName
+ * 
+ * @param {*} pageName 
  * @param {*} callback function
  */
 export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
@@ -228,22 +222,22 @@ export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
             userInfoPage.classList.remove("shown");
             createRecipePage.classList.remove("shown");
             editRecipePage.classList.add("shown");
-            populateEditPage(recipeObj);
-        });
-    } else
-        router.addPage(pageName, function () {
-            homePage.classList.remove("shown");
-            recipeDetailPage.classList.remove("shown");
-            userInfoPage.classList.remove("shown");
-            createRecipePage.classList.add("shown");
-            editRecipePage.classList.remove("shown");
-            setupCreatePage();
-        });
+            populateEditPage(recipeObj)
+        })
+    }
+    else router.addPage(pageName, function () {
+        homePage.classList.remove("shown");
+        recipeDetailPage.classList.remove("shown");
+        userInfoPage.classList.remove("shown");
+        createRecipePage.classList.add("shown");
+        editRecipePage.classList.remove("shown");
+        setupCreatePage()
+    })
 }
 
 /**
- *
- * @param {*} pageName
+ * 
+ * @param {*} pageName 
  * @param {*} callback function
  */
 export function routerAddEditPage(pageName, recipeObj) {
@@ -253,8 +247,8 @@ export function routerAddEditPage(pageName, recipeObj) {
         userInfoPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
         editRecipePage.classList.add("shown");
-        populateEditPage(recipeObj);
-    });
+        populateEditPage(recipeObj)
+    })
 }
 
 export function routerNavigateWrapper(pageName) {
@@ -266,20 +260,20 @@ export function routerNavigateWrapper(pageName) {
  * @param {Element} profile the user profile json file
  */
 export function bindUserProfile(profile) {
-    const pageName = USER_ROUTE + profile._id;
+    const pageName = USER_ROUTE + profile._id
     router.addPage(pageName, function () {
         homePage.classList.remove("shown");
         recipeDetailPage.classList.remove("shown");
         createRecipePage.classList.remove("shown");
         editRecipePage.classList.remove("shown");
         userInfoPage.classList.add("shown");
-        userInfoPage.data = profile;
-        // TODO: populate user data in userInfo page
+        userInfoPage.data = profile
+        // TODO: populate user data in userInfo page 
     });
 
-    const profileButton = document.getElementById(ELE_ID_PROFILE_WRAPPER);
-    profileButton.addEventListener("click", (e) => {
-        if (e.path[0].nodeName == "A") return;
+    const profileButton = document.getElementById(ELE_ID_PROFILE_WRAPPER)
+    profileButton.addEventListener('click', e => {
+        if (e.path[0].nodeName == 'A') return;
         router.navigate(pageName);
     });
 }
@@ -295,7 +289,7 @@ export function bindEscKey() {
      * if the escape key is pressed, use your router to navigate() to the 'home'
      * page. This will let us go back to the home page from the detailed page.
      */
-    document.addEventListener("keydown", function (e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key == "Escape") {
             router.navigate("home", false);
         }
@@ -304,7 +298,7 @@ export function bindEscKey() {
 
 /**
  * Binds the 'popstate' event on the window (which fires when the back &amp;
- * forward buttons are pressed) so the navigation will continue to work
+ * forward buttons are pressed) so the navigation will continue to work 
  * as expected. (Hint - you should be passing in which page you are on
  * in your Router when you push your state so you can access that page
  * info in your popstate function)
@@ -316,19 +310,20 @@ export function bindPopstate() {
      * event - this fires when the forward or back buttons are pressed in a browser.
      * If your event has a state object that you passed in, navigate to that page,
      * otherwise navigate to 'home'.
-     *
+     * 
      * IMPORTANT: Pass in the boolean true as the second argument in navigate() here
      * so your navigate() function does not add your going back action to the history,
      * creating an infinite loop
      */
-    window.addEventListener("popstate", (event) => {
+    window.addEventListener('popstate', (event) => {
         if (event.state) {
             router.navigate(event.state.page, true);
         } else {
-            router.navigate("home", true);
+            router.navigate('home', true);
         }
     });
 }
+
 
 /**
  * Save profile to global variable userData in index.js.
@@ -343,8 +338,7 @@ export function setGlobalUserData(profile) {
  */
 export function clearGlobalUserData() {
     userData = null;
-}
-</code></pre>
+}</code></pre>
         </article>
     </section>
 
@@ -360,7 +354,7 @@ export function clearGlobalUserData() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 05:36:04 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 06:27:25 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
