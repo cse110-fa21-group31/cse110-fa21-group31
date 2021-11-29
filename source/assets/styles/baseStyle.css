@@ -12,13 +12,27 @@ p {
     font-family: 'Open Sans', sans-serif;
 }
 
-body {
-    margin: 0;
+
+
+/*
+Landing Background
+*/
+
+.landingHeader {
+    width: 0%;
 }
+
+
 
 /*
 Search Bar
 */
+
+/* .homePageTitle {
+    color: green;
+    font-size: 50px;
+} */
+
 #searchButton {
     width: 20%;
     padding: 10px;
@@ -26,19 +40,6 @@ Search Bar
     color: white;
     font-size: 100%;
     border: 7px solid white;
-    border-radius: 5px;
-    cursor: pointer;
-    transform: translate(0%, 30%); 
-}
-
-#searchButtonHome {
-    width: 20%;
-    padding: 10px;
-    background: transparent;
-    color: white;
-    font-size: 100%;
-    border: 7px solid #FCAF58;
-    background-color: #FCAF58;
     border-radius: 5px;
     cursor: pointer;
     transform: translate(0%, 30%); 
@@ -54,17 +55,7 @@ Search Bar
     font-size: 100%;
 }
 
-#searchBarHome {
-    border: .2rem solid rgb(45, 58, 85);
-    border-radius: 5px;
-    height: 3rem;
-    width: 100%;
-    padding: 2px 23px 2px 30px;
-    outline: 0;
-    font-size: 100%;
-}
-
-.searchBarLandingPage {
+.searchBarHomepage {
     /* margin-left: 60px; 
     display:inline-flex;
     width: 100%;
@@ -81,20 +72,12 @@ Search Bar
     font-weight: bold;
 }
 
-div.searchBarLandingPage > img {
+div.searchBarHomepage > img {
     width: 100%;
     height: 100%;
 }
 
-.searchBarHomePage {
-    padding-top: 20%;
-    position: relative;
-    text-align: center;
-    font-family: 'Bold Open Sans', sans-serif;
-    font-weight: bold;
-}
-
-.searchItems {
+.formItems {
     font-family: 'Open Sans', sans-serif;
     position: absolute;
     top: 50%;
@@ -110,7 +93,6 @@ div.searchBarLandingPage > img {
     left: 8px;
     width: 14px;
 } */
-
 
 /* 
 Tags
