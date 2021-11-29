@@ -18,8 +18,7 @@ import { fillOutRecipe } from './recipeDetail.js'
 import { populateUserInfoPage } from './userInfo.js'
 import { setupCreatePage } from './createPage.js'
 import { populateEditPage } from './editPage.js'
-
-var recipeData = [];
+let recipeData = [];
 const NumRecipePerPage = 6
 const currPage = 1
 export var userData = null;

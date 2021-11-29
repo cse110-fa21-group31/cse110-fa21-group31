@@ -1,4 +1,9 @@
 {
     "integrationFolder": "__tests__",
-    "ignoreTestFiles": "**/!(*.spec.js)"
+    "ignoreTestFiles": "**/!(*.spec.js)",
+    "baseUrl": "http://localhost:3030",
+    "compilerOptions": {
+        "module": "esnext",
+        "allowJs": true
+    }
 }
