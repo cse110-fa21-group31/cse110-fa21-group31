@@ -48,8 +48,6 @@ jobs:
         start: npm start
         config-file: cypress.json
 
-  # linters and formatters are being done by Kian, omitted
-
   lint: 
 
     runs-on: ubuntu-latest
