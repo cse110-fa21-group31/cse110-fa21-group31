@@ -4,7 +4,7 @@
     "description": "Enjoy the cookie",
     "datePosted": 1638172867145,
     "servingSize": 8,
-    "imageURL": "http://s3.amazonaws.com/gmi-digital-library/65caecf7-a8f7-4a09-8513-2659cf92871e.jpg",
+    "image": "http://s3.amazonaws.com/gmi-digital-library/65caecf7-a8f7-4a09-8513-2659cf92871e.jpg",
     "tags": ["Breakfast", "Easy"],
     "cookTime": "40mins",
     "difficulty": "2 star",

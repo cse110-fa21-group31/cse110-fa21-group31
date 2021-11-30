@@ -20,7 +20,6 @@ describe("Cypress Pipeline v2", () => {
         cy.get("recipe-card").should("have.length.greaterThan", 0);
     });
 
-    // const recipesAvailable = cy.get("recipe-card");
     it("Should bring up details page when clicking a recipe card", () => {
         cy.get("recipe-card").first().click();
         cy.get("#descStuff");

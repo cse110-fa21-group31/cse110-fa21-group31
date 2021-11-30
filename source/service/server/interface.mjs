@@ -109,7 +109,7 @@ export async function getRecipesByNameAndTags(searchParams, recipeCollection) {
     if (searchParams.tags) {
         let tags = [];
         for (let t of searchParams.tags.split(',')) {
-            tags.push({ tags: t.toLowerCase() });
+            tags.push({ tags: new RegExp(t, 'i') });
         }
         filters.$and = tags;
     }
