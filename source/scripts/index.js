@@ -14,7 +14,7 @@ if (typeof window !== "undefined") {
 
 // THESE SHOULD BE GIVEN VIA API
 import { Router } from './router/Router.js'
-import { url, fetchRecipeByPage } from './APICalls.js'
+import { url, fetchRecipeByPage, fetchRecipeById, fetchRecipeByIds } from './APICalls.js'
 import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE } from './util.js'
 import { fillOutRecipe } from './recipeDetail.js'
 import { populateUserInfoPage } from './userInfo.js'
@@ -128,14 +128,17 @@ observer.observe(document.body, {
  * Generates the <recipeCard> elements from the fetched recipes and
  * appends them to the page
  */
-export function createRecipeCards(recipes) {
+export function createRecipeCards(recipes, container) {
+    let containerName = container
+    if (!containerName) containerName = '.myRecipeCardGridContainer'
+    // console.log(container)
     let newRecipes = recipeData;
     if (recipes) {
         newRecipes = recipes;
     }
     // Makes new recipe cards
     // Wait until the gridContainer is loaded
-    waitForSelector('.myRecipeCardGridContainer')
+    waitForSelector(containerName)
         .then(gridContainer => {
             while (gridContainer.firstChild) {
                 gridContainer.removeChild(gridContainer.firstChild);
@@ -251,7 +254,7 @@ export function routerNavigateWrapper(pageName) {
  * so that when they are clicked, their card expands into the full recipe view mode
  * @param {Element} profile the user profile json file
  */
-export function bindUserProfile(profile) {
+export async function bindUserProfile(profile) {
     const pageName = USER_ROUTE + profile._id
     router.addPage(pageName, function () {
         homePage.classList.remove("shown");
@@ -262,6 +265,15 @@ export function bindUserProfile(profile) {
         userInfoPage.classList.add("shown");
         userInfoPage.data = profile
         // TODO: populate user data in userInfo page 
+        document.getElementById("userName").textContent = profile.username ? profile.username : "OliveU User"
+        document.getElementById("userEmail").textContent = profile.email ? profile.email : "OliveU Email"
+
+        if (profile.myRecipe) {
+            createRecipeCards(profile.myRecipe, ".myUploadRecipeCardGridContainer")
+        }
+        if (profile.savedRecipe) {
+            createRecipeCards(profile.savedRecipe, ".mySavedRecipeCardGridContainer")
+        }
     });
 
     const profileButton = document.getElementById(ELE_ID_PROFILE_WRAPPER)

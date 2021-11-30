@@ -26,6 +26,10 @@ export async function fillOutRecipe(data) {
     document.getElementById("recipeTitle").innerHTML = data.name;
     if (data.tags) {
         let tagList = document.getElementById("tags");
+        //clear old steps
+        while (tagList.firstChild) {
+            tagList.removeChild(tagList.firstChild);
+        }
         for (let i = 0; i < data.tags.length; i++) {
             let item = document.createElement("li");
             tagList.appendChild(item);
@@ -93,37 +97,8 @@ export async function fillOutRecipe(data) {
         routerNavigateWrapper(home)
     })
 }
-/** 
- 
-*/
 
-/** 
-document.getElementById("dateOfCreation").innerHTML = searchForKey(
-    data,
-    "datePublished"
-).split("T")[0];
 
-const tagss = getCategories(data).split(",");
-tagss.forEach((tag) => {
-    const listItem = document.createElement("li");
-    listItem.innerHTML = tag;
-    document.getElementById("tags").append(listItem);
-});
-
-const ingredients = getIngredients(data);
-ingredients.forEach((ingredient) => {
-    const listItem = document.createElement("li");
-    listItem.innerHTML = ingredient;
-    document.getElementById("ingredients").append(listItem);
-});
-
-const instructions = getInstructions(data);
-instructions.forEach((instruction) => {
-    const listItem = document.createElement("li");
-    listItem.innerHTML = instruction;
-    document.getElementById("steps").append(listItem);
-});
-*/
 function convertTime(time) {
     let timeStr = '';
 
