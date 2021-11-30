@@ -1,4 +1,4 @@
-#PIPELINE STATUS
+# PIPELINE STATUS
 
 The pipeline’s automatic features are currently completely functional in terms of being able to run both end-to-end and unit tests, check for linting errors, commit Prettier’s auto-formatting changes from Github Actions, and displaying code quality score metrics.
 
