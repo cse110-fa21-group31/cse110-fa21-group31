@@ -12,3 +12,4 @@ export const EDIT_CREATE_ROUTE = "editcreate/";
 export const TEMP_EDIT_CREATE_ROUTE = "tempedit/";
 export const RECIPE_DB_PATH = "source/service/.data/recipes";
 export const TEST_RECIPE_DB_PATH = "source/service/.data/testrecipes";
+export const CARDS_PER_PAGE = 6;
