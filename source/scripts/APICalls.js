@@ -1,8 +1,10 @@
 export const url = "/api"
 export const userUrl = "/api/user"
 export const imageUploadUrl = "/api/imageUpload"
-export default {insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
-    updateRecipeById, submitSearch, uploadImage, url, userUrl}
+export default {
+    insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
+    updateRecipeById, submitSearch, uploadImage, url, userUrl
+}
 /**
  * 
  * want the return json object from server:
@@ -48,7 +50,7 @@ export async function deleteRecipe(id) {
         .catch((err) => {
             console.error('Error deleting recipe: ' + err.message);
         });
-    
+
     // console.log("Step Return");
     return response
 }
@@ -73,6 +75,22 @@ export async function fetchRecipeByPage(pageNum) {
             console.error('Error finding recipes: ' + err.message);
         });
     return response
+}
+
+/** 
+ * @deprecated
+ * sends an HTTP request to the server to fetch a list of recipes
+ * @param {array<string>} ids list of ids of the desired recipes
+ */
+export async function fetchRecipeByIds(ids) {
+
+    let recipes = []
+    for (let i = 0; i < ids.size; i++) {
+        const re = await fetchRecipeById(id)
+        recipes.push(re)
+    }
+    // console.log(recipes)
+    return recipes
 }
 
 /**
@@ -215,8 +233,8 @@ export async function deleteSavedRecipeById(userId, recipeId) {
  * @param {string} recipeId the recipeId to be used as image filename. 
  * @param {File} imageFile the image file to be saved. 
  */
- export async function uploadImage(imageFile) {
-     
+export async function uploadImage(imageFile) {
+
     const URL = imageUploadUrl;
     let data = new FormData()
     data.append('file', imageFile)

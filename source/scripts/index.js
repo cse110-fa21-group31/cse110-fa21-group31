@@ -1,8 +1,10 @@
 // import RecipeClass from "./recipeClass";
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
-export default {createRecipeCards, redirectRecipeDetail, bindRecipeCard, 
-routerAddCreatePage, routerAddEditPage, routerNavigateWrapper,
-bindUserProfile, bindEscKey, bindPopstate, setGlobalUserData, clearGlobalUserData}
+export default {
+    createRecipeCards, redirectRecipeDetail, bindRecipeCard,
+    routerAddCreatePage, routerAddEditPage, routerNavigateWrapper,
+    bindUserProfile, bindEscKey, bindPopstate, setGlobalUserData, clearGlobalUserData
+}
 // RecipeExpand.js
 if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", init);
@@ -12,13 +14,14 @@ if (typeof window !== "undefined") {
 
 // THESE SHOULD BE GIVEN VIA API
 import { Router } from './router/Router.js'
-import { url, fetchRecipeByPage } from './APICalls.js'
+import { url, fetchRecipeByPage, fetchRecipeById, fetchRecipeByIds } from './APICalls.js'
 import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE } from './util.js'
 import { fillOutRecipe } from './recipeDetail.js'
 import { populateUserInfoPage } from './userInfo.js'
 import { setupCreatePage } from './createPage.js'
 import { populateEditPage } from './editPage.js'
-let recipeData = [];
+import { setupDisqusScript } from './disqus.js';
+var recipeData = [];
 const NumRecipePerPage = 6
 const currPage = 1
 export var userData = null;
@@ -32,12 +35,12 @@ let landingPage = null; // = document.getElementById('landingPage')
 
 if (typeof window === 'object') {
     if (typeof window.document === 'object') {
-       homePage = document.getElementById('homePage');
-       recipeDetailPage = document.getElementById('recipeDetail');
-       userInfoPage = document.getElementById('userInfo');
-       createRecipePage = document.getElementById('createRecipe');
-       editRecipePage = document.getElementById('editRecipe');
-       landingPage = document.getElementById('landingPage');
+        homePage = document.getElementById('homePage');
+        recipeDetailPage = document.getElementById('recipeDetail');
+        userInfoPage = document.getElementById('userInfo');
+        createRecipePage = document.getElementById('createRecipe');
+        editRecipePage = document.getElementById('editRecipe');
+        landingPage = document.getElementById('landingPage');
     }
 }
 
@@ -125,31 +128,37 @@ observer.observe(document.body, {
  * Generates the <recipeCard> elements from the fetched recipes and
  * appends them to the page
  */
-export function createRecipeCards(recipes) {
+export function createRecipeCards(recipes, container) {
+    let containerName = container
+    if (!containerName) containerName = '.myRecipeCardGridContainer'
+    // console.log(container)
     let newRecipes = recipeData;
-    if(recipes){
+    if (recipes) {
         newRecipes = recipes;
     }
     // Makes new recipe cards
     // Wait until the gridContainer is loaded
-    waitForSelector('.myRecipeCardGridContainer')
+    waitForSelector(containerName)
         .then(gridContainer => {
             while (gridContainer.firstChild) {
                 gridContainer.removeChild(gridContainer.firstChild);
             }
             newRecipes.forEach(recipeObj => {
                 if (!recipeObj) return
+                //create the recipe card
                 const recipeCard = document.createElement('recipe-card');
-                // console.log("Created recipe-card");
-                recipeCard.data = recipeObj;
-                // console.log(recipeCard.data);
+                recipeCard.data = recipeObj
+                //create the recipeDetail page for this card and linked it to the router
                 redirectRecipeDetail(recipeObj)
                 // click event
                 const page = recipeObj._id;
                 const routeUrl = RECIPE_ROUTE + page
+                //when this card is clicked, redirect to the recipeDetail page
                 recipeCard.addEventListener('click', e => {
                     // if (e.path[0].nodeName == 'A') return;
                     router.navigate(routeUrl);
+                    const disqusScript = document.getElementById('disqus_script');
+                    disqusScript.onload = setupDisqusScript(recipeObj._id)
                 });
                 gridContainer.appendChild(recipeCard);
             })
@@ -173,6 +182,8 @@ export function redirectRecipeDetail(recipeObj) {
         recipeDetailPage.data = recipeObj;
         // console.log(recipeDetailPage.data)
         fillOutRecipe(recipeObj)
+        // const disqusScript = document.getElementById('disqus_script');
+        // disqusScript.onload = setupDisqusScript(recipeObj._id)
     });
 }
 /**
@@ -230,7 +241,7 @@ export function routerAddEditPage(pageName, recipeObj) {
         createRecipePage.classList.remove("shown");
         landingPage.classList.remove("shown");
         editRecipePage.classList.add("shown");
-        
+
         populateEditPage(recipeObj)
     })
 }
@@ -243,7 +254,7 @@ export function routerNavigateWrapper(pageName) {
  * so that when they are clicked, their card expands into the full recipe view mode
  * @param {Element} profile the user profile json file
  */
-export function bindUserProfile(profile) {
+export async function bindUserProfile(profile) {
     const pageName = USER_ROUTE + profile._id
     router.addPage(pageName, function () {
         homePage.classList.remove("shown");
@@ -253,7 +264,16 @@ export function bindUserProfile(profile) {
         landingPage.classList.remove("shown");
         userInfoPage.classList.add("shown");
         userInfoPage.data = profile
-        // TODO: populate user data in userInfo page 
+        // Important: we need profile.myRecipe and profile.savedRecipe as an array of recipe OBJECT
+        document.getElementById("userName").textContent = profile.username ? profile.username : "OliveU User"
+        document.getElementById("userEmail").textContent = profile.email ? profile.email : "OliveU Email"
+
+        if (profile.myRecipe) {
+            createRecipeCards(profile.myRecipe, ".myUploadRecipeCardGridContainer")
+        }
+        if (profile.savedRecipe) {
+            createRecipeCards(profile.savedRecipe, ".mySavedRecipeCardGridContainer")
+        }
     });
 
     const profileButton = document.getElementById(ELE_ID_PROFILE_WRAPPER)

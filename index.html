@@ -28,7 +28,10 @@
     <script src="/source/scripts/editPage.js" type="module"></script>
     <script src="/source/scripts/router/Router.js" type="module"></script>
     <script src="/source/scripts/index.js" type="module"></script>
+    <script src="/source/scripts/disqus.js" type="module"></script>
 
+    <meta name="google-signin-client_id"
+        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
@@ -38,11 +41,11 @@
         .hidden {
             display: none;
         }
-        
+
         .show {
             display: inline;
         }
-        
+
         section:not(section.shown) {
             display: none;
         }
@@ -109,9 +112,10 @@
             imported from navBarWithGoogle.js
         </div>
         <div class="searchBarHomePage">
-            <form class="searchItems" class="formItem" action='source/scripts/indexSearch.js' id="searchBarFormHomepage"> 
-                    <input type="search" name="keyword" id="searchBarHome" placeholder="Search...">
-                    <input type="button" name="submit" id="searchButtonHome" value="Search"> 
+            <form class="searchItems" class="formItem" action='source/scripts/indexSearch.js'
+                id="searchBarFormHomepage">
+                <input type="search" name="keyword" id="searchBarHome" placeholder="Search...">
+                <input type="button" name="submit" id="searchButtonHome" value="Search">
             </form>
         </div>
         <div id="selectTag" class="formItem">
@@ -147,7 +151,7 @@
             <ul id="tag" class="tagsList"></ul>
         </div>
 
-        <br/>
+        <br />
         <!-- Displaying recipe description-->
 
         <div>
@@ -182,6 +186,9 @@
             <ol id="stps" class="stepsList"></ol>
         </div>
 
+        <div id="disqus_thread"></div>
+        <script id="disqus_script"></script>
+
     </section>
 
     <!-- user info page -->
@@ -192,17 +199,17 @@
                 grid-template-columns: 1fr 2fr;
                 padding: 10px;
             }
-            
+
             .userInfoGridItem {
                 padding: 20px;
                 font-size: 30px;
                 text-align: center;
             }
-            
+
             h1 {
                 line-height: 0px;
             }
-            
+
             .myRecipeCardGridContainer {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
@@ -213,52 +220,23 @@
             <!-- User Profile, left side -->
             <div class="userInfoGridItem">
                 <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
-                <h1 id="userName"> Name </h1>
-                <h2 id="userEmail"> Email </h2>
+                <h1 id="userName"> Celia </h1>
+                <h2 id="userEmail"> c6xiao@ucsd.edu </h2>
                 <button id="createRecipePageButton" type="button"> New Recipe </button>
             </div>
             <!-- Recipe Section -->
             <div class="userInfoGridItem">
                 <h1> My Recipes </h1>
-                <div class="myRecipeCardGridContainer">
-                    <recipeCard>
-                        <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
-                        <p> Title </p>
-                        <customTags> Beef, Easy, Entree </customTags>
-                    </recipeCard>
-                    <recipeCard>
-                        <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
-                        <p> Title </p>
-                        <customTags> Beef, Easy, Entree </customTags>
-                    </recipeCard>
-                    <recipeCard>
-                        <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
-                        <p> Title </p>
-                        <customTags> Beef, Easy, Entree </customTags>
-                    </recipeCard>
-                </div>
-                <h1> Saved Recipes </h1>
-                <div class="savedRecipes">
-                    <div class="myRecipeCardGridContainer">
-                        <recipeCard>
-                            <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
-                            <p> Title </p>
-                            <customTags> Beef, Easy, Entree </customTags>
-                        </recipeCard>
-                        <recipeCard>
-                            <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
-                            <p> Title </p>
-                            <customTags> Beef, Easy, Entree </customTags>
-                        </recipeCard>
-                        <recipeCard>
-                            <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
-                            <p> Title </p>
-                            <customTags> Beef, Easy, Entree </customTags>
-                        </recipeCard>
-                    </div>
+                <div class="myUploadRecipeCardGridContainer">
+                    < </div>
+                        <h1> Saved Recipes </h1>
+                        <div class="savedRecipes">
+                            <div class="mySavedRecipeCardGridContainer">
+
+                            </div>
+                        </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 
@@ -282,72 +260,72 @@
                     <label for="description">Description:</label>
                     <textarea name="description" id="descriptionText"></textarea>
                 </div>
-        <!-- Tags will be sent to the backend as a big comma delimited string -->
-        <div id="tags" class="formItem">
-            <label for="tags">Tags:</label>
-            <input type="text" name="tags" id="tags">
-        </div>
+                <!-- Tags will be sent to the backend as a big comma delimited string -->
+                <div id="tags" class="formItem">
+                    <label for="tags">Tags:</label>
+                    <input type="text" name="tags" id="tags">
+                </div>
 
 
-        <div id="cookTime" class="formItem">
-            <label for="cookTime">Cook Time:</label>
-            <input type="text" name="cookTime" id="prepTime">
-        </div>
+                <div id="cookTime" class="formItem">
+                    <label for="cookTime">Cook Time:</label>
+                    <input type="text" name="cookTime" id="prepTime">
+                </div>
 
-        <div id="servingSize" class="formItem">
-            <label for="servingSize">Serving Size:</label>
-            <input type="text" name="servingSize" id="servingSize">
-        </div>
-        <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
-        <div id="difficulty" class="formItem">
-            <label for="difficulty">Difficulty:</label>
-            <select name="difficulty" id="difficulty">
+                <div id="servingSize" class="formItem">
+                    <label for="servingSize">Serving Size:</label>
+                    <input type="text" name="servingSize" id="servingSize">
+                </div>
+                <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
+                <div id="difficulty" class="formItem">
+                    <label for="difficulty">Difficulty:</label>
+                    <select name="difficulty" id="difficulty">
                         <option value="1">1 star</option>
                         <option value="2">2 stars</option>
                         <option value="3">3 stars</option>
                         <option value="4">4 stars</option>
                         <option value="5">5 stars</option>
                     </select>
-        </div>
-
-        <div id="ingredients" class="formItem">
-            <label for="ingredients">Ingredients:</label>
-
-            <div id="addIngredients">
-                <input type="button" id="addIngr" value="Add Ingredient"></button>
-                <input type="button" id="delIngr" value="Delete Ingredient"></button>
-            </div>
-            <div id="addIngredients" class='float-container'>
-                <div class='float-child'>
-                    <div id="newIngredientId"></div>
                 </div>
-                <div class='float-child'>
-                    <div id="newIngredientAmountId"></div>
+
+                <div id="ingredients" class="formItem">
+                    <label for="ingredients">Ingredients:</label>
+
+                    <div id="addIngredients">
+                        <input type="button" id="addIngr" value="Add Ingredient"></button>
+                        <input type="button" id="delIngr" value="Delete Ingredient"></button>
+                    </div>
+                    <div id="addIngredients" class='float-container'>
+                        <div class='float-child'>
+                            <div id="newIngredientId"></div>
+                        </div>
+                        <div class='float-child'>
+                            <div id="newIngredientAmountId"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div id="steps" class="formItem">
-            <label for="steps">Steps:</label>
-            <div id="addSteps">
-                <input type="button" id="addStep" value="Add Step"></button>
-                <input type="button" id="delStep" value="Delete Step"></button>
-            </div>
-            <div id="newStepId"></div>
-        </div>
+                <div id="steps" class="formItem">
+                    <label for="steps">Steps:</label>
+                    <div id="addSteps">
+                        <input type="button" id="addStep" value="Add Step"></button>
+                        <input type="button" id="delStep" value="Delete Step"></button>
+                    </div>
+                    <div id="newStepId"></div>
+                </div>
 
-        <div class="float-container">
-            <div id="delete" class="float-child">
-                <input type="button" value="Delete">
-            </div>
-            <div id="cancel" class="float-child">
-                <input type="button" value="Cancel">
-            </div>
-            <div id="submit" class="float-child">
-                <input type="submit" value="Save">
-            </div>
-        </div>
-        </form>
+                <div class="float-container">
+                    <div id="delete" class="float-child">
+                        <input type="button" value="Delete">
+                    </div>
+                    <div id="cancel" class="float-child">
+                        <input type="button" value="Cancel">
+                    </div>
+                    <div id="submit" class="float-child">
+                        <input type="submit" value="Save">
+                    </div>
+                </div>
+            </form>
         </div>
     </section>
 
@@ -440,9 +418,10 @@
     </section>
 
     <!-- footer -->
-    <footer>
-        <iframe src="/source/cards/footer.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
-    </footer>
+    <!-- <footer>
+        <iframe src="/source/cards/footer.html"
+            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+    </footer> -->
 
 </body>
 
