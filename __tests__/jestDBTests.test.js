@@ -1,7 +1,7 @@
 // Jest Unit testing
 
 import * as Interface from "../source/service/server/interface.mjs";
-import { TEST_RECIPE_DB_PATH } from "../source/scripts/util.js";
+import { TEST_RECIPE_DB_PATH, CARDS_PER_PAGE } from "../source/scripts/util.js";
 import Datastore from "nedb";
 import recipes from "./testRecipes.js";
 
@@ -78,7 +78,6 @@ const populateDatabase = (randomRecipes = 10) => {
         .catch(console.log);
     });
 };
-
 const getDatabaseCount = () => {
     return new Promise((resolve) => {
         testDB.count({}, (err, count) => {
@@ -90,7 +89,6 @@ const getDatabaseCount = () => {
 describe("Tests database recipe functions", () => {
     beforeAll(async () => {
         await clearDatabase();
-        await populateDatabase();
     });
 
     test("createRecipe", async () => {
@@ -121,14 +119,76 @@ describe("Tests database recipe functions", () => {
         expect(resultRecipes.length).toBe(createdIds.length);
     });
 
-    test.skip("getRecipesByNameAndTags", async () => {
-        let randomRecipe = generateRandomRecipe();
-        let createdRecipe = await Interface.createRecipe(randomRecipe, testDB);
-        // TODO
+    test("getRecipesByNameAndTags", async () => {
+        /**
+         * retrieves all recipes with overlap in the names and all tags match
+         * @param {*} searchParams the content to search for
+         * @param {*} recipeCollection the database to search in
+         * @returns {Array<recipe>} the matching recipes
+        export async function getRecipesByNameAndTags(searchParams, recipeCollection) {
+         */
+        const commonName = "foodthing";
+        const commonTag = "commontag";
+        // generate a bunch of new recipes that have commonName inside their name
+        // and also have commonTag as a tag in their tagstring
+        const commonRecipeCount = 10;
+        const commonRecipes = Array(commonRecipeCount).fill(null).map(() => {
+            let newRecipe = generateRandomRecipe();
+            newRecipe.name = newRecipe.name + commonName + Math.floor(Math.random() * 100);
+            newRecipe.tags = newRecipe.tags + `, ${commonTag}`;
+            return newRecipe;
+        });
+        await Promise.race(commonRecipes.map((recipe) => Interface.createRecipe(recipe, testDB)));
+
+        const queryResult = Interface.getRecipesByNameAndTags({name: commonName, tags: commonTag}, testDB);
+        expect(queryResult.length).toBe(commonRecipeCount);
+        expect(queryResult.every((recipe) => recipe.name.includes(commonName))).toBeTruthy();
+        expect(queryResult.every((recipe) => recipe.tags.split(",").includes(commonTag))).toBeTruthy();
     });
 
-    test.skip("getRecipeByPage", async () => {
-        let randomRecipes = [];
-        // TODO
+    test("getRecipeByPage", async (done) => {
+        /**
+         * fetches all recipes
+         * @param {*} recipeCollection the database to search in
+         * @returns {Array<recipe>} all recipes in the database
+         */
+        const recipeCount = await getDatabaseCount();
+        const pageSize = CARDS_PER_PAGE;
+        const lastPage = Math.ceil(recipeCount / pageSize);
+        const firstPage = 1;
+
+        await populateDatabase(3);
+        Interface.getRecipesByPage(testDB, firstPage).then((recipes) => {
+            expect(recipes.length).toBe(3);
+        });
+
+        await clearDatabase();
+        await populateDatabase(pageSize);
+        Interface.getRecipesByPage(testDB, firstPage).then((recipes) => {
+            expect(recipes.length).toBe(pageSize);
+        });
+
+        await clearDatabase();
+        await populateDatabase(pageSize + 1);
+        Interface.getRecipesByPage(testDB, firstPage).then((recipes) => {
+            expect(recipes.length).toBe(pageSize);
+        });
+        Interface.getRecipesByPage(testDB, firstPage + 1).then((recipes) => {
+            expect(recipes.length).toBe(1);
+        });
+
+        await clearDatabase();
+        await populateDatabase(pageSize * 2);
+        Interface.getRecipesByPage(testDB, firstPage + 1).then((recipes) => {
+            expect(recipes.length).toBe(pageSize);
+        });
+
+        await clearDatabase();
+        Interface.getRecipesByPage(testDB, firstPage).then((recipes) => {
+            expect(recipes.length).toBe(0);
+        });
+        Interface.getRecipesByPage(testDB, firstPage + 1).then((recipes) => {
+            expect(recipes.length).toBe(0);
+        });
     });
 });
