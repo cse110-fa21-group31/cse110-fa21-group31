@@ -1,12 +1,10 @@
 // Jest Unit testing
 
 import * as Interface from "../source/service/server/interface.mjs";
-import { TEST_RECIPE_DB_PATH } from "../source/scripts/util.js";
+import { TEST_RECIPE_DB_PATH, CARDS_PER_PAGE } from "../source/scripts/util.js";
 import Datastore from "nedb";
 import recipes from "./testRecipes.js";
-import crypto from "crypto";
 
-const RANDOM_RECIPE_COUNT = 10;
 const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
 
 /**
@@ -57,12 +55,6 @@ const generateRandomRecipe = () => {
     return randomRecipe;
 };
 
-// ACTUAL TESTING
-test("smaple test", (done) => {
-    expect(1).toBe(1);
-    done();
-})
-
 // make sure we start off with a clean slate every time or else
 // tests will keep adding and adding the same recipes
 const clearDatabase = () => {
@@ -86,7 +78,6 @@ const populateDatabase = (randomRecipes = 10) => {
         .catch(console.log);
     });
 };
-
 const getDatabaseCount = () => {
     return new Promise((resolve) => {
         testDB.count({}, (err, count) => {
@@ -98,7 +89,6 @@ const getDatabaseCount = () => {
 describe("Tests database recipe functions", () => {
     beforeAll(async () => {
         await clearDatabase();
-        await populateDatabase();
     });
 
     test("createRecipe", async () => {
@@ -129,14 +119,33 @@ describe("Tests database recipe functions", () => {
         expect(resultRecipes.length).toBe(createdIds.length);
     });
 
-    test.skip("getRecipesByNameAndTags", async () => {
-        let randomRecipe = generateRandomRecipe();
-        let createdRecipe = await Interface.createRecipe(randomRecipe, testDB);
-        // TODO
+    test("getRecipesByNameAndTags", async () => {
+        const commonName = "foodthing";
+        const commonTag = "commontag";
+        // generate a bunch of new recipes that have commonName inside their name
+        // and also have commonTag as a tag in their tagstring
+        const commonRecipeCount = 10;
+        const commonRecipes = Array(commonRecipeCount).fill(null).map(() => {
+            let newRecipe = generateRandomRecipe();
+            newRecipe.name = newRecipe.name + commonName + Math.floor(Math.random() * 100);
+            newRecipe.tags = newRecipe.tags + `,${commonTag}`;
+            return newRecipe;
+        });
+        await Promise.race(commonRecipes.map((recipe) => Interface.createRecipe(recipe, testDB)));
+
+        const queryResult = await Interface.getRecipesByNameAndTags({name: commonName, tags: commonTag}, testDB);
+        expect(queryResult.length).toBe(commonRecipeCount);
+        expect(queryResult.every((recipe) => recipe.name.includes(commonName))).toBeTruthy();
+        console.log(queryResult.map((recipe) => recipe.tags));
+        expect(queryResult.every((recipe) => recipe.tags.split(",").includes(commonTag))).toBeTruthy();
     });
 
-    test.skip("getRecipeByPage", async () => {
-        let randomRecipes = [];
-        // TODO
+    const pageSize = CARDS_PER_PAGE;
+    test("getRecipeByPage full", async () => {
+        return populateDatabase(pageSize).then(() => {
+            Interface.getRecipeByPage(testDB).then((pagerecipes) => {
+                expect(pagerecipes.length).toBe(pageSize);
+            })
+        });
     });
 });

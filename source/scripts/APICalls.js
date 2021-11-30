@@ -86,7 +86,7 @@ export async function fetchRecipeByIds(ids) {
 
     let recipes = []
     for (let i = 0; i < ids.size; i++) {
-        const re = await fetchRecipeById(id)
+        const re = await fetchRecipeById(ids[i]);
         recipes.push(re)
     }
     // console.log(recipes)
