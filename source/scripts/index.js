@@ -264,7 +264,7 @@ export async function bindUserProfile(profile) {
         landingPage.classList.remove("shown");
         userInfoPage.classList.add("shown");
         userInfoPage.data = profile
-        // TODO: populate user data in userInfo page 
+        // Important: we need profile.myRecipe and profile.savedRecipe as an array of recipe OBJECT
         document.getElementById("userName").textContent = profile.username ? profile.username : "OliveU User"
         document.getElementById("userEmail").textContent = profile.email ? profile.email : "OliveU Email"
 
