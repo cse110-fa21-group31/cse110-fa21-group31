@@ -137,18 +137,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '16'
-        #cache: 'npm'
 
-    # Quality
-    # - name: Codacy Analysis CLI
-    #   uses: codacy/codacy-analysis-cli-action@4.0.0
-    #   with:
-    #     fail-if-incomplete: true
-    #     max-allowed-issues: 0
-    #     project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-    #     run-docker-tools: true
-    #     verbose: true
-    #     upload: true
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v1.6
       env:
