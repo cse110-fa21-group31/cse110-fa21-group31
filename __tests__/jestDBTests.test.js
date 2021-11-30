@@ -4,9 +4,7 @@ import * as Interface from "../source/service/server/interface.mjs";
 import { TEST_RECIPE_DB_PATH } from "../source/scripts/util.js";
 import Datastore from "nedb";
 import recipes from "./testRecipes.js";
-import crypto from "crypto";
 
-const RANDOM_RECIPE_COUNT = 10;
 const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
 
 /**
@@ -56,12 +54,6 @@ const generateRandomRecipe = () => {
 
     return randomRecipe;
 };
-
-// ACTUAL TESTING
-test("smaple test", (done) => {
-    expect(1).toBe(1);
-    done();
-})
 
 // make sure we start off with a clean slate every time or else
 // tests will keep adding and adding the same recipes
