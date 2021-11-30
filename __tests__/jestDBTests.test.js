@@ -143,8 +143,8 @@ describe("Tests database recipe functions", () => {
     const pageSize = CARDS_PER_PAGE;
     test("getRecipeByPage full", async () => {
         return populateDatabase(pageSize).then(() => {
-            Interface.getRecipeByPage(testDB).then((recipes) => {
-                expect(recipes.length).toBe(pageSize);
+            Interface.getRecipeByPage(testDB).then((pagerecipes) => {
+                expect(pagerecipes.length).toBe(pageSize);
             })
         });
     });
