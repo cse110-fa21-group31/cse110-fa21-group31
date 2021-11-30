@@ -33,7 +33,7 @@
  * sign-in and log-out
  * Dependency: navBarWithGoogle.html
  */
-export default {onSignIn}
+export default { onSignIn }
 import {
     ELE_CLASS_PROFILE_IMAGE,
     ELE_ID_PROFILE,
@@ -71,8 +71,8 @@ const ELE_ID_HEADER = "header";
 // Set functions onSignIn and signOut to global scope, otherwise they're not
 // accessible in html
 if (typeof window === 'object') {
-window.onSignIn = onSignIn;
-window.signOut = signOut;
+    window.onSignIn = onSignIn;
+    window.signOut = signOut;
 }
 
 /**
@@ -81,15 +81,15 @@ window.signOut = signOut;
  *
  * @param {*} googleUser User profile provided by Google sign-in API.
  */
-function onSignIn(googleUser) {
+async function onSignIn(googleUser) {
     // TODO: fake user for now, dynamically get user info here. 
     const profile = {
         username: googleUser.getBasicProfile().getName(),
         imageURL: googleUser.getBasicProfile().getImageUrl(),
         email: googleUser.getBasicProfile().getEmail(),
         _id: "MMAfv3oCQDiL4u10",
-        savedRecipe: ["VZsAA6HuzytdIQT2"],
-        myRecipe: ["AJlpmnCbp6gry18v", "uYaCV6U4XGfQHYg2"],
+        savedRecipe: [{ "name": "Pumpkin Pie", "datePosted": 1638174251341, "image": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/3/6/0/RF0104_From-Scratch-Pumpkin-Pie_s4x3.jpg.rend.hgtvcom.616.462.suffix/1433678596474.jpeg", "author": "MMAfv3oCQDiL4u10", "description": "  The perfect ending to a Thanksgiving feast!  ", "tags": ["Dessert", "Seasonal"], "servingSize": "8", "cookTime": "55 mins", "ingredients": { "1": "1", "canned": "14", "large": "2", "ground": "1/2", "salt": "1/2", "unbaked": "9" }, "difficulty": "2", "ingredientAmounts": [], "steps": ["Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs, spices and salt in medium bowl until smooth. Pour into crust. Bake 15 minutes.", "Reduce oven temperature to 350 degrees F and continue baking 35 to 40 minutes or until knife inserted 1 inch from crust comes out clean. Cool. Garnish as desired. Store leftovers covered in refrigerator.", "Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs, spices and salt in medium bowl until smooth. Pour into crust. Bake 15 minutes.", "Reduce oven temperature to 350 degrees F and continue baking 35 to 40 minutes or until knife inserted 1 inch from crust comes out clean. Cool. Garnish as desired. Store leftovers covered in refrigerator.", "Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs, spices and salt in medium bowl until smooth. Pour into crust. Bake 15 minutes.", "Reduce oven temperature to 350 degrees F and continue baking 35 to 40 minutes or until knife inserted 1 inch from crust comes out clean. Cool. Garnish as desired. Store leftovers covered in refrigerator."], "_id": "ESnxaPsM1FrrUo0D" }],
+        myRecipe: [{ "name": "Christmas Cake", "datePosted": 1638151874455, "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/frosty-robin-cake-1606392006.jpg", "author": "MMAfv3oCQDiL4u10", "description": "  Christmas cake made by Powell's Fanclub! We're awesome and Merry Christmas! ", "tags": ["christmas", "party"], "servingSize": "4", "cookTime": "2 hrs", "ingredients": { "butter": "1/2 cup", "flour": "2 cups" }, "difficulty": "5", "ingredientAmounts": [], "steps": ["step 1", "step 2 UPDATED"], "_id": "AJlpmnCbp6gry18v" }],
     };
 
     console.log("User login activity caught by frontend:");
@@ -104,7 +104,7 @@ function onSignIn(googleUser) {
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_NONE;
     // Display profile image
     let profileWrapper = document.getElementById(ELE_ID_PROFILE_WRAPPER);
-    profileWrapper.class="shown";
+    profileWrapper.class = "shown";
 
     let profileImage = document.getElementById(ELE_ID_PROFILE);
     let image = document.createElement(HTML_ELE_IMG);
@@ -117,8 +117,8 @@ function onSignIn(googleUser) {
     const userObj = {
 
     }
-    
-    bindUserProfile(profile);
+
+    await bindUserProfile(profile);
     setGlobalUserData(profile);
     populateUserInfoPage();
 }
@@ -157,13 +157,13 @@ async function userSignedOut() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByIds">fetchRecipeByIds</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Nov 29 2021 23:53:56 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue Nov 30 2021 00:35:24 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
