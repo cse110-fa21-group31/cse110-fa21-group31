@@ -82,3 +82,5 @@ Date: 11/ 30
 * Scrape hundreds of recipes from different recipe websites, make it a JSON object, and add it into our database. 
 * Held weekly group standup meetings to check the backend/ frontend team’s progress.
 * Communcatiated with TA to update our features’ progress
+
+Screenshot in https://docs.google.com/document/d/1QaeVi0C9uhpD8vpO3dYxbXOKoOTReGSRg6J1AGDTrSY/edit?usp=sharing
