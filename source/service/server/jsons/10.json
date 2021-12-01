@@ -9,39 +9,19 @@
     "cookTime": "60mins",
     "difficulty": "2 star",
 
-    "ingredients": [
+    "ingredients": 
         {
             "rolled oats, (not instant)": 2.5
-        },
-        {
             "all-purpose flour": 1
-        },
-        {
             "grated orange rind": 1
-        },
-        {
             "salt": 1
-        },
-        {
-           
             "cold butter, cubed": 1
-        },
-        {
             "packed brown sugar": 0.5
-        },
-        {
             "fresh blueberries": 3
-        },
-        {
            "granulated sugar": 0.5
-        },
-        {
           "orange juice": 1
-        },
-        {
            "cornstarch": 4
-        }
-    ],
+        },
     "steps": [
         "Filling: In saucepan, bring blueberries, sugar and orange juice to boil; reduce heat and simmer until tender, about 10 minutes.",
             "Whisk cornstarch with 2 tbsp (25 mL) water; whisk into blueberries and boil, stirring, until thickened, about 1 minute.",
