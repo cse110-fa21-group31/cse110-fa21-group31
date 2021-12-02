@@ -49,44 +49,50 @@ describe("Works with a google account signin", () => {
     });
 
     // TODO: get these working with cypress-iframe plugin
-    it.skip("should not allow saving a recipe if it lacks the required fields", () => {
-        cy.contains("Save").click();
+    it("should not allow saving a recipe if it lacks the required fields", () => {
+        cy.get('#recipeForm > :nth-child(10) > #submit > input').click();
         cy.get("#createRecipe").should("not.have.css", "display", "none");
         cy.get(".recipeEdit").should("not.have.css", "display", "none");
         cy.get("#recipeDetail").should("have.css", "display", "none");
-    })
-    it.skip("should be able to input recipe info and successfully make a new recipe", () => {
+    });
+    it("should be able to input recipe info and successfully make a new recipe", () => {
         // Fill out the following fields:
         // name, description, tags (a comma-delimited string), cook time, serving size, difficulty (dropdown menu from 1 to 5 stars)
         cy.get("#name").type("Test Recipe");
         cy.get("#descriptionText").type("This is a test recipe");
-        cy.get("#tags").type("testtag, testtag2, testtag3");
-        cy.get("#cookTime").type("10");
-        cy.get("#servingSize").type("1");
-        cy.get("#difficulty").select("5");
+        cy.get('#recipeForm > :nth-child(4) > #tags').type("testtag, testtag2, testtag3");
+        cy.get('#cookTime > #prepTime').type("10");
+        cy.get('#recipeForm > :nth-child(6) > #servingSize').type("1");
+        cy.get('#recipeForm > :nth-child(7) > #difficulty').select("5");
         // click add ingredient and wait for a new input text element to be created
         // it will have an ID of "newInputBox" and its name will be "ingredient#" where '#' is the number of the ingredient
         // it will also create a similar
         // do this a random number of times
-        let amountOfIngredients = Math.floor(Math.random() * 10) + 1;
+        let amountOfIngredients = Math.floor(Math.random() * 5) + 1;
         for (let i = 0; i < amountOfIngredients; i++) {
-            cy.get("#addIngr").click();
-            cy.get("#newInputBox").should("have.attr", "name", "ingredient" + i).type("Test Ingredient " + i);
-            cy.get("#newInputBox").should("have.attr", "name", "ingredientAmount" + i).type("Some amount, " + i);
+            cy.get('#recipeForm > #ingredients > :nth-child(2) > #addIngr').click();
+            cy.get(`#newInputBox[name=ingredient${i}]`).type("Test Ingredient " + i);
+            cy.get(`#newInputBox[name=ingredientAmount${i}]`).type("Some amount " + i);
         }
         // at the end, there should be amountOfIngredients amount of ingredient inputs
-        cy.get("#newInputBox").should("have.length", amountOfIngredients);
+        cy.get("#newIngredientId").children().should("have.length", amountOfIngredients);
 
         // click add step and wait for a new input text element to be created
         // it will have an ID of "textAreaBox" and its name will be "step#" where '#' is the number of the step
-        let amountOfSteps = Math.floor(Math.random() * 10) + 1;
+        let amountOfSteps = Math.floor(Math.random() * 5) + 3;
         for (let i = 0; i < amountOfSteps; i++) {
-            cy.get("#addStep").click();
-            cy.get("#textAreaBox").should("have.attr", "name", "step" + i).type("Test Step " + i);
+            cy.get('#recipeForm > #steps > #addSteps > #addStep').click();
+            cy.get(`#textAreaBox[name=step${i}]`).type("Test Step " + i);
         }
-        cy.get("#textAreaBox").should("have.length", amountOfSteps);
+        cy.get("#newStepId").children().should("have.length", amountOfSteps);
 
-        cy.contains("Save").click();
+        let amountOfStepsDeleted = Math.floor(Math.random() * 2) + 1;
+        for (let i = 0; i < amountOfSteps; i++) {
+            cy.get('#recipeForm > #steps > #addSteps > #delStep').click();
+        }
+        cy.get("#newStepId").children().should("have.length", amountOfSteps - amountOfStepsDeleted);
+
+        cy.get('#recipeForm > :nth-child(10) > #submit > input').click();
         cy.get("#recipeDetail").should("not.have.css", "display", "none");
-    })
+    });
 })
