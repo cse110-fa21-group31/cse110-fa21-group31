@@ -3,11 +3,13 @@ export default { init }
 if (typeof window === 'object') {
     window.addEventListener("DOMContentLoaded", init);
 }
-import { submitSearch } from "./APICalls.js"
+import { submitSearch, submitInitialSearch } from "./APICalls.js"
 import { createRecipeCards } from "./index.js";
 
 let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
 let selectedTags = [];
+let curr_page = 1;
+let max_page = 1;
 /**
  * initializes search functionality through the frontend
  */
@@ -15,13 +17,33 @@ async function init() {
     // TODO: Make sure this works for both landing and home pages
     let searchBar = document.querySelector("#searchBar");
     let searchButton = document.querySelector("#searchButton");
+    let scrollLeftButton = document.querySelector("#scrollLeft");
+    let scrollRightButton = document.querySelector("#scrollRight");
 
-    if (searchButton) {
-        searchButton.addEventListener("click", async function() {
-            let searchResults = await submitSearch(searchBar.value, selectedTags);
-            createRecipeCards(searchResults.results);
-        });
-    }
+    searchButton.addEventListener("click", async function() {
+        let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
+        createRecipeCards(searchResults.results);
+        curr_page = 1;
+        max_page = searchResults.pages.pages;
+        console.log(max_page);
+        console.log(searchResults);
+    });
+
+    scrollRightButton.addEventListener("click", async function() {
+        if(curr_page < max_page){
+            curr_page++;
+            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
+            createRecipeCards(results);
+        }
+    });
+
+    scrollLeftButton.addEventListener("click", async function() {
+        if(curr_page > 1) {
+            curr_page--;
+            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
+            createRecipeCards(results);
+        }
+    });
 
     let tagsSelect = document.getElementById("tagsList");
     console.log(tagsSelect);

@@ -113,6 +113,30 @@ export async function updateRecipeById(id, update) {
  * @param {Array<string>} tags tags to filter results by
  * @returns {Array<recipe>} the recipes returned by the search engine
  */
+ export async function submitInitialSearch(keywords, tags) {
+    let query = "?";
+    if (keywords) {
+        query = query + "name=" + keywords;
+    }
+    if (tags) {
+        query = query + '&' + "tags=" + tags.join(",");
+    }
+    let queryURL = API_URL + query;
+    let searchResults = await fetchResults(queryURL);
+    let pageCount = await getPageCount(queryURL);
+    return {
+        "results":searchResults,
+        "pages": pageCount
+    };
+}
+
+/**
+ * sends an HTTP request to the server to fetch the search results
+ * @param {string} keywords words to search for in the name of recipes
+ * @param {Array<string>} tags tags to filter results by
+ * @param {int} page the page of results to fetch
+ * @returns {Array<recipe>} the recipes returned by the search engine
+ */
 export async function submitSearch(keywords, tags, page) {
     let query = "?";
     if (keywords) {
@@ -122,12 +146,7 @@ export async function submitSearch(keywords, tags, page) {
         query = query + '&' + "tags=" + tags.join(",");
     }
     let queryURL = API_URL + query;
-    let searchResults = await fetchResults(queryURL, page);
-    let pageCount = await getPageCount(queryURL);
-    return {
-        "results":searchResults,
-        "pages": pageCount
-    };
+    return await fetchResults(queryURL, page);
 }
 
 /**
