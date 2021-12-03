@@ -27,17 +27,15 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>//This file is when the user searches a keyword in index.html page
-export default { init }
+export default {init}
 if (typeof window === 'object') {
-    window.addEventListener("DOMContentLoaded", init);
+window.addEventListener("DOMContentLoaded", init);
 }
-import { submitSearch, submitInitialSearch } from "./APICalls.js"
+import { submitSearch } from "./APICalls.js"
 import { createRecipeCards } from "./index.js";
 
 let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
 let selectedTags = [];
-let curr_page = 1;
-let max_page = 1;
 /**
  * initializes search functionality through the frontend
  */
@@ -45,33 +43,12 @@ async function init() {
     // TODO: Make sure this works for both landing and home pages
     let searchBar = document.querySelector("#searchBar");
     let searchButton = document.querySelector("#searchButton");
-    let scrollLeftButton = document.querySelector("#scrollLeft");
-    let scrollRightButton = document.querySelector("#scrollRight");
-
-    searchButton.addEventListener("click", async function() {
-        let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
-        createRecipeCards(searchResults.results);
-        curr_page = 1;
-        max_page = searchResults.pages.pages;
-        console.log(max_page);
-        console.log(searchResults);
-    });
-
-    scrollRightButton.addEventListener("click", async function() {
-        if(curr_page &lt; max_page){
-            curr_page++;
-            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
-            createRecipeCards(results);
-        }
-    });
-
-    scrollLeftButton.addEventListener("click", async function() {
-        if(curr_page > 1) {
-            curr_page--;
-            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
-            createRecipeCards(results);
-        }
-    });
+    if (searchButton) {
+        searchButton.addEventListener("click", async function () {
+            let searchResults = await submitSearch(searchBar.value, selectedTags);
+            createRecipeCards(searchResults);
+        });
+    }
 
     let tagsSelect = document.getElementById("tagsList");
     console.log(tagsSelect);
@@ -83,25 +60,14 @@ async function init() {
             tagButtons[i].addEventListener('click', (e) => {
                 clickedOnATag(tagButtons[i]);
             });
-            /** 
-                        tagButtons[i].addEventListener('mouseover', (e) => {
-                            onHover(tagButtons[i]);
-                        });
-                        tagButtons[i].addEventListener('mouseout', (e) => {
-                            offHover(tagButtons[i]);
-                        });
-                        */
-
         }
     }
-
-
 }
 
 function chooseTag(e) {
     let tagsList = document.querySelector("#tagsList");
     tagsList.style.display = "grid";
-    for (let i = 0; i &lt; allTags.length; i++) {
+    for (let i = 0 ; i &lt; allTags.length; i++) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
         addTagButton.innerText = allTags[i];
@@ -114,36 +80,13 @@ function clickedOnATag(e) {
     let index = selectedTags.indexOf(e.innerText);
     if (index > -1) {
         e.style.color = "white";
-        selectedTags.splice(index, 1);
-        e.style.backgroundColor = "#fcaf58";
-        e.style.borderColor = "#fcaf58";
-        e.style.setProperty = "#f9c784";
+        selectedTags.splice(index,1);
     } else {
-        e.style.backgroundColor = "#4e598c";
-        e.style.borderColor = "#4e598c";
+        e.style.color = "red";
         selectedTags.push(e.innerText);
     }
 }
-/** 
-function onHover(e) {
-    let index = selectedTags.indexOf(e.innerText);
-    if (index > -1) {
-        e.style.backgroundColor = "#f9c784";
-        e.style.borderColor = "#f9c784";
-    } else {
-        e.style.backgroundColor = "#4e598c";
-        e.style.borderColor = "#4e598c";
-    }
-}
-
-function offHover(e) {
-    let index = selectedTags.indexOf(e.innerText);
-    if (index > -1) {
-        e.style.backgroundColor = "#fcaf58";
-        e.style.borderColor = "#fcaf58";
-    } 
-}
-*/</code></pre>
+</code></pre>
         </article>
     </section>
 
@@ -153,13 +96,13 @@ function offHover(e) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchRecipesByIds">fetchRecipesByIds</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitInitialSearch">submitInitialSearch</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByIds">fetchRecipeByIds</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Dec 03 2021 08:56:10 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Dec 03 2021 09:33:11 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
