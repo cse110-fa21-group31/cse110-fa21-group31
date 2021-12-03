@@ -15,9 +15,7 @@ body {
 }
 
 #recipeDetail #editRecipeButton,
-#recipeDetail #deleteRecipeButton,
-#recipeDetail #saveRecipeButton,
-#recipeDetail #unsaveRecipeButton {
+#recipeDetail #deleteRecipeButton {
   display: block;
   color: #4e598c;
   text-align: center;
@@ -46,6 +44,17 @@ body {
 
 #recipeDetail .steps li {
   list-style-type: none;
+}
+
+#recipeDetail #saveRecipeButton {
+  display: block;
+  padding: 10px 15px;
+  float: right;
+  margin-right: 20px;
+  margin-top: 13px;
+  height: 5%;
+  width: 5%;
+  border: none;
 }
 
 #recipeDetail #tags li {
