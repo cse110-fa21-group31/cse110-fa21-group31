@@ -9,7 +9,6 @@ export const RECIPE_ROUTE = "recipe/";
 export const USER_ROUTE = "user/";
 export const EDIT_CREATE_ROUTE = "editcreate/";
 // TODO: change editcreate route name
-export const TEMP_EDIT_CREATE_ROUTE = "tempedit/"
 export const API_URL = "/api"
 export const USER_URL = "/api/user"
 export const IMAGE_UPLOAD_URL = "/api/imageUpload"
