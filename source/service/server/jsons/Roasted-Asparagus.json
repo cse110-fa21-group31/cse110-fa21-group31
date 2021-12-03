@@ -1,0 +1,37 @@
+{
+    "name": "Roasted Asparagus",
+    "author": "MMAfv3oCQDiL4u10",
+    "description": "Enjoy it!!",
+    "datePosted": 1638172867145,
+    "servingSize": 4,
+    "image": "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg",
+    "tags": ["dinner", "Easy"],
+    "cookTime": "25 mins",
+    "difficulty": "2 star",
+
+    "ingredients": [
+        {
+            "asparagus": 1
+        },
+        {
+            "olive oil": 2
+        },
+        {
+            "kosher salt": 1
+        }
+    ],
+
+    "steps": [
+        "Preheat oven to 425°F.",
+        "Cut off the woody bottom part of the asparagus spears and discard.",
+        "With a vegetable peeler, peel off the skin on the bottom 2-3 inches of the spears (this keeps the asparagus from being all.\",string.\", and if you eat asparagus you know what I mean by that).",
+        "Place asparagus on foil-lined baking sheet and drizzle with olive oil.",
+        "Sprinkle with salt.",
+        "With your hands, roll the asparagus around until they are evenly coated with oil and salt.",
+        "Roast for 10-15 minutes, depending on the thickness of your stalks and how tender you like them.",
+        "They should be tender when pierced with the tip of a knife.",
+        "The tips of the spears will get very brown but watch them to prevent burning.",
+        "They are great plain, but sometimes I serve them with a light vinaigrette if we need something acidic to balance out our meal."
+    ]
+    
+}

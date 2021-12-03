@@ -146,14 +146,14 @@ const onUpdateRecipe = async(event) => {
         console.log(formData.get('step' + i));
     }
 
-    console.log(formData.get('picture'));
+    // console.log(formData.get('picture'));
     // CREATE NEW RECIPE
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
         //TODO: figure out the way to store image. Not update it for now
         // image: formData.get('picture'),
-        image: imageSrc,
+        image: formData.get('picture'),
         //TODO: after we verify a user is logged in, change this to userData.id only
         author: userData ? userData._id : "MMAfv3oCQDiL4u10",
         description: formData.get('description'),

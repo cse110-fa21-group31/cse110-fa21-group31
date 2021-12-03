@@ -1,0 +1,38 @@
+{
+    "name": "Easy Fired Rice",
+    "author": "MMAfv3oCQDiL4u10",
+    "description": "Even kids will love this quick and easy fried rice, perfect for a weeknight meal.",
+    "datePosted": 1638172867145,
+    "servingSize": 4,
+    "image": "https://img.taste.com.au/lM3V_jdk/w720-h480-cfill-q80/taste/2016/11/easy-fried-rice-118371-2.jpg",
+    "tags": ["Lunch", "Easy"],
+    "cookTime": "30mins",
+    "difficulty": "1 star",
+
+    "ingredients": [
+        {
+            "white long-grain rice": 1
+        },
+        {
+            "vegetable oil": 2
+        },
+        {
+            "eggs, lightly whisked": 2
+        },
+        {
+            "bacon rashers, chopped": 2
+        },
+        {
+            "carrot, peeled and grated": 1
+        },
+        {
+            "soy sauce": 1
+        }
+    ],
+    "steps": [
+        "Cook the rice in a large saucepan of boiling water for 12 minutes or until tender. Drain and leave to cool.",
+        "Heat oil in non-stick wok or large frying pan over medium heat. Add eggs. Swirl over base to form an omelette. Cook for 2 minutes or until set. Transfer to a chopping board. Set aside to cool slightly. Cut into short strips.",
+        "Add bacon to wok. Cook 4 minutes until light golden. Add carrot. Stir fry 1 minute. Add shallots, peas and rice. Cook, stirring, 3-4 minutes. Add egg and soy sauce. Stir until heated through. Sprinkle with sesame seeds and top with extra shallots. Serve immediately."
+    ]
+    
+}

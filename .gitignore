@@ -3,6 +3,6 @@
 node_modules
 neDB_demo
 admin/.DS_Store
-cypress/
-**/cypress
+cypress/videos
+cypress/screenshots
 source/service/neDB/addFakeData.js

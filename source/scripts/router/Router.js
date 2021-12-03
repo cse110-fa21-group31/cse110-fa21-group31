@@ -31,7 +31,7 @@ export class Router {
             if (pageName === 'home') {
                 hash = '';
             } else {
-                hash = `#${pageName}`;
+                hash = `${pageName}`;
             }
             if ((!statePopped) && (window.location.hash != hash)) {
                 const oldHash = window.location.hash;

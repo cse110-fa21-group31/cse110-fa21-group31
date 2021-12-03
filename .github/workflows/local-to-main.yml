@@ -11,25 +11,20 @@ on:
     branches: [ main ]
 
 jobs:
-  testing-job:
-    # For unit and end to end testing
+
+  # cypress-server-start:
+  #   # we need to start up the server before running cypress
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Start server
+  #     run: npm start
+
+  unit-testing:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout branch
       uses: actions/checkout@v2
-
-    # - name: Cache node modules
-    #   uses: actions/cache@v2
-    #   env:
-    #     cache-name: cache-node-modules
-    #   with:
-    #     path: ~/.npm
-    #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-build-${{ env.cache-name }}-
-    #       ${{ runner.os }}-build-
-    #       ${{ runner.os }}-
 
     - name: Setup Node.js
       uses: actions/setup-node@v2
@@ -37,17 +32,43 @@ jobs:
         node-version: '16'
         # cache: 'npm'
 
-    # Unit testing
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+  
+    # unit testing
+    - name: Run Unit/Jest test
+      run: npm run unittest
 
-    # End to end testing
-    - name: Run Cypress tests
-      #run: npx cypress run
+  e2e-testing:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        # cache: 'npm'
+
+    - run: npm ci
+    - run: npm run build --if-present
+
+    # Google testing OAuth
+    - run: export CYPRESS_REACT_APP_GOOGLE_CLIENTID=540165433279-spiffkj5356cn57keeho8tc66clhpd92.apps.googleusercontent.com
+    - run: export CYPRESS_REACT_APP_GOOGLE_CLIENT_SECRET=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
+    - run: export CYPRESS_GOOGLE_REFRESH_TOKEN=1//04_bv_0JkeoVdCgYIARAAGAQSNwF-L9IrSyN-Zcfji83hFc63QnpezDC8a_1Tg6W3171wwdJ4BXXi0ZCDKWFLZ_u9BSR2C_xm52g
+    - run: export cypress_googleRefreshToken=540165433279-spiffkj5356cn57keeho8tc66clhpd92.apps.googleusercontent.com
+    - run: export cypress_googleClientId=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
+    - run: export cypress_googleClientSecret=1//04_bv_0JkeoVdCgYIARAAGAQSNwF-L9IrSyN-Zcfji83hFc63QnpezDC8a_1Tg6W3171wwdJ4BXXi0ZCDKWFLZ_u9BSR2C_xm52g
+
+    # e2e testing
+    - name: Run Cypress test
       uses: cypress-io/github-action@v2.9.7
-
-  # linters and formatters are being done by Kian, omitted
+      with:
+        start: npm start
+        config-file: cypress.json
 
   lint: 
 
@@ -65,6 +86,10 @@ jobs:
         node-version: '16'
 
     - run: npm ci
+
+    - name: Fix css style 
+      run: npx stylelint "**/*.css" --fix
+
     - name: Lint Code Base
       uses: github/super-linter@v4
       env:
@@ -100,7 +125,7 @@ jobs:
       - name: Fix format
         run: npm run prettier
 
-  codacy-job:
+  sonarcloud-job:
     # For linting, formatting, and quality evaluation of code.
     runs-on: ubuntu-latest
 
@@ -108,34 +133,16 @@ jobs:
     - name: Checkout branch
       uses: actions/checkout@v2
 
-    # - name: Cache node modules
-    #   uses: actions/cache@v2
-    #   env:
-    #     cache-name: cache-node-modules
-    #   with:
-    #     path: ~/.npm
-    #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-build-${{ env.cache-name }}-
-    #       ${{ runner.os }}-build-
-    #       ${{ runner.os }}-
-
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '16'
-        #cache: 'npm'
 
-    # Quality
-    - name: Codacy Analysis CLI
-      uses: codacy/codacy-analysis-cli-action@4.0.0
-      with:
-        # fail-if-incomplete: true
-        max-allowed-issues: 0
-        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        run-docker-tools: false
-        verbose: true
-        upload: true
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.6
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
   doc-generation-job:
     # For automatic documentation generation
@@ -159,3 +166,17 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs
 
+  publish-changes-job:
+    # To apply changes to the codebase
+    runs-on: ubuntu-latest
+
+    if: ${{ always() }}
+    needs: [ formatting, lint ]
+
+    steps:
+
+    - name: Publish fixes to the pull request branch
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Automated Change from Prettier
+        commit_user_name: Automated Prettier Action

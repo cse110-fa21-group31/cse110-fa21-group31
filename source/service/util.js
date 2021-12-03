@@ -3,4 +3,4 @@
 export const USER_DB_PATH = "source/service/.data/users";
 export const RECIPE_DB_PATH = "source/service/.data/recipes";
 export const CARDS_PER_PAGE = 6;
-// export default {}
+export default {}

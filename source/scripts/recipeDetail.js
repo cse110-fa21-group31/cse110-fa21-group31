@@ -22,9 +22,14 @@ export async function populateRecipeDetail() {
 */
 
 export async function fillOutRecipe(data) {
+    if (!data) return
     document.getElementById("recipeTitle").innerHTML = data.name;
     if (data.tags) {
         let tagList = document.getElementById("tags");
+        //clear old steps
+        while (tagList.firstChild) {
+            tagList.removeChild(tagList.firstChild);
+        }
         for (let i = 0; i < data.tags.length; i++) {
             let item = document.createElement("li");
             tagList.appendChild(item);
@@ -38,7 +43,9 @@ export async function fillOutRecipe(data) {
     // TODO: fix condition after fixing image upload issue
     const image = (data.image == null || typeof data.image == "object" || data.image == "") ?
         "./source/assets/Images/recipeCardPlaceholder.png" : data.image;
+    const imageErrorFunc = "this.onerror=null; this.src='./source/assets/Images/recipeCardPlaceholder.png'";
     document.getElementById("recipeImage").setAttribute("src", image);
+    document.getElementById("recipeImage").setAttribute("onerror", imageErrorFunc);
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
     if (data.description) document.getElementById("description").innerHTML = data.description;
     if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;
@@ -48,6 +55,10 @@ export async function fillOutRecipe(data) {
     if (data.ingredients) {
         console.log("Ingredients object: " + data.ingredients);
         let ingredientsList = document.getElementById("ingr");
+        //clear old ingredients
+        while (ingredientsList.firstChild) {
+            ingredientsList.removeChild(ingredientsList.firstChild);
+        }
         for (let ingredient in data.ingredients) {
             let item = document.createElement("li");
             ingredientsList.appendChild(item);
@@ -57,17 +68,18 @@ export async function fillOutRecipe(data) {
             ingredientsHTML.innerHTML += ingredient + ": " + data.ingredients[ingredient] + "\n";
             */
         }
-        let stepsList = document.getElementById("stps");
-        for (let i = 0; i < data.steps.length; i++) {
-            let item = document.createElement("li");
-            stepsList.appendChild(item);
-            item.innerHTML = data.steps[i];
-            /*
-            console.log("Ingredient: " + ingredient);
-            ingredientsHTML.innerHTML += ingredient + ": " + data.ingredients[ingredient] + "\n";
-            */
-        }
     }
+    //clear old steps
+    let stepsList = document.getElementById("stps");
+    while (stepsList.firstChild) {
+        stepsList.removeChild(stepsList.firstChild);
+    }
+    for (let i = 0; i < data.steps.length; i++) {
+        let item = document.createElement("li");
+        stepsList.appendChild(item);
+        item.innerHTML = data.steps[i];
+    }
+
     //document.getElementById("steps").innerHTML = data.steps;
     const editRecipeButton = document.getElementById('editRecipeButton')
     const delRecipeButton = document.getElementById('deleteRecipeButton')
@@ -80,61 +92,31 @@ export async function fillOutRecipe(data) {
     })
     const home = 'home'
     delRecipeButton.addEventListener('click', () => {
-            //redirect to edit page and populate the page
-            deleteRecipe(data._id)
-            routerNavigateWrapper(home)
-        })
-        /** 
-    
-        */
+        //redirect to edit page and populate the page
+        deleteRecipe(data._id)
+        routerNavigateWrapper(home)
+    })
+}
 
-    /** 
-    document.getElementById("dateOfCreation").innerHTML = searchForKey(
-        data,
-        "datePublished"
-    ).split("T")[0];
 
-    const tagss = getCategories(data).split(",");
-    tagss.forEach((tag) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = tag;
-        document.getElementById("tags").append(listItem);
-    });
+function convertTime(time) {
+    let timeStr = '';
 
-    const ingredients = getIngredients(data);
-    ingredients.forEach((ingredient) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = ingredient;
-        document.getElementById("ingredients").append(listItem);
-    });
+    // Remove the 'PT'
+    time = time.slice(2);
 
-    const instructions = getInstructions(data);
-    instructions.forEach((instruction) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = instruction;
-        document.getElementById("steps").append(listItem);
-    });
-    */
-
-    function convertTime(time) {
-        let timeStr = '';
-
-        // Remove the 'PT'
-        time = time.slice(2);
-
-        let timeArr = time.split('');
-        if (time.includes('H')) {
-            for (let i = 0; i < timeArr.length; i++) {
-                if (timeArr[i] == 'H') return `${timeStr} hr`;
-                timeStr += timeArr[i];
-            }
-        } else {
-            for (let i = 0; i < timeArr.length; i++) {
-                if (timeArr[i] == 'M') return `${timeStr} min`;
-                timeStr += timeArr[i];
-            }
+    let timeArr = time.split('');
+    if (time.includes('H')) {
+        for (let i = 0; i < timeArr.length; i++) {
+            if (timeArr[i] == 'H') return `${timeStr} hr`;
+            timeStr += timeArr[i];
         }
-
-        return '';
+    } else {
+        for (let i = 0; i < timeArr.length; i++) {
+            if (timeArr[i] == 'M') return `${timeStr} min`;
+            timeStr += timeArr[i];
+        }
     }
+
+    return '';
 }

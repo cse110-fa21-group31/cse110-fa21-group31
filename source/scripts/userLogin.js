@@ -5,7 +5,7 @@
  * sign-in and log-out
  * Dependency: navBarWithGoogle.html
  */
-export default {onSignIn}
+export default { onSignIn }
 import {
     ELE_CLASS_PROFILE_IMAGE,
     ELE_ID_PROFILE,
@@ -43,8 +43,8 @@ const ELE_ID_HEADER = "header";
 // Set functions onSignIn and signOut to global scope, otherwise they're not
 // accessible in html
 if (typeof window === 'object') {
-window.onSignIn = onSignIn;
-window.signOut = signOut;
+    window.onSignIn = onSignIn;
+    window.signOut = signOut;
 }
 
 /**
@@ -53,15 +53,15 @@ window.signOut = signOut;
  *
  * @param {*} googleUser User profile provided by Google sign-in API.
  */
-function onSignIn(googleUser) {
+async function onSignIn(googleUser) {
     // TODO: fake user for now, dynamically get user info here. 
     const profile = {
         username: googleUser.getBasicProfile().getName(),
         imageURL: googleUser.getBasicProfile().getImageUrl(),
         email: googleUser.getBasicProfile().getEmail(),
         _id: "MMAfv3oCQDiL4u10",
-        savedRecipe: ["VZsAA6HuzytdIQT2"],
-        myRecipe: ["AJlpmnCbp6gry18v", "uYaCV6U4XGfQHYg2"],
+        savedRecipe: [{ "name": "Pumpkin Pie", "datePosted": 1638174251341, "image": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/3/6/0/RF0104_From-Scratch-Pumpkin-Pie_s4x3.jpg.rend.hgtvcom.616.462.suffix/1433678596474.jpeg", "author": "MMAfv3oCQDiL4u10", "description": "  The perfect ending to a Thanksgiving feast!  ", "tags": ["Dessert", "Seasonal"], "servingSize": "8", "cookTime": "55 mins", "ingredients": { "1": "1", "canned": "14", "large": "2", "ground": "1/2", "salt": "1/2", "unbaked": "9" }, "difficulty": "2", "ingredientAmounts": [], "steps": ["Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs, spices and salt in medium bowl until smooth. Pour into crust. Bake 15 minutes.", "Reduce oven temperature to 350 degrees F and continue baking 35 to 40 minutes or until knife inserted 1 inch from crust comes out clean. Cool. Garnish as desired. Store leftovers covered in refrigerator.", "Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs, spices and salt in medium bowl until smooth. Pour into crust. Bake 15 minutes.", "Reduce oven temperature to 350 degrees F and continue baking 35 to 40 minutes or until knife inserted 1 inch from crust comes out clean. Cool. Garnish as desired. Store leftovers covered in refrigerator.", "Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs, spices and salt in medium bowl until smooth. Pour into crust. Bake 15 minutes.", "Reduce oven temperature to 350 degrees F and continue baking 35 to 40 minutes or until knife inserted 1 inch from crust comes out clean. Cool. Garnish as desired. Store leftovers covered in refrigerator."], "_id": "ESnxaPsM1FrrUo0D" }],
+        myRecipe: [{ "name": "Christmas Cake", "datePosted": 1638151874455, "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/frosty-robin-cake-1606392006.jpg", "author": "MMAfv3oCQDiL4u10", "description": "  Christmas cake made by Powell's Fanclub! We're awesome and Merry Christmas! ", "tags": ["christmas", "party"], "servingSize": "4", "cookTime": "2 hrs", "ingredients": { "butter": "1/2 cup", "flour": "2 cups" }, "difficulty": "5", "ingredientAmounts": [], "steps": ["step 1", "step 2 UPDATED"], "_id": "AJlpmnCbp6gry18v" }],
     };
 
     console.log("User login activity caught by frontend:");
@@ -76,7 +76,7 @@ function onSignIn(googleUser) {
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_NONE;
     // Display profile image
     let profileWrapper = document.getElementById(ELE_ID_PROFILE_WRAPPER);
-    profileWrapper.class="shown";
+    profileWrapper.class = "shown";
 
     let profileImage = document.getElementById(ELE_ID_PROFILE);
     let image = document.createElement(HTML_ELE_IMG);
@@ -89,8 +89,8 @@ function onSignIn(googleUser) {
     const userObj = {
 
     }
-    
-    bindUserProfile(profile);
+
+    await bindUserProfile(profile);
     setGlobalUserData(profile);
     populateUserInfoPage();
 }

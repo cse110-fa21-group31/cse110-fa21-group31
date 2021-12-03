@@ -1,6 +1,6 @@
-import { API_URL, USER_URL } from "./util.js";
+import { API_URL, USER_URL, IMAGE_UPLOAD_URL } from "./util.js";
 export default { insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
-    updateRecipeById, submitSearch }
+    updateRecipeById, submitSearch, uploadImage }
 /**
  * 
  * want the return json object from server:
@@ -13,6 +13,10 @@ export default { insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
  * @param {recipe} recipe the recipe object to insert
  */
 export async function insertRecipe(recipe) {
+    // save image and convert to local relative path
+    const imageURL = await uploadImage(recipe.image);
+    console.log(imageURL);
+    recipe.image = imageURL;
     //for update, change the method of PUT
     const response = await fetch(API_URL, {
         method: 'POST',
@@ -41,7 +45,7 @@ export async function deleteRecipe(id) {
         .catch((err) => {
             console.error('Error deleting recipe: ' + err.message);
         });
-    
+
     // console.log("Step Return");
     return response;
 }
@@ -54,7 +58,6 @@ export async function fetchRecipeByPage(page) {
     return await fetchResults(API_URL + "?", page);
 }
 
-
 /**
  * sends an HTTP request to the server to fetch a single recipe
  * @param {string} id the id of the desired recipe
@@ -65,6 +68,7 @@ export async function fetchRecipeById(id) {
 }
 
 /**
+ * @deprecated
  * sends an HTTP request to the server to fetch recipes
  * @param {Array<string>} ids the ids of the desired recipes
  */
@@ -80,6 +84,12 @@ export async function fetchRecipeById(id) {
  */
 export async function updateRecipeById(id, update) {
     let queryURL = API_URL;
+    // save image and convert to relative local path
+    const imageURL = await uploadImage(update.image);
+    console.log(imageURL);
+    update.image = imageURL;
+    // console.log(update);
+    console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
         method: 'PUT',
         body: JSON.stringify(update)
@@ -187,6 +197,35 @@ export async function getPageCount(queryURL){
             console.error('Error counting results: ' + err.message);
         });
     return response;
+}
+
+/**
+ * sends an HTTP request to the server to save an image to the images folder.
+ * Returns the url of the image. 
+ * @param {string} recipeId the recipeId to be used as image filename. 
+ * @param {File} imageFile the image file to be saved. 
+ */
+ export async function uploadImage(imageFile) {
+
+    const URL = IMAGE_UPLOAD_URL;
+    let data = new FormData()
+    data.append('file', imageFile)
+    // let formData = new FormData();
+    // for (const name in imageFile) {
+    //     formData.append(name, imageFile[name]);
+    // }
+    //for update, change the method of PUT
+    const response = await fetch(URL, {
+        method: 'POST',
+        // headers: {
+        //     "Content-Type": "multipart/form-data; charset=utf-8; boundary='a very cool boundary'"
+        // },
+        body: data
+    }).then((response) => response.json())
+        .catch((err) => {
+            console.error(err);
+        });
+    return response.path;
 }
 
 /****************** Internal functions ************************/
