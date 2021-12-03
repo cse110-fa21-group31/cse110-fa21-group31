@@ -206,8 +206,6 @@ function getFilterFromQuery(query){
             filter.$and = tags;
         }
     }
-    console.log("~~~~~~~~~~");
-    console.log(filter);
     return filter;
 }
 

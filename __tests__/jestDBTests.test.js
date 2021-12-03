@@ -134,10 +134,7 @@ describe("Tests database recipe functions", () => {
         });
         await Promise.race(commonRecipes.map((recipe) => Interface.createRecipe(recipe, testDB)));
         let query = {name: commonName, tags: commonTag};
-        console.log(query);
-        console.log(commonRecipes);
         const queryResult = await Interface.getRecipesByQuery(query, testDB);
-        console.log(queryResult);
         expect(queryResult.length).toBe(commonRecipeCount);
         expect(queryResult.every((recipe) => recipe.name.includes(commonName))).toBeTruthy();
         console.log(queryResult.map((recipe) => recipe.tags));
