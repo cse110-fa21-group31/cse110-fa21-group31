@@ -3,8 +3,8 @@
 export default { fillOutRecipe }
 // RecipeExpand.js
 import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js"
-import { deleteRecipe, fetchRecipeById } from "./APICalls.js";
-import { routerAddEditPage, routerNavigateWrapper } from "./index.js";
+import { deleteRecipe, fetchRecipeById,  addSavedRecipeById, deleteSavedRecipeById} from "./APICalls.js";
+import { routerAddEditPage, routerNavigateWrapper, userData } from "./index.js";
 const recipeData = {};
 
 /**
@@ -95,6 +95,33 @@ export async function fillOutRecipe(data) {
         //redirect to edit page and populate the page
         deleteRecipe(data._id)
         routerNavigateWrapper(home)
+    })
+
+    //Saved button
+    const saveRecipeButton = document.getElementById('saveRecipeButton')
+    let isSaved = userData.savedRecipe.includes(data._id);
+    if(isSaved) {
+        saveRecipeButton.innerText = 'Remove Saved Recipe';
+    }
+    else {
+        saveRecipeButton.innerText = 'Save Recipe';
+    }
+    console.log('saved? ' + isSaved);
+    console.log('user id?' + userData._id);
+    saveRecipeButton.addEventListener('click', () => {
+        //add or remove the saved recipe
+        if(isSaved) {
+            deleteSavedRecipeById(userData._id, data._id);
+            isSaved = false;
+            saveRecipeButton.innerText = 'Save Recipe';
+            console.log('Removed Recipe from saved');
+        }
+        else {
+            addSavedRecipeById(userData._id, data._id);
+            isSaved = true;
+            saveRecipeButton.innerText = 'Remove Saved Recipe';
+            console.log('Added Recipe to saved');
+        }
     })
 }
 

@@ -204,7 +204,7 @@ export async function addSavedRecipeById(userId, recipeId) {
 
         })
         .catch((err) => {
-            //console.error('Error updating recipe: ' + err.message);
+            console.error('Error updating recipe: ' + err.message);
         });
 
     return response
@@ -222,7 +222,7 @@ export async function deleteSavedRecipeById(userId, recipeId) {
             return data
         })
         .catch((err) => {
-            //console.error('Error deleting recipe: ' + err.message);
+            console.error('Error deleting recipe: ' + err.message);
         });
     return response
 }

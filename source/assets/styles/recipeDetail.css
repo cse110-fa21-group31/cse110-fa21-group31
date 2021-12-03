@@ -15,7 +15,9 @@ body {
 }
 
 #recipeDetail #editRecipeButton,
-#recipeDetail #deleteRecipeButton {
+#recipeDetail #deleteRecipeButton,
+#recipeDetail #saveRecipeButton,
+#recipeDetail #unsaveRecipeButton {
   display: block;
   color: #4e598c;
   text-align: center;
