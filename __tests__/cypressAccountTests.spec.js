@@ -107,6 +107,8 @@ describe("Works with a google account signin", () => {
         
         cy.get("#recipeDetail").should("not.have.css", "display", "none");
         cy.get('#recipeTitle').should("contain", "Test Recipe (Edited)");
-        cy.get('#description').should("contain", "This is a test recipe (Edited)");
+        cy.log(cy.get('#description'));
+        cy.get('#description', shadowconfig).should("contain", "This is a test recipe (Edited)"); 
+
     })
 })
