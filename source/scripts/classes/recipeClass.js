@@ -35,15 +35,31 @@ class RecipeClass extends HTMLElement {
 
         style.innerHTML = `
         .recipeCard {
+            background: white;
+            padding-top: 40px;
             margin-top: 30px;
-            margin-bottom: 30px;
-            text-align:center;
+            text-align: center;
+            border: 2px solid #4E598C;
+            border-radius: 15px;
+            display: table;
+            table-layout:fixed;
+            length: 200px;
+            width: 300px;
+            box-shadow: 2px 2px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .recipeCard:hover {
+            background-color: #F9c784;
+            box-shadow: 5px 5px;
+            border-color: #FCAF58;
         }
         .recipeCard > p {
             font-family: 'Bold Open Sans', sans-serif;
             font-weight: bold;
             color: #4E598C;
             font-size: large;
+            
         }
         
         .recipeCard > img {
@@ -55,23 +71,34 @@ class RecipeClass extends HTMLElement {
             font-family: 'Open Sans', sans-serif;
             list-style-type: none;
             /* white-space:nowrap; */
-            color:white;
+            color: white;
             font-weight: bold;
-            padding-left:10px;
-            font-size:small;
+            padding-left: 10px;
+            padding-bottom: 3px;
+            padding-top: 3px;
+            font-size: 15px;
+            text-align: center;
+            border-radius: 2cm;
             overflow:auto; 
         }
         
         li.individualTag {
             /* border-style:solid; */
-            margin: 10px 10px;
-            border: 5px solid #FCAF58;
-            border-radius: 5px;
-            padding-left:15px;
-            padding-right:15px;
+            margin: 0px 10px;
+            border: solid #FCAF58;
+            border-radius: 2cm;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            text-align: center;
             background-color: #FCAF58;
             display:inline;
         }
+        .myRecipeCardGridContainer {
+            background-color: #ededed;
+        }
+
         `;
 
         const card = document.createElement('div');
@@ -81,15 +108,20 @@ class RecipeClass extends HTMLElement {
         const imageData = getImage(data);
         const image = document.createElement('img');
         image.href = imageData;
+
+        // image.style.border - radius = 50 % ;
         // show placeholder image if imageData not availables
         // TODO: change these conditions after figuring out how to upload and store image
-        image.src = (imageData == null || typeof imageData == "object" || imageData == "") 
-            ? "./source/assets/Images/recipeCardPlaceholder.png" : imageData;
+        image.src = (imageData == null || typeof imageData == "object" || imageData == "") ?
+            "./source/assets/Images/recipeCardPlaceholder.png" : imageData;
         const imageErrorFunc = "this.onerror=null; this.src='./source/assets/Images/recipeCardPlaceholder.png'";
         image.onerror = (err) => {
             image.onerror = null;
-            image.src='./source/assets/Images/recipeCardPlaceholder.png'
+            image.src = './source/assets/Images/recipeCardPlaceholder.png';
+
         };
+        image.style.borderRadius = "15px";
+
         // console.log(image);
 
         // Grab the name
@@ -251,7 +283,7 @@ class RecipeClass extends HTMLElement {
  */
 function searchForKey(object, key) {
     var value;
-    Object.keys(object).some(function (k) {
+    Object.keys(object).some(function(k) {
         if (k === key) {
             value = object[k];
             return true;
@@ -369,7 +401,7 @@ function getSteps(data) {
                 }
                 if (
                     data["@graph"][i]["recipeInstructions"][0][
-                    "itemListElement"
+                        "itemListElement"
                     ]
                 ) {
                     const instructionArr = [];

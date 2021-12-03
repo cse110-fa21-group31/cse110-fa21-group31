@@ -20,6 +20,18 @@ body {
     font-family: "Open Sans", sans-serif;
 }
 
+#landingPage {
+    background-color: #ededed;
+}
+
+.myRecipeCardGridContainer {
+    background-color: #ededed;
+}
+
+#homePageScrollButton {
+    background-color: #ededed;
+}
+
 
 /*
 Landing Background
@@ -152,8 +164,9 @@ Tags
     color: white;
     font-weight: bold;
     padding-left: 10px;
-    font-size: small;
     overflow: auto;
+    padding: 100px 32px;
+    font-size: 90px;
 }
 
 #homepage li.individualTag,
@@ -162,10 +175,39 @@ Tags
     margin: 10px;
     border: 5px solid #fcaf58;
     border-radius: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 40px;
+    padding-right: 40px;
     background-color: #fcaf58;
     display: inline;
+}
+
+#landingPage #scrollLeft {
+    margin-left: 150px;
+}
+
+#homepage #scrollLeft,
+#homepage #scrollRight,
+#landingPage #scrollLeft,
+#landingPage #scrollRight {
+    /* border-style:solid; */
+    background-color: #4e598c;
+    color: white;
+    border-color: white;
+    padding: 15px 20px;
+    border-radius: 2cm;
+    margin-bottom: 20px;
+}
+
+#homepage #scrollLeft:hover,
+#homepage #scrollRight:hover,
+#landingPage #scrollLeft:hover,
+#landingPage #scrollRight:hover {
+    /* border-style:solid; */
+    /*background-color: #fcaf58;*/
+    color: white;
+    border-color: white;
+    padding: 15px 32px;
+    border-radius: 2cm;
 }
 
 
@@ -177,17 +219,22 @@ Tags
     grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
     margin: 20px;
+    align-items: center;
+    text-align: center;
+    align-content: center;
 }
 
 #homepage .recipeCard,
 #landingPage .recipeCard {
     margin-top: 30px;
     margin-bottom: 30px;
+    border: 100px solid #fcaf58;
+    border-radius: 5px;
     text-align: center;
 }
 
 #homepage .recipeCard>p,
-#landingPage .recipeCard {
+#landingPage .recipeCard>p {
     font-family: "Bold Open Sans", sans-serif;
     font-weight: bold;
     color: #4e598c;

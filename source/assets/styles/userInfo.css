@@ -1,0 +1,97 @@
+#userInfo #myScrollLeft,
+#userInfo #myScrollRight,
+#userInfo #savedScrollLeft,
+#userInfo #savedScrollRight {
+    /* border-style:solid; */
+    background-color: #4e598c;
+    color: white;
+    border-color: white;
+    padding: 15px 20px;
+    border-radius: 2cm;
+}
+
+#userInfo #myScrollLeft:hover,
+#userInfo #myScrollRight:hover,
+#userInfo #savedScrollLeft:hover,
+#userInfo #savedScrollRight:hover {
+    /* border-style:solid; */
+    /*background-color: #fcaf58;*/
+    color: white;
+    border-color: white;
+    border-radius: 2cm;
+}
+
+.userInfoGridContainer {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 10px;
+}
+
+#userInfo {
+    background-color: #ededed;
+}
+
+.userInfoGridItem {
+    padding: 10px;
+    font-size: 30px;
+    text-align: center;
+}
+
+h1 {
+    line-height: 0px;
+}
+
+.myRecipeCardGridContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+}
+
+#userCard {
+    margin-left: 100px;
+    margin-top: 50px;
+    background-color: #d6d6d6;
+    border-radius: 2cm;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 600px;
+    box-shadow: 2px 2px #4e598c;
+}
+
+#userInfo {
+    font-family: "Open Sans", sans-serif;
+}
+
+#userInfo #myRecipes,
+#userInfo #savedRecipes {
+    color: #4e598c;
+    font-weight: bold;
+}
+
+#userInfo #userName {
+    color: #fcaf58;
+}
+
+#userInfo #userEmail {
+    color: #4e598c;
+    font-size: 70%;
+}
+
+#userInfo #createRecipePageButton {
+    padding: 10px;
+    background: transparent;
+    color: #fcaf58;
+    font-size: 50%;
+    border: 5px solid #fcaf58;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#userInfo #createRecipePageButton:hover {
+    padding: 10px;
+    background: #fcaf58;
+    color: white;
+    font-size: 50%;
+    border: 5px solid #fcaf58;
+    border-radius: 5px;
+    cursor: pointer;
+}

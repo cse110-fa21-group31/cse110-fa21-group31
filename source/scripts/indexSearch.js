@@ -1,7 +1,7 @@
 //This file is when the user searches a keyword in index.html page
-export default {init}
+export default { init }
 if (typeof window === 'object') {
-window.addEventListener("DOMContentLoaded", init);
+    window.addEventListener("DOMContentLoaded", init);
 }
 import { submitSearch } from "./APICalls.js"
 import { createRecipeCards } from "./index.js";
@@ -16,7 +16,7 @@ async function init() {
     let searchBar = document.querySelector("#searchBar");
     let searchButton = document.querySelector("#searchButton");
     if (searchButton) {
-        searchButton.addEventListener("click", async function () {
+        searchButton.addEventListener("click", async function() {
             let searchResults = await submitSearch(searchBar.value, selectedTags);
             createRecipeCards(searchResults);
         });
@@ -39,7 +39,7 @@ async function init() {
 function chooseTag(e) {
     let tagsList = document.querySelector("#tagsList");
     tagsList.style.display = "grid";
-    for (let i = 0 ; i < allTags.length; i++) {
+    for (let i = 0; i < allTags.length; i++) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
         addTagButton.innerText = allTags[i];
@@ -52,7 +52,7 @@ function clickedOnATag(e) {
     let index = selectedTags.indexOf(e.innerText);
     if (index > -1) {
         e.style.color = "white";
-        selectedTags.splice(index,1);
+        selectedTags.splice(index, 1);
     } else {
         e.style.color = "red";
         selectedTags.push(e.innerText);
