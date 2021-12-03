@@ -85,7 +85,7 @@ class RecipeClass extends HTMLElement {
         li.individualTag {
             /* border-style:solid; */
             margin: 0px 10px;
-            border: solid #FCAF58;
+            border: #FCAF58;
             border-radius: 2cm;
             padding-left: 10px;
             padding-right: 10px;

@@ -32,8 +32,19 @@ async function init() {
             tagButtons[i].addEventListener('click', (e) => {
                 clickedOnATag(tagButtons[i]);
             });
+            /** 
+                        tagButtons[i].addEventListener('mouseover', (e) => {
+                            onHover(tagButtons[i]);
+                        });
+                        tagButtons[i].addEventListener('mouseout', (e) => {
+                            offHover(tagButtons[i]);
+                        });
+                        */
+
         }
     }
+
+
 }
 
 function chooseTag(e) {
@@ -53,8 +64,32 @@ function clickedOnATag(e) {
     if (index > -1) {
         e.style.color = "white";
         selectedTags.splice(index, 1);
+        e.style.backgroundColor = "#fcaf58";
+        e.style.borderColor = "#fcaf58";
+        e.style.setProperty = "#f9c784";
     } else {
-        e.style.color = "red";
+        e.style.backgroundColor = "#4e598c";
+        e.style.borderColor = "#4e598c";
         selectedTags.push(e.innerText);
     }
 }
+/** 
+function onHover(e) {
+    let index = selectedTags.indexOf(e.innerText);
+    if (index > -1) {
+        e.style.backgroundColor = "#f9c784";
+        e.style.borderColor = "#f9c784";
+    } else {
+        e.style.backgroundColor = "#4e598c";
+        e.style.borderColor = "#4e598c";
+    }
+}
+
+function offHover(e) {
+    let index = selectedTags.indexOf(e.innerText);
+    if (index > -1) {
+        e.style.backgroundColor = "#fcaf58";
+        e.style.borderColor = "#fcaf58";
+    } 
+}
+*/

@@ -42,12 +42,16 @@ section:not(section.shown) {
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
+    box-shadow: 2px 2px #f9c784;
 }
 
+
+/*
 .tagButton:hover {
     background: #f9c784;
     border-color: #f9c784;
 }
+*/
 
 #selectTag {
     display: inline;
