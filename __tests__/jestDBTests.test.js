@@ -115,7 +115,8 @@ describe("Tests database recipe functions", () => {
             createdRecipes.push(await Interface.createRecipe(newRandomRecipe, testDB));
         }
         let createdIds = createdRecipes.map((recipe) => recipe._id);
-        let resultRecipes = await Interface.getRecipesByIds(createdIds, testDB);
+        let query = {"ids": createdIds.join(",")};
+        let resultRecipes = await Interface.getRecipesByQuery(query, testDB);
         expect(resultRecipes.length).toBe(createdIds.length);
     });
 
@@ -124,7 +125,7 @@ describe("Tests database recipe functions", () => {
         const commonTag = "commontag";
         // generate a bunch of new recipes that have commonName inside their name
         // and also have commonTag as a tag in their tagstring
-        const commonRecipeCount = 10;
+        const commonRecipeCount = 6;
         const commonRecipes = Array(commonRecipeCount).fill(null).map(() => {
             let newRecipe = generateRandomRecipe();
             newRecipe.name = newRecipe.name + commonName + Math.floor(Math.random() * 100);
@@ -132,20 +133,23 @@ describe("Tests database recipe functions", () => {
             return newRecipe;
         });
         await Promise.race(commonRecipes.map((recipe) => Interface.createRecipe(recipe, testDB)));
-
-        const queryResult = await Interface.getRecipesByNameAndTags({name: commonName, tags: commonTag}, testDB);
+        let query = {name: commonName, tags: commonTag};
+        console.log(query);
+        console.log(commonRecipes);
+        const queryResult = await Interface.getRecipesByQuery(query, testDB);
+        console.log(queryResult);
         expect(queryResult.length).toBe(commonRecipeCount);
         expect(queryResult.every((recipe) => recipe.name.includes(commonName))).toBeTruthy();
         console.log(queryResult.map((recipe) => recipe.tags));
         expect(queryResult.every((recipe) => recipe.tags.split(",").includes(commonTag))).toBeTruthy();
     });
 
-    const pageSize = CARDS_PER_PAGE;
-    test("getRecipeByPage full", async () => {
-        return populateDatabase(pageSize).then(() => {
-            Interface.getRecipeByPage(testDB).then((pagerecipes) => {
-                expect(pagerecipes.length).toBe(pageSize);
-            })
-        });
-    });
+    // const pageSize = CARDS_PER_PAGE;
+    // test("getRecipeByPage full", async () => {
+    //     return populateDatabase(pageSize).then(() => {
+    //         Interface.getRecipeByPage(testDB).then((pagerecipes) => {
+    //             expect(pagerecipes.length).toBe(pageSize);
+    //         })
+    //     });
+    // });
 });

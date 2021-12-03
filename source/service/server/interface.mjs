@@ -201,12 +201,13 @@ function getFilterFromQuery(query){
         if (query.tags) {
             let tags = [];
             for (let t of query.tags.split(',')) {
-                tags.push({ tags: t.toLowerCase() });
+                tags.push({ tags: new RegExp(t, 'i') });
             }
             filter.$and = tags;
         }
     }
-
+    console.log("~~~~~~~~~~");
+    console.log(filter);
     return filter;
 }
 
