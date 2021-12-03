@@ -2,7 +2,7 @@
 import { insertRecipe } from "./APICalls.js"
 import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
 import { RECIPE_ROUTE } from './util.js'
-export default {setupCreatePage}
+export default { setupCreatePage }
 export function setupCreatePage() {
     // console.log("setupCreatePage() called");
 
@@ -12,16 +12,16 @@ export function setupCreatePage() {
     recipeForm.onsubmit = onSubmitRecipe;
     //document.getElementById("addIngr").onclick = appendIngredient();
 
-    document.getElementById("addIngr").addEventListener("click", function () {
+    document.getElementById("addIngr").addEventListener("click", function() {
         appendIngredient();
     });
-    document.getElementById("addStep").addEventListener("click", function () {
+    document.getElementById("addStep").addEventListener("click", function() {
         appendStep();
     });
-    document.getElementById("delIngr").addEventListener("click", function () {
+    document.getElementById("delIngr").addEventListener("click", function() {
         deleteIngredient();
     });
-    document.getElementById("delStep").addEventListener("click", function () {
+    document.getElementById("delStep").addEventListener("click", function() {
         deleteIngredient();
     });
 
@@ -31,7 +31,7 @@ let numSteps = 0;
 let numIngredients = 0;
 //TODO: update/find a way to assign value to this variable
 let isUpdate = false
-const onSubmitRecipe = async (event) => {
+const onSubmitRecipe = async(event) => {
 
     // console.log("SUBMITTED NEW RECIPE");
     event.preventDefault();

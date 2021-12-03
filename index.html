@@ -6,8 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Landing Page</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <meta name="google-signin-client_id"
-        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
 
     <!-- Style Imports -->
     <link rel='stylesheet' href="/source/assets/styles/baseStyle.css">
@@ -15,6 +14,7 @@
     <link rel='stylesheet' href="/source/assets/styles/editCreate.css">
     <link rel='stylesheet' href="/source/assets/styles/recipeDetail.css">
     <link rel='stylesheet' href="/source/assets/styles/homePage.css">
+    <link rel='stylesheet' href="/source/assets/styles/userInfo.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap" rel="stylesheet">
@@ -30,8 +30,7 @@
     <script src="/source/scripts/index.js" type="module"></script>
     <script src="/source/scripts/disqus.js" type="module"></script>
 
-    <meta name="google-signin-client_id"
-        content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="693762448631-0tvigeijomhobgb0hj5c0di2dn0ppj5n.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
@@ -41,11 +40,11 @@
         .hidden {
             display: none;
         }
-
+        
         .show {
             display: inline;
         }
-
+        
         section:not(section.shown) {
             display: none;
         }
@@ -86,7 +85,7 @@
 
             <!-- Search Bar -->
             <div class="searchBar">
-                <img src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
+                <img id="olives" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
                 <!-- <p class="formItems" class="homePageTitle">Food is Love and Olive U</p>-->
                 <form class="formItems" action='source/scripts/indexSearch.js' id="searchBarForm">
                     <input type="search" name="keyword" id="searchBar" placeholder="Search...">
@@ -102,8 +101,14 @@
                 <input type="submit" value="Submit" id="submitButton">
             </div> -->
         </div>
+
         <!-- Recipe Section -->
         <div class="myRecipeCardGridContainer"></div>
+
+        <div id="homePageScrollButton" class="homePageScrollButton">
+            <input type="button" id="scrollLeft" value='<'>
+            <input type="button" id="scrollRight" value='>'>
+        </div>
     </section>
 
     <!-- home page -->
@@ -139,8 +144,9 @@
         <!-- Displaying recipe title, creation date, author-->
         <p id="recipeTitle">Recipe title</p>
         <div id="dateAuthor">
-            <p id="date">The Date of Creation</p>
             <p id="author">The Author</p>
+            <p id="date">The Date of Creation</p>
+
         </div>
 
         <!-- Displaying recipe image-->
@@ -199,17 +205,17 @@
                 grid-template-columns: 1fr 2fr;
                 padding: 10px;
             }
-
+            
             .userInfoGridItem {
                 padding: 20px;
                 font-size: 30px;
                 text-align: center;
             }
-
+            
             h1 {
                 line-height: 0px;
             }
-
+            
             .myRecipeCardGridContainer {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
@@ -218,7 +224,7 @@
         </style>
         <div class="userInfoGridContainer">
             <!-- User Profile, left side -->
-            <div class="userInfoGridItem">
+            <div class="userInfoGridItem" id="userCard">
                 <img id="notProfile" src="./source/assets/profile.png" width=80 height=80 />
                 <h1 id="userName"> Celia </h1>
                 <h2 id="userEmail"> c6xiao@ucsd.edu </h2>
@@ -226,17 +232,28 @@
             </div>
             <!-- Recipe Section -->
             <div class="userInfoGridItem">
-                <h1> My Recipes </h1>
-                <div class="myUploadRecipeCardGridContainer">
-                    < </div>
-                        <h1> Saved Recipes </h1>
-                        <div class="savedRecipes">
-                            <div class="mySavedRecipeCardGridContainer">
 
-                            </div>
-                        </div>
+                <h1 id="myRecipes"> My Recipes </h1>
+                <div id="myRecipeScroll">
+                    <input type="button" id="myScrollLeft" value='<'>
+                    <input type="button" id="myScrollRight" value='>'>
+                </div>
+                <div class="myUploadRecipeCardGridContainer">
+                </div>
+
+                <h1 id="savedRecipes"> Saved Recipes </h1>
+                <div id="savedRecipeScroll">
+                    <input type="button" id="savedScrollLeft" value='<'>
+                    <input type="button" id="savedScrollRight" value='>'>
+                </div>
+                <div class="savedRecipes">
+
+                    <div class="mySavedRecipeCardGridContainer">
+
+                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -315,9 +332,6 @@
                 </div>
 
                 <div class="float-container">
-                    <div id="delete" class="float-child">
-                        <input type="button" value="Delete">
-                    </div>
                     <div id="cancel" class="float-child">
                         <input type="button" value="Cancel">
                     </div>
@@ -405,9 +419,6 @@
                 </div>
 
                 <div class="float-container">
-                    <div id="delete" class="float-child">
-                        <input type="button" value="Delete">
-                    </div>
                     <div id="cancel" class="float-child"></div>
                     <div id="submit" class="float-child">
                         <input type="submit" value="Save">
@@ -418,10 +429,9 @@
     </section>
 
     <!-- footer -->
-    <!-- <footer>
-        <iframe src="/source/cards/footer.html"
-            onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
-    </footer> -->
+    <footer>
+        <iframe src="/source/cards/footer.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+    </footer>
 
 </body>
 

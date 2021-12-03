@@ -1,7 +1,7 @@
 //This file is when the user searches a keyword in index.html page
-export default {init}
+export default { init }
 if (typeof window === 'object') {
-window.addEventListener("DOMContentLoaded", init);
+    window.addEventListener("DOMContentLoaded", init);
 }
 import { submitSearch } from "./APICalls.js"
 import { createRecipeCards } from "./index.js";
@@ -17,7 +17,7 @@ async function init() {
     let searchButton = document.querySelector("#searchButton");
 
     if (searchButton) {
-        searchButton.addEventListener("click", async function () {
+        searchButton.addEventListener("click", async function() {
             let searchResults = await submitSearch(searchBar.value, selectedTags);
             createRecipeCards(searchResults.results);
         });
@@ -33,14 +33,25 @@ async function init() {
             tagButtons[i].addEventListener('click', (e) => {
                 clickedOnATag(tagButtons[i]);
             });
+            /** 
+                        tagButtons[i].addEventListener('mouseover', (e) => {
+                            onHover(tagButtons[i]);
+                        });
+                        tagButtons[i].addEventListener('mouseout', (e) => {
+                            offHover(tagButtons[i]);
+                        });
+                        */
+
         }
     }
+
+
 }
 
 function chooseTag(e) {
     let tagsList = document.querySelector("#tagsList");
     tagsList.style.display = "grid";
-    for (let i = 0 ; i < allTags.length; i++) {
+    for (let i = 0; i < allTags.length; i++) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
         addTagButton.innerText = allTags[i];
@@ -53,9 +64,33 @@ function clickedOnATag(e) {
     let index = selectedTags.indexOf(e.innerText);
     if (index > -1) {
         e.style.color = "white";
-        selectedTags.splice(index,1);
+        selectedTags.splice(index, 1);
+        e.style.backgroundColor = "#fcaf58";
+        e.style.borderColor = "#fcaf58";
+        e.style.setProperty = "#f9c784";
     } else {
-        e.style.color = "red";
+        e.style.backgroundColor = "#4e598c";
+        e.style.borderColor = "#4e598c";
         selectedTags.push(e.innerText);
     }
 }
+/** 
+function onHover(e) {
+    let index = selectedTags.indexOf(e.innerText);
+    if (index > -1) {
+        e.style.backgroundColor = "#f9c784";
+        e.style.borderColor = "#f9c784";
+    } else {
+        e.style.backgroundColor = "#4e598c";
+        e.style.borderColor = "#4e598c";
+    }
+}
+
+function offHover(e) {
+    let index = selectedTags.indexOf(e.innerText);
+    if (index > -1) {
+        e.style.backgroundColor = "#fcaf58";
+        e.style.borderColor = "#fcaf58";
+    } 
+}
+*/
