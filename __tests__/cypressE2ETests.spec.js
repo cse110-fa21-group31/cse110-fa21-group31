@@ -27,6 +27,7 @@ describe("Cypress Pipeline v2", () => {
         cy.get("#description");
         cy.get("#tags");
     });
+    
     it("Should allow editing of recipe", () => {
         cy.get("#editRecipeButton").click();
         cy.get("#editRecipe").should("be.visible");

@@ -93,8 +93,20 @@ describe("Works with a google account signin", () => {
         }
         cy.get("#newStepId").children().should("have.length", amountOfSteps - amountOfStepsDeleted);
         */
-       
+
         cy.get('#recipeForm > :nth-child(10) > #submit > input').click();
         cy.get("#recipeDetail").should("not.have.css", "display", "none");
     });
+    it("should be able to edit the recipe", () => {
+        cy.get('#editRecipeButton').click();
+        cy.get('#editRecipe').should("not.have.css", "display", "none");
+        cy.get('#editName > #name').type(" (Edited)");
+        cy.get('#editDescription > #descriptionText').type(" (Edited)");
+        cy.get('#editTags > #tags').type(", editedtesttag, editedtesttag2, editedtesttag3");
+        cy.get('#editRecipeForm > :nth-child(10) > #submit > input').click();
+        
+        cy.get("#recipeDetail").should("not.have.css", "display", "none");
+        cy.get('#recipeTitle').should("contain", "Test Recipe (Edited)");
+        cy.get('#description').should("contain", "This is a test recipe (Edited)");
+    })
 })
