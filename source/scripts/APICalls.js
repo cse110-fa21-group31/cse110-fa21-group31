@@ -20,7 +20,7 @@ export async function insertRecipe(recipe) {
     // save image and convert to local relative path
     if(recipe.image.size != 0){
         const imageURL = await uploadImage(recipe.image);
-        console.log(imageURL);
+        // console.log(imageURL);
         recipe.image = imageURL;
     }else{
         recipe.image = "";
@@ -133,21 +133,23 @@ export async function updateRecipeById(id, update) {
     // save image and convert to relative local path
     if(update.image.size != 0){
         const imageURL = await uploadImage(update.image);
-        console.log(imageURL);
+        // console.log(imageURL);
         update.image = imageURL;
     }else{
         update.image = "";
     }
     let queryURL = url;
     // console.log(update);
-    console.log(JSON.stringify(update));
+    // console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
         method: 'PUT',
         body: JSON.stringify(update)
     })
-        .then((response) => { console.log(response); return response.json() })
+        .then((response) => { 
+            // console.log(response); 
+            return response.json() })
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             return data
 
         })

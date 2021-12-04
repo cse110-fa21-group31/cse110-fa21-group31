@@ -53,7 +53,7 @@ export async function fillOutRecipe(data) {
     if (data.author && data.author.username) document.getElementById("author").innerHTML = data.author.username;
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
     if (data.ingredients) {
-        console.log("Ingredients object: " + data.ingredients);
+        // console.log("Ingredients object: " + data.ingredients);
         let ingredientsList = document.getElementById("ingr");
         //clear old ingredients
         while (ingredientsList.firstChild) {
