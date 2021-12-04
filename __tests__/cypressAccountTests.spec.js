@@ -4,7 +4,7 @@ const shadowconfig = {
     includeShadowDom: true,
 };
 
-describe("Works with a google account signin", () => {
+describe("Can do CRUD functionality", () => {
     it("should log in with google api", () => {
         // cy.task('db:seed');
         cy.loginByGoogleApi();
@@ -68,35 +68,43 @@ describe("Works with a google account signin", () => {
         // it will have an ID of "newInputBox" and its name will be "ingredient#" where '#' is the number of the ingredient
         // it will also create a similar
         // do this a random number of times
-        let amountOfIngredients = Math.floor(Math.random() * 5) + 1;
+    });
+    it("should be able to change ingredients by adding and deleting", () => {
+        let amountOfIngredients = Math.floor(Math.random() * 3) + 3;
         for (let i = 0; i < amountOfIngredients; i++) {
             cy.get('#recipeForm > #ingredients > :nth-child(2) > #addIngr').click();
-            cy.get(`#newInputBox[name=ingredient${i}]`).type("Test Ingredient " + i);
-            cy.get(`#newInputBox[name=ingredientAmount${i}]`).type("Some amount " + i);
+            cy.get(`#newInputBox[name=ingredient${i}]`).type("t" + i);
+            cy.get(`#newInputBox[name=ingredientAmount${i}]`).type("a" + i);
         }
         // at the end, there should be amountOfIngredients amount of ingredient inputs
         cy.get("#newIngredientId").children().should("have.length", amountOfIngredients);
 
+        let amountOfIngredientsDeleted = Math.floor(Math.random() * 1) + 1;
+        for (let i = 0; i < amountOfIngredientsDeleted; i++) {
+            cy.get('#recipeForm > #ingredients > :nth-child(2) > #delIngr').click();
+        }
+        cy.get("#newIngredientId").children().should("have.length", amountOfIngredients - amountOfIngredientsDeleted);
+    });
+    it("should be able to change steps by adding and deleting", () => {
         // click add step and wait for a new input text element to be created
         // it will have an ID of "textAreaBox" and its name will be "step#" where '#' is the number of the step
-        let amountOfSteps = Math.floor(Math.random() * 5) + 3;
+        let amountOfSteps = Math.floor(Math.random() * 3) + 3;
         for (let i = 0; i < amountOfSteps; i++) {
             cy.get('#recipeForm > #steps > #addSteps > #addStep').click();
-            cy.get(`#textAreaBox[name=step${i}]`).type("Test Step " + i);
+            cy.get(`#textAreaBox[name=step${i}]`).type("s" + i);
         }
         cy.get("#newStepId").children().should("have.length", amountOfSteps);
 
-        /*
-        let amountOfStepsDeleted = Math.floor(Math.random() * 2) + 1;
+        let amountOfStepsDeleted = Math.floor(Math.random() * 1) + 1;
         for (let i = 0; i < amountOfSteps; i++) {
             cy.get('#recipeForm > #steps > #addSteps > #delStep').click();
         }
         cy.get("#newStepId").children().should("have.length", amountOfSteps - amountOfStepsDeleted);
-        */
-
+    });
+    it("should successfully submit the new recipe", () => {
         cy.get('#recipeForm > :nth-child(10) > #submit > input').click();
         cy.get("#recipeDetail").should("not.have.css", "display", "none");
-    });
+    })
     it("should be able to edit the recipe", () => {
         cy.get('#editRecipeButton').click();
         cy.get('#editRecipe').should("not.have.css", "display", "none");
@@ -109,4 +117,12 @@ describe("Works with a google account signin", () => {
         cy.get('#recipeTitle').should("contain", "(Edited)");
         cy.get('#description').should("contain", "(Edited)");
     })
-})
+
+
+    // DISQUS
+    it("should be able to comment on the recipe", () => {
+        cy.scrollTo('bottom');
+        // cy.getIframeBody().find()
+        cy.get('#disqus_thread').should("not.have.css", "display", "none");
+    })
+});
