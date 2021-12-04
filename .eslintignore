@@ -2,3 +2,4 @@ cypress/
 node_modules/
 specs/
 admin/
+source/service/server/jsons
