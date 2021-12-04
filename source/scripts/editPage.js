@@ -22,21 +22,24 @@ export function populateEditPage(recipeObj) {
 
     const recipeForm = document.getElementById("editRecipeForm");
     recipeForm.onsubmit = onUpdateRecipe;
-    document.getElementById("addIngr").addEventListener("click", function() {
-        appendIngredient();
-    });
-    document.getElementById("addStep").addEventListener("click", function() {
-        appendStep();
-    });
-    document.getElementById("delIngr").addEventListener("click", function() {
-        deleteIngredient();
-    });
-    document.getElementById("delStep").addEventListener("click", function() {
-        deleteIngredient();
-    });
-    document.getElementById("delete").addEventListener("click", function() {
-        deleteRecipeButton();
-    });
+    if (document.getElementById("addIngr").getAttribute('listener') !== 'true') {
+        document.getElementById("addIngr").setAttribute('listener', 'true');
+        document.getElementById("addIngr").addEventListener("click", function() {
+            appendIngredient();
+        });
+        document.getElementById("addStep").addEventListener("click", function() {
+            appendStep();
+        });
+        document.getElementById("delIngr").addEventListener("click", function() {
+            deleteIngredient();
+        });
+        document.getElementById("delStep").addEventListener("click", function() {
+            deleteIngredient();
+        });
+        document.getElementById("delete").addEventListener("click", function() {
+            deleteRecipeButton();
+        });
+    }
 }
 
 export const deleteRecipeButton = async(event) => {

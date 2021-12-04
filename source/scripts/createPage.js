@@ -11,19 +11,23 @@ export function setupCreatePage() {
     const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
     //document.getElementById("addIngr").onclick = appendIngredient();
+    clearRecipePage();
+    if (document.getElementById("addIngr").getAttribute('listener') !== 'true') {
+        document.getElementById("addIngr").setAttribute('listener', 'true');
 
-    document.getElementById("addIngr").addEventListener("click", function() {
-        appendIngredient();
-    });
-    document.getElementById("addStep").addEventListener("click", function() {
-        appendStep();
-    });
-    document.getElementById("delIngr").addEventListener("click", function() {
-        deleteIngredient();
-    });
-    document.getElementById("delStep").addEventListener("click", function() {
-        deleteIngredient();
-    });
+        document.getElementById("addIngr").addEventListener("click", function() {
+            appendIngredient();
+        });
+        document.getElementById("addStep").addEventListener("click", function() {
+            appendStep();
+        });
+        document.getElementById("delIngr").addEventListener("click", function() {
+            deleteIngredient();
+        });
+        document.getElementById("delStep").addEventListener("click", function() {
+            deleteStep();
+        });
+    }
 
 }
 
@@ -155,6 +159,20 @@ const deleteIngredient = () => {
             .removeChild(
                 document.getElementById("newIngredientAmountId").lastChild
             );
+    }
+};
+const clearRecipePage = () => {
+
+    console.log("CLEARED");
+
+    document.getElementById('recipeForm').reset();
+
+    for (let i = 0; i <= numSteps; i++) {
+        deleteStep();
+    }
+
+    for (let i = 0; i <= numIngredients; i++) {
+        deleteIngredient();
     }
 };
 /* eslint-enable no-unused-vars*/
