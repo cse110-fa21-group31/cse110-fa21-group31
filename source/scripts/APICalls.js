@@ -3,7 +3,7 @@ export const userUrl = "/api/user"
 export const imageUploadUrl = "/api/imageUpload"
 export default {
     insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
-    updateRecipeById, submitSearch, uploadImage, url, userUrl
+    updateRecipeById, submitSearch, uploadImage, getUserData, url, userUrl
 }
 /**
  * 
@@ -204,7 +204,7 @@ export async function fetchUserById(id) {
             return data
         })
         .catch((err) => {
-            //console.error('Error finding recipe: ' + err.message);
+            console.error('Error finding recipe: ' + err.message);
         });
     return response
 }
@@ -221,7 +221,7 @@ export async function addSavedRecipeById(userId, recipeId) {
 
         })
         .catch((err) => {
-            //console.error('Error updating recipe: ' + err.message);
+            console.error('Error updating recipe: ' + err.message);
         });
 
     return response
@@ -239,7 +239,7 @@ export async function deleteSavedRecipeById(userId, recipeId) {
             return data
         })
         .catch((err) => {
-            //console.error('Error deleting recipe: ' + err.message);
+            console.error('Error deleting recipe: ' + err.message);
         });
     return response
 }
@@ -271,4 +271,28 @@ export async function uploadImage(imageFile) {
             console.error(err);
         });
     return response.path;
+}
+
+/**
+ * Sends an HTTP request to fetch the complete user profile by email. If user 
+ * doesn't exist in the database, create new user document and return the new object. 
+ * @param {object} userProfile 
+ */
+export async function getUserData(userProfile) {
+    let queryURL = userUrl + "?email=" + userProfile.email;
+    // console.log(update);
+    // console.log(JSON.stringify(update));
+    let response = await fetch(queryURL, {
+        method: 'POST',
+        body: JSON.stringify(userProfile)
+    })
+        .then((response) => { 
+            // console.log(response); 
+            return response.json() })
+        .catch((err) => {
+            console.error('Error getting user data: ' + err.message);
+        });
+    
+    return response
+    
 }

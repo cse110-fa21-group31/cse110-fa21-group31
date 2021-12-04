@@ -142,7 +142,7 @@ fastify.get("/api/user", async (req, reply) => {
 /**
  * Get all data of one user by email, create new user if not existed.
  *
- * req.query.email: the id to search for.
+ * req.query.email: the email to search for.
  * req.body: the json of user data to create new user.
  * NOTE: req.query.email and req.body.email MUST be the same!
  * reply: user json.
