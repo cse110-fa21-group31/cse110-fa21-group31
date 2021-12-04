@@ -165,7 +165,7 @@ Tags
     font-weight: bold;
     padding-left: 10px;
     overflow: auto;
-    padding: 100px 32px;
+    /*padding: 100px 32px;*/
     font-size: 90px;
 }
 
