@@ -18,9 +18,13 @@ export default {
  */
 export async function insertRecipe(recipe) {
     // save image and convert to local relative path
-    const imageURL = await uploadImage(recipe.image);
-    console.log(imageURL);
-    recipe.image = imageURL;
+    if(recipe.image.size != 0){
+        const imageURL = await uploadImage(recipe.image);
+        console.log(imageURL);
+        recipe.image = imageURL;
+    }else{
+        recipe.image = "";
+    }
     //for update, change the method of PUT
     const response = await fetch(url, {
         method: 'POST',
@@ -127,9 +131,13 @@ export async function fetchRecipeById(id) {
  */
 export async function updateRecipeById(id, update) {
     // save image and convert to relative local path
-    const imageURL = await uploadImage(update.image);
-    console.log(imageURL);
-    update.image = imageURL;
+    if(update.image.size != 0){
+        const imageURL = await uploadImage(update.image);
+        console.log(imageURL);
+        update.image = imageURL;
+    }else{
+        update.image = "";
+    }
     let queryURL = url;
     // console.log(update);
     console.log(JSON.stringify(update));
