@@ -1,28 +1,28 @@
 .recipeEdit {
-  max-width: 500px;
-  margin: 10px auto;
-  padding: 20px;
-  background: #f4f7f8;
-  border-radius: 8px;
-  font-family: OpenSans, sans-serif;
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    font-family: OpenSans, sans-serif;
 }
 
 .bottomButtons .formItems {
-  display: inline-block;
+    display: inline-block;
 }
 
 .recipeEdit fieldset {
-  border: none;
+    border: none;
 }
 
 .recipeEdit legend {
-  font-size: 1.4em;
-  margin-bottom: 10px;
+    font-size: 1.4em;
+    margin-bottom: 10px;
 }
 
 .recipeEdit label {
-  display: block;
-  margin-bottom: 8px;
+    display: block;
+    margin-bottom: 8px;
 }
 
 .recipeEdit #descriptionText,
@@ -38,84 +38,84 @@
 .recipeEdit input[type="time"],
 .recipeEdit input[type="url"],
 .recipeEdit select {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  background: rgb(255 255 255 / 10%);
-  border: none;
-  border-radius: 4px;
-  font-size: 15px;
-  margin: 0;
-  outline: 0;
-  padding: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: #e8eeef;
-  color: #8a97a0;
-  box-shadow: 0 1px 0 rgb(0 0 0 / 3%) inset;
-  margin-bottom: 30px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgb(255 255 255 / 10%);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    box-shadow: 0 1px 0 rgb(0 0 0 / 3%) inset;
+    margin-bottom: 30px;
 }
 
 .recipeEdit input[type="file"] {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  background: rgb(255 255 255 / 10%);
-  border: none;
-  border-radius: 4px;
-  font-size: 15px;
-  margin: 0;
-  outline: 0;
-  padding: 10px;
-  width: 50%;
-  box-sizing: border-box;
-  background-color: #e8eeef;
-  color: #8a97a0;
-  box-shadow: 0 1px 0 rgb(0 0 0 / 3%) inset;
-  margin-bottom: 30px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgb(255 255 255 / 10%);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 50%;
+    box-sizing: border-box;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    box-shadow: 0 1px 0 rgb(0 0 0 / 3%) inset;
+    margin-bottom: 30px;
 }
 
 .recipeEdit .recipe #addIngredients {
-  display: inline-block;
+    display: inline-block;
 }
 
 .recipeEdit #ingredients input[type="text"] {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  background: rgb(255 255 255 / 10%);
-  display: inline-block;
-  border: none;
-  border-radius: 4px;
-  font-size: 15px;
-  margin: 0;
-  outline: 0;
-  padding: 10px;
-  width: 90%;
-  box-sizing: border-box;
-  background-color: #e8eeef;
-  color: #8a97a0;
-  box-shadow: 0 1px 0 rgb(0 0 0 / 3%) inset;
-  margin-bottom: 30px;
-  text-align: center;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgb(255 255 255 / 10%);
+    display: inline-block;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 90%;
+    box-sizing: border-box;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    box-shadow: 0 1px 0 rgb(0 0 0 / 3%) inset;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 .recipeEdit #steps #textAreaBox {
-  height: 200px;
-  word-wrap: break-word;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  background: rgb(255 255 255 / 10%);
-  border: none;
-  border-radius: 4px;
-  font-size: 15px;
-  margin: 0;
-  outline: 0;
-  padding: 40px;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: #e8eeef;
-  color: #8a97a0;
-  box-shadow: 0 1px 0 rgb(0 0 0 / 3%) inset;
-  margin-bottom: 30px;
+    height: 200px;
+    word-wrap: break-word;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgb(255 255 255 / 10%);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    box-shadow: 0 1px 0 rgb(0 0 0 / 3%) inset;
+    margin-bottom: 30px;
 }
 
 .recipeEdit select {
-  appearance: menulist-button;
-  height: 35px;
+    appearance: menulist-button;
+    height: 35px;
 }
 
 .recipeEdit input[name="name"]:focus,
@@ -126,60 +126,60 @@
 .recipeEdit #servingSize[type="text"]:focus,
 .recipeEdit textarea:focus,
 .recipeEdit select:focus {
-  background: #d2d9dd;
+    background: #d2d9dd;
 }
 
 .recipeEdit input[type="button"] {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px 9px;
-  color: #fff;
-  margin: 0 auto;
-  background: #f9c784;
-  font-size: 15px;
-  text-align: center;
-  font-style: normal;
-  width: 30%;
-  border: 1px solid #fcaf58;
-  border-width: 1px 1px 3px;
-  margin-bottom: 10px;
-  border-radius: 25px;
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px 9px;
+    color: #fff;
+    margin: 0 auto;
+    background: #f9c784;
+    font-size: 15px;
+    text-align: center;
+    font-style: normal;
+    width: 30%;
+    border: 1px solid #fcaf58;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+    border-radius: 25px;
 }
 
 .recipeEdit input[type="button"]:hover {
-  background: #fcaf58;
+    background: #fcaf58;
 }
 
 .recipeEdit input[type="submit"],
 .recipeEdit #delete input[type="button"],
 .recipeEdit #cancel input[type="button"] {
-  position: relative;
-  display: inline-block;
-  padding: 19px 39px 18px;
-  color: #fff;
-  margin: 0 auto;
-  background: #f9c784;
-  font-size: 18px;
-  text-align: center;
-  font-style: normal;
-  width: 90%;
-  border: 1px solid #fcaf58;
-  border-width: 1px 1px 3px;
-  margin-bottom: 10px;
-  border-radius: 25px;
+    position: relative;
+    display: inline-block;
+    padding: 19px 39px 18px;
+    color: #fff;
+    margin: 0 auto;
+    background: #f9c784;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 90%;
+    border: 1px solid #fcaf58;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+    border-radius: 25px;
 }
 
 .recipeEdit #delete input[type="button"]:hover,
 .recipeEdit #cancel input[type="button"]:hover,
 .recipeEdit input[type="submit"]:hover {
-  background: #fcaf58;
+    background: #fcaf58;
 }
 
 .recipeEdit .float-container {
-  display: flex;
+    display: flex;
 }
 
 .recipeEdit .float-child {
-  width: 500px;
-  float: left;
+    width: 500px;
+    float: left;
 }
