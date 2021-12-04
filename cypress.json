@@ -2,6 +2,7 @@
     "integrationFolder": "__tests__",
     "ignoreTestFiles": "**/!(*.spec.js)",
     "baseUrl": "http://localhost:3030",
+    "chromeWebSecurity": false,
     "compilerOptions": {
         "module": "esnext",
         "allowJs": true

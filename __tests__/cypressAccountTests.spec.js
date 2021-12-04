@@ -4,6 +4,30 @@ const shadowconfig = {
     includeShadowDom: true,
 };
 
+const recipeDetailPageVisible = () => {
+    cy.get("#recipeDetail").should("not.have.css", "display", "none");
+}
+const recipeCreatePageVisible = () => {
+    cy.get('#createRecipe').should("not.have.css", "display", "none");
+}
+const recipeEditPageVisible = () => {
+    cy.get('#editRecipe').should("not.have.css", "display", "none");
+}
+const landingPageVisible = () => {
+    cy.get('#landingPage').should("not.have.css", "display", "none");
+}
+const userPageVisible = () => {
+    cy.get('#userInfo').should("not.have.css", "display", "none");
+}
+
+const goToDetailPage = (recipeId) => {
+    // cy.get("#submit").click();
+    cy.frameLoaded();
+    cy.iframe().contains("Save").click();
+    // cy.contains("Save").click();
+    recipeDetailPageVisible();
+}
+
 describe("Can do CRUD functionality", () => {
     it("should log in with google api", () => {
         // cy.task('db:seed');
@@ -42,15 +66,16 @@ describe("Can do CRUD functionality", () => {
         cy.get("#profile").click();
         cy.get("#userInfo").should("not.have.css", "display", "none");
     });
+
+
+    // CREATING A NEW RECIPE
     it("shows new recipe creation page upon clicking New Recipe", () => {
         cy.contains("New Recipe").click();
-        cy.get("#createRecipe").should("not.have.css", "display", "none");
-        cy.get(".recipeEdit").should("not.have.css", "display", "none");
+        recipeCreatePageVisible();
     });
-
-    // TODO: get these working with cypress-iframe plugin
     it("should not allow saving a recipe if it lacks the required fields", () => {
-        cy.get('#recipeForm > :nth-child(10) > #submit > input').click();
+        // cy.get('#recipeForm > :nth-child(10) > #submit > input').click();
+        goToDetailPage();
         cy.get("#createRecipe").should("not.have.css", "display", "none");
         cy.get(".recipeEdit").should("not.have.css", "display", "none");
         cy.get("#recipeDetail").should("have.css", "display", "none");
@@ -102,22 +127,32 @@ describe("Can do CRUD functionality", () => {
         cy.get("#newStepId").children().should("have.length", amountOfSteps - amountOfStepsDeleted);
     });
     it("should successfully submit the new recipe", () => {
-        cy.get('#recipeForm > :nth-child(10) > #submit > input').click();
+        // cy.get('#recipeForm > :nth-child(10) > #submit > input').click();
+        goToDetailPage();
         cy.get("#recipeDetail").should("not.have.css", "display", "none");
     })
+
+
+    // EDITING A RECIPE
     it("should be able to edit the recipe", () => {
         cy.get('#editRecipeButton').click();
-        cy.get('#editRecipe').should("not.have.css", "display", "none");
+        recipeEditPageVisible();
         cy.get('#editName > #name').type(" (Edited)");
         cy.get('#editDescription > #descriptionText').type(" (Edited)");
         cy.get('#editTags > #tags').type(", editedtesttag, editedtesttag2, editedtesttag3");
-        cy.get('#editRecipeForm > :nth-child(10) > #submit > input').click();
+        // cy.get('#editRecipeForm > :nth-child(10) > #submit > input').click();
+        goToDetailPage();
         
-        cy.get("#recipeDetail").should("not.have.css", "display", "none");
+        recipeDetailPageVisible();
         cy.get('#recipeTitle').should("contain", "(Edited)");
         cy.get('#description').should("contain", "(Edited)");
     })
+    it("should have its edits be seen", () => {
 
+    })
+
+
+    //
 
     // DISQUS
     it("should be able to comment on the recipe", () => {
