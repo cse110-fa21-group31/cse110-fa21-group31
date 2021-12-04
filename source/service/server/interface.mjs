@@ -161,7 +161,11 @@ export async function getRecipeById(id, recipeCollection) {
  * @param {Array<string>} ids 
  * @returns {Array<recipe>} the recipes matching any of the given ids
  */
-export async function getRecipesByIds(ids, recipeCollection) {
+export async function getRecipesByIds(recipeCollection, ids) {
+    // console.log(ids)
+    if (!ids) return undefined
+    ids = ids.split(",")
+    // console.log(ids)
     let foundDocs = new Promise((resolve, reject) => {
         recipeCollection.find({ _id: { $in: ids } }, function (err, docs) {
             if (err) {
@@ -189,6 +193,6 @@ export async function convertUserIdToObj(recipes) {
     }));
     // console.log("After convert: ");
     // console.log(recipes);
-    
+
     return recipes;
 }

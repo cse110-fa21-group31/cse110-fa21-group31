@@ -48,11 +48,13 @@ fastify.get("/api", async (_, reply) => {
 
 fastify.get("/api", async (request, reply) => {
     if (request.query.id) {
-        const recipe = await getRecipeById(request.query.id, recipeDB)
+        // const recipe = await getRecipeById(request.query.id, recipeDB)
         // console.log(recipe);
         reply.send(await getRecipeById(request.query.id, recipeDB));
     } else if (request.query.page) {
         reply.send(await getRecipeByPage(recipeDB, request.query.page));
+    } else if (request.query.ids) {
+        reply.send(await getRecipesByIds(recipeDB, request.query.ids))
     }
 });
 
@@ -204,16 +206,16 @@ fastify.post("/api/imageUpload", async (request, reply) => {
     // Generate file path
     let filePath = '/source/service/.data/images/';
     let fileName = file.filename;
-    while(fs.existsSync(__dirname + filePath + fileName)){
+    while (fs.existsSync(__dirname + filePath + fileName)) {
         fileName = "1" + fileName;
     }
     filePath = filePath + fileName;
     // Write to file
     await fs.writeFile(__dirname + filePath, fileBuffer, 'base64', function (err) {
-        if(err){
+        if (err) {
             console.log(err);
         }
-    }); 
+    });
     // Return file path
     let data = { path: filePath };
     reply.status(200).send(data);
