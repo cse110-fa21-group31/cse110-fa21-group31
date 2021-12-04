@@ -13,11 +13,12 @@ const recipeData = {};
  * @param {*} profile user profile object defined in wiki
  */
 export const populateUserInfoPage = (profile) => {
-    const createPageUrl = EDIT_CREATE_ROUTE
+    const createPageUrl = EDIT_CREATE_ROUTE;
     //redirect to the create page
-    const createRecipePageBut = document.getElementById("createRecipePageButton")
-    routerAddCreatePage(createPageUrl)
+    const createRecipePageBut = document.getElementById("createRecipePageButton");
+    //routerAddCreatePage(createPageUrl)
     createRecipePageBut.addEventListener('click', () => {
-        routerNavigateWrapper(createPageUrl)
+        routerAddCreatePage(createPageUrl);
+        routerNavigateWrapper(createPageUrl);
     })
 }

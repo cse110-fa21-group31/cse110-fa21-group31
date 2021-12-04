@@ -11,15 +11,15 @@
 
     "ingredients": 
         {
-            "rolled oats, (not instant)": 2.5
-            "all-purpose flour": 1
-            "grated orange rind": 1
-            "salt": 1
-            "cold butter, cubed": 1
-            "packed brown sugar": 0.5
-            "fresh blueberries": 3
-           "granulated sugar": 0.5
-          "orange juice": 1
+            "rolled oats, (not instant)": 2.5,
+            "all-purpose flour": 1,
+            "grated orange rind": 1,
+            "salt": 1,
+            "cold butter, cubed": 1,
+            "packed brown sugar": 0.5,
+            "fresh blueberries": 3,
+           "granulated sugar": 0.5,
+          "orange juice": 1,
            "cornstarch": 4
         },
     "steps": [
