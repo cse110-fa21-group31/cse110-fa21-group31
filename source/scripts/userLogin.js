@@ -49,6 +49,15 @@ if (typeof window === 'object') {
 }
 
 /**
+ * Prevents Google auto login. 
+ * 
+ * @param {event} e Event of onbeforeunload
+ */
+window.onbeforeunload = function(e){
+    gapi.auth2.getAuthInstance().signOut();
+  };
+
+/**
  * The function that's called when sign-in button is clicked and success.
  * Passes user profile to backend and displays user profile in html.
  *
@@ -75,13 +84,14 @@ async function onSignIn(googleUser) {
     console.log("User login activity caught by frontend:");
     // Since email is unique, we won't need ID token for identification
     // console.log('ID token: ' + googleUser.getAuthResponse().id_token);
-    console.log("Name: " + profile.name);
+    console.log("Name: " + profile.username);
     console.log("Image URL: " + profile.imageURL);
     console.log("Email: " + profile.email);
 
     // When logged in, show profile image and sign-out button, remove sign-in
     // button
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_NONE;
+    document.getElementById(SIGN_OUT_BUTTON_ID).style.display = DISPLAY_BLOCK;
     // Display profile image
     let profileWrapper = document.getElementById(ELE_ID_PROFILE_WRAPPER);
     profileWrapper.class = "shown";
