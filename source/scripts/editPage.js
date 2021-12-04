@@ -1,17 +1,18 @@
 import { updateRecipeById } from "./APICalls.js"
 import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
-import { RECIPE_ROUTE } from './util.js'
+import { HOME_ROUTER, RECIPE_ROUTE } from './util.js'
 let imageSrc = ''
 let recipeId;
 export default { populateEditPage }
 export function populateEditPage(recipeObj) {
     recipeId = recipeObj._id;
-    console.log("RECIPE ID AT START IS " + recipeId);
-
-    console.log("editCreate.js init called");
 
     fillOutEditPage(recipeObj);
+    const cancelBtn = document.getElementById("editCancel")
+    cancelBtn.addEventListener('click', () => {
 
+        routerNavigateWrapper(HOME_ROUTER)
+    })
     // Adding steps to the recipe
     /* eslint-disable no-unused-vars*/
     const addStepButton = document.querySelector("#addSteps button");
@@ -39,7 +40,7 @@ export function populateEditPage(recipeObj) {
     }
 }
 
-export const deleteRecipeButton = async(event) => {
+export const deleteRecipeButton = async (event) => {
     // await deleteRecipe(pageId);
 }
 
@@ -120,7 +121,7 @@ export const fillOutEditPage = (recipeObj) => {
  * 
  * @param {*} event 
  */
-const onUpdateRecipe = async(event) => {
+const onUpdateRecipe = async (event) => {
     event.preventDefault();
     console.log("SUBMITTED NEW RECIPE");
 
@@ -166,8 +167,8 @@ const onUpdateRecipe = async(event) => {
         steps: stepsArr,
         _id: recipeId
     }
-    console.log(newRecipe);
-    console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
+    // console.log(newRecipe);
+    // console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
     const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
     redirectRecipeDetail(updatedRecipe)
     const page = updatedRecipe._id;

@@ -78,19 +78,26 @@ export async function fetchRecipeByPage(pageNum) {
 }
 
 /** 
- * @deprecated
+ * 
  * sends an HTTP request to the server to fetch a list of recipes
  * @param {array<string>} ids list of ids of the desired recipes
  */
 export async function fetchRecipeByIds(ids) {
-
-    let recipes = []
-    for (let i = 0; i < ids.size; i++) {
-        const re = await fetchRecipeById(ids[i]);
-        recipes.push(re)
-    }
-    // console.log(recipes)
-    return recipes
+    let queryURL = url + "?ids=" + ids;
+    let response = await fetch(queryURL, {
+        method: 'GET',
+    })
+        .then((response) => response.json())
+        .then(async (data) => {
+            data.forEach(async (recipe) => {
+                recipe.author = await fetchUserById(recipe.author);
+            });
+            return data
+        })
+        .catch((err) => {
+            console.error('Error finding recipes: ' + err.message);
+        });
+    return response
 }
 
 /**
