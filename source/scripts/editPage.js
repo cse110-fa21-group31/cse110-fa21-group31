@@ -7,34 +7,25 @@ export default { populateEditPage }
 export function populateEditPage(recipeObj) {
     recipeId = recipeObj._id;
     console.log("RECIPE ID AT START IS " + recipeId);
-
     console.log("editCreate.js init called");
 
     fillOutEditPage(recipeObj);
 
-    // Adding steps to the recipe
-    /* eslint-disable no-unused-vars*/
-    const addStepButton = document.querySelector("#addSteps button");
-    /* eslint-enable no-unused-vars*/
-    //addStepButton.addEventListener('click', appendRow);
-
-    // Submitting the entire recipe
-
     const recipeForm = document.getElementById("editRecipeForm");
     recipeForm.onsubmit = onUpdateRecipe;
-    if (document.getElementById("addIngr").getAttribute('listener') !== 'true') {
-        document.getElementById("addIngr").setAttribute('listener', 'true');
-        document.getElementById("addIngr").addEventListener("click", function() {
+    if (document.querySelector("#editRecipeForm #addIngr").getAttribute('listener') !== 'true') {
+        document.querySelector("#editRecipeForm #addIngr").setAttribute('listener', 'true');
+        document.querySelector("#editRecipeForm #addIngr").addEventListener("click", function() {
             appendIngredient();
         });
-        document.getElementById("addStep").addEventListener("click", function() {
+        document.querySelector("#editRecipeForm #addStep").addEventListener("click", function() {
             appendStep();
         });
-        document.getElementById("delIngr").addEventListener("click", function() {
+        document.querySelector("#editRecipeForm #delIngr").addEventListener("click", function() {
             deleteIngredient();
         });
-        document.getElementById("delStep").addEventListener("click", function() {
-            deleteIngredient();
+        document.querySelector("#editRecipeForm #delStep").addEventListener("click", function() {
+            deleteStep();
         });
     }
 }
@@ -80,6 +71,15 @@ export const fillOutEditPage = (recipeObj) => {
         document.getElementById('editDifficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option selected value="4">4 stars</option><option value="5">5 stars</option></select>';
     } else {
         document.getElementById('editDifficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option selected value="5">5 stars</option></select>';
+    }
+
+    // EUVIN: Added these so duplicate steps aren't added from previous sessions
+    for (let i = 0; i <= numSteps; i++) {
+        deleteStep();
+    }
+
+    for (let i = 0; i <= numIngredients; i++) {
+        deleteIngredient();
     }
 
     let fillSteps = response.steps;
@@ -184,6 +184,7 @@ const onUpdateRecipe = async(event) => {
 const appendStep = () => {
     //let d = document.getElementById('steps');
     // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
+    console.log("append Step");
     var newTextBox = document.createElement("div");
     console.log("add Step")
     newTextBox.innerHTML =
@@ -198,6 +199,7 @@ const appendStep = () => {
 
 /* eslint-disable no-unused-vars*/
 const deleteStep = () => {
+    console.log("delete Step")
     //newTextBox.classList.add('stepEntry');
     if (document.getElementById("editNewStepId").lastChild != null) {
         document
@@ -208,6 +210,7 @@ const deleteStep = () => {
 };
 /* eslint-disable no-unused-vars*/
 const appendIngredient = () => {
+    console.log("add Ingredient");
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
         "<input type='text' id='newInputBox' name='ingredient" + numIngredients + "' placeholder='ingredient'>";
@@ -223,6 +226,7 @@ const appendIngredient = () => {
 
 /* eslint-disable no-unused-vars*/
 const deleteIngredient = () => {
+    console.log("delete ingredient");
     if (document.getElementById("editNewIngredientId").lastChild != null) {
         numIngredients--;
         document
