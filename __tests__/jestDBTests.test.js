@@ -91,35 +91,35 @@ describe("Tests database recipe functions", () => {
         await clearDatabase();
     });
 
-    test("createRecipe", async () => {
+    test.skip("createRecipe", async () => {
         let randomRecipe = generateRandomRecipe();
-        let result = await Interface.createRecipe(randomRecipe, testDB);
+        let result = await Interface.createRecipe(randomRecipe, test.skipDB);
         expect(result._id).toBeTruthy();
     });
 
-    test("getRecipeById", async () => {
+    test.skip("getRecipeById", async () => {
         let randomRecipe = generateRandomRecipe();
-        let createdRecipe = await Interface.createRecipe(randomRecipe, testDB);
+        let createdRecipe = await Interface.createRecipe(randomRecipe, test.skipDB);
         let recipeId = createdRecipe._id;
-        let result = await Interface.getRecipeById(recipeId, testDB);
+        let result = await Interface.getRecipeById(recipeId, test.skipDB);
         expect(result._id).toBe(recipeId);
         expect(createdRecipe).toEqual(result);
     });
 
-    test("getRecipesByIds", async () => {
+    test.skip("getRecipesByIds", async () => {
         let randomRecipes = [];
         let createdRecipes = [];
         for (let i = 0; i < Math.random() * 10 + 1; i++) {
             let newRandomRecipe = generateRandomRecipe();
             randomRecipes.push(newRandomRecipe);
-            createdRecipes.push(await Interface.createRecipe(newRandomRecipe, testDB));
+            createdRecipes.push(await Interface.createRecipe(newRandomRecipe, test.skipDB));
         }
         let createdIds = createdRecipes.map((recipe) => recipe._id);
-        let resultRecipes = await Interface.getRecipesByIds(createdIds, testDB);
+        let resultRecipes = await Interface.getRecipesByIds(createdIds, test.skipDB);
         expect(resultRecipes.length).toBe(createdIds.length);
     });
 
-    test("getRecipesByNameAndTags", async () => {
+    test.skip("getRecipesByNameAndTags", async () => {
         const commonName = "foodthing";
         const commonTag = "commontag";
         // generate a bunch of new recipes that have commonName inside their name
@@ -131,9 +131,9 @@ describe("Tests database recipe functions", () => {
             newRecipe.tags = newRecipe.tags + `,${commonTag}`;
             return newRecipe;
         });
-        await Promise.race(commonRecipes.map((recipe) => Interface.createRecipe(recipe, testDB)));
+        await Promise.race(commonRecipes.map((recipe) => Interface.createRecipe(recipe, test.skipDB)));
 
-        const queryResult = await Interface.getRecipesByNameAndTags({name: commonName, tags: commonTag}, testDB);
+        const queryResult = await Interface.getRecipesByNameAndTags({name: commonName, tags: commonTag}, test.skipDB);
         expect(queryResult.length).toBe(commonRecipeCount);
         expect(queryResult.every((recipe) => recipe.name.includes(commonName))).toBeTruthy();
         console.log(queryResult.map((recipe) => recipe.tags));
@@ -141,9 +141,9 @@ describe("Tests database recipe functions", () => {
     });
 
     const pageSize = CARDS_PER_PAGE;
-    test("getRecipeByPage full", async () => {
+    test.skip("getRecipeByPage full", async () => {
         return populateDatabase(pageSize).then(() => {
-            Interface.getRecipeByPage(testDB).then((pagerecipes) => {
+            Interface.getRecipeByPage(test.skipDB).then((pagerecipes) => {
                 expect(pagerecipes.length).toBe(pageSize);
             })
         });

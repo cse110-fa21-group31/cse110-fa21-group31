@@ -14,21 +14,19 @@ export function setupCreatePage() {
     })
     const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
-    //document.getElementById("addIngr").onclick = appendIngredient();
     clearRecipePage();
-    if (document.getElementById("addIngr").getAttribute('listener') !== 'true') {
-        document.getElementById("addIngr").setAttribute('listener', 'true');
-
-        document.getElementById("addIngr").addEventListener("click", function() {
+    if (document.querySelector("#recipeForm #addIngr").getAttribute('listener') !== 'true') {
+        document.querySelector("#recipeForm #addIngr").setAttribute('listener', 'true');
+        document.querySelector("#recipeForm #addIngr").addEventListener("click", function() {
             appendIngredient();
         });
-        document.getElementById("addStep").addEventListener("click", function() {
+        document.querySelector("#recipeForm #addStep").addEventListener("click", function() {
             appendStep();
         });
-        document.getElementById("delIngr").addEventListener("click", function() {
+        document.querySelector("#recipeForm #delIngr").addEventListener("click", function() {
             deleteIngredient();
         });
-        document.getElementById("delStep").addEventListener("click", function() {
+        document.querySelector("#recipeForm #delStep").addEventListener("click", function() {
             deleteStep();
         });
     }
@@ -114,6 +112,7 @@ const onSubmitRecipe = async(event) => {
 const appendStep = () => {
     //let d = document.getElementById('steps');
     // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
+    console.log("APPEND STEP");
     var newTextBox = document.createElement("div");
 
     newTextBox.innerHTML =
@@ -129,6 +128,7 @@ const appendStep = () => {
 /* eslint-disable no-unused-vars*/
 const deleteStep = () => {
     //newTextBox.classList.add('stepEntry');
+    console.log("DELETED STEP");
     if (document.getElementById("newStepId").lastChild != null) {
         document
             .getElementById("newStepId")
@@ -138,6 +138,7 @@ const deleteStep = () => {
 };
 /* eslint-disable no-unused-vars*/
 const appendIngredient = () => {
+    console.log("APPEND INGREDIENT");
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
         "<input type='text' id='newInputBox' name='ingredient" + numIngredients + "' placeholder='ingredient'>";
@@ -153,6 +154,7 @@ const appendIngredient = () => {
 
 /* eslint-disable no-unused-vars*/
 const deleteIngredient = () => {
+    console.log("DELETE INGREDIENT");
     if (document.getElementById("newIngredientId").lastChild != null) {
         numIngredients--;
         document
