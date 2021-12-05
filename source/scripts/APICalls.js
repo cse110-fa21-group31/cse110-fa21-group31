@@ -210,21 +210,21 @@ export async function fetchUserById(id) {
 }
 
 export async function addSavedRecipeById(userId, recipeId) {
-    let queryURL = userUrl + "?userId=" + userId + "?recipeId=" + recipeId;
+    let queryURL = userUrl + "/saved?userId=" + userId + "&recipeId=" + recipeId;
     let response = await fetch(queryURL, {
         method: 'PUT'
     })
         .then((response) => { console.log(response); return response.json() })
         .then((data) => {
             console.log(data);
-            return data
+            return data;
 
         })
         .catch((err) => {
             console.error('Error updating recipe: ' + err.message);
         });
 
-    return response
+    return response;
 }
 
 export async function deleteSavedRecipeById(userId, recipeId) {
