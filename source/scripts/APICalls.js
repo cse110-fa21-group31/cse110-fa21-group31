@@ -228,11 +228,10 @@ export async function addSavedRecipeById(userId, recipeId) {
 }
 
 export async function deleteSavedRecipeById(userId, recipeId) {
-    let queryURL = userUrl + "?userId=" + userId + "?recipeId=" + recipeId;
+    let queryURL = userUrl + "/saved?userId=" + userId + "&recipeId=" + recipeId;
     let response = await fetch(queryURL, {
-        method: 'DEL',
-        "Access-Control-Allow-Origin": "*",
-        mode: 'no-cors'
+        method: 'DELETE',
+        "Access-Control-Allow-Origin": "*"
     })
         .then((response) => response.json())
         .then((data) => {

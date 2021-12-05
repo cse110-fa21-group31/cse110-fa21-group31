@@ -164,6 +164,9 @@ function addSaveButton(data) {
             saveRecipeButton.style.backgroundRepeat = 'no-repeat';
             
             isSaved = false;
+            userData.savedRecipe = userData.savedRecipe.filter(function(recipe) {
+                recipe._id != data._id;
+            });
             deleteSavedRecipeById(userData._id, data._id);
             console.log('Removed Recipe from saved');
         }
