@@ -19,6 +19,8 @@
     * comments (starts out empty)
 */
 
+const PLACEHOLDER_IMG = window.location.protocol + "//" + window.location.host + "/source/assets/Images/recipeCardPlaceholder.png";
+
 class RecipeClass extends HTMLElement {
     constructor() {
         super();
@@ -113,8 +115,8 @@ class RecipeClass extends HTMLElement {
         // show placeholder image if imageData not availables
         // TODO: change these conditions after figuring out how to upload and store image
         image.src = (imageData == null || typeof imageData == "object" || imageData == "") ?
-            "./source/assets/Images/recipeCardPlaceholder.png" : imageData;
-        const imageErrorFunc = "this.onerror=null; this.src='./source/assets/Images/recipeCardPlaceholder.png'";
+            PLACEHOLDER_IMG : imageData;
+        const imageErrorFunc = `this.onerror=null; this.src='${PLACEHOLDER_IMG}'`;
         image.onerror = (err) => {
             image.onerror = null;
             image.src = './source/assets/Images/recipeCardPlaceholder.png';

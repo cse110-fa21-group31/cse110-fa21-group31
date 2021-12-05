@@ -1,9 +1,17 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
 import { insertRecipe } from "./APICalls.js"
 import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
-import { RECIPE_ROUTE } from './util.js'
+import { RECIPE_ROUTE, HOME_ROUTER } from './util.js'
 export default { setupCreatePage }
 export function setupCreatePage() {
+    // console.log("setupCreatePage() called");
+
+    // Submitting the entire recipe
+    const cancelBtn = document.getElementById("cancel")
+    cancelBtn.addEventListener('click', () => {
+
+        routerNavigateWrapper(HOME_ROUTER)
+    })
     const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
     clearRecipePage();

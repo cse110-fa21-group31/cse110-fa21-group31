@@ -23,7 +23,7 @@ async function init() {
     }
 
     let tagsSelect = document.getElementById("tagsList");
-    console.log(tagsSelect);
+    // console.log(tagsSelect);
     if (tagsSelect) {
         chooseTag(this);
         let tagButtons = document.getElementsByClassName("tagButton");
