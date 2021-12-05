@@ -44,7 +44,6 @@ export async function fillOutRecipe(data) {
         }
     }
     // If data.image not valid, use placeholder image
-    console.log(PLACEHOLDER_IMG);
     const image = (data.image == null || typeof data.image == "object" || data.image == "") ?
         PLACEHOLDER_IMG : data.image;
     // If data.image valid but image not exist, suppress error message and use placeholder image

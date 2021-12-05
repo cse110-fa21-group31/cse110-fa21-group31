@@ -1,4 +1,4 @@
-var Datastore = require("nedb");
+import Datastore from "nedb";
 // var db = new Datastore({ filename: "data/demo" });
 // const demo2 = new Datastore({ filename: "data/demo2", autoload: true });
 // const RECIPE_DB_PATH = "source/service/.data/recipes"
