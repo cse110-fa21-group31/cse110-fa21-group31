@@ -21,7 +21,16 @@ async function init() {
             createRecipeCards(searchResults);
         });
     }
-
+    if (searchBar) {
+        searchBar.addEventListener("keydown", async function(event) {
+            // If enter key is pressed, suppress default rerouting and submit search
+            if(event.keyCode === 13){
+                event.preventDefault();
+                let searchResults = await submitSearch(searchBar.value, selectedTags);
+                createRecipeCards(searchResults);
+            }
+        });
+    }
     let tagsSelect = document.getElementById("tagsList");
     // console.log(tagsSelect);
     if (tagsSelect) {

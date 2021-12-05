@@ -62,17 +62,19 @@ body {
 #recipeDetail #description {
     text-align: center;
     background: #ededed;
-    padding-bottom: 20px;
+    padding: 0px 10px 20px 10px;
 }
 
 #recipeDetail #cookT {
     display: inline-block;
-    padding-right: 30px;
+    /* padding-right: 30px; */
+    width: 50%;
 }
 
 #recipeDetail #servingS {
     display: inline-block;
-    padding-right: 30px;
+    /* padding-right: 30px; */
+    width: 50%;
 }
 
 #recipeDetail #recipeTitle {
@@ -101,13 +103,13 @@ body {
 }
 
 #recipeDetail #tags {
+    overflow: auto;
     background: #ededed;
     border-left: solid 1px #ededed;
     border-right: solid 1px #ededed;
     font-size: 16px;
     font-family: Oxygen, sans-serif;
     padding: 15px 20px;
-    padding-bottom: 50px;
 }
 
 #recipeDetail .descStuff {
@@ -180,4 +182,8 @@ ol {
     color: #4e598c;
     font-weight: bold;
     font-size: 110%;
+}
+
+#disqus_thread {
+    padding: 0px 10px;
 }
