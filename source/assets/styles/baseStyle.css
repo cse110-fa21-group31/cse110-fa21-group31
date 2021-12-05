@@ -241,6 +241,10 @@ Tags
     font-size: large;
 }
 
+/* important for routing */
+section:not(section.shown) {
+    display: none;
+}
 
 /*
 Regular text font:

@@ -6,6 +6,7 @@ import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js"
 import { deleteRecipe, fetchRecipeById } from "./APICalls.js";
 import { routerAddEditPage, routerNavigateWrapper } from "./index.js";
 const recipeData = {};
+const PLACEHOLDER_IMG = window.location.protocol + "//" + window.location.host + "/source/assets/Images/recipeCardPlaceholder.png";
 
 /**
  * Populates the recipe detail pages by fetching recipe json and filling in 
@@ -40,10 +41,13 @@ export async function fillOutRecipe(data) {
             */
         }
     }
-    // TODO: fix condition after fixing image upload issue
+    // If data.image not valid, use placeholder image
+    console.log(PLACEHOLDER_IMG);
     const image = (data.image == null || typeof data.image == "object" || data.image == "") ?
-        "./source/assets/Images/recipeCardPlaceholder.png" : data.image;
-    const imageErrorFunc = "this.onerror=null; this.src='./source/assets/Images/recipeCardPlaceholder.png'";
+        PLACEHOLDER_IMG : data.image;
+    // If data.image valid but image not exist, suppress error message and use placeholder image
+    const imageErrorFunc = `this.onerror=null; this.src='${PLACEHOLDER_IMG}'`;
+
     document.getElementById("recipeImage").setAttribute("src", image);
     document.getElementById("recipeImage").setAttribute("onerror", imageErrorFunc);
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
@@ -53,7 +57,7 @@ export async function fillOutRecipe(data) {
     if (data.author && data.author.username) document.getElementById("author").innerHTML = data.author.username;
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
     if (data.ingredients) {
-        console.log("Ingredients object: " + data.ingredients);
+        // console.log("Ingredients object: " + data.ingredients);
         let ingredientsList = document.getElementById("ingr");
         //clear old ingredients
         while (ingredientsList.firstChild) {

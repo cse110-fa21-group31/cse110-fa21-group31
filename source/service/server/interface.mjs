@@ -1,20 +1,24 @@
 import { getUser } from "./userInterface.mjs";
 import { userDB, recipeDB } from "./server.mjs";
+import { addMyRecipe } from "./userInterface.mjs";
+import { removeMyRecipe } from "./userInterface.mjs";
 
 const CARDS_PER_PAGE = 6;
 /**
- * insert a single recipe to database
+ * insert a single recipe to database, add to user's myRecipe list
  * @param {recipe} recipe the recipe to insert
  * @param {*} recipeCollection the database to search in
  * @returns {Array<recipe>} the inserted recipe
  */
 export async function createRecipe(recipe, recipeCollection) {
     let insertedDoc = new Promise((resolve, reject) => {
-        recipeCollection.insert(recipe, function (err, doc) {
+        recipeCollection.insert(recipe, async function (err, doc) {
             if (err) {
                 console.log(err);
                 reject(err);
             } else {
+                // add created recipe to user's myRecipe
+                await addMyRecipe(userDB, doc.author, doc._id);
                 resolve(doc);
             }
         });
@@ -24,13 +28,25 @@ export async function createRecipe(recipe, recipeCollection) {
 
 
 /**
- * removes a single recipe from the database
+ * removes a single recipe from the database, remove from user's myRecipe list.
+ * If user's not the author, no error will be thrown.
  * @param {string} id unique string identifier of the desired recipe
  * @param {*} recipeCollection the database to search in
  */
 export async function deleteRecipe(id, recipeCollection) {
-    recipeCollection.remove({ _id: id });
-    console.log("DELET RECIPE SLFHISJFD" + id);
+    const recipeToRemove = await getRecipeById(id, recipeCollection);
+    const authorId = recipeToRemove.author;
+    let insertedDoc = new Promise((resolve, reject) => {
+        recipeCollection.remove({ _id: id }, async function (err, doc) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                await removeMyRecipe(userDB, authorId, id);
+                resolve(doc);
+            }
+        })
+    })
 }
 
 
