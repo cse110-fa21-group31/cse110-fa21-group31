@@ -32,14 +32,9 @@ describe("Works with a google account signin", () => {
             win.onSignIn(fakeGoogleUser);
         });
     })
-    it("shows the profile", () => {
-        // it should have a img, AND shouldn't have display: none
-        cy.get("#profile").find("img").should("have.attr", "src");
-        cy.get("#profile").should("not.have.css", "display", "none");
-    });
     it("show the profile page upon click", () => {
         // upon click, #userInfo shouldn't have display: none
-        cy.get("#profile").click();
+        cy.get('.profileImage').click();
         cy.get("#userInfo").should("not.have.css", "display", "none");
     });
     it("shows new recipe creation page upon clicking New Recipe", () => {
