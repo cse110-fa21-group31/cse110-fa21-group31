@@ -8,7 +8,7 @@ import { routerAddEditPage, routerNavigateWrapper, userData } from "./index.js";
 const recipeData = {};
 const PLACEHOLDER_IMG = window.location.protocol + "//" + window.location.host + "/source/assets/Images/recipeCardPlaceholder.png";
 
-let isSaved; // Variable to keep track of saved status
+let isSaved = false; // Variable to keep track of saved status
 
 /**
  * Populates the recipe detail pages by fetching recipe json and filling in 
@@ -135,7 +135,14 @@ function convertTime(time) {
 
 function addSaveButton(data) {
     const saveRecipeButton = document.getElementById('saveRecipeButton');
-    isSaved = userData.savedRecipe.includes(data._id);
+
+    for (let i = 0; i < userData.savedRecipe.length; i++) {
+        if (userData.savedRecipe[i]._id == data._id) {
+            isSaved = true;
+            break;
+        }
+    }
+    //isSaved = userData.savedRecipe.includes(data._id);
 
     //Inital check on page load
     if(isSaved) {
@@ -167,6 +174,7 @@ function addSaveButton(data) {
             saveRecipeButton.style.backgroundRepeat = 'no-repeat';
             
             isSaved = true;
+            userData.savedRecipe.push(data._id);
             addSavedRecipeById(userData._id, data._id);
             console.log('Added Recipe to saved');
         }
