@@ -15,7 +15,7 @@ if (typeof window !== "undefined") {
 // THESE SHOULD BE GIVEN VIA API
 import { Router } from './router/Router.js'
 import { url, fetchRecipeByPage, fetchRecipeById, fetchRecipeByIds } from './APICalls.js'
-import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE } from './util.js'
+import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE, HOME_ROUTER } from './util.js'
 import { fillOutRecipe } from './recipeDetail.js'
 import { populateUserInfoPage } from './userInfo.js'
 import { setupCreatePage } from './createPage.js'
@@ -69,6 +69,14 @@ export async function init() {
     updateRecipeListInfo(currPage);
     bindEscKey();
     bindPopstate();
+    homePageButton();
+}
+
+function homePageButton() {
+    let but = document.getElementsByClassName('logo')[0];
+    but.addEventListener('click', () => {
+        routerNavigateWrapper(HOME_ROUTER);
+    })
 }
 
 // TODO: fetch and update homepage recipe by pageID
