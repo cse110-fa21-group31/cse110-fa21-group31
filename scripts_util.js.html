@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: service/user/googleLogin.js</title>
+    <title>JSDoc: Source: scripts/util.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: service/user/googleLogin.js</h1>
+    <h1 class="page-title">Source: scripts/util.js</h1>
 
     
 
@@ -26,83 +26,37 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Filename: googleLogin.js
- * Date: 11/18/2021
- * Description: functions for handling Google sign-in / log-out and related
- *  changes of profile display.
- * Dependency: navBarWithGoogle.html
- * Note: Google Login doesn't work for 127.0.0.1. Type localhost instead.
- */
-
+            <pre class="prettyprint source linenums"><code>// the file that used to put reusable helper methods and/or constants
+//eg: PORT, neDB storage File Path, etc
+export const SIGN_IN_BUTTON_ID = "signInButton";
+export const SIGN_OUT_BUTTON_ID = "signOutButton";
+export const ELE_ID_PROFILE = "profile";
+export const ELE_ID_PROFILE_WRAPPER = "profileWrapper";
+export const ELE_CLASS_PROFILE_IMAGE = "profileImage";
+export const RECIPE_ROUTE = "recipe/";
+export const USER_ROUTE = "user/";
+export const EDIT_CREATE_ROUTE = "create/";
+// TODO: change editcreate route name
+export const TEMP_EDIT_CREATE_ROUTE = "edit/";
+export const RECIPE_DB_PATH = "source/service/.data/recipes";
+export const TEST_RECIPE_DB_PATH = "source/service/.data/testrecipes";
+export const CARDS_PER_PAGE = 6;
+export const HOME_ROUTER = 'home';
 /**
- * This function will be called by the front end function userLogin.js/onSignIn
- * when Google API returns sign-in success.
- * Simply print out user profile for now.
- *
- * @param {...object} profile User profile passed from front end. Includes:
- *  { name, imageURL, email }
+ * 
+ * @param {*} selector 
  */
-
-/* global gapi */
-
-function userSignedIn(profile) {
-    console.log("User login data passed to backend: ");
-    console.log("name: " + profile.name);
-    console.log("imageURL: " + profile.imageURL);
-    // This is null if the 'email' scope is not present.
-    console.log("email: " + profile.email);
-}
-
-/**
- * Checks whether a user already exists in the database.
- *
- * @param {...string} email
- * @returns True if a user already exists, false if it's a new account.
- */
-function hasUser(email) {
-    console.log('hasUser("' + email + '") called');
-    // Simply returns false for now
-    return false;
-}
-
-/**
- * This function creates a new user in the database.
- *
- * @param {...object} profile The profile of the new user.
- * @returns False for now.
- */
-function createNewUser(profile) {
-    console.log("Create new user " + profile.email);
-    return false;
-}
-
-/**
- * This function gets data of a user based on the email.
- * @param {...string} email The email of the user to get data for.
- * @returns A json file of the user data.
- */
-/* eslint-disable no-unused-vars*/
-function getUserData(email) {
-    var data = {};
-    return data.stringify();
-}
-/* eslint-enable no-unused-vars*/
-
-/**
- * This function will be called by the front end function userLogin.js/signedOut
- * when the user clicks sign-out button.
- * Calls Google log-out api.
- */
-function userSignedOut() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log("User signed out.");
-    });
-}
-
-export { userSignedIn, userSignedOut, hasUser, getUserData, createNewUser };
-</code></pre>
+export function createNodeClone(selector, isQuerySelector) {
+    let original;
+    if (isQuerySelector) {
+        original = document.querySelector(selector);
+    }
+    else {
+        original = document.getElementById(selector);
+    }
+    let clone = original.cloneNode(true);
+    original.parentNode.replaceChild(clone, original);
+}</code></pre>
         </article>
     </section>
 
