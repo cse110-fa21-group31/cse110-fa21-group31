@@ -6,7 +6,7 @@ if (typeof window === 'object') {
 import { submitSearch } from "./APICalls.js"
 import { createRecipeCards } from "./index.js";
 
-let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
+let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Vegan"];
 let selectedTags = [];
 /**
  * initializes search functionality through the frontend
