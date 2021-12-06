@@ -13,4 +13,19 @@ export const TEMP_EDIT_CREATE_ROUTE = "edit/";
 export const RECIPE_DB_PATH = "source/service/.data/recipes";
 export const TEST_RECIPE_DB_PATH = "source/service/.data/testrecipes";
 export const CARDS_PER_PAGE = 6;
-export const HOME_ROUTER = 'home'
+export const HOME_ROUTER = 'home';
+/**
+ * 
+ * @param {*} selector 
+ */
+export function createNodeClone(selector, isQuerySelector) {
+    let original;
+    if (isQuerySelector) {
+        original = document.querySelector(selector);
+    }
+    else {
+        original = document.getElementById(selector);
+    }
+    let clone = original.cloneNode(true);
+    original.parentNode.replaceChild(clone, original);
+}

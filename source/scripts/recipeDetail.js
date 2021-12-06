@@ -2,7 +2,7 @@
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
 export default { fillOutRecipe }
 // RecipeExpand.js
-import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js"
+import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE, createNodeClone } from "./util.js"
 import { deleteRecipe, fetchRecipeById,  addSavedRecipeById, deleteSavedRecipeById} from "./APICalls.js";
 import { routerAddEditPage, routerNavigateWrapper, userData } from "./index.js";
 const recipeData = {};
@@ -25,9 +25,7 @@ export async function populateRecipeDetail() {
 */
 
 export async function fillOutRecipe(data) {
-    const saveRecipeButton = document.getElementById('saveRecipeButton');
-    const saveRecipeButtonClone = saveRecipeButton.cloneNode(true);
-    saveRecipeButton.parentNode.replaceChild(saveRecipeButtonClone, saveRecipeButton);
+    createNodeClone('saveRecipeButton');
     if (!data) return
     document.getElementById("recipeTitle").innerHTML = data.name;
     if (data.tags) {
@@ -89,25 +87,26 @@ export async function fillOutRecipe(data) {
     }
 
     //document.getElementById("steps").innerHTML = data.steps;
+    createNodeClone('editRecipeButton');
+    createNodeClone('deleteRecipeButton');
     const editRecipeButton = document.getElementById('editRecipeButton')
     const delRecipeButton = document.getElementById('deleteRecipeButton')
     const page = data._id;
     const routeUrl = TEMP_EDIT_CREATE_ROUTE + page
-    routerAddEditPage(routeUrl, data)
+    routerAddEditPage(routeUrl, data);
     editRecipeButton.addEventListener('click', () => {
         //redirect to edit page and populate the page
         routerNavigateWrapper(routeUrl)
     })
     const home = 'home'
     delRecipeButton.addEventListener('click', () => {
+        console.log("Deleting " + data._id);
         //redirect to edit page and populate the page
         deleteRecipe(data._id)
         routerNavigateWrapper(home)
     })
 
     //Saved button
-    console.log("hi");
-    console.log("Adding save button for data " + JSON.stringify(data));
     addSaveButton(data);
     
 }
@@ -136,8 +135,6 @@ function convertTime(time) {
 }
 
 const saveRecipe = (data) => () => {
-    console.log("Clicked on saveRecipe button");
-    console.log("isSaved: " + isSaved);
         if(isSaved) { 
             //styling
             saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
@@ -185,8 +182,6 @@ function addSaveButton(data) {
         saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
     }
     saveRecipeButton.style.backgroundRepeat = 'no-repeat';
-    console.log('saved? ' + isSaved);
-    console.log('user id?' + userData._id);
 
 
     saveRecipeButton.addEventListener('click', saveRecipe(data, isSaved));

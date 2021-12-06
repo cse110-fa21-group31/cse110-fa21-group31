@@ -1,4 +1,5 @@
 //This file is when the user searches a keyword in index.html page
+import { createNodeClone } from './util.js';
 export default { init }
 if (typeof window === 'object') {
     window.addEventListener("DOMContentLoaded", init);
@@ -13,7 +14,9 @@ let selectedTags = [];
  */
 async function init() {
     // TODO: Make sure this works for both landing and home pages
+    createNodeClone('#searchBar', true);
     let searchBar = document.querySelector("#searchBar");
+    createNodeClone('#searchButton', true);
     let searchButton = document.querySelector("#searchButton");
     if (searchButton) {
         searchButton.addEventListener("click", async function() {

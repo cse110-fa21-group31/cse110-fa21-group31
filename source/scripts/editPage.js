@@ -1,6 +1,6 @@
 import { updateRecipeById } from "./APICalls.js"
 import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
-import { HOME_ROUTER, RECIPE_ROUTE } from './util.js'
+import { createNodeClone, HOME_ROUTER, RECIPE_ROUTE } from './util.js'
 let imageSrc = ''
 let recipeId;
 export default { populateEditPage }
@@ -8,6 +8,7 @@ export function populateEditPage(recipeObj) {
     recipeId = recipeObj._id;
 
     fillOutEditPage(recipeObj);
+    createNodeClone('editCancel');
     const cancelBtn = document.getElementById("editCancel")
     cancelBtn.addEventListener('click', () => {
 
@@ -25,15 +26,19 @@ export function populateEditPage(recipeObj) {
     recipeForm.onsubmit = onUpdateRecipe;
     if (document.querySelector("#editRecipeForm #addIngr").getAttribute('listener') !== 'true') {
         document.querySelector("#editRecipeForm #addIngr").setAttribute('listener', 'true');
+        createNodeClone('#editRecipeForm #addIngr', true);
         document.querySelector("#editRecipeForm #addIngr").addEventListener("click", function() {
             appendIngredient();
         });
+        createNodeClone('#editRecipeForm #addStep', true);
         document.querySelector("#editRecipeForm #addStep").addEventListener("click", function() {
             appendStep();
         });
+        createNodeClone('#editRecipeForm #delIngr', true);
         document.querySelector("#editRecipeForm #delIngr").addEventListener("click", function() {
             deleteIngredient();
         });
+        createNodeClone('#editRecipeForm #delStep', true);
         document.querySelector("#editRecipeForm #delStep").addEventListener("click", function() {
             deleteStep();
         });
