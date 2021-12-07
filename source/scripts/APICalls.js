@@ -86,7 +86,7 @@ export async function fetchRecipeById(id) {
  * @param {string} id the id of the desired recipe
  * @param {object} update the fields and corresponding values of the recipe to change
  */
-export async function updateRecipeById(update) {
+export async function updateRecipeById(id, update) {
     let queryURL = API_URL;
     // save image and convert to relative local path
     if(update.image.size != 0){
