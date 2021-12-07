@@ -40,6 +40,9 @@ import {
     ELE_ID_PROFILE_WRAPPER,
     SIGN_IN_BUTTON_ID,
     SIGN_OUT_BUTTON_ID,
+    SAVE_BUTTON_ID,
+    EDIT_BUTTON_ID,
+    DELETE_BUTTON_ID,
 } from "./util.js";
 
 import { populateUserInfoPage } from './userInfo.js'
@@ -120,6 +123,12 @@ async function onSignIn(googleUser) {
     // button
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_NONE;
     document.getElementById(SIGN_OUT_BUTTON_ID).style.display = DISPLAY_BLOCK;
+
+    //Show Edit, delete and save buttons
+    document.getElementById(EDIT_BUTTON_ID).style.display = DISPLAY_BLOCK;
+    document.getElementById(DELETE_BUTTON_ID).style.display = DISPLAY_BLOCK;
+    document.getElementById(SAVE_BUTTON_ID).style.display = DISPLAY_BLOCK;
+    
     // Display profile wrapper section
     let profileWrapper = document.getElementById(ELE_ID_PROFILE_WRAPPER);
     profileWrapper.style.display = DISPLAY_BLOCK;
@@ -156,6 +165,12 @@ async function signOut() {
     // sign-out button
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_BLOCK;
     document.getElementById(SIGN_OUT_BUTTON_ID).style.display = DISPLAY_NONE;
+
+    //Hide Edit, delete and save buttons
+    document.getElementById(EDIT_BUTTON_ID).style.display = DISPLAY_NONE;
+    document.getElementById(DELETE_BUTTON_ID).style.display = DISPLAY_NONE;
+    document.getElementById(SAVE_BUTTON_ID).style.display = DISPLAY_NONE;
+
     const profileWrapper = document.getElementById(ELE_ID_PROFILE_WRAPPER);
     profileWrapper.removeChild(profileWrapper.firstChild);
     profileWrapper.style.display = DISPLAY_NONE;
@@ -179,13 +194,13 @@ async function userSignedOut() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createNodeClone">createNodeClone</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByIds">fetchRecipeByIds</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#getUserData">getUserData</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByIds">fetchRecipeByIds</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#getUserData">getUserData</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Dec 06 2021 09:17:20 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue Dec 07 2021 02:16:24 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
