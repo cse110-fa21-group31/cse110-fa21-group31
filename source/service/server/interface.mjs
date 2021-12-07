@@ -1,6 +1,8 @@
 import { CARDS_PER_PAGE } from "../util.js";
 import { getUser } from "./userInterface.mjs";
-import { userDB } from "./server.js"
+import { userDB } from "./server.mjs"
+import { addMyRecipe } from "./userInterface.mjs";
+import { removeMyRecipe } from "./userInterface.mjs";
 
 /**
  * insert a single recipe to database, add to user's myRecipe list
