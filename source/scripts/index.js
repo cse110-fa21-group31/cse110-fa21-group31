@@ -14,16 +14,13 @@ if (typeof window !== "undefined") {
 
 // THESE SHOULD BE GIVEN VIA API
 import { Router } from './router/Router.js'
-import { url, fetchRecipeByPage, fetchRecipeById, fetchRecipeByIds } from './APICalls.js'
-import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE } from './util.js'
+import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE, HOME_ROUTER } from './util.js'
 import { fillOutRecipe } from './recipeDetail.js'
-import { populateUserInfoPage } from './userInfo.js'
 import { setupCreatePage } from './createPage.js'
 import { populateEditPage } from './editPage.js'
 import { setupDisqusScript } from './disqus.js';
+import { initialRecipeCards } from './indexSearch.js';
 var recipeData = [];
-const NumRecipePerPage = 6
-const currPage = 1
 export var userData = null;
 
 let homePage = null; // = document.getElementById('homePage')
@@ -56,38 +53,22 @@ export const router = new Router(function () {
     userInfoPage.classList.remove("shown");
     createRecipePage.classList.remove("shown");
     editRecipePage.classList.remove("shown");
-    updateRecipeListInfo(currPage);
+    initialRecipeCards();
 });
 
-export async function init() {
-    try {
-        await createRecipes();
-    } catch (err) {
-        console.log(`Error fetching recipes: ${err}`);
-        return;
-    }
-    updateRecipeListInfo(currPage);
+async function init() {
+    initialRecipeCards();
     bindEscKey();
     bindPopstate();
+    homePageButton();
 }
 
-// TODO: fetch and update homepage recipe by pageID
-export async function updateRecipeListInfo(pageId) {
-    await fetchRecipes()
-    createRecipeCards();
+function homePageButton() {
+    let but = document.getElementsByClassName('logo')[0];
+    but.addEventListener('click', () => {
+        routerNavigateWrapper(HOME_ROUTER);
+    })
 }
-
-//fills the recipes into the recipes Array
-//should help pull info from the api call, or makes the api call here
-export async function createRecipes() {
-    //do nothing for now!
-}
-
-export async function fetchRecipes() {
-    let response = await fetchRecipeByPage(currPage)
-    recipeData = response;
-}
-
 
 // the jankiest solution to ever exist (sorry)
 // any suggestion to make this better or placed somewhere else is welcome
@@ -303,7 +284,7 @@ export function bindEscKey() {
 export function bindPopstate() {
     window.addEventListener('popstate', (event) => {
         if (event.state) {
-            router.navigate(event.state.page, true);
+            router.navigate(event.state.pageName, true);
         } else {
             router.navigate('home', true);
         }

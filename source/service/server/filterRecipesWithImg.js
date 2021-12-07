@@ -1,5 +1,5 @@
 import Datastore from "nedb";
-const RECIPE_DB_PATH = "source/service/.data/recipes";
+import { RECIPE_DB_PATH } from "../util.js";
 const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 
 function deleteRecipesWithoutImage() {

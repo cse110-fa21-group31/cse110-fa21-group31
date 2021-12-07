@@ -35,21 +35,6 @@
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
 
-
-    <style>
-        .hidden {
-            display: none;
-        }
-        
-        .show {
-            display: inline;
-        }
-        
-        section:not(section.shown) {
-            display: none;
-        }
-    </style>
-
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
@@ -60,7 +45,7 @@
     <nav id="navbar">
         <ul id="nav" class="topRight">
             <li id="navLogo">
-                <a class="logo" href="/">Olive U</a>
+                <a class="logo">Olive U</a>
             </li>
             <li id="signInButton">
                 <!-- when sign-in success, call frontend function onSignIn() in 
@@ -70,7 +55,7 @@
             <li id="profileWrapper" class="hidden">
                 <div id="profile"> </div>
                 <div id="signOutButton">
-                    <a href="#" onclick="signOut();">Sign out</a>
+                    <a onclick="signOut();">Sign out</a>
                 </div>
             </li>
             <!-- <li><a href="#" onclick="signOut();">Sign out</a></li> -->
@@ -140,7 +125,8 @@
         <!-- buttons for edit and delete -->
         <button id="editRecipeButton">Edit</button>
         <button id="deleteRecipeButton">Delete</button>
-
+        <button id="saveRecipeButton"></button>
+        
         <!-- Displaying recipe title, creation date, author-->
         <p id="recipeTitle">Recipe title</p>
         <div id="dateAuthor">
@@ -150,7 +136,7 @@
         </div>
 
         <!-- Displaying recipe image-->
-        <img id="recipeImage" src="" alt="" width="500" height="300">
+        <img id="recipeImage" src="" alt="" height="300">
 
 
         <div id="tags">
@@ -419,7 +405,10 @@
                 </div>
 
                 <div class="float-container">
-                    <div id="cancel" class="float-child"></div>
+                    <div id="editCancel" class="float-child">
+                        <input type="button" value="Cancel">
+                    </div>
+
                     <div id="submit" class="float-child">
                         <input type="submit" value="Save">
                     </div>

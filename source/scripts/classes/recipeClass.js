@@ -19,6 +19,8 @@
     * comments (starts out empty)
 */
 
+const PLACEHOLDER_IMG = window.location.protocol + "//" + window.location.host + "/source/assets/Images/recipeCardPlaceholder.png";
+
 class RecipeClass extends HTMLElement {
     constructor() {
         super();
@@ -73,24 +75,24 @@ class RecipeClass extends HTMLElement {
             /* white-space:nowrap; */
             color: white;
             font-weight: bold;
-            padding-left: 10px;
-            padding-bottom: 3px;
+            padding-left: 0px;
+            padding-bottom: 10px;
             padding-top: 3px;
             font-size: 15px;
             text-align: center;
-            border-radius: 2cm;
+            /* border-radius: 2cm; */
             overflow:auto; 
         }
         
         li.individualTag {
             /* border-style:solid; */
             margin: 0px 10px;
-            border: #FCAF58;
-            border-radius: 2cm;
+            /* border: #FCAF58; */
+            border-radius: 0.1cm;
             padding-left: 10px;
             padding-right: 10px;
-            padding-top: 50px;
-            padding-bottom: 50px;
+            padding-top: 1px;
+            padding-bottom: 2px;
             text-align: center;
             background-color: #FCAF58;
             display:inline;
@@ -113,8 +115,8 @@ class RecipeClass extends HTMLElement {
         // show placeholder image if imageData not availables
         // TODO: change these conditions after figuring out how to upload and store image
         image.src = (imageData == null || typeof imageData == "object" || imageData == "") ?
-            "./source/assets/Images/recipeCardPlaceholder.png" : imageData;
-        const imageErrorFunc = "this.onerror=null; this.src='./source/assets/Images/recipeCardPlaceholder.png'";
+            PLACEHOLDER_IMG : imageData;
+        const imageErrorFunc = `this.onerror=null; this.src='${PLACEHOLDER_IMG}'`;
         image.onerror = (err) => {
             image.onerror = null;
             image.src = './source/assets/Images/recipeCardPlaceholder.png';

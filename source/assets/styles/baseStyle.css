@@ -37,6 +37,10 @@ body {
 Landing Background
 */
 
+#landingPage {
+    overflow: hidden;
+}
+
 #homepage .landingHeader,
 #landingPage .landingHeader {
     width: 0%;
@@ -55,7 +59,7 @@ Search Bar
 
 #landingPage #olives {
     object-fit: cover;
-    width: 1430px;
+    width: 100vw;
     height: 400px;
     border: solid 1px #CCC;
 }
@@ -127,6 +131,11 @@ Search Bar
 
 
 /* style for only homepage */
+
+#landingPage .searchBar {
+    position: relative;
+    text-align: center;
+}
 
 #landingPage div.searchBar>img {
     width: 100%;
@@ -241,6 +250,10 @@ Tags
     font-size: large;
 }
 
+/* important for routing */
+section:not(section.shown) {
+    display: none;
+}
 
 /*
 Regular text font:

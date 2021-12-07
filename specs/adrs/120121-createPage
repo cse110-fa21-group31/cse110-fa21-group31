@@ -1,0 +1,35 @@
+# Are difficulties tags?
+
+* Status: Accepted
+* Deciders: Serina, Danica, Tallis, Euvin, Celia
+* Date: 11-13-2021
+
+Technical Story: The edit recipe and create recipe pages are used when the user wants to edit or create a page respectively. They're 2 separate pages.
+
+## Context and Problem Statement
+
+The edit and create page have the same layout but different javascript and api calls which results in some code duplication in terms of the HTML and CSS.
+
+## Decision Drivers
+
+* Code duplication is bad
+* 
+
+## Considered Options
+
+* Option 1: Merging the create and edit page
+* Option 2: Using the same HTML and CSS but different javascript files
+* Option 3: Keeping the edit and create pages separate
+
+## Decision Outcome
+
+Chosen option: Initially chose “{option 1}” but swapped to “{option 3}”. The differing api calls and javascript would cause issues if option 1 was selected. The only way to avoid this was through JQuery, but it was simpler to keep them separate.
+
+### Positive Consequences
+
+* Cleaner code that is separated clearly
+* Easier to debug separate pages
+
+### Negative Consequences
+
+* Some similar code in the edit page and create page files

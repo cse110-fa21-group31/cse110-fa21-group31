@@ -1,29 +1,64 @@
 //This file is when the user searches a keyword in index.html page
-export default { init }
+import { createNodeClone } from './util.js';
+export default { init, initialRecipeCards }
 if (typeof window === 'object') {
     window.addEventListener("DOMContentLoaded", init);
 }
-import { submitSearch } from "./APICalls.js"
+import { submitSearch, submitInitialSearch } from "./APICalls.js"
 import { createRecipeCards } from "./index.js";
 
-let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
+let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Vegan"];
 let selectedTags = [];
+let curr_page = 1;
+let max_page = 1;
 /**
  * initializes search functionality through the frontend
  */
 async function init() {
     // TODO: Make sure this works for both landing and home pages
+    createNodeClone('#searchBar', true);
     let searchBar = document.querySelector("#searchBar");
+    createNodeClone('#searchButton', true);
     let searchButton = document.querySelector("#searchButton");
-    if (searchButton) {
-        searchButton.addEventListener("click", async function() {
-            let searchResults = await submitSearch(searchBar.value, selectedTags);
-            createRecipeCards(searchResults);
-        });
-    }
+    let scrollLeftButton = document.querySelector("#scrollLeft");
+    let scrollRightButton = document.querySelector("#scrollRight");
+
+    searchButton.addEventListener("click", async function() {
+        let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
+        createRecipeCards(searchResults.results);
+        curr_page = 1;
+        max_page = searchResults.pages.pages;
+    });
+
+    searchBar.addEventListener("keydown", async function(event) {
+        // If enter key is pressed, suppress default rerouting and submit search
+        if(event.keyCode === 13){
+            event.preventDefault();
+            let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
+            createRecipeCards(searchResults.results);
+            curr_page = 1;
+            max_page = searchResults.pages.pages;
+        }
+    });
+
+    scrollRightButton.addEventListener("click", async function() {
+        if(curr_page < max_page){
+            curr_page++;
+            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
+            createRecipeCards(results);
+        }
+    });
+
+    scrollLeftButton.addEventListener("click", async function() {
+        if(curr_page > 1) {
+            curr_page--;
+            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
+            createRecipeCards(results);
+        }
+    });
 
     let tagsSelect = document.getElementById("tagsList");
-    console.log(tagsSelect);
+    // console.log(tagsSelect);
     if (tagsSelect) {
         chooseTag(this);
         let tagButtons = document.getElementsByClassName("tagButton");
@@ -93,3 +128,12 @@ function offHover(e) {
     } 
 }
 */
+
+/**
+ * Initial render of recipe cards. 
+ */
+export async function initialRecipeCards () {
+    let initialResults = await submitInitialSearch(searchBar.value, selectedTags);
+    createRecipeCards(initialResults.results);
+    max_page = initialResults.pages.pages;
+}
