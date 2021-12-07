@@ -2,7 +2,7 @@
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
 export default { fillOutRecipe }
 // RecipeExpand.js
-import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js"
+import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE, createNodeClone } from "./util.js"
 import { deleteRecipe, fetchRecipeById,  addSavedRecipeById, deleteSavedRecipeById} from "./APICalls.js";
 import { routerAddEditPage, routerNavigateWrapper, userData } from "./index.js";
 const recipeData = {};
@@ -25,6 +25,7 @@ export async function populateRecipeDetail() {
 */
 
 export async function fillOutRecipe(data) {
+    createNodeClone('saveRecipeButton');
     if (!data) return
     document.getElementById("recipeTitle").innerHTML = data.name;
     if (data.tags) {
@@ -86,17 +87,20 @@ export async function fillOutRecipe(data) {
     }
 
     //document.getElementById("steps").innerHTML = data.steps;
+    createNodeClone('editRecipeButton');
+    createNodeClone('deleteRecipeButton');
     const editRecipeButton = document.getElementById('editRecipeButton')
     const delRecipeButton = document.getElementById('deleteRecipeButton')
     const page = data._id;
     const routeUrl = TEMP_EDIT_CREATE_ROUTE + page
-    routerAddEditPage(routeUrl, data)
+    routerAddEditPage(routeUrl, data);
     editRecipeButton.addEventListener('click', () => {
         //redirect to edit page and populate the page
         routerNavigateWrapper(routeUrl)
     })
     const home = 'home'
     delRecipeButton.addEventListener('click', () => {
+        console.log("Deleting " + data._id);
         //redirect to edit page and populate the page
         deleteRecipe(data._id)
         routerNavigateWrapper(home)
@@ -104,8 +108,6 @@ export async function fillOutRecipe(data) {
 
     //Saved button
     addSaveButton(data);
-    
-
     
 }
 
@@ -132,9 +134,38 @@ function convertTime(time) {
     return '';
 }
 
+const saveRecipe = (data) => () => {
+        if(isSaved) { 
+            //styling
+            saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
+            saveRecipeButton.style.backgroundRepeat = 'no-repeat';
+            
+            userData.savedRecipe = userData.savedRecipe.filter(function(recipe) {
+                return recipe._id != data._id;
+            });
+            console.log("Unsaving recipe " + data.name + " with id " + data._id);
+            isSaved = false;
+            deleteSavedRecipeById(userData._id, data._id);
+            console.log('Removed Recipe from saved');
+        }
+        else {
+            
+            //styling
+            saveRecipeButton.style.background = 'url(/source/assets/Images/Filled_Heart.svg)';
+            saveRecipeButton.style.backgroundRepeat = 'no-repeat';
+            
+            userData.savedRecipe.push(data);
+            console.log("Saving recipe " + data.name + " with id " + data._id);
+            isSaved = true;
+            addSavedRecipeById(userData._id, data._id);
+            console.log('Added Recipe to saved');
+        }
+}
+
 function addSaveButton(data) {
     const saveRecipeButton = document.getElementById('saveRecipeButton');
-
+    isSaved = false;
+    console.log("data id: " + data._id);
     for (let i = 0; i < userData.savedRecipe.length; i++) {
         if (userData.savedRecipe[i]._id == data._id) {
             isSaved = true;
@@ -151,34 +182,7 @@ function addSaveButton(data) {
         saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
     }
     saveRecipeButton.style.backgroundRepeat = 'no-repeat';
-    console.log('saved? ' + isSaved);
-    console.log('user id?' + userData._id);
 
 
-    saveRecipeButton.addEventListener('click', () => {
-        //add or remove the saved recipe on click
-        if(isSaved) { 
-            //styling
-            saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
-            saveRecipeButton.style.backgroundRepeat = 'no-repeat';
-            
-            isSaved = false;
-            userData.savedRecipe = userData.savedRecipe.filter(function(recipe) {
-                recipe._id != data._id;
-            });
-            deleteSavedRecipeById(userData._id, data._id);
-            console.log('Removed Recipe from saved');
-        }
-        else {
-            
-            //styling
-            saveRecipeButton.style.background = 'url(/source/assets/Images/Filled_Heart.svg)';
-            saveRecipeButton.style.backgroundRepeat = 'no-repeat';
-            
-            isSaved = true;
-            userData.savedRecipe.push(data._id);
-            addSavedRecipeById(userData._id, data._id);
-            console.log('Added Recipe to saved');
-        }
-    })
+    saveRecipeButton.addEventListener('click', saveRecipe(data, isSaved));
 }
