@@ -2,6 +2,11 @@
 //eg: PORT, neDB storage File Path, etc
 export const SIGN_IN_BUTTON_ID = "signInButton";
 export const SIGN_OUT_BUTTON_ID = "signOutButton";
+
+export const SAVE_BUTTON_ID = "saveRecipeButton";
+export const EDIT_BUTTON_ID = "editRecipeButton";
+export const DELETE_BUTTON_ID = "deleteRecipeButton";
+
 export const ELE_ID_PROFILE = "profile";
 export const ELE_ID_PROFILE_WRAPPER = "profileWrapper";
 export const ELE_CLASS_PROFILE_IMAGE = "profileImage";

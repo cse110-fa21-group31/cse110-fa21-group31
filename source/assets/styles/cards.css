@@ -74,6 +74,7 @@
     height: auto;
     border-radius: 50%;
     border: 3px white solid;
+    cursor: pointer;
 }
 
 #profileWrapper,

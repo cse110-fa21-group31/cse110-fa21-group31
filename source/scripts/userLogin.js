@@ -12,6 +12,9 @@ import {
     ELE_ID_PROFILE_WRAPPER,
     SIGN_IN_BUTTON_ID,
     SIGN_OUT_BUTTON_ID,
+    SAVE_BUTTON_ID,
+    EDIT_BUTTON_ID,
+    DELETE_BUTTON_ID,
 } from "./util.js";
 
 import { populateUserInfoPage } from './userInfo.js'
@@ -92,6 +95,12 @@ async function onSignIn(googleUser) {
     // button
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_NONE;
     document.getElementById(SIGN_OUT_BUTTON_ID).style.display = DISPLAY_BLOCK;
+
+    //Show Edit, delete and save buttons
+    document.getElementById(EDIT_BUTTON_ID).style.display = DISPLAY_BLOCK;
+    document.getElementById(DELETE_BUTTON_ID).style.display = DISPLAY_BLOCK;
+    document.getElementById(SAVE_BUTTON_ID).style.display = DISPLAY_BLOCK;
+    
     // Display profile wrapper section
     let profileWrapper = document.getElementById(ELE_ID_PROFILE_WRAPPER);
     profileWrapper.style.display = DISPLAY_BLOCK;
@@ -128,6 +137,12 @@ async function signOut() {
     // sign-out button
     document.getElementById(SIGN_IN_BUTTON_ID).style.display = DISPLAY_BLOCK;
     document.getElementById(SIGN_OUT_BUTTON_ID).style.display = DISPLAY_NONE;
+
+    //Hide Edit, delete and save buttons
+    document.getElementById(EDIT_BUTTON_ID).style.display = DISPLAY_NONE;
+    document.getElementById(DELETE_BUTTON_ID).style.display = DISPLAY_NONE;
+    document.getElementById(SAVE_BUTTON_ID).style.display = DISPLAY_NONE;
+
     const profileWrapper = document.getElementById(ELE_ID_PROFILE_WRAPPER);
     profileWrapper.removeChild(profileWrapper.firstChild);
     profileWrapper.style.display = DISPLAY_NONE;
