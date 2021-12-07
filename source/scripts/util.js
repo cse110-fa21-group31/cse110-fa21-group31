@@ -9,7 +9,9 @@ export const RECIPE_ROUTE = "recipe/";
 export const USER_ROUTE = "user/";
 export const EDIT_CREATE_ROUTE = "create/";
 // TODO: change editcreate route name
-export const TEMP_EDIT_CREATE_ROUTE = "edit/";
+export const API_URL = "/api"
+export const USER_URL = "/api/user"
+export const IMAGE_UPLOAD_URL = "/api/imageUpload";
 export const RECIPE_DB_PATH = "source/service/.data/recipes";
 export const TEST_RECIPE_DB_PATH = "source/service/.data/testrecipes";
 export const CARDS_PER_PAGE = 6;
@@ -29,3 +31,4 @@ export function createNodeClone(selector, isQuerySelector) {
     let clone = original.cloneNode(true);
     original.parentNode.replaceChild(clone, original);
 }
+export const TEMP_EDIT_CREATE_ROUTE = "edit/";

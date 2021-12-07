@@ -99,10 +99,15 @@ export async function fillOutRecipe(data) {
         routerNavigateWrapper(routeUrl)
     })
     const home = 'home'
-    delRecipeButton.addEventListener('click', () => {
+    delRecipeButton.addEventListener('click', async () => {
         console.log("Deleting " + data._id);
         //redirect to edit page and populate the page
-        deleteRecipe(data._id)
+        await deleteRecipe(data._id);
+        if(userData && userData.myRecipe){
+            userData.myRecipe = userData.myRecipe.filter(function(recipe) {
+                return recipe._id != data._id;
+            });
+        }
         routerNavigateWrapper(home)
     })
 
@@ -139,10 +144,11 @@ const saveRecipe = (data) => () => {
             //styling
             saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
             saveRecipeButton.style.backgroundRepeat = 'no-repeat';
-            
-            userData.savedRecipe = userData.savedRecipe.filter(function(recipe) {
-                return recipe._id != data._id;
-            });
+            if(userData && userData.savedRecipe){
+                userData.savedRecipe = userData.savedRecipe.filter(function(recipe) {
+                    return recipe._id != data._id;
+                });
+            }
             console.log("Unsaving recipe " + data.name + " with id " + data._id);
             isSaved = false;
             deleteSavedRecipeById(userData._id, data._id);
@@ -154,7 +160,9 @@ const saveRecipe = (data) => () => {
             saveRecipeButton.style.background = 'url(/source/assets/Images/Filled_Heart.svg)';
             saveRecipeButton.style.backgroundRepeat = 'no-repeat';
             
-            userData.savedRecipe.push(data);
+            if(userData && userData.savedRecipe){
+                userData.savedRecipe.push(data);
+            }
             console.log("Saving recipe " + data.name + " with id " + data._id);
             isSaved = true;
             addSavedRecipeById(userData._id, data._id);
