@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: scripts/router/Router.js</title>
+    <title>JSDoc: Source: scripts/util.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: scripts/router/Router.js</h1>
+    <h1 class="page-title">Source: scripts/util.js</h1>
 
     
 
@@ -26,49 +26,36 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// Router.js
-
-export class Router {
-    /**
-     * Sets up the home function. The home function will always be in this.home
-     */ 
-    constructor(homeCallback) {
-        this.home = homeCallback;
+            <pre class="prettyprint source linenums"><code>// the file that used to put reusable helper methods and/or constants
+//eg: PORT, neDB storage File Path, etc
+export const SIGN_IN_BUTTON_ID = "signInButton";
+export const SIGN_OUT_BUTTON_ID = "signOutButton";
+export const ELE_ID_PROFILE = "profile";
+export const ELE_ID_PROFILE_WRAPPER = "profileWrapper";
+export const ELE_CLASS_PROFILE_IMAGE = "profileImage";
+export const RECIPE_ROUTE = "recipe/";
+export const USER_ROUTE = "user/";
+export const EDIT_CREATE_ROUTE = "create/";
+// TODO: change editcreate route name
+export const TEMP_EDIT_CREATE_ROUTE = "edit/";
+export const RECIPE_DB_PATH = "source/service/.data/recipes";
+export const TEST_RECIPE_DB_PATH = "source/service/.data/testrecipes";
+export const CARDS_PER_PAGE = 6;
+export const HOME_ROUTER = 'home';
+/**
+ * 
+ * @param {*} selector 
+ */
+export function createNodeClone(selector, isQuerySelector) {
+    let original;
+    if (isQuerySelector) {
+        original = document.querySelector(selector);
     }
-
-    /**
-     * Associate a callback to a page name.
-     * If the page is visited, the callback will be called.
-     * @param {string} pageName - The name of the page.
-     * @param {function} callback - The callback to call when the page is visited.
-     */
-    addPage(pageName, callback) {
-        this[pageName] = callback;
+    else {
+        original = document.getElementById(selector);
     }
-
-    /**
-     * Call the callback associated with pageName.
-     * This should usually result in a visual change.
-     * @param {string} pageName - The name of the page to 'navigate' to (call its callback function).
-     * @param {boolean} statePopped - Set to true if you don't want to mutate the history stack.
-     */
-    navigate(pageName, statePopped) {
-        console.log(`navigate() function called, requested pageName: ${pageName}`);
-        if (typeof this[pageName] === 'function') {
-            let hash;
-            if (pageName === 'home') {
-                hash = '';
-            } else {
-                hash = `/${pageName}`;
-            }
-            if ((!statePopped) &amp;&amp; (window.location.hash != hash)) {
-                // Not replacing hash anymore. Directly override everything after hostname
-                // const oldHash = window.location.hash;
-                history.pushState({ pageName }, pageName, hash);
-            }
-            this[pageName]();
-        }
-    }
+    let clone = original.cloneNode(true);
+    original.parentNode.replaceChild(clone, original);
 }</code></pre>
         </article>
     </section>
