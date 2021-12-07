@@ -37,17 +37,17 @@ fastify.register(Cors, {
 const port = process.env.PORT || 3030;
 
 fastify.get("/api", async (request, reply) => {
-    if(request.query.counts) {
+    if (request.query.counts) {
         reply.status(200)
-        .send(await getPageCountByQuery(request.query, recipeDB));
+            .send(await getPageCountByQuery(request.query, recipeDB));
     }
     else if (request.query.id) {
         reply.status(200)
-        .send(await getRecipeById(request.query.id, recipeDB));
-    } 
+            .send(await getRecipeById(request.query.id, recipeDB));
+    }
     else {
         reply.status(200)
-        .send(await getRecipesByQuery(request.query, recipeDB));
+            .send(await getRecipesByQuery(request.query, recipeDB));
     }
 });
 
@@ -167,7 +167,7 @@ fastify.delete("/api/user/saved", async (req, reply) => {
 });
 
 /**
- * Upload an image to service/.data/images folder and return image url.
+ * Upload an image to service/data/images folder and return image url.
  * content-type: multipart/form-data
  * body: key: file value: [File]
  */
@@ -177,7 +177,7 @@ fastify.post("/api/imageUpload", async (request, reply) => {
     // console.log(file);
     let fileBuffer = await file.toBuffer();
     // Generate file path
-    let filePath = '/source/service/.data/images/';
+    let filePath = '/source/service/data/images/';
     let fileName = file.filename;
     while (fs.existsSync(__dirname + filePath + fileName)) {
         fileName = "1" + fileName;

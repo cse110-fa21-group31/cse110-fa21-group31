@@ -27,19 +27,19 @@ export function populateEditPage(recipeObj) {
     if (document.querySelector("#editRecipeForm #addIngr").getAttribute('listener') !== 'true') {
         document.querySelector("#editRecipeForm #addIngr").setAttribute('listener', 'true');
         createNodeClone('#editRecipeForm #addIngr', true);
-        document.querySelector("#editRecipeForm #addIngr").addEventListener("click", function() {
+        document.querySelector("#editRecipeForm #addIngr").addEventListener("click", function () {
             appendIngredient();
         });
         createNodeClone('#editRecipeForm #addStep', true);
-        document.querySelector("#editRecipeForm #addStep").addEventListener("click", function() {
+        document.querySelector("#editRecipeForm #addStep").addEventListener("click", function () {
             appendStep();
         });
         createNodeClone('#editRecipeForm #delIngr', true);
-        document.querySelector("#editRecipeForm #delIngr").addEventListener("click", function() {
+        document.querySelector("#editRecipeForm #delIngr").addEventListener("click", function () {
             deleteIngredient();
         });
         createNodeClone('#editRecipeForm #delStep', true);
-        document.querySelector("#editRecipeForm #delStep").addEventListener("click", function() {
+        document.querySelector("#editRecipeForm #delStep").addEventListener("click", function () {
             deleteStep();
         });
     }
@@ -111,24 +111,7 @@ export const fillOutEditPage = (recipeObj) => {
     //TODO: figure out a way to store/display image
     imageSrc = recipeObj.image
 
-    /** 
-    document.getElementById('').innerHTML = '';
-    document.getElementById('').innerHTML = '';
-    document.getElementById('').innerHTML = '';
-    document.getElementById('').innerHTML = '';
-    document.getElementById('').innerHTML = '';
 
-    document.getElementById("recipeTitle").innerHTML = data.name;
-    document.getElementById("tags").innerHTML= data.tags;
-    document.getElementById("recipeImage").setAttribute("src", data.image);
-    document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
-    document.getElementById("description").innerHTML = data.description;
-    document.getElementById("servingSize").innerHTML = data.servingSize;
-    document.getElementById("author").innerHTML = data.author;
-    document.getElementById("cookTime").innerHTML = data.cookTime;
-    document.getElementById("ingredients").innerHTML = data.ingredients;
-    document.getElementById("steps").innerHTML = data.steps;
-    */
 };
 
 /**
@@ -166,10 +149,8 @@ const onUpdateRecipe = async (event) => {
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
-        //TODO: figure out the way to store image. Not update it for now
-        // image: formData.get('picture'),
         image: formData.get('picture'),
-        //TODO: after we verify a user is logged in, change this to userData.id only
+        // default to be 'admin' id
         author: userData ? userData._id : "MMAfv3oCQDiL4u10",
         description: formData.get('description'),
         tags: strTags,
@@ -184,6 +165,19 @@ const onUpdateRecipe = async (event) => {
     // console.log(newRecipe);
     // console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
     const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
+    //update the userData
+    if (userData && userData.myRecipe) {
+        userData.myRecipe = userData.myRecipe.map(function (recipe) {
+            if (recipe._id == updatedRecipe._id)
+                return updatedRecipe;
+            return recipe
+        });
+        userData.savedRecipe = userData.savedRecipe.filter(function (recipe) {
+            if (recipe._id == updatedRecipe._id)
+                return updatedRecipe;
+            return recipe
+        });
+    }
     redirectRecipeDetail(updatedRecipe)
     const page = updatedRecipe._id;
     const routeUrl = RECIPE_ROUTE + page

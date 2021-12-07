@@ -1,7 +1,7 @@
 import { createRecipe } from "./interface.mjs";
 
 import Datastore from "nedb";
-const RECIPE_DB_PATH = "source/service/.data/testrecipes";
+const RECIPE_DB_PATH = "source/service/data/testrecipes";
 const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
 
 
@@ -38,21 +38,21 @@ let sarahRecipe1 = {
     ],
     "steps": [
         "With a sharp knife, lightly score both sides of the chicken breasts in a checkerboard pattern.",
-    "Lay a sheet of plastic wrap over the breasts and pound until they are about ½ inch thick.",
-    "Season with salt and pepper.",
-    "Dredge the chicken in the flour and then dip it in the beaten eggs, shaking to remove excess.",
-    "Dip each piece in the flour and egg again an then coat the chicken in the panko.",
-    "In a deep, straight sided sauté pan, heat about ¼ inch vegetable oil over medium high heat until the oil ripples and simmers in the pan and instantly erupts into lots of bubbles when you dip a corner of the chicken breast into it.",
-    "Immediately reduce the heat to medium low and fry the chicken in batches until cooked through and golden on both sides, 4 to 6 minutes per side.",
-    "If the oil seems to cool down to much during frying, increase the heat a little to maintain a steady bubbling action.",
-    "Drain the chicken on paper towels and serve it with abundant shredded cabbage and tonkatsu sauce.",
-    "tonkatsu sauce: In a small saucepan, whisk together the Worcestershire, sugar, soy sauce and ketchup.",
-    "Bring to a simmer over medium low heat. Reduce the heat to gentle simmer and whisk often until reduced to 1 cup, about 10 minutes.",
-    "Whisk in mustard and allspice.",
-    "Cool to room temperature.",
-    "The sauce will keep for 1 week in the refrigerator."
-]
-    
+        "Lay a sheet of plastic wrap over the breasts and pound until they are about ½ inch thick.",
+        "Season with salt and pepper.",
+        "Dredge the chicken in the flour and then dip it in the beaten eggs, shaking to remove excess.",
+        "Dip each piece in the flour and egg again an then coat the chicken in the panko.",
+        "In a deep, straight sided sauté pan, heat about ¼ inch vegetable oil over medium high heat until the oil ripples and simmers in the pan and instantly erupts into lots of bubbles when you dip a corner of the chicken breast into it.",
+        "Immediately reduce the heat to medium low and fry the chicken in batches until cooked through and golden on both sides, 4 to 6 minutes per side.",
+        "If the oil seems to cool down to much during frying, increase the heat a little to maintain a steady bubbling action.",
+        "Drain the chicken on paper towels and serve it with abundant shredded cabbage and tonkatsu sauce.",
+        "tonkatsu sauce: In a small saucepan, whisk together the Worcestershire, sugar, soy sauce and ketchup.",
+        "Bring to a simmer over medium low heat. Reduce the heat to gentle simmer and whisk often until reduced to 1 cup, about 10 minutes.",
+        "Whisk in mustard and allspice.",
+        "Cool to room temperature.",
+        "The sauce will keep for 1 week in the refrigerator."
+    ]
+
 };
 
 let sarahRecipe2 = {
@@ -71,22 +71,22 @@ let sarahRecipe2 = {
             "raisins": 1
         },
         {
-           "cup water": 1
+            "cup water": 1
         },
         {
-            "shortening":1
+            "shortening": 1
         },
         {
-             "sugar": 1.5
+            "sugar": 1.5
         },
         {
-            "flour":2.5
+            "flour": 2.5
         },
         {
-             "soda": 1
+            "soda": 1
         },
         {
-             "salt": 1
+            "salt": 1
         },
         {
             "cinnamon": 1
@@ -95,28 +95,28 @@ let sarahRecipe2 = {
             "baking powder": 1
         },
         {
-            "cloves" : 1
+            "cloves": 1
         },
         {
             "oats": 2
         },
         {
-           "chopped nuts" : 1
+            "chopped nuts": 1
         }
     ],
     "steps": [
         "Simmer raisins and water over medium heat until raisins are plump, about 15 minutes.",
-            "Drain raisins, reserving the liquid.",
-            "Add enough water to reserved liquid to measure 1/2 cup.",
-            "Heat oven to 400°.",
-            "Mix thoroughly shortening, sugar, eggs and vanilla.",
-            "Stir in reserved liquid.",
-            "Blend in remaining ingredients.",
-            "Drop dough by rounded teaspoonfuls about 2 inches apart onto ungreased baking sheet.",
-            "Bake 8 to 10 minutes or until light brown.",
-            "About 6 1/2 dozen cookies."
+        "Drain raisins, reserving the liquid.",
+        "Add enough water to reserved liquid to measure 1/2 cup.",
+        "Heat oven to 400°.",
+        "Mix thoroughly shortening, sugar, eggs and vanilla.",
+        "Stir in reserved liquid.",
+        "Blend in remaining ingredients.",
+        "Drop dough by rounded teaspoonfuls about 2 inches apart onto ungreased baking sheet.",
+        "Bake 8 to 10 minutes or until light brown.",
+        "About 6 1/2 dozen cookies."
     ]
-    
+
 };
 
 let sarahRecipe3 = {
@@ -133,47 +133,47 @@ let sarahRecipe3 = {
     "ingredients": [
         {
             "yeast": 5
-      
+
         },
         {
-            "flour":5
-           
+            "flour": 5
+
         },
         {
-            "vegetable oil":4
-          
+            "vegetable oil": 4
+
         },
         {
-            "sugar":2
-          
+            "sugar": 2
+
         },
         {
-           "salt":2
-     
+            "salt": 2
+
         },
         {
-            "hot water":2
-          
+            "hot water": 2
+
         },
         {
             "pizza sauce": 1
-         
+
         },
         {
             "mozzarella cheese": 1
-     
+
         }
     ],
     "steps": [
-            "Add hot water to yeast in a large bowl and let sit for 15 minutes.",
-            "Mix in oil, sugar, salt, and flour and let sit for 1 hour.",
-            "Knead the dough and spread onto a pan.",
-            "Spread pizza sauce and sprinkle cheese.",
-            "Add any optional toppings as you wish.",
-            "Bake at 400 deg Fahrenheit for 15 minutes.",
-            "Enjoy!"
+        "Add hot water to yeast in a large bowl and let sit for 15 minutes.",
+        "Mix in oil, sugar, salt, and flour and let sit for 1 hour.",
+        "Knead the dough and spread onto a pan.",
+        "Spread pizza sauce and sprinkle cheese.",
+        "Add any optional toppings as you wish.",
+        "Bake at 400 deg Fahrenheit for 15 minutes.",
+        "Enjoy!"
     ]
-    
+
 };
 
 let sarahRecipe4 = {
@@ -195,13 +195,13 @@ let sarahRecipe4 = {
             "boiling water": 1
         },
         {
-            "apples chopped into 1.4 inch pieces":2
+            "apples chopped into 1.4 inch pieces": 2
         },
         {
-             "dried cranberries": 1
+            "dried cranberries": 1
         },
         {
-            "cinnamon":1
+            "cinnamon": 1
         },
         {
             "melted butter": 2
@@ -217,7 +217,7 @@ let sarahRecipe4 = {
         "Bake for 30-40 more minutes, until squash tender.",
         "Enjoy!"
     ]
-    
+
 };
 
 let sarahRecipe5 = {
@@ -236,27 +236,27 @@ let sarahRecipe5 = {
             "plain flour": 2
         },
         {
-            "eggs":3
+            "eggs": 3
         },
         {
             "milk": 3
         },
         {
-            "vegetable oil":3
+            "vegetable oil": 3
         }
     ],
     "steps": [
         "Put the flour and some seasoning into a large bowl.",
-            "Stir in eggs, one at a time.",
-            "Whisk in milk until you have a smooth batter.",
-            "Chill in the fridge for at least 30 minutes.",
-            "Heat oven to 220C/gas mark 7.",
-            "Pour the oil into the holes of a 8-hole muffin tin.",
-            "Heat tin in the oven for 5 minutes.",
-            "Ladle the batter mix into the tin.",
-            "Bake for 30 minutes until well browned and risen."
+        "Stir in eggs, one at a time.",
+        "Whisk in milk until you have a smooth batter.",
+        "Chill in the fridge for at least 30 minutes.",
+        "Heat oven to 220C/gas mark 7.",
+        "Pour the oil into the holes of a 8-hole muffin tin.",
+        "Heat tin in the oven for 5 minutes.",
+        "Ladle the batter mix into the tin.",
+        "Bake for 30 minutes until well browned and risen."
     ]
-    
+
 };
 
 let sarahRecipe6 = {
@@ -265,7 +265,7 @@ let sarahRecipe6 = {
     "description": "Enjoy the breakfast",
     "datePosted": 1638172867145,
     "servingSize": 2,
-    "image": "http://www.canadianliving.com/img/photos/biz/blueberry-oatmeal-squares5801359401371.jpg","tags": ["Breakfast", "Easy"],
+    "image": "http://www.canadianliving.com/img/photos/biz/blueberry-oatmeal-squares5801359401371.jpg", "tags": ["Breakfast", "Easy"],
     "cookTime": "60mins",
     "difficulty": "2 star",
 
@@ -283,7 +283,7 @@ let sarahRecipe6 = {
             "salt": 1
         },
         {
-           
+
             "cold butter, cubed": 1
         },
         {
@@ -293,26 +293,26 @@ let sarahRecipe6 = {
             "fresh blueberries": 3
         },
         {
-           "granulated sugar": 0.5
+            "granulated sugar": 0.5
         },
         {
-          "orange juice": 1
+            "orange juice": 1
         },
         {
-           "cornstarch": 4
+            "cornstarch": 4
         }
     ],
     "steps": [
         "Filling: In saucepan, bring blueberries, sugar and orange juice to boil; reduce heat and simmer until tender, about 10 minutes.",
-            "Whisk cornstarch with 2 tbsp (25 mL) water; whisk into blueberries and boil, stirring, until thickened, about 1 minute.",
-            "Place plastic wrap directly on surface; refrigerate until cooled, about 1 hour.",
-            "In large bowl, whisk together oats, flour, sugar, orange rind and salt ; with pastry blender, cut in butter until in coarse crumbs.",
-            "Press half into 8-inch (2 L) square parchment paper–lined metal cake pan; spread with blueberry filling.",
-            "Bake in centre of 350°F oven until light golden, about 45 minutes.",
-            "Let cool on rack before cutting into squares.",
-            "(Make-ahead: Cover and refrigerate for up to 2 days or overwrap with heavy-duty foil and freeze for up to 2 weeks.)"
+        "Whisk cornstarch with 2 tbsp (25 mL) water; whisk into blueberries and boil, stirring, until thickened, about 1 minute.",
+        "Place plastic wrap directly on surface; refrigerate until cooled, about 1 hour.",
+        "In large bowl, whisk together oats, flour, sugar, orange rind and salt ; with pastry blender, cut in butter until in coarse crumbs.",
+        "Press half into 8-inch (2 L) square parchment paper–lined metal cake pan; spread with blueberry filling.",
+        "Bake in centre of 350°F oven until light golden, about 45 minutes.",
+        "Let cool on rack before cutting into squares.",
+        "(Make-ahead: Cover and refrigerate for up to 2 days or overwrap with heavy-duty foil and freeze for up to 2 weeks.)"
     ]
-    
+
 };
 
 let sarahRecipe7 = {
@@ -353,7 +353,7 @@ let sarahRecipe7 = {
         "2. Add one cup of red wine along with the water.",
         "3. Add potatoes, carrots, mushrooms, celery and onion 2-3 hours before end."
     ]
-    
+
 };
 
 let sarahRecipe8 = {
@@ -392,7 +392,7 @@ let sarahRecipe8 = {
         "Heat oil in non-stick wok or large frying pan over medium heat. Add eggs. Swirl over base to form an omelette. Cook for 2 minutes or until set. Transfer to a chopping board. Set aside to cool slightly. Cut into short strips.",
         "Add bacon to wok. Cook 4 minutes until light golden. Add carrot. Stir fry 1 minute. Add shallots, peas and rice. Cook, stirring, 3-4 minutes. Add egg and soy sauce. Stir until heated through. Sprinkle with sesame seeds and top with extra shallots. Serve immediately."
     ]
-    
+
 };
 
 let sarahRecipe9 = {
@@ -434,7 +434,7 @@ let sarahRecipe9 = {
         "Combine ham, onion, cheese, flour, salt and pepper in a medium bowl. Scatter over base of dish.",
         "Whisk eggs and milk together in a large jug and pour over ham mixture. Cook for about 40 minutes or until puffed and golden. Cool slightly. Serve warm or cold."
     ]
-    
+
 };
 
 let sarahRecipe10 = {
@@ -461,7 +461,7 @@ let sarahRecipe10 = {
         {
             "salt": 1
         },
-        {  
+        {
             "cold butter, cubed": 1
         },
         {
@@ -471,26 +471,26 @@ let sarahRecipe10 = {
             "fresh blueberries": 3
         },
         {
-           "granulated sugar": 0.5
+            "granulated sugar": 0.5
         },
         {
-          "orange juice": 1
+            "orange juice": 1
         },
         {
-           "cornstarch": 4
+            "cornstarch": 4
         }
     ],
     "steps": [
         "Filling: In saucepan, bring blueberries, sugar and orange juice to boil; reduce heat and simmer until tender, about 10 minutes.",
-            "Whisk cornstarch with 2 tbsp (25 mL) water; whisk into blueberries and boil, stirring, until thickened, about 1 minute.",
-            "Place plastic wrap directly on surface; refrigerate until cooled, about 1 hour.",
-            "In large bowl, whisk together oats, flour, sugar, orange rind and salt ; with pastry blender, cut in butter until in coarse crumbs.",
-            "Press half into 8-inch (2 L) square parchment paper–lined metal cake pan; spread with blueberry filling.",
-            "Bake in centre of 350°F oven until light golden, about 45 minutes.",
-            "Let cool on rack before cutting into squares.",
-            "(Make-ahead: Cover and refrigerate for up to 2 days or overwrap with heavy-duty foil and freeze for up to 2 weeks.)"
+        "Whisk cornstarch with 2 tbsp (25 mL) water; whisk into blueberries and boil, stirring, until thickened, about 1 minute.",
+        "Place plastic wrap directly on surface; refrigerate until cooled, about 1 hour.",
+        "In large bowl, whisk together oats, flour, sugar, orange rind and salt ; with pastry blender, cut in butter until in coarse crumbs.",
+        "Press half into 8-inch (2 L) square parchment paper–lined metal cake pan; spread with blueberry filling.",
+        "Bake in centre of 350°F oven until light golden, about 45 minutes.",
+        "Let cool on rack before cutting into squares.",
+        "(Make-ahead: Cover and refrigerate for up to 2 days or overwrap with heavy-duty foil and freeze for up to 2 weeks.)"
     ]
-    
+
 };
 
 let sarahRecipe11 = {
@@ -574,7 +574,7 @@ let sarahRecipe12 = {
         "In a separate small bowl, combine the brown sugar, mustard and ketchup. Mix well and pour over the meatloaf.",
         "Bake at 350 degrees F (175 degrees C) for 1 hour."
     ]
-    
+
 };
 
 createRecipe(sarahRecipe1, recipeDB);
@@ -685,7 +685,7 @@ createRecipe(sarahRecipe12, recipeDB);
 //         ],
 //     },
 // ];
- 
+
 // await createRecipe(recipes[2], recipeDB);
 
 // for (let recipe in recipes) {
