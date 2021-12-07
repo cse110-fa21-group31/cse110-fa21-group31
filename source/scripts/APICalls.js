@@ -1,6 +1,6 @@
 import { API_URL, USER_URL, IMAGE_UPLOAD_URL } from "./util.js";
 export default { insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
-    updateRecipeById, submitSearch, uploadImage }
+    updateRecipeById, submitSearch, uploadImage, getUserData }
 /**
  * 
  * want the return json object from server:
@@ -14,9 +14,13 @@ export default { insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
  */
 export async function insertRecipe(recipe) {
     // save image and convert to local relative path
-    const imageURL = await uploadImage(recipe.image);
-    console.log(imageURL);
-    recipe.image = imageURL;
+    if(recipe.image.size != 0){
+        const imageURL = await uploadImage(recipe.image);
+        // console.log(imageURL);
+        recipe.image = imageURL;
+    }else{
+        recipe.image = "";
+    }
     //for update, change the method of PUT
     const response = await fetch(API_URL, {
         method: 'POST',
@@ -82,21 +86,27 @@ export async function fetchRecipeById(id) {
  * @param {string} id the id of the desired recipe
  * @param {object} update the fields and corresponding values of the recipe to change
  */
-export async function updateRecipeById(id, update) {
+export async function updateRecipeById(update) {
     let queryURL = API_URL;
     // save image and convert to relative local path
-    const imageURL = await uploadImage(update.image);
-    console.log(imageURL);
-    update.image = imageURL;
+    if(update.image.size != 0){
+        const imageURL = await uploadImage(update.image);
+        // console.log(imageURL);
+        update.image = imageURL;
+    }else{
+        update.image = "";
+    }
     // console.log(update);
-    console.log(JSON.stringify(update));
+    // console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
         method: 'PUT',
         body: JSON.stringify(update)
     })
-        .then((response) => { console.log(response); return response.json() })
+        .then((response) => { 
+            // console.log(response); 
+            return response.json() })
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             return data
 
         })
@@ -163,42 +173,41 @@ export async function fetchUserById(id) {
             return data
         })
         .catch((err) => {
-            //console.error('Error finding recipe: ' + err.message);
+            console.error('Error finding recipe: ' + err.message);
         });
     return response
 }
 
 export async function addSavedRecipeById(userId, recipeId) {
-    let queryURL = USER_URL + "?userId=" + userId + "?recipeId=" + recipeId;
+let queryURL = USER_URL+ "/saved?userId=" + userId + "&recipeId=" + recipeId;
     let response = await fetch(queryURL, {
         method: 'PUT'
     })
         .then((response) => { console.log(response); return response.json() })
         .then((data) => {
             console.log(data);
-            return data
+            return data;
 
         })
         .catch((err) => {
-            //console.error('Error updating recipe: ' + err.message);
+            console.error('Error updating recipe: ' + err.message);
         });
 
-    return response
+    return response;
 }
 
 export async function deleteSavedRecipeById(userId, recipeId) {
-    let queryURL = USER_URL + "?userId=" + userId + "?recipeId=" + recipeId;
+let queryURL = USER_URL + "/saved?userId=" + userId + "&recipeId=" + recipeId;
     let response = await fetch(queryURL, {
-        method: 'DEL',
-        "Access-Control-Allow-Origin": "*",
-        mode: 'no-cors'
+        method: 'DELETE',
+        "Access-Control-Allow-Origin": "*"
     })
         .then((response) => response.json())
         .then((data) => {
             return data
         })
         .catch((err) => {
-            //console.error('Error deleting recipe: ' + err.message);
+            console.error('Error deleting recipe: ' + err.message);
         });
     return response
 }
@@ -245,6 +254,30 @@ export async function getPageCount(queryURL){
             console.error(err);
         });
     return response.path;
+}
+
+/**
+ * Sends an HTTP request to fetch the complete user profile by email. If user 
+ * doesn't exist in the database, create new user document and return the new object. 
+ * @param {object} userProfile 
+ */
+ export async function getUserData(userProfile) {
+    let queryURL = userUrl + "?email=" + userProfile.email;
+    // console.log(update);
+    // console.log(JSON.stringify(update));
+    let response = await fetch(queryURL, {
+        method: 'POST',
+        body: JSON.stringify(userProfile)
+    })
+        .then((response) => { 
+            // console.log(response); 
+            return response.json() })
+        .catch((err) => {
+            console.error('Error getting user data: ' + err.message);
+        });
+    
+    return response
+    
 }
 
 /****************** Internal functions ************************/

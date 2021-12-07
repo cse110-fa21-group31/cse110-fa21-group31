@@ -6,7 +6,7 @@ if (typeof window === 'object') {
 import { submitSearch, submitInitialSearch } from "./APICalls.js"
 import { createRecipeCards } from "./index.js";
 
-let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Beverage"];
+let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Vegan"];
 let selectedTags = [];
 let curr_page = 1;
 let max_page = 1;
@@ -25,8 +25,17 @@ async function init() {
         createRecipeCards(searchResults.results);
         curr_page = 1;
         max_page = searchResults.pages.pages;
-        console.log(max_page);
-        console.log(searchResults);
+    });
+
+    searchBar.addEventListener("keydown", async function(event) {
+        // If enter key is pressed, suppress default rerouting and submit search
+        if(event.keyCode === 13){
+            event.preventDefault();
+            let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
+            createRecipeCards(searchResults.results);
+            curr_page = 1;
+            max_page = searchResults.pages.pages;
+        }
     });
 
     scrollRightButton.addEventListener("click", async function() {
@@ -46,7 +55,7 @@ async function init() {
     });
 
     let tagsSelect = document.getElementById("tagsList");
-    console.log(tagsSelect);
+    // console.log(tagsSelect);
     if (tagsSelect) {
         chooseTag(this);
         let tagButtons = document.getElementsByClassName("tagButton");

@@ -1,29 +1,35 @@
 // This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
 import { insertRecipe } from "./APICalls.js"
 import { redirectRecipeDetail, routerNavigateWrapper, userData } from "./index.js";
-import { RECIPE_ROUTE } from './util.js'
+import { RECIPE_ROUTE, HOME_ROUTER } from './util.js'
 export default { setupCreatePage }
 export function setupCreatePage() {
     // console.log("setupCreatePage() called");
 
     // Submitting the entire recipe
+    const cancelBtn = document.getElementById("cancel")
+    cancelBtn.addEventListener('click', () => {
 
+        routerNavigateWrapper(HOME_ROUTER)
+    })
     const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
-    //document.getElementById("addIngr").onclick = appendIngredient();
-
-    document.getElementById("addIngr").addEventListener("click", function() {
-        appendIngredient();
-    });
-    document.getElementById("addStep").addEventListener("click", function() {
-        appendStep();
-    });
-    document.getElementById("delIngr").addEventListener("click", function() {
-        deleteIngredient();
-    });
-    document.getElementById("delStep").addEventListener("click", function() {
-        deleteIngredient();
-    });
+    clearRecipePage();
+    if (document.querySelector("#recipeForm #addIngr").getAttribute('listener') !== 'true') {
+        document.querySelector("#recipeForm #addIngr").setAttribute('listener', 'true');
+        document.querySelector("#recipeForm #addIngr").addEventListener("click", function() {
+            appendIngredient();
+        });
+        document.querySelector("#recipeForm #addStep").addEventListener("click", function() {
+            appendStep();
+        });
+        document.querySelector("#recipeForm #delIngr").addEventListener("click", function() {
+            deleteIngredient();
+        });
+        document.querySelector("#recipeForm #delStep").addEventListener("click", function() {
+            deleteStep();
+        });
+    }
 
 }
 
@@ -106,6 +112,7 @@ const onSubmitRecipe = async(event) => {
 const appendStep = () => {
     //let d = document.getElementById('steps');
     // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
+    console.log("APPEND STEP");
     var newTextBox = document.createElement("div");
 
     newTextBox.innerHTML =
@@ -121,6 +128,7 @@ const appendStep = () => {
 /* eslint-disable no-unused-vars*/
 const deleteStep = () => {
     //newTextBox.classList.add('stepEntry');
+    console.log("DELETED STEP");
     if (document.getElementById("newStepId").lastChild != null) {
         document
             .getElementById("newStepId")
@@ -130,6 +138,7 @@ const deleteStep = () => {
 };
 /* eslint-disable no-unused-vars*/
 const appendIngredient = () => {
+    console.log("APPEND INGREDIENT");
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
         "<input type='text' id='newInputBox' name='ingredient" + numIngredients + "' placeholder='ingredient'>";
@@ -145,6 +154,7 @@ const appendIngredient = () => {
 
 /* eslint-disable no-unused-vars*/
 const deleteIngredient = () => {
+    console.log("DELETE INGREDIENT");
     if (document.getElementById("newIngredientId").lastChild != null) {
         numIngredients--;
         document
@@ -155,6 +165,20 @@ const deleteIngredient = () => {
             .removeChild(
                 document.getElementById("newIngredientAmountId").lastChild
             );
+    }
+};
+const clearRecipePage = () => {
+
+    console.log("CLEARED");
+
+    document.getElementById('recipeForm').reset();
+
+    for (let i = 0; i <= numSteps; i++) {
+        deleteStep();
+    }
+
+    for (let i = 0; i <= numIngredients; i++) {
+        deleteIngredient();
     }
 };
 /* eslint-enable no-unused-vars*/

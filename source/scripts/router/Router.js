@@ -31,11 +31,12 @@ export class Router {
             if (pageName === 'home') {
                 hash = '';
             } else {
-                hash = `${pageName}`;
+                hash = `/${pageName}`;
             }
             if ((!statePopped) && (window.location.hash != hash)) {
-                const oldHash = window.location.hash;
-                history.pushState({ pageName }, pageName, window.location.href.replace(oldHash, '') + hash);
+                // Not replacing hash anymore. Directly override everything after hostname
+                // const oldHash = window.location.hash;
+                history.pushState({ pageName }, pageName, hash);
             }
             this[pageName]();
         }

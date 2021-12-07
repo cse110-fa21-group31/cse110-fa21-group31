@@ -42,7 +42,7 @@ section:not(section.shown) {
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
-    box-shadow: 2px 2px #f9c784;
+    box-shadow: 2px 2px #44444400;
 }
 
 

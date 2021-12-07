@@ -303,7 +303,7 @@ export function bindEscKey() {
 export function bindPopstate() {
     window.addEventListener('popstate', (event) => {
         if (event.state) {
-            router.navigate(event.state.page, true);
+            router.navigate(event.state.pageName, true);
         } else {
             router.navigate('home', true);
         }

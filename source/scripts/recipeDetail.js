@@ -3,9 +3,12 @@
 export default { fillOutRecipe }
 // RecipeExpand.js
 import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE } from "./util.js"
-import { deleteRecipe, fetchRecipeById } from "./APICalls.js";
-import { routerAddEditPage, routerNavigateWrapper } from "./index.js";
+import { deleteRecipe, fetchRecipeById,  addSavedRecipeById, deleteSavedRecipeById} from "./APICalls.js";
+import { routerAddEditPage, routerNavigateWrapper, userData } from "./index.js";
 const recipeData = {};
+const PLACEHOLDER_IMG = window.location.protocol + "//" + window.location.host + "/source/assets/Images/recipeCardPlaceholder.png";
+
+let isSaved = false; // Variable to keep track of saved status
 
 /**
  * Populates the recipe detail pages by fetching recipe json and filling in 
@@ -40,10 +43,12 @@ export async function fillOutRecipe(data) {
             */
         }
     }
-    // TODO: fix condition after fixing image upload issue
+    // If data.image not valid, use placeholder image
     const image = (data.image == null || typeof data.image == "object" || data.image == "") ?
-        "./source/assets/Images/recipeCardPlaceholder.png" : data.image;
-    const imageErrorFunc = "this.onerror=null; this.src='./source/assets/Images/recipeCardPlaceholder.png'";
+        PLACEHOLDER_IMG : data.image;
+    // If data.image valid but image not exist, suppress error message and use placeholder image
+    const imageErrorFunc = `this.onerror=null; this.src='${PLACEHOLDER_IMG}'`;
+
     document.getElementById("recipeImage").setAttribute("src", image);
     document.getElementById("recipeImage").setAttribute("onerror", imageErrorFunc);
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
@@ -53,7 +58,7 @@ export async function fillOutRecipe(data) {
     if (data.author && data.author.username) document.getElementById("author").innerHTML = data.author.username;
     if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
     if (data.ingredients) {
-        console.log("Ingredients object: " + data.ingredients);
+        // console.log("Ingredients object: " + data.ingredients);
         let ingredientsList = document.getElementById("ingr");
         //clear old ingredients
         while (ingredientsList.firstChild) {
@@ -96,6 +101,12 @@ export async function fillOutRecipe(data) {
         deleteRecipe(data._id)
         routerNavigateWrapper(home)
     })
+
+    //Saved button
+    addSaveButton(data);
+    
+
+    
 }
 
 
@@ -119,4 +130,55 @@ function convertTime(time) {
     }
 
     return '';
+}
+
+function addSaveButton(data) {
+    const saveRecipeButton = document.getElementById('saveRecipeButton');
+
+    for (let i = 0; i < userData.savedRecipe.length; i++) {
+        if (userData.savedRecipe[i]._id == data._id) {
+            isSaved = true;
+            break;
+        }
+    }
+    //isSaved = userData.savedRecipe.includes(data._id);
+
+    //Inital check on page load
+    if(isSaved) {
+        saveRecipeButton.style.background = 'url(/source/assets/Images/Filled_Heart.svg)';
+    }
+    else {
+        saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
+    }
+    saveRecipeButton.style.backgroundRepeat = 'no-repeat';
+    console.log('saved? ' + isSaved);
+    console.log('user id?' + userData._id);
+
+
+    saveRecipeButton.addEventListener('click', () => {
+        //add or remove the saved recipe on click
+        if(isSaved) { 
+            //styling
+            saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
+            saveRecipeButton.style.backgroundRepeat = 'no-repeat';
+            
+            isSaved = false;
+            userData.savedRecipe = userData.savedRecipe.filter(function(recipe) {
+                recipe._id != data._id;
+            });
+            deleteSavedRecipeById(userData._id, data._id);
+            console.log('Removed Recipe from saved');
+        }
+        else {
+            
+            //styling
+            saveRecipeButton.style.background = 'url(/source/assets/Images/Filled_Heart.svg)';
+            saveRecipeButton.style.backgroundRepeat = 'no-repeat';
+            
+            isSaved = true;
+            userData.savedRecipe.push(data._id);
+            addSavedRecipeById(userData._id, data._id);
+            console.log('Added Recipe to saved');
+        }
+    })
 }

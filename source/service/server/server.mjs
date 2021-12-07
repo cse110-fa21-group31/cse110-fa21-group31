@@ -37,9 +37,6 @@ fastify.register(Cors, {
 const port = process.env.PORT || 3030;
 
 fastify.get("/api", async (request, reply) => {
-    console.log("In server get:");
-    console.log(request.query);
-    console.log(request.query.counts);
     if(request.query.counts) {
         reply.status(200)
         .send(await getPageCountByQuery(request.query, recipeDB));
@@ -118,7 +115,7 @@ fastify.get("/api/user", async (req, reply) => {
 /**
  * Get all data of one user by email, create new user if not existed.
  *
- * req.query.email: the id to search for.
+ * req.query.email: the email to search for.
  * req.body: the json of user data to create new user.
  * NOTE: req.query.email and req.body.email MUST be the same!
  * reply: user json.
@@ -182,16 +179,16 @@ fastify.post("/api/imageUpload", async (request, reply) => {
     // Generate file path
     let filePath = '/source/service/.data/images/';
     let fileName = file.filename;
-    while(fs.existsSync(__dirname + filePath + fileName)){
+    while (fs.existsSync(__dirname + filePath + fileName)) {
         fileName = "1" + fileName;
     }
     filePath = filePath + fileName;
     // Write to file
     await fs.writeFile(__dirname + filePath, fileBuffer, 'base64', function (err) {
-        if(err){
+        if (err) {
             console.log(err);
         }
-    }); 
+    });
     // Return file path
     let data = { path: filePath };
     reply.status(200).send(data);

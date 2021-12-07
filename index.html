@@ -35,21 +35,6 @@
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
 
-
-    <style>
-        .hidden {
-            display: none;
-        }
-        
-        .show {
-            display: inline;
-        }
-        
-        section:not(section.shown) {
-            display: none;
-        }
-    </style>
-
     <script src="/source/scripts/userLogin.js" type="module"></script>
     <script src="/source/scripts/userInfo.js" type="module"></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
@@ -85,7 +70,7 @@
 
             <!-- Search Bar -->
             <div class="searchBar">
-                <img id="olives" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg">
+                <img id="olives" src="/source/assets/Images/Olives-Computer-Wallpaper.jpg" alt="">
                 <!-- <p class="formItems" class="homePageTitle">Food is Love and Olive U</p>-->
                 <form class="formItems" action='source/scripts/indexSearch.js' id="searchBarForm">
                     <input type="search" name="keyword" id="searchBar" placeholder="Search...">
@@ -140,7 +125,8 @@
         <!-- buttons for edit and delete -->
         <button id="editRecipeButton">Edit</button>
         <button id="deleteRecipeButton">Delete</button>
-
+        <button id="saveRecipeButton"></button>
+        
         <!-- Displaying recipe title, creation date, author-->
         <p id="recipeTitle">Recipe title</p>
         <div id="dateAuthor">
@@ -150,7 +136,7 @@
         </div>
 
         <!-- Displaying recipe image-->
-        <img id="recipeImage" src="" alt="" width="500" height="300">
+        <img id="recipeImage" src="" alt="" height="300">
 
 
         <div id="tags">
@@ -419,7 +405,10 @@
                 </div>
 
                 <div class="float-container">
-                    <div id="cancel" class="float-child"></div>
+                    <div id="editCancel" class="float-child">
+                        <input type="button" value="Cancel">
+                    </div>
+
                     <div id="submit" class="float-child">
                         <input type="submit" value="Save">
                     </div>
@@ -430,7 +419,7 @@
 
     <!-- footer -->
     <footer>
-        <iframe src="/source/cards/footer.html" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+        <iframe src="/source/cards/footer.html" title="" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
     </footer>
 
 </body>
