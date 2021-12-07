@@ -17,30 +17,7 @@ import {
 import { populateUserInfoPage } from './userInfo.js'
 import { bindUserProfile, setGlobalUserData, clearGlobalUserData,routerNavigateWrapper } from "./index.js";
 import { fetchRecipesByIds, getUserData } from "./APICalls.js";
-import { HOME_ROUTER } from "./util.js";
-
-// Constant variables
-const DISPLAY_NONE = "none";
-const DISPLAY_BLOCK = "block";
-const HTML_ELE_IMG = "img";
-//const HTML_ELE_A = "a";
-const IMG_NO_REFERRER = "no-referrer";
-//const HTML_ELE_LI = "li";
-const HTML_ELE_LINK = "link";
-const HTML_ELE_DIV = "div";
-const HTML_ELE_HEAD = "head";
-const HTML_ELE_UL = "ul";
-const HTML_ELE_META = "meta";
-const HTML_ELE_SCRIPT = "script";
-
-const ELE_ID_NAV = "nav";
-const ELE_ID_NAVBAR = "navbar";
-const ELE_ID_NAVLIST = "navList";
-const ELE_ID_NAVLOGO = "navLogo";
-const ELE_ID_LOGO = "logo";
-const ELE_ID_HEADER = "header";
-
-/* global gapi */
+import { HOME_ROUTER, DISPLAY_NONE, DISPLAY_BLOCK, HTML_ELE_IMG, IMG_NO_REFERRER } from "./util.js";
 
 // Set functions onSignIn and signOut to global scope, otherwise they're not
 // accessible in html

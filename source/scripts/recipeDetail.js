@@ -2,7 +2,7 @@
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
 export default { fillOutRecipe }
 // RecipeExpand.js
-import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE, createNodeClone } from "./util.js"
+import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE, createNodeClone, DISPLAY_BLOCK, DISPLAY_NONE, HOME_ROUTER } from "./util.js"
 import { deleteRecipe, fetchRecipeById,  addSavedRecipeById, deleteSavedRecipeById} from "./APICalls.js";
 import { routerAddEditPage, routerNavigateWrapper, userData } from "./index.js";
 const recipeData = {};
@@ -91,28 +91,46 @@ export async function fillOutRecipe(data) {
     createNodeClone('deleteRecipeButton');
     const editRecipeButton = document.getElementById('editRecipeButton')
     const delRecipeButton = document.getElementById('deleteRecipeButton')
+    const saveRecipeButton = document.getElementById('saveRecipeButton');
     const page = data._id;
     const routeUrl = TEMP_EDIT_CREATE_ROUTE + page
-    routerAddEditPage(routeUrl, data);
-    editRecipeButton.addEventListener('click', () => {
-        //redirect to edit page and populate the page
-        routerNavigateWrapper(routeUrl)
-    })
-    const home = 'home'
-    delRecipeButton.addEventListener('click', async () => {
-        console.log("Deleting " + data._id);
-        //redirect to edit page and populate the page
-        await deleteRecipe(data._id);
-        if(userData && userData.myRecipe){
-            userData.myRecipe = userData.myRecipe.filter(function(recipe) {
-                return recipe._id != data._id;
-            });
+    if(userData){
+        editRecipeButton.style.display = DISPLAY_BLOCK;
+        delRecipeButton.style.display = DISPLAY_BLOCK;
+        saveRecipeButton.style.display = DISPLAY_BLOCK;
+        routerAddEditPage(routeUrl, data);
+        //Saved button
+        addSaveButton(data);
+        if(userData.myRecipe.find(ele => ele._id == data._id)){
+            editRecipeButton.addEventListener('click', () => {
+                //redirect to edit page and populate the page
+                routerNavigateWrapper(routeUrl)
+            })
+            delRecipeButton.addEventListener('click', async () => {
+                console.log("Deleting " + data._id);
+                //redirect to edit page and populate the page
+                await deleteRecipe(data._id);
+                if(userData && userData.myRecipe){
+                    userData.myRecipe = userData.myRecipe.filter(function(recipe) {
+                        return recipe._id != data._id;
+                    });                    
+                    userData.savedRecipe = userData.savedRecipe.filter(function(recipe) {
+                        return recipe._id != data._id;
+                    });
+                }
+                routerNavigateWrapper(HOME_ROUTER)
+            })    
+        }else{
+            editRecipeButton.style.display = DISPLAY_NONE;
+            delRecipeButton.style.display = DISPLAY_NONE;   
         }
-        routerNavigateWrapper(home)
-    })
+    }else{
+        editRecipeButton.style.display = DISPLAY_NONE;
+        delRecipeButton.style.display = DISPLAY_NONE;
+        saveRecipeButton.style.display = DISPLAY_NONE;    
+        console.log(saveRecipeButton.style.display);    
+    }
 
-    //Saved button
-    addSaveButton(data);
     
 }
 
