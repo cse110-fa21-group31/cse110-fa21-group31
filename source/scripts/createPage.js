@@ -101,7 +101,7 @@ const onSubmitRecipe = async(event) => {
     // get response from POST API, get the new recipe, 
     const responseRecipe = await insertRecipe(newRecipe);
     redirectRecipeDetail(responseRecipe)
-    console.log(responseRecipe);
+    userData.myRecipe.push(responseRecipe);
     const page = responseRecipe._id;
     const routeUrl = RECIPE_ROUTE + page
     routerNavigateWrapper(routeUrl)

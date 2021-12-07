@@ -29,7 +29,7 @@ export class Router {
         if (typeof this[pageName] === 'function') {
             let hash;
             if (pageName === 'home') {
-                hash = '';
+                hash = '/';
             } else {
                 hash = `/${pageName}`;
             }

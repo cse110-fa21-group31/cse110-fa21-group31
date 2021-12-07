@@ -115,7 +115,8 @@ describe("Tests database recipe functions", () => {
             createdRecipes.push(await Interface.createRecipe(newRandomRecipe, test.skipDB));
         }
         let createdIds = createdRecipes.map((recipe) => recipe._id);
-        let resultRecipes = await Interface.getRecipesByIds(createdIds, test.skipDB);
+        let query = {"ids": createdIds.join(",")};
+        let resultRecipes = await Interface.getRecipesByQuery(query, test.skipDB);
         expect(resultRecipes.length).toBe(createdIds.length);
     });
 
@@ -124,21 +125,22 @@ describe("Tests database recipe functions", () => {
         const commonTag = "commontag";
         // generate a bunch of new recipes that have commonName inside their name
         // and also have commonTag as a tag in their tagstring
-        const commonRecipeCount = 10;
+        const commonRecipeCount = 6;
         const commonRecipes = Array(commonRecipeCount).fill(null).map(() => {
             let newRecipe = generateRandomRecipe();
             newRecipe.name = newRecipe.name + commonName + Math.floor(Math.random() * 100);
             newRecipe.tags = newRecipe.tags + `,${commonTag}`;
             return newRecipe;
         });
-        await Promise.race(commonRecipes.map((recipe) => Interface.createRecipe(recipe, test.skipDB)));
-
-        const queryResult = await Interface.getRecipesByNameAndTags({name: commonName, tags: commonTag}, test.skipDB);
+        await Promise.race(commonRecipes.map((recipe) => Interface.createRecipe(recipe, testDB)));
+        let query = {name: commonName, tags: commonTag};
+        const queryResult = await Interface.getRecipesByQuery(query, test.skipDB);
         expect(queryResult.length).toBe(commonRecipeCount);
         expect(queryResult.every((recipe) => recipe.name.includes(commonName))).toBeTruthy();
         console.log(queryResult.map((recipe) => recipe.tags));
         expect(queryResult.every((recipe) => recipe.tags.split(",").includes(commonTag))).toBeTruthy();
     });
+
 
     const pageSize = CARDS_PER_PAGE;
     test.skip("getRecipeByPage full", async () => {

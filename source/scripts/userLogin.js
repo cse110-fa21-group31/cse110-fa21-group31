@@ -15,8 +15,9 @@ import {
 } from "./util.js";
 
 import { populateUserInfoPage } from './userInfo.js'
-import { bindUserProfile, setGlobalUserData, clearGlobalUserData } from "./index.js";
-import { fetchRecipeByIds, getUserData } from "./APICalls.js";
+import { bindUserProfile, setGlobalUserData, clearGlobalUserData,routerNavigateWrapper } from "./index.js";
+import { fetchRecipesByIds, getUserData } from "./APICalls.js";
+import { HOME_ROUTER } from "./util.js";
 
 // Constant variables
 const DISPLAY_NONE = "none";
@@ -76,11 +77,11 @@ async function onSignIn(googleUser) {
 
     // Fetch saved and created recipe, save to user profile
     if (profile.savedRecipe.length > 0) {
-        profile.savedRecipe = await fetchRecipeByIds(profile.savedRecipe);
+        profile.savedRecipe = await fetchRecipesByIds(profile.savedRecipe);
     }
     // console.log(savedRecipeObject)
     if (profile.myRecipe.length > 0) {
-        profile.myRecipe = await fetchRecipeByIds(profile.myRecipe);
+        profile.myRecipe = await fetchRecipesByIds(profile.myRecipe);
     }
 
     // Since email is unique, we won't need ID token for identification
@@ -101,11 +102,6 @@ async function onSignIn(googleUser) {
     image.classList.add(ELE_CLASS_PROFILE_IMAGE);
     image.referrerpolicy = IMG_NO_REFERRER;
     profileWrapper.prepend(image);
-
-    //TODO: call backend getUserByEmail
-    const userObj = {
-
-    }
 
     await bindUserProfile(profile);
     setGlobalUserData(profile);
@@ -141,4 +137,5 @@ async function userSignedOut() {
     auth2.signOut().then(function () {
         console.log("User signed out.");
     });
+    routerNavigateWrapper(HOME_ROUTER);
 }
