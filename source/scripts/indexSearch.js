@@ -25,29 +25,32 @@ async function init() {
 
     searchButton.addEventListener("click", async function() {
         submitNewSearch();
+
     });
 
     searchBar.addEventListener("keydown", async function(event) {
         // If enter key is pressed, suppress default rerouting and submit search
-        if(event.keyCode === 13){
+        if (event.keyCode === 13) {
             event.preventDefault();
             submitNewSearch();
         }
     });
 
     scrollRightButton.addEventListener("click", async function() {
-        if(curr_page < max_page){
+        if (curr_page < max_page) {
             curr_page++;
             let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page;
         }
     });
 
     scrollLeftButton.addEventListener("click", async function() {
-        if(curr_page > 1) {
+        if (curr_page > 1) {
             curr_page--;
             let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page;
         }
     });
 
@@ -74,7 +77,7 @@ async function init() {
     }
 }
 
-async function submitNewSearch(){
+async function submitNewSearch() {
     let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
     createRecipeCards(searchResults.results);
     curr_page = 1;
@@ -132,6 +135,6 @@ function offHover(e) {
 /**
  * Initial render of recipe cards. 
  */
-export async function initialRecipeCards () {
+export async function initialRecipeCards() {
     submitNewSearch();
 }

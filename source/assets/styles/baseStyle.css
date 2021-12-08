@@ -64,6 +64,16 @@ Search Bar
     border: solid 1px #CCC;
 }
 
+#homepage #homePageNum,
+#landingPage #homePageNum {
+    /* border-style:solid; */
+    /*background-color: #fcaf58;*/
+    color: #4e598c;
+    font-size: 110%;
+    margin-left: 165px;
+    padding-bottom: 20px;
+}
+
 #homepage #searchButton,
 #landingPage #searchButton {
     width: 20%;
@@ -250,10 +260,13 @@ Tags
     font-size: large;
 }
 
+
 /* important for routing */
+
 section:not(section.shown) {
     display: none;
 }
+
 
 /*
 Regular text font:
