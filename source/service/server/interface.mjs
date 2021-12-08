@@ -82,11 +82,17 @@ export async function updateRecipe(id, recipe, recipeCollection) {
  */
 export async function getRecipesByQuery(query, recipeCollection) {
     let filter = getFilterFromQuery(query);
+    console.log(filter);
     let page = undefined;
     if (query.page) {
         page = query.page;
     }
-    return await getRecipesByFilter(filter, recipeCollection, page);
+    let recipes = await getRecipesByFilter(filter, recipeCollection, page);
+    if(recipes.length == 0){
+        filter = getSecondaryFilterFromQuery(query);
+        recipes = await getRecipesByFilter(filter, recipeCollection, page);
+    }
+    return recipes;
 }
 
 /**
@@ -108,6 +114,19 @@ export async function getRecipesByQuery(query, recipeCollection) {
             }
         });
     });
+    if (numRecipes == 0){
+        filter = getSecondaryFilterFromQuery(query);
+        numRecipes = await new Promise((resolve, reject) => {
+            recipeCollection.count(filter, function (err, doc) {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    resolve(doc);
+                }
+            });
+        });
+    }
     return {
         results: numRecipes,
         pages: parseInt(numRecipes/CARDS_PER_PAGE + 1)
@@ -203,8 +222,7 @@ function getFilterFromQuery(query){
             // TODO (Bjorn): Create a list of common words to ignore
             let keywords = [];
             for (let n of query.name.split(" ")) {
-                let pattern = new RegExp(n, 'i');
-                keywords.push({ name: { $regex: pattern } });
+                keywords.push({ name: new RegExp(n, 'i') });
             }
             filter.$or = keywords;
         }
@@ -215,6 +233,44 @@ function getFilterFromQuery(query){
             }
             filter.$and = tags;
         }
+    }
+    return filter;
+}
+
+
+/**
+ * builds the filter object from a query
+ * 
+ * @param {*} query the content to search for
+ * @returns {*} the filter to use in an actual db call
+ */
+ function getSecondaryFilterFromQuery(query){
+    let filter = {}
+    if (query.ids){
+        let ids = query.ids.split(",");
+        filter = { _id: { $in: ids }};
+    }
+    else {
+        let filters = [];
+        let keywords = [];
+        if (query.name) {
+            // TODO (Bjorn): Create a list of common words to ignore
+            for (let n of query.name.split(" ")) {
+                keywords.push(n);
+            }
+        }
+        if (query.tags) {
+            for (let t of query.tags.split(',')) {
+                keywords.push(t);
+            }
+        }
+        for (let w of keywords){
+            let pattern = new RegExp(w, 'i');
+            filters.push({ name: pattern });
+            filters.push({ tags: pattern });
+            filters.push({ ingredients : pattern }); // DOESN'T DO ANYTHING!
+        }
+        filter.$or = filters;
     }
     return filter;
 }
