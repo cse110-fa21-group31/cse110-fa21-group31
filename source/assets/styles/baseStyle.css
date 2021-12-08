@@ -22,6 +22,7 @@ body {
 
 #landingPage {
     background-color: #ededed;
+    overflow: hidden;
 }
 
 .myRecipeCardGridContainer {
@@ -36,10 +37,6 @@ body {
 /*
 Landing Background
 */
-
-#landingPage {
-    overflow: hidden;
-}
 
 #homepage .landingHeader,
 #landingPage .landingHeader {
