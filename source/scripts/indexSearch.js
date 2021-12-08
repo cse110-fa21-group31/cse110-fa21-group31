@@ -28,30 +28,34 @@ async function init() {
         createRecipeCards(searchResults.results);
         curr_page = 1;
         max_page = searchResults.pages.pages;
+        document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + '/' + max_page;
     });
 
     searchBar.addEventListener("keydown", async function(event) {
         // If enter key is pressed, suppress default rerouting and submit search
-        if(event.keyCode === 13){
+        if (event.keyCode === 13) {
             event.preventDefault();
             let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
             createRecipeCards(searchResults.results);
             curr_page = 1;
             max_page = searchResults.pages.pages;
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + '/' + max_page;
         }
     });
 
     scrollRightButton.addEventListener("click", async function() {
-        if(curr_page < max_page){
+        if (curr_page < max_page) {
             curr_page++;
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + '/' + max_page;
             let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
         }
     });
 
     scrollLeftButton.addEventListener("click", async function() {
-        if(curr_page > 1) {
+        if (curr_page > 1) {
             curr_page--;
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + '/' + max_page;
             let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
         }
@@ -132,7 +136,7 @@ function offHover(e) {
 /**
  * Initial render of recipe cards. 
  */
-export async function initialRecipeCards () {
+export async function initialRecipeCards() {
     let initialResults = await submitInitialSearch(searchBar.value, selectedTags);
     createRecipeCards(initialResults.results);
     max_page = initialResults.pages.pages;

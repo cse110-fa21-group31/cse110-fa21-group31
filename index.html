@@ -93,6 +93,7 @@
         <div id="homePageScrollButton" class="homePageScrollButton">
             <input type="button" id="scrollLeft" value='<'>
             <input type="button" id="scrollRight" value='>'>
+            <div id="homePageNum" class="homePageNum">Page: 1/20</div>
         </div>
     </section>
 
@@ -126,7 +127,7 @@
         <button id="editRecipeButton">Edit</button>
         <button id="deleteRecipeButton">Delete</button>
         <button id="saveRecipeButton"></button>
-        
+
         <!-- Displaying recipe title, creation date, author-->
         <p id="recipeTitle">Recipe title</p>
         <div id="dateAuthor">
@@ -203,9 +204,22 @@
             }
             
             .myRecipeCardGridContainer {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr;
                 padding: 10px;
+            }
+            
+            #myUploadRecipeCardGridContainer {
+                display: inline-block;
+                width: 500px;
+                height: 400px;
+                overflow-y: scroll;
+            }
+            
+            #mySavedRecipeCardGridContainer {
+                display: inline-block;
+                width: 500px;
+                height: 400px;
+                overflow-y: scroll;
             }
         </style>
         <div class="userInfoGridContainer">
@@ -220,23 +234,13 @@
             <div class="userInfoGridItem">
 
                 <h1 id="myRecipes"> My Recipes </h1>
-                <div id="myRecipeScroll">
-                    <input type="button" id="myScrollLeft" value='<'>
-                    <input type="button" id="myScrollRight" value='>'>
-                </div>
-                <div class="myUploadRecipeCardGridContainer">
-                </div>
 
+                <div class="myUploadRecipeCardGridContainer" id="myUploadRecipeCardGridContainer"></div>
                 <h1 id="savedRecipes"> Saved Recipes </h1>
-                <div id="savedRecipeScroll">
-                    <input type="button" id="savedScrollLeft" value='<'>
-                    <input type="button" id="savedScrollRight" value='>'>
-                </div>
+
                 <div class="savedRecipes">
 
-                    <div class="mySavedRecipeCardGridContainer">
-
-                    </div>
+                    <div class="mySavedRecipeCardGridContainer" id="mySavedRecipeCardGridContainer"></div>
                 </div>
             </div>
         </div>
