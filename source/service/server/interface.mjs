@@ -129,7 +129,7 @@ export async function getRecipesByQuery(query, recipeCollection) {
     }
     return {
         results: numRecipes,
-        pages: parseInt(numRecipes/CARDS_PER_PAGE + 1)
+        pages: parseInt(Math.ceil(numRecipes/CARDS_PER_PAGE))
     };
 }
 
