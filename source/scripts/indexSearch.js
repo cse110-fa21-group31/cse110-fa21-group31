@@ -110,8 +110,8 @@ function addTags(e) {
     for (let i of difficultyTags) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
-        addTagButton.innerText = difficultyTags[i];
-        addTagButton.id = difficultyTags[i];
+        addTagButton.innerText = i;
+        addTagButton.id = i;
         tagsList.appendChild(addTagButton);
     }
 
@@ -121,8 +121,8 @@ function addTags(e) {
     for (let i of mealTimeTags) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
-        addTagButton.innerText = mealTimeTags[i];
-        addTagButton.id = mealTimeTags[i];
+        addTagButton.innerText = i;
+        addTagButton.id = i;
         tagsList.appendChild(addTagButton);
     }
 
@@ -132,8 +132,8 @@ function addTags(e) {
     for (let i of dietaryTags) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
-        addTagButton.innerText = dietaryTags[i];
-        addTagButton.id = dietaryTags[i];
+        addTagButton.innerText = i;
+        addTagButton.id = i;
         tagsList.appendChild(addTagButton);
     }
 }
