@@ -7,17 +7,10 @@ if (typeof window === "object") {
 import { submitSearch, submitInitialSearch } from "./APICalls.js";
 import { createRecipeCards } from "./index.js";
 
-let allTags = [
-    "Easy",
-    "Intermediate",
-    "Hard",
-    "Vegetarian",
-    "Breakfast",
-    "Lunch",
-    "Dinner",
-    "Appetizer",
-    "Vegan",
-];
+let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Lunch", "Dinner", "Appetizer", "Dessert", "Vegan"];
+let difficultyTags = ["Easy", "Intermediate", "Hard"];
+let mealTimeTags = ["Breakfast", "Lunch", "Dinner", "Appetizer", "Dessert"];
+let dietaryTags = ["Vegetarian", "Vegan"];
 let selectedTags = [];
 let curr_page = 1;
 let max_page = 1;
@@ -73,10 +66,10 @@ async function init() {
         }
     });
 
-    let tagsSelect = document.getElementById("tagsList");
+    let tagsSelect = document.getElementById("tagsTitles");
     // console.log(tagsSelect);
     if (tagsSelect) {
-        chooseTag(this);
+        addTags(this);
         let tagButtons = document.getElementsByClassName("tagButton");
         for (let i = 0; i < tagButtons.length; i++) {
             //e.stopPropagation();
@@ -109,14 +102,38 @@ async function submitNewSearch() {
         "Page: " + curr_page + " / " + max_page;
 }
 
-function chooseTag(e) {
-    let tagsList = document.querySelector("#tagsList");
+function addTags(e) {
+    
+    //Difficulty
+    let tagsList = document.getElementById("tagsListDiff");
     tagsList.style.display = "grid";
-    for (let i = 0; i < allTags.length; i++) {
+    for (let i of difficultyTags) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
-        addTagButton.innerText = allTags[i];
-        addTagButton.id = allTags[i];
+        addTagButton.innerText = difficultyTags[i];
+        addTagButton.id = difficultyTags[i];
+        tagsList.appendChild(addTagButton);
+    }
+
+    //Meal Time
+    tagsList = document.getElementById("tagsListMt");
+    tagsList.style.display = "grid";
+    for (let i of mealTimeTags) {
+        let addTagButton = document.createElement("button");
+        addTagButton.classList.add("tagButton");
+        addTagButton.innerText = mealTimeTags[i];
+        addTagButton.id = mealTimeTags[i];
+        tagsList.appendChild(addTagButton);
+    }
+
+    //Dietary
+    tagsList = document.getElementById("tagsListDiet");
+    tagsList.style.display = "grid";
+    for (let i of dietaryTags) {
+        let addTagButton = document.createElement("button");
+        addTagButton.classList.add("tagButton");
+        addTagButton.innerText = dietaryTags[i];
+        addTagButton.id = dietaryTags[i];
         tagsList.appendChild(addTagButton);
     }
 }
