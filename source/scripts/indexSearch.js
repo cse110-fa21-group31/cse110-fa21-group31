@@ -24,36 +24,33 @@ async function init() {
     let scrollRightButton = document.querySelector("#scrollRight");
 
     searchButton.addEventListener("click", async function() {
-        let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
-        createRecipeCards(searchResults.results);
-        curr_page = 1;
-        max_page = searchResults.pages.pages;
+        submitNewSearch();
+
     });
 
     searchBar.addEventListener("keydown", async function(event) {
         // If enter key is pressed, suppress default rerouting and submit search
-        if(event.keyCode === 13){
+        if (event.keyCode === 13) {
             event.preventDefault();
-            let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
-            createRecipeCards(searchResults.results);
-            curr_page = 1;
-            max_page = searchResults.pages.pages;
+            submitNewSearch();
         }
     });
 
     scrollRightButton.addEventListener("click", async function() {
-        if(curr_page < max_page){
+        if (curr_page < max_page) {
             curr_page++;
             let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page;
         }
     });
 
     scrollLeftButton.addEventListener("click", async function() {
-        if(curr_page > 1) {
+        if (curr_page > 1) {
             curr_page--;
             let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page;
         }
     });
 
@@ -78,8 +75,13 @@ async function init() {
 
         }
     }
+}
 
-
+async function submitNewSearch() {
+    let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
+    createRecipeCards(searchResults.results);
+    curr_page = 1;
+    max_page = searchResults.pages.pages;
 }
 
 function chooseTag(e) {
@@ -107,6 +109,7 @@ function clickedOnATag(e) {
         e.style.borderColor = "#4e598c";
         selectedTags.push(e.innerText);
     }
+    submitNewSearch();
 }
 /** 
 function onHover(e) {
@@ -132,8 +135,6 @@ function offHover(e) {
 /**
  * Initial render of recipe cards. 
  */
-export async function initialRecipeCards () {
-    let initialResults = await submitInitialSearch(searchBar.value, selectedTags);
-    createRecipeCards(initialResults.results);
-    max_page = initialResults.pages.pages;
+export async function initialRecipeCards() {
+    submitNewSearch();
 }
