@@ -9,8 +9,8 @@ import fs from "fs";
 beforeAll(() => {
     console.log("Creating test database and test users");
     try {
-        fs.linkSync(TEST_RECIPE_DB_PATH, "");
-        fs.linkSync(TEST_USER_DB_PATH, "");
+        fs.writeFileSync(TEST_RECIPE_DB_PATH, "");
+        fs.writeFileSync(TEST_USER_DB_PATH, "");
         fs.copyFile(USER_DB_PATH, TEST_USER_DB_PATH);
     } catch (err) {
         console.log("An error occured while trying to create the test database");
@@ -121,13 +121,13 @@ describe("Tests database recipe functions", () => {
         await clearDatabase();
     });
 
-    test.skip("createRecipe", async () => {
+    test("createRecipe", async () => {
         let randomRecipe = generateRandomRecipe();
         let result = await Interface.createRecipe(randomRecipe, test.skipDB);
         expect(result._id).toBeTruthy();
     });
 
-    test.skip("getRecipeById", async () => {
+    test("getRecipeById", async () => {
         let randomRecipe = generateRandomRecipe();
         let createdRecipe = await Interface.createRecipe(
             randomRecipe,
@@ -139,7 +139,7 @@ describe("Tests database recipe functions", () => {
         expect(createdRecipe).toEqual(result);
     });
 
-    test.skip("getRecipesByIds", async () => {
+    test("getRecipesByIds", async () => {
         let randomRecipes = [];
         let createdRecipes = [];
         for (let i = 0; i < Math.random() * 10 + 1; i++) {
@@ -158,7 +158,7 @@ describe("Tests database recipe functions", () => {
         expect(resultRecipes.length).toBe(createdIds.length);
     });
 
-    test.skip("getRecipesByNameAndTags", async () => {
+    test("getRecipesByNameAndTags", async () => {
         const commonName = "foodthing";
         const commonTag = "commontag";
         // generate a bunch of new recipes that have commonName inside their name
@@ -198,7 +198,7 @@ describe("Tests database recipe functions", () => {
     });
 
     const pageSize = CARDS_PER_PAGE;
-    test.skip("getRecipeByPage full", async () => {
+    test("getRecipeByPage full", async () => {
         return populateDatabase(pageSize).then(() => {
             Interface.getRecipeByPage(test.skipDB).then((pagerecipes) => {
                 expect(pagerecipes.length).toBe(pageSize);
