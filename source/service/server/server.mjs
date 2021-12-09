@@ -18,7 +18,7 @@ const __dirname = path.normalize(path.resolve());
 import Fastify from 'fastify';
 const fastify = Fastify({ logger: true });
 
-import fileRoutes from "./fileRoutes.js"
+import fileRoutes from "./fileRoutes.mjs"
 fastify.register(fileRoutes.routes)
 fastify.register(fstatic, {
     root: __dirname,
@@ -37,6 +37,11 @@ fastify.register(Cors, {
     methods: ['GET', 'PUT', 'POST', 'DEL']
 });
 const port = process.env.PORT || 3030;
+
+fastify.setNotFoundHandler((request, reply) => {
+    // Complicated super secret business logic.
+    return reply.sendFile("./index.html");
+});
 
 fastify.get("/api", async (request, reply) => {
     if (request.query.counts) {

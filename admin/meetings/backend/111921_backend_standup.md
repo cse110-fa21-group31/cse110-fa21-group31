@@ -32,8 +32,8 @@ Eric
     * Glitch.com
     * Platform.sh
 * Integrated about comments: need to research how to integrate Disqus with our new hosting tech
-  
-
+*   Got a build working with an nedb demo on Glitch(most likely choice)
+* Got comments demo working on Platform.sh
 Question: how to host server, integrated with front end and put into db
 
 

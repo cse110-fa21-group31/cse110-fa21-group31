@@ -3,7 +3,7 @@
 export class Router {
     /**
      * Sets up the home function. The home function will always be in this.home
-     */ 
+     */
     constructor(homeCallback) {
         this.home = homeCallback;
     }
@@ -25,7 +25,7 @@ export class Router {
      * @param {boolean} statePopped - Set to true if you don't want to mutate the history stack.
      */
     navigate(pageName, statePopped) {
-        console.log(`navigate() function called, requested pageName: ${pageName}`);
+        // console.log(`navigate() function called, requested pageName: ${pageName}`);
         if (typeof this[pageName] === 'function') {
             let hash;
             if (pageName === 'home') {

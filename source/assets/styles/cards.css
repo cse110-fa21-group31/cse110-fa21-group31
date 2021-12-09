@@ -114,68 +114,62 @@
   overflow: hidden;
   background-color: #4e598c;
 
-  /* position: fixed; */
+  .footer ul.footer > li a.logo {
+    border-right: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    color: #ff8c42;
+    font-family: "Rammetto One", cursive;
+    font-weight: bold;
+  }
 
-  /* top: 0; */
-  width: 100%;
-  font-family: OpenSans, sans-serif;
-}
+  /* Nav bar */
 
-.footer ul.footer > li a.logo {
-  border-right: 1px solid #bbb;
-  border-left: 1px solid #bbb;
-  color: #ff8c42;
-  font-family: "Rammetto One", cursive;
-  font-weight: bold;
-}
+  #navbar ul.topRight {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4e598c;
 
-/* Nav bar */
+    /* position: fixed; */
 
-#navbar ul.topRight {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #4e598c;
+    /* top: 0; */
+    width: 100%;
 
-  /* position: fixed; */
+    /* border-left: 1px solid #bbb; */
+    font-family: OpenSans, sans-serif;
+  }
 
-  /* top: 0; */
-  width: 100%;
+  #navbar li a.loginSignup {
+    float: right;
+    font-family: OpenSans, sans-serif;
+    border: 1px solid #fff;
+    border-radius: 25px;
+    margin-right: 20px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 18px;
+    text-decoration: none;
+  }
 
-  /* border-left: 1px solid #bbb; */
-  font-family: OpenSans, sans-serif;
-}
+  #navbar ul.topRight > li a.logo {
+    float: left;
+    color: #ff8c42;
+    font-family: "Rammetto One", cursive;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    padding: 16px 18px;
+    text-decoration: none;
+    list-style-type: none;
+  }
 
-#navbar li a.loginSignup {
-  float: right;
-  font-family: OpenSans, sans-serif;
-  border: 1px solid #fff;
-  border-radius: 25px;
-  margin-right: 20px;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 16px 18px;
-  text-decoration: none;
-}
+  #navbar li a.loginSignup:hover {
+    background-color: #f9c784;
+  }
 
-#navbar ul.topRight > li a.logo {
-  float: left;
-  color: #ff8c42;
-  font-family: "Rammetto One", cursive;
-  font-weight: bold;
-  display: block;
-  text-align: center;
-  padding: 16px 18px;
-  text-decoration: none;
-  list-style-type: none;
-}
-
-#navbar li a.loginSignup:hover {
-  background-color: #f9c784;
-}
-
-#navbar ul.topRight > li a.logo:hover {
-  color: #f9c784;
+  #navbar ul.topRight > li a.logo:hover {
+    color: #f9c784;
+  }
 }

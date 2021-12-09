@@ -8,7 +8,6 @@ export default {
 // RecipeExpand.js
 if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", init);
-
 }
 
 
@@ -61,6 +60,7 @@ async function init() {
     bindEscKey();
     bindPopstate();
     homePageButton();
+    routerNavigateWrapper(HOME_ROUTER)
 }
 
 function homePageButton() {
@@ -248,6 +248,7 @@ export async function bindUserProfile(profile) {
         // Important: we need profile.myRecipe and profile.savedRecipe as an array of recipe OBJECT
         document.getElementById("userName").textContent = profile.username ? profile.username : "OliveU User"
         document.getElementById("userEmail").textContent = profile.email ? profile.email : "OliveU Email"
+        document.getElementById("notProfile").src = profile.imageURL ? profile.imageURL : "./source/assets/profile.png"
 
         if (profile.myRecipe) {
             createRecipeCards(profile.myRecipe, ".myUploadRecipeCardGridContainer")

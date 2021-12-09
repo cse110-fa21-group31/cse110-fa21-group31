@@ -152,7 +152,8 @@
 
 .recipeEdit input[type="submit"],
 .recipeEdit #delete input[type="button"],
-.recipeEdit #cancel input[type="button"] {
+.recipeEdit #cancel input[type="button"],
+.recipeEdit #editCancel input[type="button"] {
   position: relative;
   display: inline-block;
   padding: 19px 39px 18px;

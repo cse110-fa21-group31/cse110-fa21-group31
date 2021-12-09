@@ -47,7 +47,7 @@ Date: 11/ 30
 
 * Break down the features into small tasks and create issues, put the tasks on project board, and assign appropriate tasks. 
 * Held weekly standup meetings to check the backend team’s progress. Communicate with frontend and work to set up needed features that will be used in backend development (eg, tags selection on the home page). Track both backend and frontend members progress on CRUD and help test their code before merging the pull request.
-* Migrate our app from multiple pages web app to a Single Page Web App, including rewrote html elements and javascripts logic with Xin.
+* Migrate from one SPA style to appending another Single Page Web App style, including rewrote html elements and javascripts logic with Xin.
 * Set up routing with Xin and dynamically populate the home page, recipe Detail page, and user info page. 
 * Set up server with fastify (and cors before we finish using the server to host the app), define necessary API calls between frontend and server (with Xin), and help debugging issues related to the API calls implementation both on the frontend side and the backend side.
 * Integrate and help debug the CRUD feature into our apps with backend and frontend team members.
@@ -72,9 +72,14 @@ Date: 11/ 30
 **TeamLead:**
 
 **Eric:**
-
+(sick for much of this, updated what I did before 11.30 after as a consequence)
 * Determined which web framework would be in use, where we would host, that we could host in the way we do, established working local hosting and routing with fastify(before we switched from strict fastify SPA to a 110 lab-fastify hybrid in which fastify hosts home, else lab SPA, because Xin and Celia liked it better). 
 * Working on glitch integration of locally hosted work + managing comments API
+* Got sign in to work with an external button(not with the login button yet)
+* Fixed some errors pertaining to file serving due to using two SPA systems
+* Integrated relevant CRUD features to this work
+* Tested new features on Glitch
+* Debugging!
 
 **Sarah:**
 

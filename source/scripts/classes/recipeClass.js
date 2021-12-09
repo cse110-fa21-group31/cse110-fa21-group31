@@ -37,9 +37,10 @@ class RecipeClass extends HTMLElement {
 
         style.innerHTML = `
         .recipeCard {
+            height: 350px;
             background: white;
             padding-top: 40px;
-            margin-top: 30px;
+            // margin-top: 30px;
             text-align: center;
             border: 2px solid #4E598C;
             border-radius: 15px;
@@ -69,7 +70,14 @@ class RecipeClass extends HTMLElement {
             height:200px;
         } 
         
+        ul {
+            height: 50px;
+        }
         ul.tagsList {
+            /* flexbox tags */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             font-family: 'Open Sans', sans-serif;
             list-style-type: none;
             /* white-space:nowrap; */
@@ -81,12 +89,14 @@ class RecipeClass extends HTMLElement {
             font-size: 15px;
             text-align: center;
             /* border-radius: 2cm; */
-            overflow:auto; 
+            overflow: hidden; 
         }
         
         li.individualTag {
             /* border-style:solid; */
-            margin: 0px 10px;
+            /* for flexbox tags, add marging 4px to top and bottom */
+            height: 40%;
+            margin: 4px 10px;
             /* border: #FCAF58; */
             border-radius: 0.1cm;
             padding-left: 10px;
@@ -95,7 +105,7 @@ class RecipeClass extends HTMLElement {
             padding-bottom: 2px;
             text-align: center;
             background-color: #FCAF58;
-            display:inline;
+            display: inline;
         }
         .myRecipeCardGridContainer {
             background-color: #ededed;

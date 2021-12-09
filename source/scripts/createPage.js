@@ -35,8 +35,6 @@ export function setupCreatePage() {
 
 let numSteps = 0;
 let numIngredients = 0;
-//TODO: update/find a way to assign value to this variable
-let isUpdate = false
 const onSubmitRecipe = async(event) => {
 
     // console.log("SUBMITTED NEW RECIPE");
@@ -45,11 +43,9 @@ const onSubmitRecipe = async(event) => {
     let formData = new FormData(recipeF);
 
     // get ingredients from form
-    let ingrArr = [];
-    let ingrAmountArr = [];
     let stepsArr = [];
     //should be empty array if no input
-    let strTags = formData.get('tags') ? formData.get('tags').replace(/\s+/g, '').split(',') : [];
+    let strTags = formData.get('tags') ? formData.get('tags').replace(/\s+/g, '').split(/[;,.]+/) : [];
     //let tagsArr = strTags.split(',');
 
     let ingWithAmountArr = {};
@@ -84,10 +80,7 @@ const onSubmitRecipe = async(event) => {
     let newRecipe = {
         name: formData.get('name'),
         datePosted: Date.now(),
-        //TODO: how to store image
         image: formData.get('picture'),
-        // image: formData.get('fileBuffer'),
-        //TODO: get user ID from a global variable, is it working?
         author: userData._id,
         description: formData.get('description'),
         tags: strTags,
@@ -100,6 +93,7 @@ const onSubmitRecipe = async(event) => {
     console.log(newRecipe);
     // get response from POST API, get the new recipe, 
     const responseRecipe = await insertRecipe(newRecipe);
+    responseRecipe.author = userData;
     redirectRecipeDetail(responseRecipe)
     userData.myRecipe.push(responseRecipe);
     const page = responseRecipe._id;
@@ -107,8 +101,6 @@ const onSubmitRecipe = async(event) => {
     routerNavigateWrapper(routeUrl)
 };
 
-
-/* eslint-disable no-unused-vars*/
 const appendStep = () => {
     //let d = document.getElementById('steps');
     // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
@@ -123,9 +115,7 @@ const appendStep = () => {
     numSteps++;
 
 };
-/* eslint-enable no-unused-vars*/
 
-/* eslint-disable no-unused-vars*/
 const deleteStep = () => {
     //newTextBox.classList.add('stepEntry');
     console.log("DELETED STEP");
@@ -136,7 +126,7 @@ const deleteStep = () => {
         numSteps--;
     }
 };
-/* eslint-disable no-unused-vars*/
+
 const appendIngredient = () => {
     console.log("APPEND INGREDIENT");
     var newTextBox = document.createElement("div");
@@ -146,13 +136,11 @@ const appendIngredient = () => {
 
     var newAmountBox = document.createElement("div");
     newAmountBox.innerHTML =
-        "<input type='text' id='newInputBox' name='ingredientAmount" + numIngredients + "' placeholder='amount'>";
+        "<input type='text' id='newInputBox' name='ingredientAmount" + numIngredients + "' placeholder='amount (ie. 5 cups)'>";
     document.getElementById("newIngredientAmountId").appendChild(newAmountBox);
     numIngredients++;
 };
-/* eslint-enable no-unused-vars*/
 
-/* eslint-disable no-unused-vars*/
 const deleteIngredient = () => {
     console.log("DELETE INGREDIENT");
     if (document.getElementById("newIngredientId").lastChild != null) {
@@ -181,4 +169,3 @@ const clearRecipePage = () => {
         deleteIngredient();
     }
 };
-/* eslint-enable no-unused-vars*/

@@ -63,16 +63,16 @@ export const fillOutEditPage = (recipeObj) => {
     let response = recipeObj
     console.log(response);
     // get ingredients from data
-    document.getElementById('editName').innerHTML = '<label for="name">Recipe Name: *</label><input type="text" name="name" id="name" value="' + response.name + '" required>';
+    document.getElementById('editName').innerHTML = '<label for="name">Recipe Name: *</label><input type="text" name="name" id="name" value="' + response.name + '" placeholder="A creative name" required>';
     //document.getElementById('picture').innerHTML = 'label for="picture">Picture:</label><input type="file" name="picture" id="picture" src="'+response.image+'">';
-    document.getElementById('editDescription').innerHTML = '<label for="description">Description:</label><textarea name="description" id="descriptionText"> ' + response.description + ' </textarea>';
+    document.getElementById('editDescription').innerHTML = '<label for="description">Description:</label><textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!">' + response.description + ' </textarea>';
 
 
-    document.getElementById('editTags').innerHTML = '<label for="tags">Tags:</label><input type="text" name="tags" id="tags" value="' + response.tags.join(", ") + '">';
+    document.getElementById('editTags').innerHTML = '<label for="tags">Tags:</label><input type="text" name="tags" id="tags" value="' + response.tags.join(", ") + '" placeholder="tag1, tag2, tag3">';
 
-    document.getElementById('editCookTime').innerHTML = '<label for="cookTime">Cook Time:</label><input type="text" name="cookTime" id="prepTime" value="' + response.cookTime + '">';
+    document.getElementById('editCookTime').innerHTML = '<label for="cookTime">Cook Time:</label><input type="text" name="cookTime" id="prepTime" value="' + response.cookTime + '" placeholder="x hours">';
 
-    document.getElementById('editServingSize').innerHTML = '<label for="servingSize">Serving Size:</label><input type="text" name="servingSize" id="servingSize" value="' + response.servingSize + '">';
+    document.getElementById('editServingSize').innerHTML = '<label for="servingSize">Serving Size:</label><input type="text" name="servingSize" id="servingSize" value="' + response.servingSize + '" placeholder="x people">';
 
     //document.getElementById('difficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select>';
     let diff = response.difficulty.charAt(0);
@@ -129,7 +129,7 @@ const onUpdateRecipe = async (event) => {
     let ingrArr = [];
     let ingrAmountArr = [];
     let stepsArr = [];
-    let strTags = formData.get('tags').replace(/\s+/g, '').split(',');
+    let strTags = formData.get('tags') ? formData.get('tags').replace(/\s+/g, '').split(/[;,.]+/) : [];
     //let tagsArr = strTags.split(',');
 
     let ingArr = {};
@@ -178,6 +178,7 @@ const onUpdateRecipe = async (event) => {
             return recipe
         });
     }
+    updatedRecipe.author = userData;
     redirectRecipeDetail(updatedRecipe)
     const page = updatedRecipe._id;
     const routeUrl = RECIPE_ROUTE + page
@@ -227,7 +228,7 @@ const appendIngredient = () => {
 
     var newAmountBox = document.createElement("div");
     newAmountBox.innerHTML =
-        "<input type='text' id='newInputBox' name='ingredientAmount" + numIngredients + "' placeholder='amount'>";
+        "<input type='text' id='newInputBox' name='ingredientAmount" + numIngredients + "' placeholder='amount (ie. 5 cups)'>";
     document.getElementById("editNewIngredientAmountId").appendChild(newAmountBox);
     numIngredients++;
 };
