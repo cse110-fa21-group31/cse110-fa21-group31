@@ -36,7 +36,7 @@ export class Router {
             if ((!statePopped) && (window.location.hash != hash)) {
                 // Not replacing hash anymore. Directly override everything after hostname
                 // const oldHash = window.location.hash;
-                history.replaceState({ pageName }, pageName, hash);
+                history.pushState({ pageName }, pageName, hash);
             }
             this[pageName]();
         }
