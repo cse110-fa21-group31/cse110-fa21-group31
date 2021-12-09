@@ -29,12 +29,12 @@ beforeAll(() => {
         // temporarily shift our current user database to a new location
         // copy over our user database to TEMP_USER_DB_PATH,
         // then overwrite the USER_DB_PATH with fakeUser
-        fs.copyFileSync(USER_DB_PATH, TEMP_USER_DB_PATH, (err) => {
-            if (err) throw err;
-            console.log("Copied user database to temp location");
-            fs.writeFileSync(USER_DB_PATH, JSON.stringify(fakeUser));
-            resolve();
-        });
+        fs.copyFileSync(USER_DB_PATH, TEMP_USER_DB_PATH);
+        // if (err) throw err;
+        console.log("Copied user database to temp location");
+        fs.writeFileSync(USER_DB_PATH, JSON.stringify(fakeUser));
+        resolve();
+        // });
     }).catch((err) => {
         console.log(
             "An error occured while trying to create the test database"
@@ -48,13 +48,13 @@ afterAll(() => {
     return new Promise((resolve) => {
         // now that our test is done copy the temp user database back to the
         // original user database
-        fs.copyFileSync(TEMP_USER_DB_PATH, USER_DB_PATH, (err) => {
-            if (err) throw err;
-            console.log("Copied temp user database back to original location");
-            fs.unlinkSync(TEST_RECIPE_DB_PATH);
-            fs.unlinkSync(TEMP_USER_DB_PATH);
-            resolve();
-        });
+        fs.copyFileSync(TEMP_USER_DB_PATH, USER_DB_PATH);
+        // if (err) throw err;
+        console.log("Copied temp user database back to original location");
+        fs.unlinkSync(TEST_RECIPE_DB_PATH);
+        fs.unlinkSync(TEMP_USER_DB_PATH);
+        resolve();
+        // });
         // Delete the file
     }).catch((err) => {
         console.log("Error occured when trying to clean up:");
