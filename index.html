@@ -14,7 +14,7 @@
     <link rel='stylesheet' href="/source/assets/styles/cards.css">
     <link rel='stylesheet' href="/source/assets/styles/editCreate.css">
     <link rel='stylesheet' href="/source/assets/styles/recipeDetail.css">
-    <link rel='stylesheet' href="/source/assets/styles/homePage.css">
+    <link rel='stylesheet' href="/source/assets/styles/landingTags.css">
     <link rel='stylesheet' href="/source/assets/styles/userInfo.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,14 +79,22 @@
                     <input id="searchButton" type="button" name="submit" value="Search">
                 </form>
             </div>
-            <div id="selectTag" class="formItem">
-                <div id="tagsList">
+                <ul id="tagsTitles">
+                    <li class="tagsCategory">
+                        <p>Difficulty</p>
+                        <div id="tagsListDiff" class="tagsList"></div>
+                    </li>
+                    <li class="tagsCategory" id="middleCategory">
+                        <p>Meal Time</p>
+                        <div id="tagsListMt" class="tagsList"></div>
+                    </li>
+                    <li class="tagsCategory">
+                        <p>Dietary</p>
+                        <div id="tagsListDiet" class="tagsList"></div>
+                    </li>
+
                     <!-- populated in indexSearch.js -->
-                </div>
-            </div>
-            <!-- <div id="submit" class="formItem">
-                <input type="submit" value="Submit" id="submitButton">
-            </div> -->
+                </ul>
         </div>
 
         <!-- Recipe Section -->
