@@ -28,8 +28,8 @@ body {
 }
 
 #homePageScrollButton {
-    background-color: #ededed;
-    display: inline-flex;
+  background-color: #ededed;
+  display: inline-flex;
 }
 
 /*
@@ -59,14 +59,17 @@ Search Bar
 
 #homepage #homePageNum,
 #landingPage #homePageNum {
-    /* border-style:solid; */
-    /*background-color: #fcaf58;*/
-    color: #4e598c;
-    font-size: 110%;
-    padding-top: 5%;
-    margin-inline: 10px;
-    /* margin-left: 165px; */
-    /* padding-bottom: 20px; */
+  /* border-style:solid; */
+
+  /* background-color: #fcaf58; */
+  color: #4e598c;
+  font-size: 110%;
+  padding-top: 5%;
+  margin-inline: 10px;
+
+  /* margin-left: 165px; */
+
+  /* padding-bottom: 20px; */
 }
 
 #homepage #searchButton,
