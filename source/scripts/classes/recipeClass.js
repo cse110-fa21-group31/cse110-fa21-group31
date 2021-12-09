@@ -39,7 +39,7 @@ class RecipeClass extends HTMLElement {
         .recipeCard {
             background: white;
             padding-top: 40px;
-            margin-top: 30px;
+            // margin-top: 30px;
             text-align: center;
             border: 2px solid #4E598C;
             border-radius: 15px;

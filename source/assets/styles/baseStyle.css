@@ -232,12 +232,15 @@ Tags
 #homepage .myRecipeCardGridContainer,
 #landingPage .myRecipeCardGridContainer {
     display: grid;
+    gap:8%;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
     margin: 20px;
     align-items: center;
     text-align: center;
     align-content: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
 }
 
 #homepage .recipeCard,
@@ -264,6 +267,9 @@ section:not(section.shown) {
     display: none;
 }
 
+.recipe-card {
+    margin:auto;
+}
 
 /*
 Regular text font:
