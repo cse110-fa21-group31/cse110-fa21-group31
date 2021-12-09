@@ -1,33 +1,65 @@
 // Jest Unit testing
 
 import * as Interface from "../source/service/server/interface.mjs";
-import { TEST_RECIPE_DB_PATH, CARDS_PER_PAGE, USER_DB_PATH, TEST_USER_DB_PATH } from "../source/service/util.js";
+import {
+    TEST_RECIPE_DB_PATH,
+    CARDS_PER_PAGE,
+    USER_DB_PATH,
+    TEMP_USER_DB_PATH,
+} from "../source/service/util.js";
 import Datastore from "nedb";
 import recipes from "./testRecipes.js";
 import fs from "fs";
 
+const fakeUserId = "JEST_ASkjdsjio983nSld";
+const fakeUser = {
+    username: "Jest User",
+    email: "Jestuser@jest.com",
+    imageURL: "https://icon-library.com/images/bot-icon/bot-icon-5.jpg",
+    savedRecipe: [],
+    myRecipe: [],
+    _id: fakeUserId,
+};
+
 beforeAll(() => {
     console.log("Creating test database and test users");
-    try {
+    return new Promise((resolve) => {
         fs.writeFileSync(TEST_RECIPE_DB_PATH, "");
-        fs.writeFileSync(TEST_USER_DB_PATH, "");
-        fs.copyFile(USER_DB_PATH, TEST_USER_DB_PATH);
-    } catch (err) {
-        console.log("An error occured while trying to create the test database");
+        fs.writeFileSync(TEMP_USER_DB_PATH, "");
+        // temporarily shift our current user database to a new location
+        // copy over our user database to TEMP_USER_DB_PATH,
+        // then overwrite the USER_DB_PATH with fakeUser
+        fs.copyFileSync(USER_DB_PATH, TEMP_USER_DB_PATH, (err) => {
+            if (err) throw err;
+            console.log("Copied user database to temp location");
+            fs.writeFileSync(USER_DB_PATH, JSON.stringify(fakeUser));
+            resolve();
+        });
+    }).catch((err) => {
+        console.log(
+            "An error occured while trying to create the test database"
+        );
         console.log(err);
-    }
+    });
 });
 
 afterAll(() => {
     console.log("Cleaning up mock data");
-    try {
-        fs.unlinkSync(TEST_RECIPE_DB_PATH);
-        fs.unlinkSync(TEST_USER_DB_PATH);
+    return new Promise((resolve) => {
+        // now that our test is done copy the temp user database back to the
+        // original user database
+        fs.copyFileSync(TEMP_USER_DB_PATH, USER_DB_PATH, (err) => {
+            if (err) throw err;
+            console.log("Copied temp user database back to original location");
+            fs.unlinkSync(TEST_RECIPE_DB_PATH);
+            fs.unlinkSync(TEMP_USER_DB_PATH);
+            resolve();
+        });
         // Delete the file
-    } catch (err) {
+    }).catch((err) => {
         console.log("Error occured when trying to clean up:");
         console.log(err);
-    }
+    });
 });
 
 const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
@@ -50,6 +82,7 @@ const generateRandomRecipe = () => {
     // Generate a random string for the name, and a variable amount of tags.
     let randomRecipe = {};
     randomRecipe.name = "Random Recipe " + Math.ceil(Math.random() * 100);
+    randomRecipe.author = "Jest Author";
 
     let newtags = [];
     for (let i = 0; i < Math.ceil(Math.random() * 10); i++) {
@@ -96,7 +129,6 @@ const populateDatabase = (randomRecipes = 10) => {
         // insert some predefined ones...
         // Append random recipes to already predefined recipes
         let newRecipes = [
-            ...recipes,
             ...Array(randomRecipes).fill(null).map(generateRandomRecipe),
         ];
         Promise.race(
@@ -123,18 +155,15 @@ describe("Tests database recipe functions", () => {
 
     test("createRecipe", async () => {
         let randomRecipe = generateRandomRecipe();
-        let result = await Interface.createRecipe(randomRecipe, test.skipDB);
+        let result = await Interface.createRecipe(randomRecipe, testDB);
         expect(result._id).toBeTruthy();
     });
 
     test("getRecipeById", async () => {
         let randomRecipe = generateRandomRecipe();
-        let createdRecipe = await Interface.createRecipe(
-            randomRecipe,
-            test.skipDB
-        );
+        let createdRecipe = await Interface.createRecipe(randomRecipe, testDB);
         let recipeId = createdRecipe._id;
-        let result = await Interface.getRecipeById(recipeId, test.skipDB);
+        let result = await Interface.getRecipeById(recipeId, testDB);
         expect(result._id).toBe(recipeId);
         expect(createdRecipe).toEqual(result);
     });
@@ -146,15 +175,12 @@ describe("Tests database recipe functions", () => {
             let newRandomRecipe = generateRandomRecipe();
             randomRecipes.push(newRandomRecipe);
             createdRecipes.push(
-                await Interface.createRecipe(newRandomRecipe, test.skipDB)
+                await Interface.createRecipe(newRandomRecipe, testDB)
             );
         }
         let createdIds = createdRecipes.map((recipe) => recipe._id);
         let query = { ids: createdIds.join(",") };
-        let resultRecipes = await Interface.getRecipesByQuery(
-            query,
-            test.skipDB
-        );
+        let resultRecipes = await Interface.getRecipesByQuery(query, testDB);
         expect(resultRecipes.length).toBe(createdIds.length);
     });
 
@@ -181,10 +207,7 @@ describe("Tests database recipe functions", () => {
             )
         );
         let query = { name: commonName, tags: commonTag };
-        const queryResult = await Interface.getRecipesByQuery(
-            query,
-            test.skipDB
-        );
+        const queryResult = await Interface.getRecipesByQuery(query, testDB);
         expect(queryResult.length).toBe(commonRecipeCount);
         expect(
             queryResult.every((recipe) => recipe.name.includes(commonName))
@@ -200,10 +223,9 @@ describe("Tests database recipe functions", () => {
     const pageSize = CARDS_PER_PAGE;
     test("getRecipeByPage full", async () => {
         return populateDatabase(pageSize).then(() => {
-            Interface.getRecipeByPage(test.skipDB).then((pagerecipes) => {
+            Interface.getRecipeByPage(testDB).then((pagerecipes) => {
                 expect(pagerecipes.length).toBe(pageSize);
             });
         });
     });
 });
-
