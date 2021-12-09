@@ -27,25 +27,18 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>//This file is when the user searches a keyword in index.html page
-import { createNodeClone } from "./util.js";
-export default { init, initialRecipeCards };
-if (typeof window === "object") {
+import { createNodeClone } from './util.js';
+export default { init, initialRecipeCards }
+if (typeof window === 'object') {
     window.addEventListener("DOMContentLoaded", init);
 }
-import { submitSearch, submitInitialSearch } from "./APICalls.js";
+import { submitSearch, submitInitialSearch } from "./APICalls.js"
 import { createRecipeCards } from "./index.js";
 
-let allTags = [
-    "Easy",
-    "Intermediate",
-    "Hard",
-    "Vegetarian",
-    "Breakfast",
-    "Lunch",
-    "Dinner",
-    "Appetizer",
-    "Vegan",
-];
+let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Lunch", "Dinner", "Appetizer", "Dessert", "Vegan"];
+let difficultyTags = ["Easy", "Intermediate", "Hard"];
+let mealTimeTags = ["Breakfast", "Lunch", "Dinner", "Appetizer", "Dessert"];
+let dietaryTags = ["Vegetarian", "Vegan"];
 let selectedTags = [];
 let curr_page = 1;
 let max_page = 1;
@@ -54,18 +47,19 @@ let max_page = 1;
  */
 async function init() {
     // TODO: Make sure this works for both landing and home pages
-    createNodeClone("#searchBar", true);
+    createNodeClone('#searchBar', true);
     let searchBar = document.querySelector("#searchBar");
-    createNodeClone("#searchButton", true);
+    createNodeClone('#searchButton', true);
     let searchButton = document.querySelector("#searchButton");
     let scrollLeftButton = document.querySelector("#scrollLeft");
     let scrollRightButton = document.querySelector("#scrollRight");
 
-    searchButton.addEventListener("click", async function () {
+    searchButton.addEventListener("click", async function() {
         submitNewSearch();
+
     });
 
-    searchBar.addEventListener("keydown", async function (event) {
+    searchBar.addEventListener("keydown", async function(event) {
         // If enter key is pressed, suppress default rerouting and submit search
         if (event.keyCode === 13) {
             event.preventDefault();
@@ -73,42 +67,32 @@ async function init() {
         }
     });
 
-    scrollRightButton.addEventListener("click", async function () {
+    scrollRightButton.addEventListener("click", async function() {
         if (curr_page &lt; max_page) {
             curr_page++;
-            let results = await submitSearch(
-                searchBar.value,
-                selectedTags,
-                curr_page
-            );
+            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
-            document.getElementById("homePageNum").innerHTML =
-                "Page: " + curr_page + " / " + max_page;
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + ' / ' + max_page;
         }
     });
 
-    scrollLeftButton.addEventListener("click", async function () {
+    scrollLeftButton.addEventListener("click", async function() {
         if (curr_page > 1) {
             curr_page--;
-            let results = await submitSearch(
-                searchBar.value,
-                selectedTags,
-                curr_page
-            );
+            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
-            document.getElementById("homePageNum").innerHTML =
-                "Page: " + curr_page + " / " + max_page;
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + ' / ' + max_page;
         }
     });
 
-    let tagsSelect = document.getElementById("tagsList");
+    let tagsSelect = document.getElementById("tagsTitles");
     // console.log(tagsSelect);
     if (tagsSelect) {
-        chooseTag(this);
+        addTags(this);
         let tagButtons = document.getElementsByClassName("tagButton");
         for (let i = 0; i &lt; tagButtons.length; i++) {
             //e.stopPropagation();
-            tagButtons[i].addEventListener("click", (e) => {
+            tagButtons[i].addEventListener('click', (e) => {
                 clickedOnATag(tagButtons[i]);
             });
             /** 
@@ -119,32 +103,51 @@ async function init() {
                             offHover(tagButtons[i]);
                         });
                         */
+
         }
     }
 }
 
 async function submitNewSearch() {
-    /* eslint-disable no-undef */
-    let searchResults = await submitInitialSearch(
-        searchBar.value,
-        selectedTags
-    );
-    /* eslint-enable no-undef */
+    let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
     createRecipeCards(searchResults.results);
     curr_page = 1;
     max_page = searchResults.pages.pages;
-    document.getElementById("homePageNum").innerHTML =
-        "Page: " + curr_page + " / " + max_page;
+    document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + ' / ' + max_page;
 }
 
-function chooseTag(e) {
-    let tagsList = document.querySelector("#tagsList");
+function addTags(e) {
+    
+    //Difficulty
+    let tagsList = document.getElementById("tagsListDiff");
     tagsList.style.display = "grid";
-    for (let i = 0; i &lt; allTags.length; i++) {
+    for (let i = 0; i &lt; difficultyTags.length; i++) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
-        addTagButton.innerText = allTags[i];
-        addTagButton.id = allTags[i];
+        addTagButton.innerText = difficultyTags[i];
+        addTagButton.id = difficultyTags[i];
+        tagsList.appendChild(addTagButton);
+    }
+
+    //Meal Time
+    tagsList = document.getElementById("tagsListMt");
+    tagsList.style.display = "grid";
+    for (let i = 0; i &lt; mealTimeTags.length; i++) {
+        let addTagButton = document.createElement("button");
+        addTagButton.classList.add("tagButton");
+        addTagButton.innerText = mealTimeTags[i];
+        addTagButton.id = mealTimeTags[i];
+        tagsList.appendChild(addTagButton);
+    }
+
+    //Dietary
+    tagsList = document.getElementById("tagsListDiet");
+    tagsList.style.display = "grid";
+    for (let i = 0; i &lt; dietaryTags.length; i++) {
+        let addTagButton = document.createElement("button");
+        addTagButton.classList.add("tagButton");
+        addTagButton.innerText = dietaryTags[i];
+        addTagButton.id = dietaryTags[i];
         tagsList.appendChild(addTagButton);
     }
 }
@@ -186,12 +189,11 @@ function offHover(e) {
 */
 
 /**
- * Initial render of recipe cards.
+ * Initial render of recipe cards. 
  */
 export async function initialRecipeCards() {
     submitNewSearch();
-}
-</code></pre>
+}</code></pre>
         </article>
     </section>
 
@@ -207,7 +209,7 @@ export async function initialRecipeCards() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu Dec 09 2021 20:02:43 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu Dec 09 2021 20:30:45 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
