@@ -31,6 +31,7 @@ body {
 
 #homePageScrollButton {
     background-color: #ededed;
+    display: inline-flex;
 }
 
 
@@ -67,8 +68,10 @@ Search Bar
     /*background-color: #fcaf58;*/
     color: #4e598c;
     font-size: 110%;
-    margin-left: 165px;
-    padding-bottom: 20px;
+    padding-top: 5%;
+    margin-inline: 10px;
+    /* margin-left: 165px; */
+    /* padding-bottom: 20px; */
 }
 
 #homepage #searchButton,
