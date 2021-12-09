@@ -25,7 +25,6 @@ const clickSave = () => {
 };
 
 describe("End to end test", () => {
-    
     it("should pass this test", () => {
         console.log("Hello");
     });
