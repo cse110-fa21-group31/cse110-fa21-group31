@@ -21,42 +21,44 @@ const fakeUser = {
     _id: fakeUserId,
 };
 
+
+const THECONSOLE = console;
+const log = console.log;
+let originalUserData = ""
+
 beforeAll(() => {
-    console.log("Creating test database and test users");
-    return new Promise((resolve) => {
-        fs.writeFileSync(TEST_RECIPE_DB_PATH, "");
-        fs.writeFileSync(TEMP_USER_DB_PATH, "");
-        fs.copyFileSync(USER_DB_PATH, TEMP_USER_DB_PATH);
-        console.log("Copied user database to temp location");
-        fs.writeFileSync(USER_DB_PATH, JSON.stringify(fakeUser));
-        resolve();
-        // });
-    }).catch((err) => {
-        console.log(
-            "An error occured while trying to create the test database"
-        );
-        console.log(err);
-    });
-});
+    fs.writeFileSync(TEST_RECIPE_DB_PATH, "");
+    // fs.writeFileSync(TEMP_USER_DB_PATH, "");
+    const data = fs.readFileSync(USER_DB_PATH);
+    originalUserData = data.toString();
+    // fs.copyFileSync(USER_DB_PATH, TEMP_USER_DB_PATH);
+    fs.writeFileSync(USER_DB_PATH, JSON.stringify(fakeUser));
+    console.log('sup');
+    THECONSOLE.log = () => {};
+})
 
 afterAll(() => {
-    console.log("Cleaning up mock data");
-    return new Promise((resolve) => {
-        // now that our test is done copy the temp user database back to the
-        // original user database
+    let waitTime = 2000;
+    fs.unlinkSync(TEST_RECIPE_DB_PATH);
+    fs.writeFileSync(USER_DB_PATH, originalUserData);
+    /*
+    setTimeout(() => {
         fs.writeFileSync(USER_DB_PATH, "");
-        fs.copyFileSync(TEMP_USER_DB_PATH, USER_DB_PATH);
-        // if (err) throw err;
-        console.log("Copied temp user database back to original location");
-        fs.unlinkSync(TEST_RECIPE_DB_PATH);
-        fs.unlinkSync(TEMP_USER_DB_PATH);
-        resolve();
-        // });
-        // Delete the file
-    }).catch((err) => {
-        console.log("Error occured when trying to clean up:");
-        console.log(err);
-    });
+        setTimeout(() => {
+            fs.writeFileSync(USER_DB_PATH, originalUserData);
+            setTimeout(() => {
+                fs.unlinkSync(TEST_RECIPE_DB_PATH);
+                setTimeout(() => {
+                    fs.unlinkSync(TEMP_USER_DB_PATH);
+                },waitTime)
+            },waitTime)
+        },waitTime)
+    },waitTime)
+    */
+    // fs.copyFileSync(TEMP_USER_DB_PATH, USER_DB_PATH);
+    // if (err) throw err;
+    
+    
 });
 
 const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
@@ -147,8 +149,19 @@ const getDatabaseCount = () => {
 };
 
 describe("Tests database recipe functions", () => {
-    beforeAll(async () => {
+    beforeEach(async () => {
         await clearDatabase();
+    });
+
+    afterEach(async () => {
+        // this is such a hack and probably violates 50 international treaties
+        // and laws to use a setTimeout like this but i am at my wits end and 
+        // i would like to sleep tonight. 
+        // i have to include this because if i don't, somehow the test data leaks into
+        // the original file and leaves a bunch of test users (i don't even know why it
+        // even produces a bunch of USERS in the first place, it should only leave just one
+        // but this ensures the file returns back to normal after the entire jest test suite)
+        await new Promise((resolve) => {setTimeout(resolve, 500)});
     });
 
     test("createRecipe", async () => {
@@ -212,7 +225,6 @@ describe("Tests database recipe functions", () => {
         expect(
             queryResult.every((recipe) => recipe.name.includes(commonName))
         ).toBeTruthy();
-        console.log(queryResult.map((recipe) => recipe.tags));
         expect(
             queryResult.every((recipe) =>
                 recipe.tags.split(",").includes(commonTag)
