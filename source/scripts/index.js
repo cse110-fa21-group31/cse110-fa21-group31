@@ -8,7 +8,6 @@ export default {
 // RecipeExpand.js
 if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", init);
-
 }
 
 
@@ -61,6 +60,7 @@ async function init() {
     bindEscKey();
     bindPopstate();
     homePageButton();
+    routerNavigateWrapper(HOME_ROUTER)
 }
 
 function homePageButton() {
