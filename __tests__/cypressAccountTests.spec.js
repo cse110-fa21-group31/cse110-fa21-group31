@@ -85,9 +85,7 @@ describe("End to end test", () => {
     it("should be able to input recipe info and successfully make a new recipe", () => {
         cy.get("[data-cy=recipenamefield]").type("Test Recipe");
         cy.get("[data-cy=recipedescfield]").type("This is a test recipe");
-        cy.get("[data-cy=recipetags]").type(
-            "testtag, testtag2, testtag3"
-        );
+        cy.get("[data-cy=recipetags]").type("testtag, testtag2, testtag3");
         cy.get("[data-cy=recipecooktime]").type("10");
         cy.get("[data-cy=recipeservingsize]").type("1");
         cy.get("[data-cy=recipedifficulty]").select("5");
@@ -124,7 +122,9 @@ describe("End to end test", () => {
             cy.get("#recipeForm > #steps > #addSteps > #addStep").click();
             cy.get(`#textAreaBox[name=step${i}]`).type("s" + i);
         }
-        cy.get("[data-cy=newstep]").children().should("have.length", amountOfSteps);
+        cy.get("[data-cy=newstep]")
+            .children()
+            .should("have.length", amountOfSteps);
 
         let amountOfStepsDeleted = Math.floor(Math.random() * 1) + 1;
         for (let i = 0; i < amountOfStepsDeleted; i++) {
