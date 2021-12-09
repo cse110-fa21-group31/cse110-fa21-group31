@@ -126,7 +126,9 @@ describe("End to end test", () => {
             cy.get("#recipeForm > #steps > #addSteps > #addStep").click();
             cy.get(`#textAreaBox[name=step${i}]`).type("s" + i);
         }
-        cy.get("[data-cy=newstep]").children().should("have.length", amountOfSteps);
+        cy.get("[data-cy=newstep]")
+            .children()
+            .should("have.length", amountOfSteps);
 
         let amountOfStepsDeleted = Math.floor(Math.random() * 1) + 1;
         for (let i = 0; i < amountOfStepsDeleted; i++) {

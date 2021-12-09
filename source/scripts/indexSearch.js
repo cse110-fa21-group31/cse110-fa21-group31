@@ -1,13 +1,23 @@
 //This file is when the user searches a keyword in index.html page
-import { createNodeClone } from './util.js';
-export default { init, initialRecipeCards }
-if (typeof window === 'object') {
+import { createNodeClone } from "./util.js";
+export default { init, initialRecipeCards };
+if (typeof window === "object") {
     window.addEventListener("DOMContentLoaded", init);
 }
-import { submitSearch, submitInitialSearch } from "./APICalls.js"
+import { submitSearch, submitInitialSearch } from "./APICalls.js";
 import { createRecipeCards } from "./index.js";
 
-let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Lunch", "Dinner", "Appetizer", "Vegan"];
+let allTags = [
+    "Easy",
+    "Intermediate",
+    "Hard",
+    "Vegetarian",
+    "Breakfast",
+    "Lunch",
+    "Dinner",
+    "Appetizer",
+    "Vegan",
+];
 let selectedTags = [];
 let curr_page = 1;
 let max_page = 1;
@@ -16,19 +26,18 @@ let max_page = 1;
  */
 async function init() {
     // TODO: Make sure this works for both landing and home pages
-    createNodeClone('#searchBar', true);
+    createNodeClone("#searchBar", true);
     let searchBar = document.querySelector("#searchBar");
-    createNodeClone('#searchButton', true);
+    createNodeClone("#searchButton", true);
     let searchButton = document.querySelector("#searchButton");
     let scrollLeftButton = document.querySelector("#scrollLeft");
     let scrollRightButton = document.querySelector("#scrollRight");
 
-    searchButton.addEventListener("click", async function() {
+    searchButton.addEventListener("click", async function () {
         submitNewSearch();
-
     });
 
-    searchBar.addEventListener("keydown", async function(event) {
+    searchBar.addEventListener("keydown", async function (event) {
         // If enter key is pressed, suppress default rerouting and submit search
         if (event.keyCode === 13) {
             event.preventDefault();
@@ -36,21 +45,31 @@ async function init() {
         }
     });
 
-    scrollRightButton.addEventListener("click", async function() {
+    scrollRightButton.addEventListener("click", async function () {
         if (curr_page < max_page) {
             curr_page++;
-            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
+            let results = await submitSearch(
+                searchBar.value,
+                selectedTags,
+                curr_page
+            );
             createRecipeCards(results);
-            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + ' / ' + max_page;
+            document.getElementById("homePageNum").innerHTML =
+                "Page: " + curr_page + " / " + max_page;
         }
     });
 
-    scrollLeftButton.addEventListener("click", async function() {
+    scrollLeftButton.addEventListener("click", async function () {
         if (curr_page > 1) {
             curr_page--;
-            let results = await submitSearch(searchBar.value, selectedTags, curr_page);
+            let results = await submitSearch(
+                searchBar.value,
+                selectedTags,
+                curr_page
+            );
             createRecipeCards(results);
-            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + ' / ' + max_page;
+            document.getElementById("homePageNum").innerHTML =
+                "Page: " + curr_page + " / " + max_page;
         }
     });
 
@@ -61,7 +80,7 @@ async function init() {
         let tagButtons = document.getElementsByClassName("tagButton");
         for (let i = 0; i < tagButtons.length; i++) {
             //e.stopPropagation();
-            tagButtons[i].addEventListener('click', (e) => {
+            tagButtons[i].addEventListener("click", (e) => {
                 clickedOnATag(tagButtons[i]);
             });
             /** 
@@ -72,19 +91,22 @@ async function init() {
                             offHover(tagButtons[i]);
                         });
                         */
-
         }
     }
 }
 
 async function submitNewSearch() {
     /* eslint-disable no-undef */
-    let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
+    let searchResults = await submitInitialSearch(
+        searchBar.value,
+        selectedTags
+    );
     /* eslint-enable no-undef */
     createRecipeCards(searchResults.results);
     curr_page = 1;
     max_page = searchResults.pages.pages;
-    document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + ' / ' + max_page;
+    document.getElementById("homePageNum").innerHTML =
+        "Page: " + curr_page + " / " + max_page;
 }
 
 function chooseTag(e) {
@@ -136,7 +158,7 @@ function offHover(e) {
 */
 
 /**
- * Initial render of recipe cards. 
+ * Initial render of recipe cards.
  */
 export async function initialRecipeCards() {
     submitNewSearch();

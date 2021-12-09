@@ -5,7 +5,7 @@
  * sign-in and log-out
  * Dependency: navBarWithGoogle.html
  */
-export default { onSignIn }
+export default { onSignIn };
 import {
     ELE_CLASS_PROFILE_IMAGE,
     ELE_ID_PROFILE,
@@ -14,22 +14,33 @@ import {
     SIGN_OUT_BUTTON_ID,
 } from "./util.js";
 
-import { populateUserInfoPage } from './userInfo.js'
-import { bindUserProfile, setGlobalUserData, clearGlobalUserData,routerNavigateWrapper } from "./index.js";
+import { populateUserInfoPage } from "./userInfo.js";
+import {
+    bindUserProfile,
+    setGlobalUserData,
+    clearGlobalUserData,
+    routerNavigateWrapper,
+} from "./index.js";
 import { fetchRecipesByIds, getUserData } from "./APICalls.js";
-import { HOME_ROUTER, DISPLAY_NONE, DISPLAY_BLOCK, HTML_ELE_IMG, IMG_NO_REFERRER } from "./util.js";
+import {
+    HOME_ROUTER,
+    DISPLAY_NONE,
+    DISPLAY_BLOCK,
+    HTML_ELE_IMG,
+    IMG_NO_REFERRER,
+} from "./util.js";
 
 // Set functions onSignIn and signOut to global scope, otherwise they're not
 // accessible in html
-if (typeof window === 'object') {
+if (typeof window === "object") {
     window.onSignIn = onSignIn;
     window.signOut = signOut;
 }
 
 /**
- * Prevents Google auto login. If we use this, every time user refreshes the 
- * page he/she will be logged out. So DON'T use it. 
- * 
+ * Prevents Google auto login. If we use this, every time user refreshes the
+ * page he/she will be logged out. So DON'T use it.
+ *
  * @param {event} e Event of onbeforeunload
  */
 // window.onbeforeunload = function(e){
@@ -43,7 +54,6 @@ if (typeof window === 'object') {
  * @param {*} googleUser User profile provided by Google sign-in API.
  */
 async function onSignIn(googleUser) {
-
     var profile = {
         username: googleUser.getBasicProfile().getName(),
         imageURL: googleUser.getBasicProfile().getImageUrl(),
@@ -64,7 +74,7 @@ async function onSignIn(googleUser) {
     // Since email is unique, we won't need ID token for identification
     console.log("User login activity caught:");
     // console.log('ID token: ' + googleUser.getAuthResponse().id_token);
-    console.log(profile)
+    console.log(profile);
 
     // When logged in, show profile image and sign-out button, remove sign-in
     // button

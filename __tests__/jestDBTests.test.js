@@ -21,10 +21,9 @@ const fakeUser = {
     _id: fakeUserId,
 };
 
-
 const THECONSOLE = console;
 const log = console.log;
-let originalUserData = ""
+let originalUserData = "";
 
 beforeAll(() => {
     fs.writeFileSync(TEST_RECIPE_DB_PATH, "");
@@ -33,9 +32,9 @@ beforeAll(() => {
     originalUserData = data.toString();
     // fs.copyFileSync(USER_DB_PATH, TEMP_USER_DB_PATH);
     fs.writeFileSync(USER_DB_PATH, JSON.stringify(fakeUser));
-    console.log('sup');
+    console.log("sup");
     THECONSOLE.log = () => {};
-})
+});
 
 afterAll(() => {
     let waitTime = 2000;
@@ -57,8 +56,6 @@ afterAll(() => {
     */
     // fs.copyFileSync(TEMP_USER_DB_PATH, USER_DB_PATH);
     // if (err) throw err;
-    
-    
 });
 
 const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
@@ -155,13 +152,15 @@ describe("Tests database recipe functions", () => {
 
     afterEach(async () => {
         // this is such a hack and probably violates 50 international treaties
-        // and laws to use a setTimeout like this but i am at my wits end and 
-        // i would like to sleep tonight. 
+        // and laws to use a setTimeout like this but i am at my wits end and
+        // i would like to sleep tonight.
         // i have to include this because if i don't, somehow the test data leaks into
         // the original file and leaves a bunch of test users (i don't even know why it
         // even produces a bunch of USERS in the first place, it should only leave just one
         // but this ensures the file returns back to normal after the entire jest test suite)
-        await new Promise((resolve) => {setTimeout(resolve, 500)});
+        await new Promise((resolve) => {
+            setTimeout(resolve, 500);
+        });
     });
 
     test("createRecipe", async () => {
@@ -184,7 +183,7 @@ describe("Tests database recipe functions", () => {
     test("getRecipesByIds", async () => {
         let randomRecipes = [];
         let createdRecipes = [];
-        for (let i = 0; i < CARDS_PER_PAGE-1; i++) {
+        for (let i = 0; i < CARDS_PER_PAGE - 1; i++) {
             let newRandomRecipe = generateRandomRecipe();
             randomRecipes.push(newRandomRecipe);
             createdRecipes.push(
@@ -202,7 +201,7 @@ describe("Tests database recipe functions", () => {
         const commonTag = "commontag";
         // generate a bunch of new recipes that have commonName inside their name
         // and also have commonTag as a tag in their tagstring
-        const commonRecipeCount = CARDS_PER_PAGE-1;
+        const commonRecipeCount = CARDS_PER_PAGE - 1;
         const commonRecipes = Array(commonRecipeCount)
             .fill(null)
             .map(() => {
@@ -240,7 +239,7 @@ describe("Tests database recipe functions", () => {
     });
 
     test("getRecipeByPage past full", async () => {
-        await populateDatabase(CARDS_PER_PAGE+5);
+        await populateDatabase(CARDS_PER_PAGE + 5);
         let query = { name: "", tags: "" };
         let pagedrecipes = await Interface.getRecipesByQuery(query, testDB);
         expect(pagedrecipes.length).toBe(CARDS_PER_PAGE);

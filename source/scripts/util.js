@@ -16,21 +16,20 @@ export const RECIPE_ROUTE = "recipe/";
 export const USER_ROUTE = "user/";
 export const EDIT_CREATE_ROUTE = "create/";
 // TODO: change editcreate route name
-export const API_URL = "/api"
-export const USER_URL = "/api/user"
+export const API_URL = "/api";
+export const USER_URL = "/api/user";
 export const IMAGE_UPLOAD_URL = "/api/imageUpload";
 export const CARDS_PER_PAGE = 6;
-export const HOME_ROUTER = 'home';
+export const HOME_ROUTER = "home";
 /**
- * Clone a node to clear all eventListener. 
- * @param {*} selector 
+ * Clone a node to clear all eventListener.
+ * @param {*} selector
  */
 export function createNodeClone(selector, isQuerySelector) {
     let original;
     if (isQuerySelector) {
         original = document.querySelector(selector);
-    }
-    else {
+    } else {
         original = document.getElementById(selector);
     }
     let clone = original.cloneNode(true);
