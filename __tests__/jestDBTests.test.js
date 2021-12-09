@@ -1,17 +1,31 @@
 // Jest Unit testing
 
 import * as Interface from "../source/service/server/interface.mjs";
-import { TEST_RECIPE_DB_PATH, CARDS_PER_PAGE } from "../source/service/util.js";
+import { TEST_RECIPE_DB_PATH, CARDS_PER_PAGE, USER_DB_PATH, TEST_USER_DB_PATH } from "../source/service/util.js";
 import Datastore from "nedb";
 import recipes from "./testRecipes.js";
 import fs from "fs";
 
 beforeAll(() => {
-    console.log("Creating test database");
+    console.log("Creating test database and test users");
     try {
-        fs.writeFileSync(TEST_RECIPE_DB_PATH, "");
+        fs.linkSync(TEST_RECIPE_DB_PATH, "");
+        fs.linkSync(TEST_USER_DB_PATH, "");
+        fs.copyFile(USER_DB_PATH, TEST_USER_DB_PATH);
     } catch (err) {
         console.log("An error occured while trying to create the test database");
+        console.log(err);
+    }
+});
+
+afterAll(() => {
+    console.log("Cleaning up mock data");
+    try {
+        fs.unlinkSync(TEST_RECIPE_DB_PATH);
+        fs.unlinkSync(TEST_USER_DB_PATH);
+        // Delete the file
+    } catch (err) {
+        console.log("Error occured when trying to clean up:");
         console.log(err);
     }
 });
@@ -193,14 +207,3 @@ describe("Tests database recipe functions", () => {
     });
 });
 
-afterAll(() => {
-    return () => {
-        console.log("Cleaning up mock data");
-        try {
-            fs.unlinkSync(TEST_RECIPE_DB_PATH);
-        } catch (err) {
-            console.log("Error occured when trying to clean up:");
-            console.log(err);
-        }
-    };
-});
