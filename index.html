@@ -230,7 +230,7 @@
 
                 <div id="name" class="formItem">
                     <label for="name">Recipe Name: *</label>
-                    <input type="text" name="name" id="name" placeholder="A creative name" required>
+                    <input type="text" name="name" id="name" placeholder="A creative name" data-cy="recipenamefield" required>
                 </div>
 
                 <div id="picture" class="formItem">
@@ -241,28 +241,28 @@
 
                 <div id="description" class="formItem">
                     <label for="description">Description:</label>
-                    <textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!"></textarea>
+                    <textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!" data-cy="recipedescfield"></textarea>
                 </div>
                 <!-- Tags will be sent to the backend as a big comma delimited string -->
                 <div id="tags" class="formItem">
                     <label for="tags">Tags: (separate by comma)</label>
-                    <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3">
+                    <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3" data-cy="recipetags">
                 </div>
 
 
                 <div id="cookTime" class="formItem">
                     <label for="cookTime">Cook Time:</label>
-                    <input type="text" name="cookTime" id="prepTime" placeholder="x hours">
+                    <input type="text" name="cookTime" id="prepTime" placeholder="x hours" data-cy="recipecooktime">
                 </div>
 
                 <div id="servingSize" class="formItem">
                     <label for="servingSize">Serving Size:</label>
-                    <input type="text" name="servingSize" id="servingSize" placeholder="x people">
+                    <input type="text" name="servingSize" id="servingSize" placeholder="x people" data-cy="recipeservingsize">
                 </div>
                 <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
                 <div id="difficulty" class="formItem">
                     <label for="difficulty">Difficulty:</label>
-                    <select name="difficulty" id="difficulty">
+                    <select name="difficulty" id="difficulty" data-cy="recipedifficulty">
                         <option value="1">1 star</option>
                         <option value="2">2 stars</option>
                         <option value="3">3 stars</option>
@@ -271,7 +271,7 @@
                     </select>
                 </div>
 
-                <div id="ingredients" class="formItem">
+                <div id="ingredients" class="formItem" data-cy="recipeingredients">
                     <label for="ingredients">Ingredients:</label>
 
                     <div id="addIngredients">
@@ -288,7 +288,7 @@
                     </div>
                 </div>
 
-                <div id="steps" class="formItem">
+                <div id="steps" class="formItem" data-cy="recipesteps">
                     <label for="steps">Steps:</label>
                     <div id="addSteps">
                         <input type="button" id="addStep" value="Add Step"></button>
@@ -299,7 +299,7 @@
 
                 <div class="float-container">
                     <div id="cancel" class="float-child">
-                        <input type="button" value="Cancel">
+                        <input type="button" value="Cancel" data-cy="cancelbutton">
                     </div>
                     <div id="submit" class="float-child">
                         <input type="submit" value="Save" data-cy="savebutton">

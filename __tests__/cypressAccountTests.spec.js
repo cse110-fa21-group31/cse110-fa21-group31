@@ -83,16 +83,14 @@ describe("End to end test", () => {
         recipeCreatePageVisible();
     });
     it("should be able to input recipe info and successfully make a new recipe", () => {
-        cy.get("#name").type("Test Recipe");
-        cy.get("#descriptionText").type("This is a test recipe");
-        cy.get("#recipeForm > :nth-child(4) > #tags").type(
+        cy.get("[data-cy=recipenamefield]").type("Test Recipe");
+        cy.get("[data-cy=recipedescfield]").type("This is a test recipe");
+        cy.get("[data-cy=recipetags]").type(
             "testtag, testtag2, testtag3"
         );
-        cy.get("#cookTime > #prepTime").type("10");
-        cy.get("#recipeForm > :nth-child(6) > #servingSize").type("1");
-        cy.get("#recipeForm > :nth-child(7) > #difficulty").select("5");
-        cy.get("#recipeForm > :nth-child(6) > #servingSize").type("1");
-        cy.get("#recipeForm > :nth-child(7) > #difficulty").select("5");
+        cy.get("[data-cy=recipecooktime]").type("10");
+        cy.get("[data-cy=recipeservingsize]").type("1");
+        cy.get("[data-cy=recipedifficulty]").select("5");
     });
     it("should be able to change ingredients by adding and deleting", () => {
         let amountOfIngredients = Math.floor(Math.random() * 3) + 3;
@@ -126,9 +124,7 @@ describe("End to end test", () => {
             cy.get("#recipeForm > #steps > #addSteps > #addStep").click();
             cy.get(`#textAreaBox[name=step${i}]`).type("s" + i);
         }
-        cy.get("[data-cy=newstep]")
-            .children()
-            .should("have.length", amountOfSteps);
+        cy.get("[data-cy=newstep]").children().should("have.length", amountOfSteps);
 
         let amountOfStepsDeleted = Math.floor(Math.random() * 1) + 1;
         for (let i = 0; i < amountOfStepsDeleted; i++) {
@@ -158,6 +154,8 @@ describe("End to end test", () => {
         cy.get("#description").should("contain", "(Edited)");
     });
     it("should have its edits be seen", () => {});
+
+    //
 
     // DISQUS
     it("should be able to comment on the recipe", () => {
