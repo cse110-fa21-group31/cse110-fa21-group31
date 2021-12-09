@@ -93,7 +93,9 @@
         <div id="homePageScrollButton" class="homePageScrollButton">
             <input type="button" id="scrollLeft" value='<'>
             <input type="button" id="scrollRight" value='>'>
+            <div id="homePageNum" class="homePageNum">Page: 1</div>
         </div>
+
     </section>
 
     <!-- home page -->
@@ -126,7 +128,7 @@
         <button id="editRecipeButton">Edit</button>
         <button id="deleteRecipeButton">Delete</button>
         <button id="saveRecipeButton"></button>
-        
+
         <!-- Displaying recipe title, creation date, author-->
         <p id="recipeTitle">Recipe title</p>
         <div id="dateAuthor">
@@ -207,6 +209,11 @@
                 grid-template-columns: 1fr 1fr 1fr;
                 padding: 10px;
             }
+            
+            #userInfoRecipeBoxes {
+                display: grid;
+                justify-content: center;
+            }
         </style>
         <div class="userInfoGridContainer">
             <!-- User Profile, left side -->
@@ -217,21 +224,13 @@
                 <button id="createRecipePageButton" type="button"> New Recipe </button>
             </div>
             <!-- Recipe Section -->
-            <div class="userInfoGridItem">
+            <div class="userInfoGridItem" id="userInfoRecipeBoxes">
 
                 <h1 id="myRecipes"> My Recipes </h1>
-                <div id="myRecipeScroll">
-                    <input type="button" id="myScrollLeft" value='<'>
-                    <input type="button" id="myScrollRight" value='>'>
-                </div>
                 <div class="myUploadRecipeCardGridContainer">
                 </div>
 
                 <h1 id="savedRecipes"> Saved Recipes </h1>
-                <div id="savedRecipeScroll">
-                    <input type="button" id="savedScrollLeft" value='<'>
-                    <input type="button" id="savedScrollRight" value='>'>
-                </div>
                 <div class="savedRecipes">
 
                     <div class="mySavedRecipeCardGridContainer">
