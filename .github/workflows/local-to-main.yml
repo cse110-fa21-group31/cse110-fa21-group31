@@ -68,7 +68,7 @@ jobs:
       uses: cypress-io/github-action@v2.9.7
       with:
         start: npm start
-        config-file: cypress.json
+        config-file: config/cypress.json
 
   lint: 
 

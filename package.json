@@ -48,6 +48,16 @@
             }
         }
     },
+    "prettier": {
+        "tabWidth": 4
+    },
+    "stylelint": {
+        "extends": "stylelint-config-standard",
+        "rules": {
+            "selector-class-pattern": "^[a-z][a-zA-Z0-9\\-]+$",
+            "selector-id-pattern": "^[a-z][a-zA-Z0-9\\-]+$"
+        }
+    },
     "eslintConfig": {
         "env": {
             "node": true,
