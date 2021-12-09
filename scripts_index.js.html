@@ -29,36 +29,24 @@
             <pre class="prettyprint source linenums"><code>// import RecipeClass from "./recipeClass";
 // The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
 export default {
-    createRecipeCards,
-    redirectRecipeDetail,
-    bindRecipeCard,
-    routerAddCreatePage,
-    routerAddEditPage,
-    routerNavigateWrapper,
-    bindUserProfile,
-    bindEscKey,
-    bindPopstate,
-    setGlobalUserData,
-    clearGlobalUserData,
-};
+    createRecipeCards, redirectRecipeDetail, bindRecipeCard,
+    routerAddCreatePage, routerAddEditPage, routerNavigateWrapper,
+    bindUserProfile, bindEscKey, bindPopstate, setGlobalUserData, clearGlobalUserData
+}
 // RecipeExpand.js
 if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", init);
 }
 
+
 // THESE SHOULD BE GIVEN VIA API
-import { Router } from "./router/Router.js";
-import {
-    ELE_ID_PROFILE_WRAPPER,
-    RECIPE_ROUTE,
-    USER_ROUTE,
-    HOME_ROUTER,
-} from "./util.js";
-import { fillOutRecipe } from "./recipeDetail.js";
-import { setupCreatePage } from "./createPage.js";
-import { populateEditPage } from "./editPage.js";
-import { setupDisqusScript } from "./disqus.js";
-import { initialRecipeCards } from "./indexSearch.js";
+import { Router } from './router/Router.js'
+import { ELE_ID_PROFILE_WRAPPER, RECIPE_ROUTE, USER_ROUTE, HOME_ROUTER } from './util.js'
+import { fillOutRecipe } from './recipeDetail.js'
+import { setupCreatePage } from './createPage.js'
+import { populateEditPage } from './editPage.js'
+import { setupDisqusScript } from './disqus.js';
+import { initialRecipeCards } from './indexSearch.js';
 var recipeData = [];
 export var userData = null;
 
@@ -69,16 +57,19 @@ let createRecipePage = null; // = document.getElementById('createRecipe')
 let editRecipePage = null; // = document.getElementById('editRecipe')
 let landingPage = null; // = document.getElementById('landingPage')
 
-if (typeof window === "object") {
-    if (typeof window.document === "object") {
-        homePage = document.getElementById("homePage");
-        recipeDetailPage = document.getElementById("recipeDetail");
-        userInfoPage = document.getElementById("userInfo");
-        createRecipePage = document.getElementById("createRecipe");
-        editRecipePage = document.getElementById("editRecipe");
-        landingPage = document.getElementById("landingPage");
+if (typeof window === 'object') {
+    if (typeof window.document === 'object') {
+        homePage = document.getElementById('homePage');
+        recipeDetailPage = document.getElementById('recipeDetail');
+        userInfoPage = document.getElementById('userInfo');
+        createRecipePage = document.getElementById('createRecipe');
+        editRecipePage = document.getElementById('editRecipe');
+        landingPage = document.getElementById('landingPage');
     }
 }
+
+
+
 
 export const router = new Router(function () {
     // console.log("Test router");
@@ -97,19 +88,19 @@ async function init() {
     bindEscKey();
     bindPopstate();
     homePageButton();
-    routerNavigateWrapper(HOME_ROUTER);
+    routerNavigateWrapper(HOME_ROUTER)
 }
 
 function homePageButton() {
-    let but = document.getElementsByClassName("logo")[0];
-    but.addEventListener("click", () => {
+    let but = document.getElementsByClassName('logo')[0];
+    but.addEventListener('click', () => {
         routerNavigateWrapper(HOME_ROUTER);
-    });
+    })
 }
 
 // the jankiest solution to ever exist (sorry)
 // any suggestion to make this better or placed somewhere else is welcome
-let observedMutationEvent = new Event("observedMutation");
+let observedMutationEvent = new Event('observedMutation')
 let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
         if (!mutation.addedNodes) return;
@@ -125,7 +116,7 @@ const waitForSelector = (selectorStr) => {
         if (element) {
             resolve(element);
         } else {
-            document.addEventListener("observedMutation", () => {
+            document.addEventListener('observedMutation', () => {
                 const element = document.querySelector(selectorStr);
                 if (element) {
                     resolve(element);
@@ -133,7 +124,7 @@ const waitForSelector = (selectorStr) => {
             });
         }
     });
-};
+}
 
 observer.observe(document.body, {
     childList: true,
@@ -147,8 +138,8 @@ observer.observe(document.body, {
  * appends them to the page
  */
 export function createRecipeCards(recipes, container) {
-    let containerName = container;
-    if (!containerName) containerName = ".myRecipeCardGridContainer";
+    let containerName = container
+    if (!containerName) containerName = '.myRecipeCardGridContainer'
     // console.log(container)
     let newRecipes = recipeData;
     if (recipes) {
@@ -156,39 +147,40 @@ export function createRecipeCards(recipes, container) {
     }
     // Makes new recipe cards
     // Wait until the gridContainer is loaded
-    waitForSelector(containerName).then((gridContainer) => {
-        while (gridContainer.firstChild) {
-            gridContainer.removeChild(gridContainer.firstChild);
-        }
-        newRecipes.forEach((recipeObj) => {
-            if (!recipeObj) return;
-            //create the recipe card
-            const recipeCard = document.createElement("recipe-card");
-            recipeCard.data = recipeObj;
-            //create the recipeDetail page for this card and linked it to the router
-            redirectRecipeDetail(recipeObj);
-            // click event
-            const page = recipeObj._id;
-            const routeUrl = RECIPE_ROUTE + page;
-            //when this card is clicked, redirect to the recipeDetail page
-            recipeCard.addEventListener("click", (e) => {
-                // if (e.path[0].nodeName == 'A') return;
-                router.navigate(routeUrl);
-                const disqusScript = document.getElementById("disqus_script");
-                disqusScript.onload = setupDisqusScript(recipeObj._id);
-            });
-            gridContainer.appendChild(recipeCard);
+    waitForSelector(containerName)
+        .then(gridContainer => {
+            while (gridContainer.firstChild) {
+                gridContainer.removeChild(gridContainer.firstChild);
+            }
+            newRecipes.forEach(recipeObj => {
+                if (!recipeObj) return
+                //create the recipe card
+                const recipeCard = document.createElement('recipe-card');
+                recipeCard.data = recipeObj
+                //create the recipeDetail page for this card and linked it to the router
+                redirectRecipeDetail(recipeObj)
+                // click event
+                const page = recipeObj._id;
+                const routeUrl = RECIPE_ROUTE + page
+                //when this card is clicked, redirect to the recipeDetail page
+                recipeCard.addEventListener('click', e => {
+                    // if (e.path[0].nodeName == 'A') return;
+                    router.navigate(routeUrl);
+                    const disqusScript = document.getElementById('disqus_script');
+                    disqusScript.onload = setupDisqusScript(recipeObj._id)
+                });
+                gridContainer.appendChild(recipeCard);
+            })
         });
-    });
 }
 
 /**
  * Adds the function in Router that redirects to recipeDetail
- * @param recipeObj The object of the created recipe.
+ * @param recipeObj The object of the created recipe. 
  */
 export function redirectRecipeDetail(recipeObj) {
     const page = recipeObj._id;
-    const routeUrl = RECIPE_ROUTE + page;
+    const routeUrl = RECIPE_ROUTE + page
     router.addPage(routeUrl, function () {
         homePage.classList.remove("shown");
         recipeDetailPage.classList.add("shown");
@@ -198,7 +190,7 @@ export function redirectRecipeDetail(recipeObj) {
         landingPage.classList.remove("shown");
         recipeDetailPage.data = recipeObj;
         // console.log(recipeDetailPage.data)
-        fillOutRecipe(recipeObj);
+        fillOutRecipe(recipeObj)
         // const disqusScript = document.getElementById('disqus_script');
         // disqusScript.onload = setupDisqusScript(recipeObj._id)
     });
@@ -211,15 +203,15 @@ export function redirectRecipeDetail(recipeObj) {
  * @param {String} pageName the name of the page to navigate to on click
  */
 export function bindRecipeCard(recipeCard, pageName) {
-    recipeCard.addEventListener("click", (e) => {
-        if (e.path[0].nodeName == "A") return;
+    recipeCard.addEventListener('click', e => {
+        if (e.path[0].nodeName == 'A') return;
         router.navigate(pageName);
     });
 }
 
 /**
- *
- * @param {*} pageName
+ * 
+ * @param {*} pageName 
  * @param {*} callback function
  */
 export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
@@ -231,23 +223,23 @@ export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
             createRecipePage.classList.remove("shown");
             editRecipePage.classList.add("shown");
             landingPage.classList.remove("shown");
-            populateEditPage(recipeObj);
-        });
-    } else
-        router.addPage(pageName, function () {
-            homePage.classList.remove("shown");
-            recipeDetailPage.classList.remove("shown");
-            userInfoPage.classList.remove("shown");
-            createRecipePage.classList.add("shown");
-            editRecipePage.classList.remove("shown");
-            landingPage.classList.remove("shown");
-            setupCreatePage();
-        });
+            populateEditPage(recipeObj)
+        })
+    }
+    else router.addPage(pageName, function () {
+        homePage.classList.remove("shown");
+        recipeDetailPage.classList.remove("shown");
+        userInfoPage.classList.remove("shown");
+        createRecipePage.classList.add("shown");
+        editRecipePage.classList.remove("shown");
+        landingPage.classList.remove("shown");
+        setupCreatePage()
+    })
 }
 
 /**
- *
- * @param {*} pageName
+ * 
+ * @param {*} pageName 
  * @param {*} callback function
  */
 export function routerAddEditPage(pageName, recipeObj) {
@@ -259,8 +251,8 @@ export function routerAddEditPage(pageName, recipeObj) {
         landingPage.classList.remove("shown");
         editRecipePage.classList.add("shown");
 
-        populateEditPage(recipeObj);
-    });
+        populateEditPage(recipeObj)
+    })
 }
 
 export function routerNavigateWrapper(pageName) {
@@ -272,7 +264,7 @@ export function routerNavigateWrapper(pageName) {
  * @param {Element} profile the user profile json file
  */
 export async function bindUserProfile(profile) {
-    const pageName = USER_ROUTE + profile._id;
+    const pageName = USER_ROUTE + profile._id
     router.addPage(pageName, function () {
         homePage.classList.remove("shown");
         recipeDetailPage.classList.remove("shown");
@@ -280,35 +272,23 @@ export async function bindUserProfile(profile) {
         editRecipePage.classList.remove("shown");
         landingPage.classList.remove("shown");
         userInfoPage.classList.add("shown");
-        userInfoPage.data = profile;
+        userInfoPage.data = profile
         // Important: we need profile.myRecipe and profile.savedRecipe as an array of recipe OBJECT
-        document.getElementById("userName").textContent = profile.username
-            ? profile.username
-            : "OliveU User";
-        document.getElementById("userEmail").textContent = profile.email
-            ? profile.email
-            : "OliveU Email";
-        document.getElementById("notProfile").src = profile.imageURL
-            ? profile.imageURL
-            : "./source/assets/profile.png";
+        document.getElementById("userName").textContent = profile.username ? profile.username : "OliveU User"
+        document.getElementById("userEmail").textContent = profile.email ? profile.email : "OliveU Email"
+        document.getElementById("notProfile").src = profile.imageURL ? profile.imageURL : "./source/assets/profile.png"
 
         if (profile.myRecipe) {
-            createRecipeCards(
-                profile.myRecipe,
-                ".myUploadRecipeCardGridContainer"
-            );
+            createRecipeCards(profile.myRecipe, ".myUploadRecipeCardGridContainer")
         }
         if (profile.savedRecipe) {
-            createRecipeCards(
-                profile.savedRecipe,
-                ".mySavedRecipeCardGridContainer"
-            );
+            createRecipeCards(profile.savedRecipe, ".mySavedRecipeCardGridContainer")
         }
     });
 
-    const profileButton = document.getElementById(ELE_ID_PROFILE_WRAPPER);
-    profileButton.addEventListener("click", (e) => {
-        if (e.path[0].nodeName == "A") return;
+    const profileButton = document.getElementById(ELE_ID_PROFILE_WRAPPER)
+    profileButton.addEventListener('click', e => {
+        if (e.path[0].nodeName == 'A') return;
         router.navigate(pageName);
     });
 }
@@ -318,7 +298,7 @@ export async function bindUserProfile(profile) {
  * it is clicked, the home page is returned to
  */
 export function bindEscKey() {
-    document.addEventListener("keydown", function (e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key == "Escape") {
             router.navigate("home", false);
         }
@@ -327,18 +307,19 @@ export function bindEscKey() {
 
 /**
  * Binds the 'popstate' event on the window (which fires when the back &amp;
- * forward buttons are pressed) so the navigation will continue to work
- * as expected.
+ * forward buttons are pressed) so the navigation will continue to work 
+ * as expected. 
  */
 export function bindPopstate() {
-    window.addEventListener("popstate", (event) => {
+    window.addEventListener('popstate', (event) => {
         if (event.state) {
             router.navigate(event.state.pageName, true);
         } else {
-            router.navigate("home", true);
+            router.navigate('home', true);
         }
     });
 }
+
 
 /**
  * Save profile to global variable userData in index.js.
@@ -353,8 +334,7 @@ export function setGlobalUserData(profile) {
  */
 export function clearGlobalUserData() {
     userData = null;
-}
-</code></pre>
+}</code></pre>
         </article>
     </section>
 
@@ -370,7 +350,7 @@ export function clearGlobalUserData() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu Dec 09 2021 21:13:09 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu Dec 09 2021 22:02:18 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
