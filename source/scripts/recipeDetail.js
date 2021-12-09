@@ -14,16 +14,6 @@ let isSaved = false; // Variable to keep track of saved status
  * Populates the recipe detail pages by fetching recipe json and filling in 
  * properties in html components. 
  */
-/*
-export async function populateRecipeDetail() {
-    const url = parent.document.URL;
-    let recipeID = url.substring(url.indexOf('#') + RECIPE_ROUTE.length + 1, url.length);
-    // let recipeID = "AJlpmnCbp6gry18v";
-    let recipe = await fetchRecipeById(recipeID);
-    fillOutRecipe(recipe);
-}
-*/
-
 export async function fillOutRecipe(data) {
     createNodeClone('saveRecipeButton');
     if (!data) return
@@ -191,7 +181,7 @@ const saveRecipe = (data) => () => {
 function addSaveButton(data) {
     const saveRecipeButton = document.getElementById('saveRecipeButton');
     isSaved = false;
-    console.log("data id: " + data._id);
+    // console.log("data id: " + data._id);
     for (let i = 0; i < userData.savedRecipe.length; i++) {
         if (userData.savedRecipe[i]._id == data._id) {
             isSaved = true;
