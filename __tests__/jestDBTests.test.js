@@ -5,10 +5,10 @@ import {
     TEST_RECIPE_DB_PATH,
     CARDS_PER_PAGE,
     USER_DB_PATH,
-    TEMP_USER_DB_PATH,
+    // TEMP_USER_DB_PATH,
 } from "../source/service/util.js";
 import Datastore from "nedb";
-import recipes from "./testRecipes.js";
+// import recipes from "./testRecipes.js";
 import fs from "fs";
 
 const fakeUserId = "JEST_ASkjdsjio983nSld";
@@ -27,35 +27,19 @@ let originalUserData = "";
 
 beforeAll(() => {
     fs.writeFileSync(TEST_RECIPE_DB_PATH, "");
-    // fs.writeFileSync(TEMP_USER_DB_PATH, "");
     const data = fs.readFileSync(USER_DB_PATH);
     originalUserData = data.toString();
-    // fs.copyFileSync(USER_DB_PATH, TEMP_USER_DB_PATH);
     fs.writeFileSync(USER_DB_PATH, JSON.stringify(fakeUser));
     console.log("sup");
-    THECONSOLE.log = () => {};
+    console.log = () => {
+        // left intentionally blank so jest doesn't cry about logs
+        // happening after a test is done (have no idea how it happens or how to stop it)
+    };
 });
 
 afterAll(() => {
-    let waitTime = 2000;
     fs.unlinkSync(TEST_RECIPE_DB_PATH);
     fs.writeFileSync(USER_DB_PATH, originalUserData);
-    /*
-    setTimeout(() => {
-        fs.writeFileSync(USER_DB_PATH, "");
-        setTimeout(() => {
-            fs.writeFileSync(USER_DB_PATH, originalUserData);
-            setTimeout(() => {
-                fs.unlinkSync(TEST_RECIPE_DB_PATH);
-                setTimeout(() => {
-                    fs.unlinkSync(TEMP_USER_DB_PATH);
-                },waitTime)
-            },waitTime)
-        },waitTime)
-    },waitTime)
-    */
-    // fs.copyFileSync(TEMP_USER_DB_PATH, USER_DB_PATH);
-    // if (err) throw err;
 });
 
 const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
@@ -73,9 +57,6 @@ const generateRandomTag = () => {
  * @returns {recipe}
  */
 const generateRandomRecipe = () => {
-    // Generate a random recipe based on the recipe object, samplere.
-    // This is used to test the createRecipe function.
-    // Generate a random string for the name, and a variable amount of tags.
     let randomRecipe = {};
     randomRecipe.name = "Random Recipe " + Math.ceil(Math.random() * 100);
     randomRecipe.author = fakeUser._id;
@@ -84,16 +65,12 @@ const generateRandomRecipe = () => {
     for (let i = 0; i < Math.ceil(Math.random() * 10); i++) {
         newtags.push(generateRandomTag());
     }
-    // tags is a comma delimited string
     randomRecipe.tags = newtags.join(",");
-
-    // generate a random date
     randomRecipe.date = new Date(
         Math.ceil(Math.random() * (new Date().getFullYear() - 2000)) + 2000,
         Math.floor(Math.random() * 12),
         Math.floor(Math.random() * 28) + 1
     );
-
     randomRecipe.steps = [];
     for (let i = 0; i < Math.ceil(Math.random() * 10); i++) {
         randomRecipe.steps.push("Step " + i);
@@ -122,14 +99,11 @@ const clearDatabase = () => {
 };
 const populateDatabase = (randomRecipes = 10) => {
     return new Promise((resolve) => {
-        // insert some predefined ones...
-        // Append random recipes to already predefined recipes
         let newRecipes = [
             ...Array(randomRecipes).fill(null).map(generateRandomRecipe),
         ];
         Promise.race(
             newRecipes.map((recipe) => {
-                // await addMyRecipe(userDB, doc.author, doc._id);
                 return Interface.createRecipe(recipe, testDB);
             })
         )
@@ -199,8 +173,6 @@ describe("Tests database recipe functions", () => {
     test("getRecipesByNameAndTags", async () => {
         const commonName = "foodthing";
         const commonTag = "commontag";
-        // generate a bunch of new recipes that have commonName inside their name
-        // and also have commonTag as a tag in their tagstring
         const commonRecipeCount = CARDS_PER_PAGE - 1;
         const commonRecipes = Array(commonRecipeCount)
             .fill(null)

@@ -149,13 +149,12 @@ describe("End to end test", () => {
             ", editedtesttag, editedtesttag2, editedtesttag3"
         );
         clickSave();
+    });
+    it("should have its edits be seen", () => {
         recipeDetailPageVisible();
         cy.get("#recipeTitle").should("contain", "(Edited)");
         cy.get("#description").should("contain", "(Edited)");
     });
-    it("should have its edits be seen", () => {});
-
-    //
 
     // DISQUS
     it("should be able to comment on the recipe", () => {
