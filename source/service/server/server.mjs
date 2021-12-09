@@ -1,10 +1,12 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
 import { createRecipe, deleteRecipe, updateRecipe, getRecipeById, getRecipesByQuery } from "./interface.mjs";
-import { USER_DB_PATH, RECIPE_DB_PATH } from "../util.js";
+// import { USER_DB_PATH, RECIPE_DB_PATH } from "../util.js";
 import Datastore from "nedb";
 import path from 'path'
 import fs from "fs";
 import fstatic from 'fastify-static'
+export const USER_DB_PATH = "source/service/data/users";
+export const RECIPE_DB_PATH = "source/service/data/recipes";
 // the following are "collection" object for the users, recipes, and tags tables
 export const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 export const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
@@ -37,17 +39,17 @@ fastify.register(Cors, {
 const port = process.env.PORT || 3030;
 
 fastify.get("/api", async (request, reply) => {
-    if(request.query.counts) {
+    if (request.query.counts) {
         reply.status(200)
-        .send(await getPageCountByQuery(request.query, recipeDB));
+            .send(await getPageCountByQuery(request.query, recipeDB));
     }
     else if (request.query.id) {
         reply.status(200)
-        .send(await getRecipeById(request.query.id, recipeDB));
-    } 
+            .send(await getRecipeById(request.query.id, recipeDB));
+    }
     else {
         reply.status(200)
-        .send(await getRecipesByQuery(request.query, recipeDB));
+            .send(await getRecipesByQuery(request.query, recipeDB));
     }
 });
 
@@ -167,7 +169,7 @@ fastify.delete("/api/user/saved", async (req, reply) => {
 });
 
 /**
- * Upload an image to service/.data/images folder and return image url.
+ * Upload an image to service/data/images folder and return image url.
  * content-type: multipart/form-data
  * body: key: file value: [File]
  */
@@ -177,7 +179,7 @@ fastify.post("/api/imageUpload", async (request, reply) => {
     // console.log(file);
     let fileBuffer = await file.toBuffer();
     // Generate file path
-    let filePath = '/source/service/.data/images/';
+    let filePath = '/source/service/data/images/';
     let fileName = file.filename;
     while (fs.existsSync(__dirname + filePath + fileName)) {
         fileName = "1" + fileName;
