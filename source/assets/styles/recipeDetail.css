@@ -1,50 +1,48 @@
 @import url("https://fonts.googleapis.com/css?family=Oxygen:400,700");
-
 body {
-  background: #f9f9f9;
+    background: #f9f9f9;
 }
 
 #recipeDetail {
-  background: #ededed;
-  box-shadow: 0 0 200px #999;
-  font-family: Oxygen, sans-serif;
-  width: 65%;
-
-  /* height: 385px; */
-  margin: 5% auto;
-  min-height: 1200px;
+    background: #ededed;
+    box-shadow: 0 0 200px #999;
+    font-family: Oxygen, sans-serif;
+    width: 65%;
+    /* height: 385px; */
+    margin: 5% auto;
+    min-height: 1200px;
 }
 
 #recipeDetail #editRecipeButton,
 #recipeDetail #deleteRecipeButton {
-  display: block;
-  color: #4e598c;
-  text-align: center;
-  padding: 10px 15px;
-  text-decoration: none;
-  float: right;
-  font-family: OpenSans, sans-serif;
-  border: 1px solid #4e598c;
-  border-radius: 10px;
-  margin-right: 20px;
-  margin-top: 13px;
+    display: block;
+    color: #4e598c;
+    text-align: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    float: right;
+    font-family: OpenSans, sans-serif;
+    border: 1px solid #4e598c;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-top: 13px;
 }
 
 #recipeDetail #editRecipeButton:hover,
 #recipeDetail #deleteRecipeButton:hover {
-  background: #fcaf58;
+    background: #fcaf58;
 }
 
 #recipeDetail li {
-  margin-bottom: 3px;
+    margin-bottom: 3px;
 }
 
-#recipeDetail ol > li {
-  counter-increment: item;
+#recipeDetail ol>li {
+    counter-increment: item;
 }
 
 #recipeDetail .steps li {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 #recipeDetail #saveRecipeButton {
@@ -59,147 +57,144 @@ body {
 }
 
 #recipeDetail #tags li {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 10px 15px;
-  float: left;
-  font-family: OpenSans, sans-serif;
-  border: 1px solid #fcaf58;
-  background: #fcaf58;
-  border-radius: 10px;
-  margin-right: 20px;
-  margin-top: 5px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 15px;
+    float: left;
+    font-family: OpenSans, sans-serif;
+    border: 1px solid #fcaf58;
+    background: #fcaf58;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-top: 5px;
 }
 
 #recipeDetail #description {
-  text-align: center;
-  background: #ededed;
-  padding: 0 10px 20px;
+    text-align: center;
+    background: #ededed;
+    padding: 0px 10px 20px 10px;
 }
 
 #recipeDetail #cookT {
-  display: inline-block;
-
-  /* padding-right: 30px; */
-  width: 50%;
+    display: inline-block;
+    /* padding-right: 30px; */
+    width: 50%;
 }
 
 #recipeDetail #servingS {
-  display: inline-block;
-
-  /* padding-right: 30px; */
-  width: 50%;
+    display: inline-block;
+    /* padding-right: 30px; */
+    width: 50%;
 }
 
 #recipeDetail #recipeTitle {
-  font-family: Oxygen, sans-serif;
-  font-weight: 700;
-  font-size: 25px;
-  background: #4e598c;
-  padding: 15px 20px;
-  color: #fff;
-  border-radius: 2px 2px 0 0;
+    font-family: Oxygen, sans-serif;
+    font-weight: 700;
+    font-size: 25px;
+    background: #4e598c;
+    padding: 15px 20px;
+    color: #fff;
+    border-radius: 2px 2px 0 0;
 }
 
 #recipeDetail #dateAuthor {
-  background: #fff;
-  border-left: solid 1px #ededed;
-  border-right: solid 1px #ededed;
-  font-size: 16px;
-  font-family: Oxygen, sans-serif;
-  padding: 15px 20px;
+    background: #fff;
+    border-left: solid 1px #ededed;
+    border-right: solid 1px #ededed;
+    font-size: 16px;
+    font-family: Oxygen, sans-serif;
+    padding: 15px 20px;
 }
 
 #recipeDetail #author {
-  color: #4e598c;
-  font-weight: bold;
-  font-size: 110%;
+    color: #4e598c;
+    font-weight: bold;
+    font-size: 110%;
 }
 
 #recipeDetail #tags {
-  overflow: auto;
-  background: #ededed;
-  border-left: solid 1px #ededed;
-  border-right: solid 1px #ededed;
-  font-size: 16px;
-  font-family: Oxygen, sans-serif;
-  padding: 15px 20px;
+    overflow: auto;
+    background: #ededed;
+    border-left: solid 1px #ededed;
+    border-right: solid 1px #ededed;
+    font-size: 16px;
+    font-family: Oxygen, sans-serif;
+    padding: 15px 20px;
 }
 
 #recipeDetail .descStuff {
-  background: #fff;
-  border-left: solid 1px #ededed;
-  border-right: solid 1px #ededed;
-  font-size: 16px;
-  font-family: Oxygen, sans-serif;
-  padding: 15px 20px;
+    background: #fff;
+    border-left: solid 1px #ededed;
+    border-right: solid 1px #ededed;
+    font-size: 16px;
+    font-family: Oxygen, sans-serif;
+    padding: 15px 20px;
 }
 
 #recipeDetail .detail-value {
-  color: #455560;
+    color: #455560;
 }
 
 #recipeDetail #ingredients {
-  background: #ededed;
-  font-family: Oxygen, sans-serif;
-  padding: 20px;
-  position: center;
+    background: #ededed;
+    font-family: Oxygen, sans-serif;
+    padding: 20px;
+    position: center;
 }
 
 #recipeDetail .card-item-title {
-  font-size: 18px;
-  font-weight: 700;
+    font-size: 18px;
+    font-weight: 700;
 }
 
-#recipeDetail ol > li::before {
-  font-weight: bold;
-  content: counter(item) ".";
-  margin-right: 8px;
+#recipeDetail ol>li::before {
+    font-weight: bold;
+    content: counter(item) ".";
+    margin-right: 8px;
 }
 
 #recipeDetail .ingr li::before {
-  color: #455560;
-  content: "\2713\0020";
-  font-weight: 600;
-  margin-left: -38px;
-  margin-right: 10px;
+    color: #455560;
+    content: "\2713\0020";
+    font-weight: 600;
+    margin-left: -38px;
+    margin-right: 10px;
 }
 
 #recipeDetail #steps {
-  background: #fff;
-  border-left: solid 1px #ededed;
-  border-right: solid 1px #ededed;
-  border-bottom: solid 1px #ededed;
-  padding: 20px;
+    background: #fff;
+    border-left: solid 1px #ededed;
+    border-right: solid 1px #ededed;
+    border-bottom: solid 1px #ededed;
+    padding: 20px;
 }
 
 #recipeDetail #steps li {
-  list-style-position: inside;
-  margin-bottom: 10px;
-  margin-left: -38px;
-  list-style-type: none;
+    list-style-position: inside;
+    margin-bottom: 10px;
+    margin-left: -38px;
+    list-style-type: none;
 }
 
 #recipeDetail #recipeImage {
-  overflow: hidden;
-  background-size: cover;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    overflow: hidden;
+    background-size: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 ol {
-  counter-reset: item;
+    counter-reset: item;
 }
 
 #recipeDetail label {
-  color: #4e598c;
-  font-weight: bold;
-  font-size: 110%;
+    color: #4e598c;
+    font-weight: bold;
+    font-size: 110%;
 }
 
-/* stylelint-disable-next-line */
 #disqus_thread {
-  padding: 0 10px;
+    padding: 0px 10px;
 }
