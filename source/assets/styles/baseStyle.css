@@ -32,6 +32,10 @@ body {
 #homePageScrollButton {
     background-color: #ededed;
     display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    width: 100%;
 }
 
 
@@ -68,7 +72,6 @@ Search Bar
     /*background-color: #fcaf58;*/
     color: #4e598c;
     font-size: 110%;
-    padding-top: 5%;
     margin-inline: 10px;
     /* margin-left: 165px; */
     /* padding-bottom: 20px; */
@@ -76,6 +79,7 @@ Search Bar
 
 #homepage #searchButton,
 #landingPage #searchButton {
+    font-weight: bold;
     width: 20%;
     padding: 10px;
     background: transparent;
@@ -200,10 +204,6 @@ Tags
     display: inline;
 }
 
-#landingPage #scrollLeft {
-    margin-left: 150px;
-}
-
 #homepage #scrollLeft,
 #homepage #scrollRight,
 #landingPage #scrollLeft,
@@ -214,7 +214,6 @@ Tags
     border-color: white;
     padding: 15px 20px;
     border-radius: 2cm;
-    margin-bottom: 20px;
 }
 
 #homepage #scrollLeft:hover,
