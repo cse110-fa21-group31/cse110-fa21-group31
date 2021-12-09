@@ -36,6 +36,16 @@
         "prettier": "npx prettier --write '**/*.js'",
         "lint": "npm run eslint && npm run stylelint && npm run htmlhint"
     },
+    "babel": {
+        "presets": [
+            "@babel/preset-env"
+        ],
+        "env": {
+            "test": {
+              "plugins": ["@babel/plugin-transform-modules-commonjs"]
+            }
+        }
+    },
     "jest": {
         "verbose": true,
         "testRegex": "__tests__/.*\\.test\\.js$",
