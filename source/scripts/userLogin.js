@@ -110,7 +110,9 @@ async function signOut() {
  * Helper function that calls Google API for sign-out.
  */
 async function userSignedOut() {
+    /* eslint-disable no-undef */
     const auth2 = gapi.auth2.getAuthInstance();
+    /* eslint-enable no-undef */
     auth2.signOut().then(function () {
         console.log("User signed out.");
     });

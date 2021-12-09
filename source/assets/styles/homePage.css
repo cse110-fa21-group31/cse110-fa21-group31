@@ -1,50 +1,48 @@
 .tagsList {
-    display: hidden;
+  display: hidden;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .show {
-    display: inline;
+  display: inline;
 }
 
 section:not(section.shown) {
-    display: none;
+  display: none;
 }
-
 
 /*************************
     Search Tag Stylings
 **************************/
 
 #selectTagButton {
-    width: 30%;
-    height: 2%;
-    padding: 2%;
-    margin-bottom: 2%;
-    background: #fcaf58;
-    color: white;
-    font-size: 100%;
-    border: 2px solid #fcaf58;
-    border-radius: 5px;
-    cursor: pointer;
+  width: 30%;
+  height: 2%;
+  padding: 2%;
+  margin-bottom: 2%;
+  background: #fcaf58;
+  color: white;
+  font-size: 100%;
+  border: 2px solid #fcaf58;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .tagButton {
-    width: 100%;
-    padding: 10px;
-    background: #fcaf58;
-    color: white;
-    font-size: 100%;
-    border: 7px solid #fcaf58;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 2px 2px #44444400;
+  width: 100%;
+  padding: 10px;
+  background: #fcaf58;
+  color: white;
+  font-size: 100%;
+  border: 7px solid #fcaf58;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 2px 2px #4440;
 }
-
 
 /*
 .tagButton:hover {
@@ -54,28 +52,29 @@ section:not(section.shown) {
 */
 
 #selectTag {
-    display: inline;
+  display: inline;
 }
 
 #tagsList {
-    float: top;
-    display: block;
-    justify-content: center;
-    grid-template-columns: repeat(9, minmax(70px, 1fr));
-    /* grid-template-columns: 1fr, 1fr, 1fr; */
-    margin-left: 10px;
-    margin-right: 10px;
-    grid-gap: 1rem;
+  float: top;
+  display: block;
+  justify-content: center;
+  grid-template-columns: repeat(9, minmax(70px, 1fr));
+
+  /* grid-template-columns: 1fr, 1fr, 1fr; */
+  margin-left: 10px;
+  margin-right: 10px;
+  grid-gap: 1rem;
 }
 
 #submitButton {
-    width: 50%;
-    padding: 2%, 4%;
-    margin-top: 2%;
-    background: #fcaf58;
-    color: white;
-    font-size: 100%;
-    border: 7px solid #fcaf58;
-    border-radius: 5px;
-    cursor: pointer;
+  width: 50%;
+  padding: 2%, 4%;
+  margin-top: 2%;
+  background: #fcaf58;
+  color: white;
+  font-size: 100%;
+  border: 7px solid #fcaf58;
+  border-radius: 5px;
+  cursor: pointer;
 }

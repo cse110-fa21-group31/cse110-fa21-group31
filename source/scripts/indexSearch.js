@@ -78,7 +78,9 @@ async function init() {
 }
 
 async function submitNewSearch() {
+    /* eslint-disable no-undef */
     let searchResults = await submitInitialSearch(searchBar.value, selectedTags);
+    /* eslint-enable no-undef */
     createRecipeCards(searchResults.results);
     curr_page = 1;
     max_page = searchResults.pages.pages;

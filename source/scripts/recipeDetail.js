@@ -160,6 +160,7 @@ function convertTime(time) {
 const saveRecipe = (data) => () => {
         if(isSaved) { 
             //styling
+            /* eslint-disable no-undef */
             saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
             saveRecipeButton.style.backgroundRepeat = 'no-repeat';
             if(userData && userData.savedRecipe){
@@ -177,7 +178,7 @@ const saveRecipe = (data) => () => {
             //styling
             saveRecipeButton.style.background = 'url(/source/assets/Images/Filled_Heart.svg)';
             saveRecipeButton.style.backgroundRepeat = 'no-repeat';
-            
+            /* eslint-enable no-undef */        
             if(userData && userData.savedRecipe){
                 userData.savedRecipe.push(data);
             }
