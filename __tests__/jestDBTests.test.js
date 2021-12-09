@@ -26,11 +26,7 @@ beforeAll(() => {
     return new Promise((resolve) => {
         fs.writeFileSync(TEST_RECIPE_DB_PATH, "");
         fs.writeFileSync(TEMP_USER_DB_PATH, "");
-        // temporarily shift our current user database to a new location
-        // copy over our user database to TEMP_USER_DB_PATH,
-        // then overwrite the USER_DB_PATH with fakeUser
         fs.copyFileSync(USER_DB_PATH, TEMP_USER_DB_PATH);
-        // if (err) throw err;
         console.log("Copied user database to temp location");
         fs.writeFileSync(USER_DB_PATH, JSON.stringify(fakeUser));
         resolve();
@@ -48,6 +44,7 @@ afterAll(() => {
     return new Promise((resolve) => {
         // now that our test is done copy the temp user database back to the
         // original user database
+        fs.writeFileSync(USER_DB_PATH, "");
         fs.copyFileSync(TEMP_USER_DB_PATH, USER_DB_PATH);
         // if (err) throw err;
         console.log("Copied temp user database back to original location");
@@ -82,7 +79,7 @@ const generateRandomRecipe = () => {
     // Generate a random string for the name, and a variable amount of tags.
     let randomRecipe = {};
     randomRecipe.name = "Random Recipe " + Math.ceil(Math.random() * 100);
-    randomRecipe.author = "Jest Author";
+    randomRecipe.author = fakeUser._id;
 
     let newtags = [];
     for (let i = 0; i < Math.ceil(Math.random() * 10); i++) {
@@ -133,6 +130,7 @@ const populateDatabase = (randomRecipes = 10) => {
         ];
         Promise.race(
             newRecipes.map((recipe) => {
+                // await addMyRecipe(userDB, doc.author, doc._id);
                 return Interface.createRecipe(recipe, testDB);
             })
         )
@@ -155,7 +153,9 @@ describe("Tests database recipe functions", () => {
 
     test("createRecipe", async () => {
         let randomRecipe = generateRandomRecipe();
+        console.log(randomRecipe);
         let result = await Interface.createRecipe(randomRecipe, testDB);
+        console.log(result);
         expect(result._id).toBeTruthy();
     });
 
@@ -171,7 +171,7 @@ describe("Tests database recipe functions", () => {
     test("getRecipesByIds", async () => {
         let randomRecipes = [];
         let createdRecipes = [];
-        for (let i = 0; i < Math.random() * 10 + 1; i++) {
+        for (let i = 0; i < CARDS_PER_PAGE-1; i++) {
             let newRandomRecipe = generateRandomRecipe();
             randomRecipes.push(newRandomRecipe);
             createdRecipes.push(
@@ -189,7 +189,7 @@ describe("Tests database recipe functions", () => {
         const commonTag = "commontag";
         // generate a bunch of new recipes that have commonName inside their name
         // and also have commonTag as a tag in their tagstring
-        const commonRecipeCount = 6;
+        const commonRecipeCount = CARDS_PER_PAGE-1;
         const commonRecipes = Array(commonRecipeCount)
             .fill(null)
             .map(() => {
@@ -220,12 +220,17 @@ describe("Tests database recipe functions", () => {
         ).toBeTruthy();
     });
 
-    const pageSize = CARDS_PER_PAGE;
     test("getRecipeByPage full", async () => {
-        return populateDatabase(pageSize).then(() => {
-            Interface.getRecipeByPage(testDB).then((pagerecipes) => {
-                expect(pagerecipes.length).toBe(pageSize);
-            });
-        });
+        await populateDatabase(CARDS_PER_PAGE);
+        let query = { name: "", tags: "" };
+        let pagedrecipes = await Interface.getRecipesByQuery(query, testDB);
+        expect(pagedrecipes.length).toBe(CARDS_PER_PAGE);
+    });
+
+    test("getRecipeByPage past full", async () => {
+        await populateDatabase(CARDS_PER_PAGE+5);
+        let query = { name: "", tags: "" };
+        let pagedrecipes = await Interface.getRecipesByQuery(query, testDB);
+        expect(pagedrecipes.length).toBe(CARDS_PER_PAGE);
     });
 });
