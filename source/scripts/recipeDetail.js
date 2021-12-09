@@ -43,11 +43,11 @@ export async function fillOutRecipe(data) {
     document.getElementById("recipeImage").setAttribute("src", image);
     document.getElementById("recipeImage").setAttribute("onerror", imageErrorFunc);
     document.getElementById("date").innerHTML = new Date(data.datePosted * 1000);
-    if (data.description) document.getElementById("description").innerHTML = data.description;
-    if (data.servingSize) document.getElementById("servingSize").innerHTML = data.servingSize;
+    document.getElementById("description").innerHTML = data.description ? data.description : "";
+    document.getElementById("servingSize").innerHTML = data.servingSize ? data.servingSize : "";
     // Now rendering username rather than user id
     if (data.author && data.author.username) document.getElementById("author").innerHTML = data.author.username;
-    if (data.cookTime) document.getElementById("cookTime").innerHTML = data.cookTime;
+    document.getElementById("cookTime").innerHTML = data.cookTime ? data.cookTime : "";
     if (data.ingredients) {
         // console.log("Ingredients object: " + data.ingredients);
         let ingredientsList = document.getElementById("ingr");

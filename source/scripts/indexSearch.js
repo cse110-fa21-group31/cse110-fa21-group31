@@ -7,7 +7,7 @@ if (typeof window === 'object') {
 import { submitSearch, submitInitialSearch } from "./APICalls.js"
 import { createRecipeCards } from "./index.js";
 
-let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Dinner", "Appetizer", "Lunch", "Vegan"];
+let allTags = ["Easy", "Intermediate", "Hard", "Vegetarian", "Breakfast", "Lunch", "Dinner", "Appetizer", "Vegan"];
 let selectedTags = [];
 let curr_page = 1;
 let max_page = 1;
@@ -41,7 +41,7 @@ async function init() {
             curr_page++;
             let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
-            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page;
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + ' / ' + max_page;
         }
     });
 
@@ -50,7 +50,7 @@ async function init() {
             curr_page--;
             let results = await submitSearch(searchBar.value, selectedTags, curr_page);
             createRecipeCards(results);
-            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page;
+            document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + ' / ' + max_page;
         }
     });
 
@@ -82,6 +82,7 @@ async function submitNewSearch() {
     createRecipeCards(searchResults.results);
     curr_page = 1;
     max_page = searchResults.pages.pages;
+    document.getElementById('homePageNum').innerHTML = 'Page: ' + curr_page + ' / ' + max_page;
 }
 
 function chooseTag(e) {

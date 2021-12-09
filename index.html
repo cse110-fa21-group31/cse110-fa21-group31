@@ -107,6 +107,7 @@
 
     <!-- recipe detail page -->
     <section id="recipeDetail">
+        <!-- <button id="backToHome">Back</button> -->
 
         <!-- buttons for edit and delete -->
         <button id="editRecipeButton">Edit</button>
@@ -184,10 +185,6 @@
                 text-align: center;
             }
 
-            h1 {
-                line-height: 0px;
-            }
-
             .myRecipeCardGridContainer {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
@@ -208,7 +205,7 @@
                 <button id="createRecipePageButton" type="button"> New Recipe </button>
             </div>
             <!-- Recipe Section -->
-            <div class="userInfoGridItem" id="userInfoRecipeBoxes">
+            <div class="userInfoGridItem">
 
                 <h1 id="myRecipes"> My Recipes </h1>
                 <div class="myUploadRecipeCardGridContainer">
@@ -233,7 +230,7 @@
 
                 <div id="name" class="formItem">
                     <label for="name">Recipe Name: *</label>
-                    <input type="text" name="name" id="name" required>
+                    <input type="text" name="name" id="name" placeholder="A creative name" required>
                 </div>
 
                 <div id="picture" class="formItem">
@@ -244,23 +241,23 @@
 
                 <div id="description" class="formItem">
                     <label for="description">Description:</label>
-                    <textarea name="description" id="descriptionText"></textarea>
+                    <textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!"></textarea>
                 </div>
                 <!-- Tags will be sent to the backend as a big comma delimited string -->
                 <div id="tags" class="formItem">
-                    <label for="tags">Tags:</label>
-                    <input type="text" name="tags" id="tags">
+                    <label for="tags">Tags: (separate by comma)</label>
+                    <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3">
                 </div>
 
 
                 <div id="cookTime" class="formItem">
                     <label for="cookTime">Cook Time:</label>
-                    <input type="text" name="cookTime" id="prepTime">
+                    <input type="text" name="cookTime" id="prepTime" placeholder="x hours">
                 </div>
 
                 <div id="servingSize" class="formItem">
                     <label for="servingSize">Serving Size:</label>
-                    <input type="text" name="servingSize" id="servingSize">
+                    <input type="text" name="servingSize" id="servingSize" placeholder="x people">
                 </div>
                 <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
                 <div id="difficulty" class="formItem">
@@ -319,7 +316,7 @@
 
                 <div id="editName" class="formItem">
                     <label for="name">Recipe Name: *</label>
-                    <input type="text" name="name" id="name" required>
+                    <input type="text" name="name" id="name" placeholder="A creative name" required>
 
                 </div>
 
@@ -331,23 +328,23 @@
 
                 <div id="editDescription" class="formItem">
                     <label for="description">Description:</label>
-                    <textarea name="description" id="descriptionText"></textarea>
+                    <textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!"></textarea>
                 </div>
 
                 <div id="editTags" class="formItem">
-                    <label for="tags">Tags:</label>
-                    <input type="text" name="tags" id="tags">
+                    <label for="tags">Tags: (separate by comma)</label>
+                    <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3">
                 </div>
 
 
                 <div id="editCookTime" class="formItem">
                     <label for="cookTime">Cook Time:</label>
-                    <input type="text" name="cookTime" id="prepTime">
+                    <input type="text" name="cookTime" id="prepTime" placeholder="x hours">
                 </div>
 
                 <div id="editServingSize" class="formItem">
                     <label for="servingSize">Serving Size:</label>
-                    <input type="text" name="servingSize" id="servingSize">
+                    <input type="text" name="servingSize" id="servingSize" placeholder="x people">
                 </div>
 
                 <div id="editDifficulty" class="formItem">

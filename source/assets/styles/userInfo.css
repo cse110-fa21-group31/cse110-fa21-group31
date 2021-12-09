@@ -1,22 +1,25 @@
 .myUploadRecipeCardGridContainer {
-    display: inline-block;
-    width: 500px;
-    height: 400px;
-    overflow-y: scroll;
+    height: 480px;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    margin: 20px;
+    align-items: center;
+    text-align: center;
 }
 
 .mySavedRecipeCardGridContainer {
-    display: inline-block;
-    width: 500px;
-    height: 400px;
-    overflow-y: scroll;
+    height: 480px;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    margin: 20px;
+    align-items: center;
+    text-align: center;
 }
 
-.userInfoGridContainer {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    padding: 10px;
-}
 
 .userInfoGridItem {
     padding: 10px;
@@ -24,14 +27,8 @@
     text-align: center;
 }
 
-h1 {
-    line-height: 0px;
-}
-
-.myRecipeCardGridContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px;
+#userName {
+    margin: 0;
 }
 
 #userCard {

@@ -120,8 +120,6 @@
 }
 
 .footer ul.footer>li a.logo {
-    border-right: 1px solid #bbb;
-    border-left: 1px solid #bbb;
     color: #ff8c42;
     font-family: "Rammetto One", cursive;
     font-weight: bold;
