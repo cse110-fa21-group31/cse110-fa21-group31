@@ -34,7 +34,24 @@ const clickSave = () => {
     // cy.contains("Save").click();
 };
 
-describe("Can do CRUD functionality", () => {
+describe("End to end test", () => {
+    it("Loads home page by default", () => {
+        cy.visit("http://localhost:3030");
+    });
+
+    it("Can see loaded images", () => {
+        cy.get("img");
+    });
+
+    it("Can see the search bar", () => {
+        cy.get("#searchBar").should("be.visible");
+    });
+
+    it("Can see recipes at the bottom", () => {
+        cy.get("recipe-card").should("be.visible");
+        cy.get("recipe-card").should("have.length.greaterThan", 0);
+    });
+
     it("should log in with google api", () => {
         // cy.task('db:seed');
         cy.loginByGoogleApi();
