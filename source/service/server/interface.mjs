@@ -1,9 +1,9 @@
-import { CARDS_PER_PAGE } from "../util.js";
+// import { CARDS_PER_PAGE } from "../util.js";
 import { getUser } from "./userInterface.mjs";
 import { userDB } from "./server.mjs"
 import { addMyRecipe } from "./userInterface.mjs";
 import { removeMyRecipe } from "./userInterface.mjs";
-
+export const CARDS_PER_PAGE = 6;
 /**
  * insert a single recipe to database, add to user's myRecipe list
  * @param {recipe} recipe the recipe to insert
@@ -96,7 +96,7 @@ export async function getRecipesByQuery(query, recipeCollection) {
  * @param {*} recipeCollection the database to search in
  * @returns {Array<recipe>} the matching recipes
  */
- export async function getPageCountByQuery(query, recipeCollection) {
+export async function getPageCountByQuery(query, recipeCollection) {
     let filter = getFilterFromQuery(query);
     let numRecipes = await new Promise((resolve, reject) => {
         recipeCollection.count(filter, function (err, doc) {
@@ -110,7 +110,7 @@ export async function getRecipesByQuery(query, recipeCollection) {
     });
     return {
         results: numRecipes,
-        pages: parseInt(numRecipes/CARDS_PER_PAGE + 1)
+        pages: parseInt(numRecipes / CARDS_PER_PAGE + 1)
     };
 }
 
@@ -147,24 +147,24 @@ export async function getRecipeById(id, recipeCollection) {
  * @returns {Array<recipe>} the recipes corresponding to the query
  */
 export function sortAndPaginateResults(dbCursor, curr_page) {
-    if(curr_page == undefined){
+    if (curr_page == undefined) {
         curr_page = 1;
     }
     curr_page = Math.max(curr_page, 1);
     let resultsToSkip = CARDS_PER_PAGE * (curr_page - 1);
     let foundDocs = new Promise((resolve, reject) => {
         dbCursor
-        .sort({ datePosted: -1 })
-        .skip(resultsToSkip)
-        .limit(CARDS_PER_PAGE)
-        .exec(function (err, docs) {
-            if (err) {
-                console.log(err);
-                reject(err);
-            } else {
-                resolve(docs);
-            }
-        });
+            .sort({ datePosted: -1 })
+            .skip(resultsToSkip)
+            .limit(CARDS_PER_PAGE)
+            .exec(function (err, docs) {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
     });
     return foundDocs;
 }
@@ -192,11 +192,11 @@ export async function convertUserIdToObj(recipes) {
  * @param {*} query the content to search for
  * @returns {*} the filter to use in an actual db call
  */
-function getFilterFromQuery(query){
+function getFilterFromQuery(query) {
     let filter = {}
-    if (query.ids){
+    if (query.ids) {
         let ids = query.ids.split(",");
-        filter = { _id: { $in: ids }};
+        filter = { _id: { $in: ids } };
     }
     else {
         if (query.name) {
@@ -227,7 +227,7 @@ function getFilterFromQuery(query){
  * @param {int} page the database to search in
  * @returns {Array<recipe>} the recipes matching any of the given ids
  */
- async function  getRecipesByFilter(filter, recipeCollection, page) {
+async function getRecipesByFilter(filter, recipeCollection, page) {
     let dbCursor = recipeCollection.find(filter);
     return sortAndPaginateResults(dbCursor, page);
 }

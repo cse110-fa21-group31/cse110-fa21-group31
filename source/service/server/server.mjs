@@ -1,10 +1,12 @@
 import { getUser, hasUser, createUser, saveRecipe, unsaveRecipe } from "./userInterface.mjs";
 import { createRecipe, deleteRecipe, updateRecipe, getRecipeById, getRecipesByQuery } from "./interface.mjs";
-import { USER_DB_PATH, RECIPE_DB_PATH } from "../util.js";
+// import { USER_DB_PATH, RECIPE_DB_PATH } from "../util.js";
 import Datastore from "nedb";
 import path from 'path'
 import fs from "fs";
 import fstatic from 'fastify-static'
+export const USER_DB_PATH = "source/service/data/users";
+export const RECIPE_DB_PATH = "source/service/data/recipes";
 // the following are "collection" object for the users, recipes, and tags tables
 export const userDB = new Datastore({ filename: USER_DB_PATH, autoload: true });
 export const recipeDB = new Datastore({ filename: RECIPE_DB_PATH, autoload: true });
