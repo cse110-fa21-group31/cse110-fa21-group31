@@ -93,7 +93,7 @@ function addTags(e) {
     //Difficulty
     let tagsList = document.getElementById("tagsListDiff");
     tagsList.style.display = "grid";
-    for (let i = 0; i < difficultyTags.length; i++) {
+    for (let i of difficultyTags) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
         addTagButton.innerText = difficultyTags[i];
@@ -104,7 +104,7 @@ function addTags(e) {
     //Meal Time
     tagsList = document.getElementById("tagsListMt");
     tagsList.style.display = "grid";
-    for (let i = 0; i < mealTimeTags.length; i++) {
+    for (let i of mealTimeTags) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
         addTagButton.innerText = mealTimeTags[i];
@@ -115,7 +115,7 @@ function addTags(e) {
     //Dietary
     tagsList = document.getElementById("tagsListDiet");
     tagsList.style.display = "grid";
-    for (let i = 0; i < dietaryTags.length; i++) {
+    for (let i of dietaryTags) {
         let addTagButton = document.createElement("button");
         addTagButton.classList.add("tagButton");
         addTagButton.innerText = dietaryTags[i];
