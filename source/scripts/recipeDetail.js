@@ -3,7 +3,7 @@
 export default { fillOutRecipe }
 // RecipeExpand.js
 import { RECIPE_ROUTE, TEMP_EDIT_CREATE_ROUTE, createNodeClone, DISPLAY_BLOCK, DISPLAY_NONE, HOME_ROUTER } from "./util.js"
-import { deleteRecipe, fetchRecipeById,  addSavedRecipeById, deleteSavedRecipeById} from "./APICalls.js";
+import { deleteRecipe, fetchRecipeById, addSavedRecipeById, deleteSavedRecipeById } from "./APICalls.js";
 import { routerAddEditPage, routerNavigateWrapper, userData } from "./index.js";
 const recipeData = {};
 const PLACEHOLDER_IMG = window.location.protocol + "//" + window.location.host + "/source/assets/Images/recipeCardPlaceholder.png";
@@ -94,14 +94,14 @@ export async function fillOutRecipe(data) {
     const saveRecipeButton = document.getElementById('saveRecipeButton');
     const page = data._id;
     const routeUrl = TEMP_EDIT_CREATE_ROUTE + page
-    if(userData){
+    if (userData) {
         editRecipeButton.style.display = DISPLAY_BLOCK;
         delRecipeButton.style.display = DISPLAY_BLOCK;
         saveRecipeButton.style.display = DISPLAY_BLOCK;
         routerAddEditPage(routeUrl, data);
         //Saved button
         addSaveButton(data);
-        if(userData.myRecipe.find(ele => ele._id == data._id)){
+        if (userData.myRecipe.find(ele => ele._id == data._id)) {
             editRecipeButton.addEventListener('click', () => {
                 //redirect to edit page and populate the page
                 routerNavigateWrapper(routeUrl)
@@ -110,28 +110,28 @@ export async function fillOutRecipe(data) {
                 console.log("Deleting " + data._id);
                 //redirect to edit page and populate the page
                 await deleteRecipe(data._id);
-                if(userData && userData.myRecipe){
-                    userData.myRecipe = userData.myRecipe.filter(function(recipe) {
+                if (userData && userData.myRecipe) {
+                    userData.myRecipe = userData.myRecipe.filter(function (recipe) {
                         return recipe._id != data._id;
-                    });                    
-                    userData.savedRecipe = userData.savedRecipe.filter(function(recipe) {
+                    });
+                    userData.savedRecipe = userData.savedRecipe.filter(function (recipe) {
                         return recipe._id != data._id;
                     });
                 }
                 routerNavigateWrapper(HOME_ROUTER)
-            })    
-        }else{
+            })
+        } else {
             editRecipeButton.style.display = DISPLAY_NONE;
-            delRecipeButton.style.display = DISPLAY_NONE;   
+            delRecipeButton.style.display = DISPLAY_NONE;
         }
-    }else{
+    } else {
         editRecipeButton.style.display = DISPLAY_NONE;
         delRecipeButton.style.display = DISPLAY_NONE;
-        saveRecipeButton.style.display = DISPLAY_NONE;    
-        console.log(saveRecipeButton.style.display);    
+        saveRecipeButton.style.display = DISPLAY_NONE;
+        console.log(saveRecipeButton.style.display);
     }
 
-    
+
 }
 
 
@@ -158,35 +158,35 @@ function convertTime(time) {
 }
 
 const saveRecipe = (data) => () => {
-        if(isSaved) { 
-            //styling
-            /* eslint-disable no-undef */
-            saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
-            saveRecipeButton.style.backgroundRepeat = 'no-repeat';
-            if(userData && userData.savedRecipe){
-                userData.savedRecipe = userData.savedRecipe.filter(function(recipe) {
-                    return recipe._id != data._id;
-                });
-            }
-            console.log("Unsaving recipe " + data.name + " with id " + data._id);
-            isSaved = false;
-            deleteSavedRecipeById(userData._id, data._id);
-            console.log('Removed Recipe from saved');
+    if (isSaved) {
+        //styling
+        /* eslint-disable no-undef */
+        saveRecipeButton.style.background = 'url(/source/assets/Images/Empty_Heart.svg)';
+        saveRecipeButton.style.backgroundRepeat = 'no-repeat';
+        if (userData && userData.savedRecipe) {
+            userData.savedRecipe = userData.savedRecipe.filter(function (recipe) {
+                return recipe._id != data._id;
+            });
         }
-        else {
-            
-            //styling
-            saveRecipeButton.style.background = 'url(/source/assets/Images/Filled_Heart.svg)';
-            saveRecipeButton.style.backgroundRepeat = 'no-repeat';
-            /* eslint-enable no-undef */        
-            if(userData && userData.savedRecipe){
-                userData.savedRecipe.push(data);
-            }
-            console.log("Saving recipe " + data.name + " with id " + data._id);
-            isSaved = true;
-            addSavedRecipeById(userData._id, data._id);
-            console.log('Added Recipe to saved');
+        console.log("Unsaving recipe " + data.name + " with id " + data._id);
+        isSaved = false;
+        deleteSavedRecipeById(userData._id, data._id);
+        console.log('Removed Recipe from saved');
+    }
+    else {
+
+        //styling
+        saveRecipeButton.style.background = 'url(/source/assets/Images/Filled_Heart.svg)';
+        saveRecipeButton.style.backgroundRepeat = 'no-repeat';
+        /* eslint-enable no-undef */
+        if (userData && userData.savedRecipe) {
+            userData.savedRecipe.push(data);
         }
+        console.log("Saving recipe " + data.name + " with id " + data._id);
+        isSaved = true;
+        addSavedRecipeById(userData._id, data._id);
+        console.log('Added Recipe to saved');
+    }
 }
 
 function addSaveButton(data) {
@@ -202,7 +202,7 @@ function addSaveButton(data) {
     //isSaved = userData.savedRecipe.includes(data._id);
 
     //Inital check on page load
-    if(isSaved) {
+    if (isSaved) {
         saveRecipeButton.style.background = 'url(/source/assets/Images/Filled_Heart.svg)';
     }
     else {

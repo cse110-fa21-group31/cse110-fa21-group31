@@ -21,7 +21,7 @@ export const setupDisqusScript = function (id) {
         var d = document, s = d.createElement('script');
 
         // IMPORTANT: Replace EXAMPLE with your forum shortname!
-        s.src = 'https://localhost-3030.disqus.com/embed.js';
+        s.src = 'https://oliveu.disqus.com/embed.js';
 
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);

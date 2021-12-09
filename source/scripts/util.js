@@ -19,8 +19,6 @@ export const EDIT_CREATE_ROUTE = "create/";
 export const API_URL = "/api"
 export const USER_URL = "/api/user"
 export const IMAGE_UPLOAD_URL = "/api/imageUpload";
-export const RECIPE_DB_PATH = "source/service/.data/recipes";
-export const TEST_RECIPE_DB_PATH = "source/service/.data/testrecipes";
 export const CARDS_PER_PAGE = 6;
 export const HOME_ROUTER = 'home';
 /**
