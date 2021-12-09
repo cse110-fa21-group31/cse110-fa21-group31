@@ -39,7 +39,8 @@
     "jest": {
         "verbose": true,
         "testRegex": "__tests__/.*\\.test\\.js$",
-        "transform": {}
+        "transform": {},
+        "globalTeardown": "__tests__/teardown.js"
     },
     "dependencies": {
         "cloudinary": "^1.27.1",

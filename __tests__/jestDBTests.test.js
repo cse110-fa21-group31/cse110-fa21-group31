@@ -1,9 +1,17 @@
 // Jest Unit testing
 
 import * as Interface from "../source/service/server/interface.mjs";
-import { TEST_RECIPE_DB_PATH, CARDS_PER_PAGE } from "../source/scripts/util.js";
+import { TEST_RECIPE_DB_PATH, CARDS_PER_PAGE } from "../source/service/util.js";
 import Datastore from "nedb";
-import recipes from "./testRecipes.js";
+import recipes from "./testRecipes.js"
+import fs from "fs";
+
+try {
+    fs.writeFileSync(TEST_RECIPE_DB_PATH, "");
+} catch(err) {
+    console.log("An error occured while trying to create the test database");
+    console.log(err);
+}
 
 const testDB = new Datastore({ filename: TEST_RECIPE_DB_PATH, autoload: true });
 
