@@ -24,6 +24,17 @@ const clickSave = () => {
     cy.get("[data-cy=savebutton]").filter(":visible").click();
 };
 
+const getRecipeCard = (matchName) => {
+    return cy.get("recipe-card", shadowconfig).then((cards) => {
+        for (let i = 0; i < cards.length; i++) {
+            const recipeName = cards[i].json.name;
+            if (recipeName.includes(matchName)) {
+                return cards[i];
+            }
+        }
+    });
+};
+
 describe("End to end test", () => {
     it("should pass this test", () => {
         console.log("Hello");
@@ -44,6 +55,18 @@ describe("End to end test", () => {
     it("Can see recipes at the bottom", () => {
         cy.get("recipe-card").should("be.visible");
         cy.get("recipe-card").should("have.length.greaterThan", 0);
+        // get an element with class recipe-card that has the text "Edited" inside of it
+        cy.get("recipe-card", shadowconfig).last().scrollIntoView();
+
+        // cypress command to get the recipe card whose json property includes a title field that includes "Edited"
+        // not necessarily the last card, choose the first one that matches
+        getRecipeCard("Carrots").should("be.visible");
+        getRecipeCard("Carrots").then((card) => {
+            console.log("HAHAHAHHA", card);
+        });
+        /*cy.get("recipe-card", shadowconfig).its('json').should('include', {
+            title: "Test Recipe",
+        });*/
     });
 
     it("should log in with google api", () => {
@@ -158,6 +181,12 @@ describe("End to end test", () => {
         recipeDetailPageVisible();
         cy.get("#recipeTitle").should("contain", "(Edited)");
         cy.get("#description").should("contain", "(Edited)");
+    });
+
+    // DELETING A RECIPE
+    it("should be able to delete the recipe", () => {
+        cy.get("#deleteRecipeButton").click();
+        landingPageVisible();
     });
 
     // DISQUS
