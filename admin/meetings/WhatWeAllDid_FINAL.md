@@ -5,7 +5,14 @@ Date: 12 / 09
 **Frontend:**
 
 **Danica:** 
-
+- Helped with Miro planning (ie. user personas) and made initial presentation/pitch slide
+- Mainly worked on HTML/JS/CSS for editRecipe, createRecipe, and displayRecipe pages
+- Connected backend and frontend by using the API calls for recipe creation and display
+- Using API calls for create/edit/delete, making recipe object form to send/retrieve from backend
+- Lots of debugging in regards to API calls, editing/creating recipes, JS, perfecting small features, etc
+- Worked on CSS for landingPage and userInfo to make it look pretty
+- Worked on CSS/HTML for navBar and footer
+- Made/edited the videos for the team! :D
 
 **Euvin:**
 Initially made icons and branding material
