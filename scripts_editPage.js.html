@@ -26,33 +26,55 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { updateRecipeById } from "./APICalls.js";
+            <pre class="prettyprint source linenums"><code>/**
+ * Filename: editPage.js
+ * 
+ * Very similar to createPage.js:
+ * Adds event listeners to the add and delete ingredint and save buttons,
+ * in order have ingredient and step form elements behave correctly.
+ * Adds event listeners and routers to cancel and save buttons.
+ * Handles recipe object creation and saving to database on form submit with save button.
+ * Additionally:
+ * Populates page with pre-existing recipe by pre-filling form items and appending existing
+ * steps and ingredient elements.
+ * 
+ * @file Populate form with recipe, tie api to save button, make form buttons funcitonal.
+ * @since 12.09.21
+ */
+import { updateRecipeById } from "./APICalls.js";
 import {
     redirectRecipeDetail,
     routerNavigateWrapper,
     userData,
 } from "./index.js";
-import { createNodeClone, HOME_ROUTER, RECIPE_ROUTE } from "./util.js";
-let imageSrc = "";
+import {
+    createNodeClone,
+    HOME_ROUTER,
+    RECIPE_ROUTE,
+} from "./util.js";
+
 let recipeId;
 export default { populateEditPage };
+
+/**
+ * Adds event listeners to ingrent, step, and cancel buttons,
+ * in order to tie corresponding functions.
+ * 
+ * @param recipeObj The recipe object to populate the form with
+ */
 export function populateEditPage(recipeObj) {
     recipeId = recipeObj._id;
 
     fillOutEditPage(recipeObj);
+
+    // Configure cancel button
     createNodeClone("editCancel");
     const cancelBtn = document.getElementById("editCancel");
     cancelBtn.addEventListener("click", () => {
         routerNavigateWrapper(HOME_ROUTER);
     });
-    // Adding steps to the recipe
-    /* eslint-disable no-unused-vars*/
-    const addStepButton = document.querySelector("#addSteps button");
-    /* eslint-enable no-unused-vars*/
-    //addStepButton.addEventListener('click', appendRow);
 
-    // Submitting the entire recipe
-
+    // Configure ingredient, step and edit buttons
     const recipeForm = document.getElementById("editRecipeForm");
     recipeForm.onsubmit = onUpdateRecipe;
     if (
@@ -90,27 +112,25 @@ export function populateEditPage(recipeObj) {
     }
 }
 
-export const deleteRecipeButton = async (event) => {
-    // await deleteRecipe(pageId);
-};
-
 let numSteps = 0;
 let numIngredients = 0;
 
+/**
+ * Removes any pre-existing items from previous sessions.
+ * Fills form items with data from the recipe object.
+ * 
+ * @param recipeObj The recipe object to populate the form with
+ */
 export const fillOutEditPage = (recipeObj) => {
-    console.log("EDITTED RECIPE");
 
-    // get recipe info and fill it out
-    // let response = await fetchRecipeById(recipeId);
-    //TODO: update the variable from response to recipeObj
     let response = recipeObj;
-    console.log(response);
-    // get ingredients from data
+
+    //Fill out form items with pre-existing values
     document.getElementById("editName").innerHTML =
         '&lt;label for="name">Recipe Name: *&lt;/label>&lt;input type="text" name="name" id="name" value="' +
         response.name +
         '" placeholder="A creative name" required>';
-    //document.getElementById('picture').innerHTML = 'label for="picture">Picture:&lt;/label>&lt;input type="file" name="picture" id="picture" src="'+response.image+'">';
+
     document.getElementById("editDescription").innerHTML =
         '&lt;label for="description">Description:&lt;/label>&lt;textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!">' +
         response.description +
@@ -131,7 +151,6 @@ export const fillOutEditPage = (recipeObj) => {
         response.servingSize +
         '" placeholder="x people">';
 
-    //document.getElementById('difficulty').innerHTML = '&lt;label for="difficulty">Difficulty:&lt;/label>&lt;select name="difficulty" id="difficulty">&lt;option value="1">1 star&lt;/option>&lt;option value="2">2 stars&lt;/option>&lt;option value="3">3 stars&lt;/option>&lt;option value="4">4 stars&lt;/option>&lt;option value="5">5 stars&lt;/option>&lt;/select>';
     let diff = response.difficulty.charAt(0);
     if (diff == "1") {
         document.getElementById("editDifficulty").innerHTML =
@@ -150,7 +169,7 @@ export const fillOutEditPage = (recipeObj) => {
             '&lt;label for="difficulty">Difficulty:&lt;/label>&lt;select name="difficulty" id="difficulty">&lt;option value="1">1 star&lt;/option>&lt;option value="2">2 stars&lt;/option>&lt;option value="3">3 stars&lt;/option>&lt;option value="4">4 stars&lt;/option>&lt;option selected value="5">5 stars&lt;/option>&lt;/select>';
     }
 
-    // EUVIN: Added these so duplicate steps aren't added from previous sessions
+    // Remove any elements from previous page visits
     for (let i = 0; i &lt;= numSteps; i++) {
         deleteStep();
     }
@@ -166,27 +185,25 @@ export const fillOutEditPage = (recipeObj) => {
 
     let fillIngredients = response.ingredients;
     for (let key in fillIngredients) {
-        console.log(key);
         appendEIngredient(key, fillIngredients[key]);
     }
 
-    //TODO: figure out a way to store/display image
     imageSrc = recipeObj.image;
 };
 
 /**
- *
+ * Gathers the input fromt the form into a formData object,
+ * and saves it to database as an update.
+ * 
  * @param {*} event
  */
 const onUpdateRecipe = async (event) => {
     event.preventDefault();
-    console.log("SUBMITTED NEW RECIPE");
 
     const recipeF = document.getElementById("editRecipeForm");
     let formData = new FormData(recipeF);
 
     // get ingredients from form
-    let ingrArr = [];
     let ingrAmountArr = [];
     let stepsArr = [];
     let strTags = formData.get("tags")
@@ -195,7 +212,6 @@ const onUpdateRecipe = async (event) => {
               .replace(/\s+/g, "")
               .split(/[;,.]+/)
         : [];
-    //let tagsArr = strTags.split(',');
 
     let ingArr = {};
     for (let i = 0; i &lt; numIngredients; i++) {
@@ -203,21 +219,18 @@ const onUpdateRecipe = async (event) => {
             "ingredientAmount" + i
         );
     }
-    console.log(ingArr);
 
-    // get steps from form
+    // Get steps from form
     for (let i = 0; i &lt; numSteps; i++) {
         stepsArr.push(formData.get("step" + i));
-        console.log(formData.get("step" + i));
     }
 
-    // console.log(formData.get('picture'));
-    // CREATE NEW RECIPE
+    // Create new recipe
     let newRecipe = {
         name: formData.get("name"),
         datePosted: Date.now(),
         image: formData.get("picture"),
-        // default to be 'admin' id
+        // Default to be 'admin' id
         author: userData ? userData._id : "MMAfv3oCQDiL4u10",
         description: formData.get("description"),
         tags: strTags,
@@ -229,10 +242,9 @@ const onUpdateRecipe = async (event) => {
         steps: stepsArr,
         _id: recipeId,
     };
-    // console.log(newRecipe);
-    // console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
+
     const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
-    //update the userData
+    // Update the userData
     if (userData &amp;&amp; userData.myRecipe) {
         userData.myRecipe = userData.myRecipe.map(function (recipe) {
             if (recipe._id == updatedRecipe._id) return updatedRecipe;
@@ -248,18 +260,15 @@ const onUpdateRecipe = async (event) => {
     const page = updatedRecipe._id;
     const routeUrl = RECIPE_ROUTE + page;
     routerNavigateWrapper(routeUrl);
-
-    // What does this function do overall?
-    // ANSWER: This function serves to
 };
 
+/**
+ * Adds a new step form element.
+ * Increments numSteps.
+ */
 /* eslint-disable no-unused-vars*/
 const appendStep = () => {
-    //let d = document.getElementById('steps');
-    // d.innerHTML += "&lt;input type='text' id='tst"+ x++ +"'>&lt;br >";
-    console.log("append Step");
     var newTextBox = document.createElement("div");
-    console.log("add Step");
     newTextBox.innerHTML =
         "&lt;textarea cols='40' rows='4' id='textAreaBox' name='step" +
         numSteps +
@@ -271,10 +280,12 @@ const appendStep = () => {
 };
 /* eslint-enable no-unused-vars*/
 
+/**
+ * Called when user deletes a step and reflects that on the page.
+ * Removes step element and decreases numSteps.
+ */
 /* eslint-disable no-unused-vars*/
 const deleteStep = () => {
-    console.log("delete Step");
-    //newTextBox.classList.add('stepEntry');
     if (document.getElementById("editNewStepId").lastChild != null) {
         document
             .getElementById("editNewStepId")
@@ -282,9 +293,13 @@ const deleteStep = () => {
         numSteps--;
     }
 };
+
+/**
+ * Adds a new ingredient and ingredient amounts form elements.
+ * Increments numIngredients.
+ */
 /* eslint-disable no-unused-vars*/
 const appendIngredient = () => {
-    console.log("add Ingredient");
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
         "&lt;input type='text' id='newInputBox' name='ingredient" +
@@ -304,9 +319,12 @@ const appendIngredient = () => {
 };
 /* eslint-enable no-unused-vars*/
 
+/**
+ * Called when user deletes an ingredient and reflects that on the page.
+ * Removes ingredient and amount elements and decreases numIngredients.
+ */
 /* eslint-disable no-unused-vars*/
 const deleteIngredient = () => {
-    console.log("delete ingredient");
     if (document.getElementById("editNewIngredientId").lastChild != null) {
         numIngredients--;
         document
@@ -322,6 +340,12 @@ const deleteIngredient = () => {
     }
 };
 
+/**
+ * For appending a pre-existing ingredient to the form
+ * 
+ * @param {string} existingIngredient
+ * @param {string} existingAmount
+ */
 const appendEIngredient = (existingIngredient, existingAmount) => {
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
@@ -346,9 +370,12 @@ const appendEIngredient = (existingIngredient, existingAmount) => {
 };
 /* eslint-enable no-unused-vars*/
 
+/**
+ * For appending a pre-existing step to the form
+ * 
+ * @param {string} existingStep
+ */
 const appendEStep = (existingStep) => {
-    //let d = document.getElementById('steps');
-    // d.innerHTML += "&lt;input type='text' id='tst"+ x++ +"'>&lt;br >";
     var newTextBox = document.createElement("div");
 
     newTextBox.innerHTML =
@@ -372,13 +399,13 @@ const appendEStep = (existingStep) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createNodeClone">createNodeClone</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchRecipesByIds">fetchRecipesByIds</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#fillOutRecipe">fillOutRecipe</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#getUserData">getUserData</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initialRecipeCards">initialRecipeCards</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitInitialSearch">submitInitialSearch</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addSaveButton">addSaveButton</a></li><li><a href="global.html#addTags">addTags</a></li><li><a href="global.html#appendEIngredient">appendEIngredient</a></li><li><a href="global.html#appendEStep">appendEStep</a></li><li><a href="global.html#appendIngredient">appendIngredient</a></li><li><a href="global.html#appendStep">appendStep</a></li><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#clearRecipePage">clearRecipePage</a></li><li><a href="global.html#clickedOnATag">clickedOnATag</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createNodeClone">createNodeClone</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteIngredient">deleteIngredient</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#deleteStep">deleteStep</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchRecipesByIds">fetchRecipesByIds</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#fillOutEditPage">fillOutEditPage</a></li><li><a href="global.html#fillOutRecipe">fillOutRecipe</a></li><li><a href="global.html#getAuthor">getAuthor</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getSteps">getSteps</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#getUserData">getUserData</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initialRecipeCards">initialRecipeCards</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onSubmitRecipe">onSubmitRecipe</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateEditPage">populateEditPage</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#saveRecipe">saveRecipe</a></li><li><a href="global.html#searchForKey">searchForKey</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupCreatePage">setupCreatePage</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitInitialSearch">submitInitialSearch</a></li><li><a href="global.html#submitNewSearch">submitNewSearch</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Dec 10 2021 05:11:54 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Dec 10 2021 09:15:51 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
