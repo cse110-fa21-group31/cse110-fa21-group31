@@ -104,29 +104,19 @@ jobs:
         VALIDATE_ENV: false
         IGNORE_GITIGNORED_FILES: true
         IGNORE_GENERATED_FILES: true
+      
+    # Automatically run the formatter (should be pretty quick and less error prone than linting)
+    - name: Fix format
+      run: npm run prettier
 
-  formatting:
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - run: npm ci
-
-      # This only says which files have formatting problems. We also have
-      # the option of having Prettier auto fix it all
-      - name: Fix format
-        run: npm run prettier
+    # After all linting and formatting, publish our fixes (must be on the same job)
+    - name: Publish fixes to the pull request branch
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Automated Change from Prettier
+        commit_user_name: Automated Prettier Action
 
   sonarcloud-job:
-    # For linting, formatting, and quality evaluation of code.
     runs-on: ubuntu-latest
 
     steps:
@@ -165,18 +155,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs
-
-  publish-changes-job:
-    # To apply changes to the codebase
-    runs-on: ubuntu-latest
-
-    if: ${{ always() }}
-    needs: [ formatting, lint ]
-
-    steps:
-
-    - name: Publish fixes to the pull request branch
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Automated Change from Prettier
-        commit_user_name: Automated Prettier Action

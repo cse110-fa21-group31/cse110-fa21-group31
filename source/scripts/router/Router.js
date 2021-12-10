@@ -26,14 +26,14 @@ export class Router {
      */
     navigate(pageName, statePopped) {
         // console.log(`navigate() function called, requested pageName: ${pageName}`);
-        if (typeof this[pageName] === 'function') {
+        if (typeof this[pageName] === "function") {
             let hash;
-            if (pageName === 'home') {
-                hash = '/';
+            if (pageName === "home") {
+                hash = "/";
             } else {
                 hash = `/${pageName}`;
             }
-            if ((!statePopped) && (window.location.hash != hash)) {
+            if (!statePopped && window.location.hash != hash) {
                 // Not replacing hash anymore. Directly override everything after hostname
                 // const oldHash = window.location.hash;
                 history.pushState({ pageName }, pageName, hash);

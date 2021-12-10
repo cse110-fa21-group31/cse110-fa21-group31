@@ -4,12 +4,48 @@ const shadowconfig = {
     includeShadowDom: true,
 };
 
-describe("Works with a google account signin", () => {
+const recipeDetailPageVisible = () => {
+    cy.get("#recipeDetail").should("not.have.css", "display", "none");
+};
+const recipeCreatePageVisible = () => {
+    cy.get("#createRecipe").should("not.have.css", "display", "none");
+};
+const recipeEditPageVisible = () => {
+    cy.get("#editRecipe").should("not.have.css", "display", "none");
+};
+const landingPageVisible = () => {
+    cy.get("#landingPage").should("not.have.css", "display", "none");
+};
+const userPageVisible = () => {
+    cy.get("#userInfo").should("not.have.css", "display", "none");
+};
+
+const clickSave = () => {
+    cy.get("[data-cy=savebutton]").filter(":visible").click();
+};
+
+describe("End to end test", () => {
+    it("Loads home page by default", () => {
+        cy.visit("http://localhost:3030");
+    });
+
+    it("Can see loaded images", () => {
+        cy.get("img");
+    });
+
+    it("Can see the search bar", () => {
+        cy.get("#searchBar").should("be.visible");
+    });
+
+    it("Can see recipes at the bottom", () => {
+        cy.get("recipe-card").should("be.visible");
+        cy.get("recipe-card").should("have.length.greaterThan", 0);
+    });
+
     it("should log in with google api", () => {
-        // cy.task('db:seed');
         cy.loginByGoogleApi();
     });
-    
+
     const fakeGoogleUser = {
         getBasicProfile: () => {
             return {
@@ -31,57 +67,98 @@ describe("Works with a google account signin", () => {
             expect(win.onSignIn).to.be.a("function");
             win.onSignIn(fakeGoogleUser);
         });
-    })
+    });
     it("show the profile page upon click", () => {
-        // upon click, #userInfo shouldn't have display: none
-        cy.get('.profileImage').click();
+        cy.get(".profileImage").click();
         cy.get("#userInfo").should("not.have.css", "display", "none");
     });
+
+    // CREATING A NEW RECIPE
     it("shows new recipe creation page upon clicking New Recipe", () => {
         cy.contains("New Recipe").click();
-        cy.get("#createRecipe").should("not.have.css", "display", "none");
-        cy.get(".recipeEdit").should("not.have.css", "display", "none");
+        recipeCreatePageVisible();
+    });
+    it("should not allow saving a recipe if it lacks the required fields", () => {
+        clickSave();
+        recipeCreatePageVisible();
+    });
+    it("should be able to input recipe info and successfully make a new recipe", () => {
+        cy.get("[data-cy=recipenamefield]").type("Test Recipe");
+        cy.get("[data-cy=recipedescfield]").type("This is a test recipe");
+        cy.get("[data-cy=recipetags]").type("testtag, testtag2, testtag3");
+        cy.get("[data-cy=recipecooktime]").type("10");
+        cy.get("[data-cy=recipeservingsize]").type("1");
+        cy.get("[data-cy=recipedifficulty]").select("5");
+    });
+    it("should be able to change ingredients by adding and deleting", () => {
+        let amountOfIngredients = Math.floor(Math.random() * 3) + 3;
+        for (let i = 0; i < amountOfIngredients; i++) {
+            cy.get(
+                "#recipeForm > #ingredients > :nth-child(2) > #addIngr"
+            ).click();
+            cy.get(`#newInputBox[name=ingredient${i}]`).type("t" + i);
+            cy.get(`#newInputBox[name=ingredientAmount${i}]`).type("a" + i);
+        }
+        cy.get("[data-cy=newingredient]")
+            .children()
+            .should("have.length", amountOfIngredients);
+
+        let amountOfIngredientsDeleted = Math.floor(Math.random() * 1) + 1;
+        for (let i = 0; i < amountOfIngredientsDeleted; i++) {
+            cy.get(
+                "#recipeForm > #ingredients > :nth-child(2) > #delIngr"
+            ).click();
+        }
+        cy.get("[data-cy=newingredient]")
+            .children()
+            .should(
+                "have.length",
+                amountOfIngredients - amountOfIngredientsDeleted
+            );
+    });
+    it("should be able to change steps by adding and deleting", () => {
+        let amountOfSteps = Math.floor(Math.random() * 3) + 3;
+        for (let i = 0; i < amountOfSteps; i++) {
+            cy.get("#recipeForm > #steps > #addSteps > #addStep").click();
+            cy.get(`#textAreaBox[name=step${i}]`).type("s" + i);
+        }
+        cy.get("[data-cy=newstep]")
+            .children()
+            .should("have.length", amountOfSteps);
+
+        let amountOfStepsDeleted = Math.floor(Math.random() * 1) + 1;
+        for (let i = 0; i < amountOfStepsDeleted; i++) {
+            cy.get("#recipeForm > #steps > #addSteps > #delStep").click();
+        }
+        cy.get("[data-cy=newstep]")
+            .children()
+            .should("have.length", amountOfSteps - amountOfStepsDeleted);
+    });
+    it("should successfully submit the new recipe", () => {
+        clickSave();
+        recipeDetailPageVisible();
     });
 
-    // TODO: get these working with cypress-iframe plugin
-    it.skip("should not allow saving a recipe if it lacks the required fields", () => {
-        cy.contains("Save").click();
-        cy.get("#createRecipe").should("not.have.css", "display", "none");
-        cy.get(".recipeEdit").should("not.have.css", "display", "none");
-        cy.get("#recipeDetail").should("have.css", "display", "none");
-    })
-    it.skip("should be able to input recipe info and successfully make a new recipe", () => {
-        // Fill out the following fields:
-        // name, description, tags (a comma-delimited string), cook time, serving size, difficulty (dropdown menu from 1 to 5 stars)
-        cy.get("#name").type("Test Recipe");
-        cy.get("#descriptionText").type("This is a test recipe");
-        cy.get("#tags").type("testtag, testtag2, testtag3");
-        cy.get("#cookTime").type("10");
-        cy.get("#servingSize").type("1");
-        cy.get("#difficulty").select("5");
-        // click add ingredient and wait for a new input text element to be created
-        // it will have an ID of "newInputBox" and its name will be "ingredient#" where '#' is the number of the ingredient
-        // it will also create a similar
-        // do this a random number of times
-        let amountOfIngredients = Math.floor(Math.random() * 10) + 1;
-        for (let i = 0; i < amountOfIngredients; i++) {
-            cy.get("#addIngr").click();
-            cy.get("#newInputBox").should("have.attr", "name", "ingredient" + i).type("Test Ingredient " + i);
-            cy.get("#newInputBox").should("have.attr", "name", "ingredientAmount" + i).type("Some amount, " + i);
-        }
-        // at the end, there should be amountOfIngredients amount of ingredient inputs
-        cy.get("#newInputBox").should("have.length", amountOfIngredients);
+    // EDITING A RECIPE
+    it("should be able to edit the recipe", () => {
+        cy.get("#editRecipeButton").click();
+        recipeEditPageVisible();
+        cy.get("#editName > #name").type(" (Edited)");
+        cy.get("#editDescription > #descriptionText").type(" (Edited)");
+        cy.get("#editTags > #tags").type(
+            ", editedtesttag, editedtesttag2, editedtesttag3"
+        );
+        clickSave();
+    });
+    it("should have its edits be seen", () => {
+        recipeDetailPageVisible();
+        cy.get("#recipeTitle").should("contain", "(Edited)");
+        cy.get("#description").should("contain", "(Edited)");
+    });
 
-        // click add step and wait for a new input text element to be created
-        // it will have an ID of "textAreaBox" and its name will be "step#" where '#' is the number of the step
-        let amountOfSteps = Math.floor(Math.random() * 10) + 1;
-        for (let i = 0; i < amountOfSteps; i++) {
-            cy.get("#addStep").click();
-            cy.get("#textAreaBox").should("have.attr", "name", "step" + i).type("Test Step " + i);
-        }
-        cy.get("#textAreaBox").should("have.length", amountOfSteps);
-
-        cy.contains("Save").click();
-        cy.get("#recipeDetail").should("not.have.css", "display", "none");
-    })
-})
+    // DISQUS
+    it("should be able to comment on the recipe", () => {
+        cy.scrollTo("bottom");
+        cy.get("#disqus_thread").should("not.have.css", "display", "none");
+    });
+});
