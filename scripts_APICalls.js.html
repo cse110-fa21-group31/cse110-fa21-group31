@@ -26,7 +26,14 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { API_URL, USER_URL, IMAGE_UPLOAD_URL } from "./util.js";
+            <pre class="prettyprint source linenums"><code>/**
+ * Filename: APICalls.js
+ * 
+ * @file Provides functions that calls backend API and returns the desired data.
+ * @since 11.18.21
+ */
+
+import { API_URL, USER_URL, IMAGE_UPLOAD_URL } from "./util.js";
 export default {
     insertRecipe,
     deleteRecipe,
@@ -45,9 +52,11 @@ export default {
  * Otherwise
  * (await) &lt;api call>
  */
+
 /**
  * sends an HTTP request to the server to insert a single recipe to the database
  * @param {recipe} recipe the recipe object to insert
+ * @returns {recipe} The inserted recipe object
  */
 export async function insertRecipe(recipe) {
     // save image and convert to local relative path
@@ -76,6 +85,7 @@ export async function insertRecipe(recipe) {
 /**
  * sends an HTTP request to the server to delete a single recipe
  * @param {string} id the id of the desired recipe
+ * @returns {recipe} The updated recipe object
  */
 export async function deleteRecipe(id) {
     let queryURL = API_URL + "?id=" + id;
@@ -92,8 +102,10 @@ export async function deleteRecipe(id) {
 }
 
 /**
+ * @deprecated
  * sends an HTTP request to the server to fetch a single recipe
  * @param {string} id the id of the desired recipe
+ * @returns {Array&lt;recipe>} Array of recipe objects of this page
  */
 export async function fetchRecipeByPage(page) {
     return await fetchResults(API_URL + "?", page);
@@ -102,6 +114,7 @@ export async function fetchRecipeByPage(page) {
 /**
  * sends an HTTP request to the server to fetch a single recipe
  * @param {string} id the id of the desired recipe
+ * @returns {recipe} The desired recipe object
  */
 export async function fetchRecipeById(id) {
     let queryURL = API_URL + "?id=" + id;
@@ -111,6 +124,7 @@ export async function fetchRecipeById(id) {
 /**
  * sends an HTTP request to the server to fetch recipes
  * @param {Array&lt;string>} ids the ids of the desired recipes
+ * @returns Array of recipe objects of corresponding IDs
  */
 export async function fetchRecipesByIds(ids, page) {
     let queryURL = API_URL + "?ids=" + ids.join(",");
@@ -121,6 +135,7 @@ export async function fetchRecipesByIds(ids, page) {
  * sends an HTTP request to the server to update a single recipe
  * @param {string} id the id of the desired recipe
  * @param {object} update the fields and corresponding values of the recipe to change
+ * @returns {recipe} The updated recipe objct
  */
 export async function updateRecipeById(newImageUpdated, update) {
     let queryURL = API_URL;
@@ -196,6 +211,7 @@ export async function submitSearch(keywords, tags, page) {
 /**
  * sends an HTTP request to the server to fetch a single user
  * @param {string} id the id of the desired user
+ * @return {object} The user object
  */
 export async function fetchUserById(id) {
     let queryURL = USER_URL + "?id=" + id;
@@ -207,11 +223,17 @@ export async function fetchUserById(id) {
             return data;
         })
         .catch((err) => {
-            console.error("Error finding recipe: " + err.message);
+            console.error("Error finding user: " + err.message);
         });
     return response;
 }
 
+/**
+ * Adds a recipe id to user's savedRecipe array
+ * @param {string} userId The user id to save the recipe
+ * @param {string} recipeId The recipe id to be saved
+ * @returns The updated user object
+ */
 export async function addSavedRecipeById(userId, recipeId) {
     let queryURL =
         USER_URL + "/saved?userId=" + userId + "&amp;recipeId=" + recipeId;
@@ -233,6 +255,12 @@ export async function addSavedRecipeById(userId, recipeId) {
     return response;
 }
 
+/**
+ * Remove a recipe id from user's savedRecipe array
+ * @param {string} userId The user id to unsave the recipe
+ * @param {string} recipeId The recipe id to be unsaved
+ * @returns The updated user object
+ */
 export async function deleteSavedRecipeById(userId, recipeId) {
     let queryURL =
         USER_URL + "/saved?userId=" + userId + "&amp;recipeId=" + recipeId;
@@ -250,6 +278,11 @@ export async function deleteSavedRecipeById(userId, recipeId) {
     return response;
 }
 
+/**
+ * Gets the total page count of the current query. 
+ * @param {string} queryURL The query to recipes to count pages. 
+ * @returns page count
+ */
 export async function getPageCount(queryURL) {
     queryURL = queryURL + "&amp;counts=1";
     let response = await fetch(queryURL, {
@@ -270,6 +303,7 @@ export async function getPageCount(queryURL) {
  * Returns the url of the image.
  * @param {string} recipeId the recipeId to be used as image filename.
  * @param {File} imageFile the image file to be saved.
+ * @returns {string} Image path to be saved in the recipe object
  */
 export async function uploadImage(imageFile) {
     const URL = IMAGE_UPLOAD_URL;
@@ -298,6 +332,7 @@ export async function uploadImage(imageFile) {
  * Sends an HTTP request to fetch the complete user profile by email. If user
  * doesn't exist in the database, create new user document and return the new object.
  * @param {object} userProfile
+ * @returns user object
  */
 export async function getUserData(userProfile) {
     let queryURL = USER_URL + "?email=" + userProfile.email;
@@ -320,6 +355,12 @@ export async function getUserData(userProfile) {
 
 /****************** Internal functions ************************/
 
+/**
+ * Fetch the result recipe array of the url on the specified page 
+ * @param {*} queryURL The url for querying the desired recipes
+ * @param {*} page The specific page of recipes to fetch
+ * @returns Array of recipes based on the query
+ */
 async function fetchResults(queryURL, page) {
     if (page) {
         queryURL = queryURL + "&amp;page=" + page;
@@ -349,13 +390,13 @@ async function fetchResults(queryURL, page) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addSaveButton">addSaveButton</a></li><li><a href="global.html#addTags">addTags</a></li><li><a href="global.html#appendIngredient">appendIngredient</a></li><li><a href="global.html#appendStep">appendStep</a></li><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#clearRecipePage">clearRecipePage</a></li><li><a href="global.html#clickedOnATag">clickedOnATag</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createNodeClone">createNodeClone</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteIngredient">deleteIngredient</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#deleteStep">deleteStep</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchRecipesByIds">fetchRecipesByIds</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#fillOutRecipe">fillOutRecipe</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#getUserData">getUserData</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initialRecipeCards">initialRecipeCards</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onSubmitRecipe">onSubmitRecipe</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#saveRecipe">saveRecipe</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupCreatePage">setupCreatePage</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitInitialSearch">submitInitialSearch</a></li><li><a href="global.html#submitNewSearch">submitNewSearch</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Router_Router.html">Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addSaveButton">addSaveButton</a></li><li><a href="global.html#addSavedRecipeById">addSavedRecipeById</a></li><li><a href="global.html#addTags">addTags</a></li><li><a href="global.html#appendIngredient">appendIngredient</a></li><li><a href="global.html#appendStep">appendStep</a></li><li><a href="global.html#bindEscKey">bindEscKey</a></li><li><a href="global.html#bindPopstate">bindPopstate</a></li><li><a href="global.html#bindRecipeCard">bindRecipeCard</a></li><li><a href="global.html#bindUserProfile">bindUserProfile</a></li><li><a href="global.html#clearGlobalUserData">clearGlobalUserData</a></li><li><a href="global.html#clearRecipePage">clearRecipePage</a></li><li><a href="global.html#clickedOnATag">clickedOnATag</a></li><li><a href="global.html#createNewUser">createNewUser</a></li><li><a href="global.html#createNodeClone">createNodeClone</a></li><li><a href="global.html#createRecipeCards">createRecipeCards</a></li><li><a href="global.html#deleteIngredient">deleteIngredient</a></li><li><a href="global.html#deleteRecipe">deleteRecipe</a></li><li><a href="global.html#deleteSavedRecipeById">deleteSavedRecipeById</a></li><li><a href="global.html#deleteStep">deleteStep</a></li><li><a href="global.html#fetchRecipeById">fetchRecipeById</a></li><li><a href="global.html#fetchRecipeByPage">fetchRecipeByPage</a></li><li><a href="global.html#fetchRecipesByIds">fetchRecipesByIds</a></li><li><a href="global.html#fetchResults">fetchResults</a></li><li><a href="global.html#fetchUserById">fetchUserById</a></li><li><a href="global.html#fillOutRecipe">fillOutRecipe</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getPageCount">getPageCount</a></li><li><a href="global.html#getTags">getTags</a></li><li><a href="global.html#getUserData">getUserData</a></li><li><a href="global.html#hasUser">hasUser</a></li><li><a href="global.html#homePageButton">homePageButton</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initialRecipeCards">initialRecipeCards</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#onSignIn">onSignIn</a></li><li><a href="global.html#onSubmitRecipe">onSubmitRecipe</a></li><li><a href="global.html#onUpdateRecipe">onUpdateRecipe</a></li><li><a href="global.html#populateUserInfoPage">populateUserInfoPage</a></li><li><a href="global.html#redirectRecipeDetail">redirectRecipeDetail</a></li><li><a href="global.html#routerAddCreatePage">routerAddCreatePage</a></li><li><a href="global.html#routerAddEditPage">routerAddEditPage</a></li><li><a href="global.html#saveRecipe">saveRecipe</a></li><li><a href="global.html#setGlobalUserData">setGlobalUserData</a></li><li><a href="global.html#setupCreatePage">setupCreatePage</a></li><li><a href="global.html#setupDisqusScript">setupDisqusScript</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#submitInitialSearch">submitInitialSearch</a></li><li><a href="global.html#submitNewSearch">submitNewSearch</a></li><li><a href="global.html#submitSearch">submitSearch</a></li><li><a href="global.html#updateRecipeById">updateRecipeById</a></li><li><a href="global.html#uploadImage">uploadImage</a></li><li><a href="global.html#userSignedOut">userSignedOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Dec 10 2021 21:46:58 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Dec 10 2021 21:52:27 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
