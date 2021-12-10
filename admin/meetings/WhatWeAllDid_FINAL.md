@@ -8,7 +8,17 @@ Date: 12 / 09
 
 
 **Euvin:**
-
+Initially made icons and branding material
+Created first html scaffolding/skeleton page for editing recipes with Danica plus some js classes that are now scrapped
+Completed the first phase of the pipeline with Kian
+- mapped and planned out choices, researching, and final decisions/flowchart in Miro
+- did all pipeline videos, writeups, and demos 
+- wrote unit and all E2E tests using Jest and Cypress that test the application and database
+- spent many hours getting these tests to work properly and messing with config files
+- researched and integrated SonarCloud into pipeline as a replacement to Codacy
+- later had to tidy up config file pollution in root directory
+- finalized our actual workflow yaml file
+Helped Celia & Xin implement the delete feature of CRUD
 
 
 **Serina:**
