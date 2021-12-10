@@ -1,5 +1,11 @@
-// import RecipeClass from "./recipeClass";
-// The purpose of this JS file is to take API JSON files, create recipeClass objects with that info, and "send" them out to the website
+/**
+ * Filename: index.js
+ * 
+ * @file The purpose of this JS file is to take API JSON files, create 
+ *  recipeClass objects with that info, and "send" them out to the website.
+ * @since 11.18.21
+ * Dependency: index.html
+ */
 export default {
     createRecipeCards,
     redirectRecipeDetail,
@@ -13,7 +19,8 @@ export default {
     setGlobalUserData,
     clearGlobalUserData,
 };
-// RecipeExpand.js
+
+// Run the init function on window load
 if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", init);
 }
@@ -31,9 +38,12 @@ import { setupCreatePage } from "./createPage.js";
 import { populateEditPage } from "./editPage.js";
 import { setupDisqusScript } from "./disqus.js";
 import { initialRecipeCards } from "./indexSearch.js";
+
+// GLOBAL VARIABLES
 var recipeData = [];
 export var userData = null;
 
+// PAGES DOM VARIABLES
 let homePage = null; // = document.getElementById('homePage')
 let recipeDetailPage = null; // = document.getElementById('recipeDetail')
 let userInfoPage = null; // = document.getElementById('userInfo')
@@ -41,6 +51,7 @@ let createRecipePage = null; // = document.getElementById('createRecipe')
 let editRecipePage = null; // = document.getElementById('editRecipe')
 let landingPage = null; // = document.getElementById('landingPage')
 
+// Get page sections if window is available
 if (typeof window === "object") {
     if (typeof window.document === "object") {
         homePage = document.getElementById("homePage");
@@ -64,6 +75,9 @@ export const router = new Router(function () {
     initialRecipeCards();
 });
 
+/**
+ * Initializes the landing page and bind buttons with router
+ */
 async function init() {
     initialRecipeCards();
     bindEscKey();
@@ -72,6 +86,9 @@ async function init() {
     routerNavigateWrapper(HOME_ROUTER);
 }
 
+/**
+ * Binds the navbar logo with router back to home page
+ */
 function homePageButton() {
     let but = document.getElementsByClassName("logo")[0];
     but.addEventListener("click", () => {
@@ -117,6 +134,8 @@ observer.observe(document.body, {
 /**
  * Generates the <recipeCard> elements from the fetched recipes and
  * appends them to the page
+ * @param recipes Array of recipes to show as recipe cards
+ * @param container The HTML container to display recipe cards
  */
 export function createRecipeCards(recipes, container) {
     let containerName = container;
@@ -169,12 +188,12 @@ export function redirectRecipeDetail(recipeObj) {
         editRecipePage.classList.remove("shown");
         landingPage.classList.remove("shown");
         recipeDetailPage.data = recipeObj;
-        // console.log(recipeDetailPage.data)
         fillOutRecipe(recipeObj);
         // const disqusScript = document.getElementById('disqus_script');
         // disqusScript.onload = setupDisqusScript(recipeObj._id)
     });
 }
+
 /**
  * Binds the click event listener to the <recipe-card> elements added to the page
  * so that when they are clicked, their card expands into the full recipe view mode
@@ -190,7 +209,7 @@ export function bindRecipeCard(recipeCard, pageName) {
 }
 
 /**
- *
+ * Adds the createRecipe page navigation to the router
  * @param {*} pageName
  * @param {*} callback function
  */
@@ -218,7 +237,7 @@ export function routerAddCreatePage(pageName, recipeObj, isUpdate) {
 }
 
 /**
- *
+ * Adds the editRecipe page navigation to the router
  * @param {*} pageName
  * @param {*} callback function
  */

@@ -153,9 +153,10 @@ export const fillOutEditPage = (recipeObj) => {
     for (let key in fillIngredients) {
         appendEIngredient(key, fillIngredients[key]);
     }
-    
+
+    imageSrc = response.image;
     const currImage = document.getElementById("editPictureFile");
-    if (currImage.value) currImage.value = ''
+    if (currImage.value) currImage.value = '';
 };
 
 /**

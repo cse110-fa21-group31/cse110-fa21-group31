@@ -53,7 +53,7 @@ let sarahRecipe75 = {
         "Garlic cloves":"3",
         "Lime juice":"3 tbsp",
         "Sea salt":"1/2 tsp",
-        "Olive oil":"3 tbsp",
+        // "Olive oil":"3 tbsp",
         "Cashews":"1/2 cup",
         "Water":"3/4 cup",
         "Jalapeno, seeded":"1/2",
@@ -253,7 +253,7 @@ let sarahRecipe81 = {
         "Garlic clove, minced":"1",
         "Sour cream":"1/2 cup",
         "Salt":"1/2 tsp",
-        "Lime juice":"3 tbsp",
+        // "Lime juice":"3 tbsp",
         "Cilantro":"1/4 cup"    
     },
     "steps": [
@@ -286,7 +286,7 @@ let sarahRecipe82 = {
         "cooked white beans, drained and rinsed":"1½ cups",
         "vegetable broth, more as needed":"¼ cup",
         "fresh lemon juice":"3 tablespoons",
-        "extra-virgin olive oil":"2 tablespoons",
+        // "extra-virgin olive oil":"2 tablespoons",
         "nutritional yeast*":"¼ cup",
         "garlic clove, minced":"1",
         "onion powder":"¼ teaspoon",
