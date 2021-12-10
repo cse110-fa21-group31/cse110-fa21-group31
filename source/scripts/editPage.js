@@ -140,7 +140,7 @@ export const fillOutEditPage = (recipeObj) => {
         // console.log(key);
         appendEIngredient(key, fillIngredients[key]);
     }
-    //
+    imageSrc = response.image
     const currImage = document.getElementById("editPictureFile");
     if (currImage.value) currImage.value = ''
 };

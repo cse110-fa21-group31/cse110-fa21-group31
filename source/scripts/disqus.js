@@ -1,33 +1,31 @@
 /**
- *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT
- *  THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR
- *  PLATFORM OR CMS.
- *
- *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:
- *  https://disqus.com/admin/universalcode/#configuration-variables
+ *  This is the script function to setup the embeded disqus component
+ * @param id the recipeId to help disqus identify which comment thread it should present
  */
-
 export const setupDisqusScript = function (id) {
-    // console.log("current identifier is ", id)
+    //set up the disqus configuration variable. The url is deprecrated, but the identifer
+    //is used to let disqus generate new thread for a different recipe/fetch existing comment thread
+    //for the same recipe
     var disqus_config = function () {
         // Replace PAGE_URL with your page's canonical URL variable
         this.page.url = "http://localhost:3030/#recipe/" + id;
         // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         this.page.identifier = id;
     };
-
+    //this set up the disqus component. Disqus will take care of making any http request/render results afterward
     (function () {
-        // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+        // create an script element for the index.html
         var d = document,
             s = d.createElement("script");
 
-        // IMPORTANT: Replace EXAMPLE with your forum shortname!
+        // this is the src url for our project
         s.src = "https://oliveu.disqus.com/embed.js";
 
         s.setAttribute("data-timestamp", +new Date());
         (d.head || d.body).appendChild(s);
     })();
 
+    //set up the process when we're trying to reset the disqus comment
     var reset = function (newIdentifier, newUrl, newTitle, newLanguage) {
         /* eslint-disable no-undef */
         DISQUS.reset({
