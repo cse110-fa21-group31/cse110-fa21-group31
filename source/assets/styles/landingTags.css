@@ -1,17 +1,17 @@
 .tagsList {
-    display: hidden;
+  display: hidden;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .show {
-    display: inline;
+  display: inline;
 }
 
 section:not(section.shown) {
-    display: none;
+  display: none;
 }
 
 /*************************
@@ -19,32 +19,31 @@ section:not(section.shown) {
 **************************/
 
 #landingPage #selectTagButton {
-    width: 30%;
-    height: 2%;
-    padding: 2%;
-    margin-bottom: 2%;
-    background: #fcaf58;
-    color: white;
-    font-size: 100%;
-    border: 2px solid #fcaf58;
-    border-radius: 5px;
-    cursor: pointer;
+  width: 30%;
+  height: 2%;
+  padding: 2%;
+  margin-bottom: 2%;
+  background: #fcaf58;
+  color: white;
+  font-size: 100%;
+  border: 2px solid #fcaf58;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 #landingPage .tagButton {
-    width: 100%;
-    padding: 5%;
-    background: #fcaf58;
-    color: white;
-    font-size: 70%;
-    border: .2rem solid #fcaf58;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 7px 7px #44444400;
-    font-family: "Bold Open Sans", sans-serif;
+  width: 100%;
+  padding: 5%;
+  background: #fcaf58;
+  color: white;
+  font-size: 70%;
+  border: 0.2rem solid #fcaf58;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 7px 7px #4440;
+  font-family: "Bold Open Sans", sans-serif;
 }
-
 
 /*
 .tagButton:hover {
@@ -54,58 +53,64 @@ section:not(section.shown) {
 */
 
 #landingPage #selectTag {
-    display: inline;
+  display: inline;
 }
 
 #landingPage .tagsList {
-    float: top;
-    display: grid;
-    justify-content: center;
-    /* grid-template-columns: repeat(9, minmax(70px, 1fr)); */
-    grid-template-rows: repeat(2, auto);
-    grid-template-columns: repeat(3, 1fr); 
-    margin-left: 10px;
-    margin-right: 10px;
-    grid-gap: 1rem;
+  float: top;
+  display: grid;
+  justify-content: center;
+
+  /* grid-template-columns: repeat(9, minmax(70px, 1fr)); */
+  grid-template-rows: repeat(2, auto);
+  grid-template-columns: repeat(3, 1fr);
+  margin-left: 10px;
+  margin-right: 10px;
+  grid-gap: 1rem;
 }
 
 #landingPage #tagsListDiet {
-    grid-template-columns: repeat(2, 10vw);
+  grid-template-columns: repeat(2, 10vw);
 }
-
 
 /* Tags Categories */
-#landingPage .tagsCategory p{
-    font-family: "Bold Open Sans", sans-serif;
-    font-weight: bold;
-    color: #545b79;
-    font-size: 1.2rem;
-    list-style-type: none;
-    text-align: center;
-    margin-bottom: 5%;
-    margin-left: 15%;
-    margin-right: 15%;
-    /* border: 3px solid #545b79; */
-    /* border-radius: 5px; */
+#landingPage .tagsCategory p {
+  font-family: "Bold Open Sans", sans-serif;
+  font-weight: bold;
+  color: #545b79;
+  font-size: 1.2rem;
+  list-style-type: none;
+  text-align: center;
+  margin-bottom: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
+
+  /* border: 3px solid #545b79; */
+
+  /* border-radius: 5px; */
 }
+
 #landingPage .tagsCategory {
-    font-size: 1.6rem;
-    list-style-type: none;
-    text-align: center;
-    margin-bottom: 10%;
+  font-size: 1.6rem;
+  list-style-type: none;
+  text-align: center;
+  margin-bottom: 10%;
 }
+
 #landingPage #middleCategory {
-    border-left: .13rem solid #bcbdc0;
-    border-right: .13rem solid #bcbdc0;
+  border-left: 0.13rem solid #bcbdc0;
+  border-right: 0.13rem solid #bcbdc0;
 }
 
 #landingPage #tagsTitles {
-    width: 98vw;
-    margin-left: 1vw;
-    margin-right: 1vw;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    padding-inline-start: 0%;
-    /* gap: 8%; */
-    /* align-items: center; */
+  width: 98vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-inline-start: 0%;
+
+  /* gap: 8%; */
+
+  /* align-items: center; */
 }
