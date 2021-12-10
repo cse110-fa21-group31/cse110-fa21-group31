@@ -30,6 +30,7 @@
     text-align: center;
     line-height: 100%;
     text-decoration: none;
+    cursor: pointer;
 }
 
 #navList li .logo:hover {
@@ -74,6 +75,7 @@
     height: auto;
     border-radius: 50%;
     border: 3px white solid;
+    cursor: pointer;
 }
 
 #profileWrapper,
