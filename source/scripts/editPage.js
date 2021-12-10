@@ -70,7 +70,7 @@ let numSteps = 0;
 let numIngredients = 0;
 
 export const fillOutEditPage = (recipeObj) => {
-    console.log("EDITTED RECIPE");
+    // console.log("EDITTED RECIPE");
 
     // get recipe info and fill it out
     // let response = await fetchRecipeById(recipeId);
@@ -138,7 +138,7 @@ export const fillOutEditPage = (recipeObj) => {
 
     let fillIngredients = response.ingredients;
     for (let key in fillIngredients) {
-        console.log(key);
+        // console.log(key);
         appendEIngredient(key, fillIngredients[key]);
     }
 
@@ -152,7 +152,7 @@ export const fillOutEditPage = (recipeObj) => {
  */
 const onUpdateRecipe = async (event) => {
     event.preventDefault();
-    console.log("SUBMITTED NEW RECIPE");
+    // console.log("SUBMITTED NEW RECIPE");
 
     const recipeF = document.getElementById("editRecipeForm");
     let formData = new FormData(recipeF);
@@ -163,9 +163,9 @@ const onUpdateRecipe = async (event) => {
     let stepsArr = [];
     let strTags = formData.get("tags")
         ? formData
-              .get("tags")
-              .replace(/\s+/g, "")
-              .split(/[;,.]+/)
+            .get("tags")
+            .replace(/\s+/g, "")
+            .split(/[;,.]+/)
         : [];
     //let tagsArr = strTags.split(',');
 
@@ -175,20 +175,20 @@ const onUpdateRecipe = async (event) => {
             "ingredientAmount" + i
         );
     }
-    console.log(ingArr);
+    // console.log(ingArr);
 
     // get steps from form
     for (let i = 0; i < numSteps; i++) {
         stepsArr.push(formData.get("step" + i));
-        console.log(formData.get("step" + i));
+        // console.log(formData.get("step" + i));
     }
 
-    // console.log(formData.get('picture'));
+    console.log(formData.get('picture'));
     // CREATE NEW RECIPE
     let newRecipe = {
         name: formData.get("name"),
         datePosted: Date.now(),
-        image: formData.get("picture"),
+        image: formData.get("picture") ? formData.get("picture") : imageSrc,
         // default to be 'admin' id
         author: userData ? userData._id : "MMAfv3oCQDiL4u10",
         description: formData.get("description"),
@@ -229,9 +229,9 @@ const onUpdateRecipe = async (event) => {
 const appendStep = () => {
     //let d = document.getElementById('steps');
     // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
-    console.log("append Step");
+    // console.log("append Step");
     var newTextBox = document.createElement("div");
-    console.log("add Step");
+    // console.log("add Step");
     newTextBox.innerHTML =
         "<textarea cols='40' rows='4' id='textAreaBox' name='step" +
         numSteps +
@@ -245,7 +245,7 @@ const appendStep = () => {
 
 /* eslint-disable no-unused-vars*/
 const deleteStep = () => {
-    console.log("delete Step");
+    // console.log("delete Step");
     //newTextBox.classList.add('stepEntry');
     if (document.getElementById("editNewStepId").lastChild != null) {
         document
@@ -256,7 +256,7 @@ const deleteStep = () => {
 };
 /* eslint-disable no-unused-vars*/
 const appendIngredient = () => {
-    console.log("add Ingredient");
+    // console.log("add Ingredient");
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
         "<input type='text' id='newInputBox' name='ingredient" +
@@ -278,7 +278,7 @@ const appendIngredient = () => {
 
 /* eslint-disable no-unused-vars*/
 const deleteIngredient = () => {
-    console.log("delete ingredient");
+    // console.log("delete ingredient");
     if (document.getElementById("editNewIngredientId").lastChild != null) {
         numIngredients--;
         document
