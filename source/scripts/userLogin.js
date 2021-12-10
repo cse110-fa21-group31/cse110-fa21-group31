@@ -1,8 +1,8 @@
 /**
  * Filename: userLogin.js
- * Date: 11/18/2021
- * Description: functions for handling front end element changes for user
- * sign-in and log-out
+ * 
+ * @file Functions for handling front end element changes for user sign-in and log-out.
+ * @since 11.18.21
  * Dependency: navBarWithGoogle.html
  */
 export default { onSignIn };

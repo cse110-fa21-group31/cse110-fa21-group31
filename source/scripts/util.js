@@ -1,5 +1,11 @@
-// the file that used to put reusable helper methods and/or constants
-//eg: PORT, neDB storage File Path, etc
+/**
+ * Filename: util.js
+ * the file that used to put reusable helper methods and/or constants
+ * eg: PORT, neDB storage File Path, etc
+ * 
+ * @file For reusable methods and constants
+ * @since 12.09.21
+ */
 // DOM
 export const SIGN_IN_BUTTON_ID = "signInButton";
 export const SIGN_OUT_BUTTON_ID = "signOutButton";
@@ -15,12 +21,12 @@ export const IMG_NO_REFERRER = "no-referrer";
 export const RECIPE_ROUTE = "recipe/";
 export const USER_ROUTE = "user/";
 export const EDIT_CREATE_ROUTE = "create/";
-// TODO: change editcreate route name
 export const API_URL = "/api";
 export const USER_URL = "/api/user";
 export const IMAGE_UPLOAD_URL = "/api/imageUpload";
 export const CARDS_PER_PAGE = 6;
 export const HOME_ROUTER = "home";
+
 /**
  * Clone a node to clear all eventListener.
  * @param {*} selector
