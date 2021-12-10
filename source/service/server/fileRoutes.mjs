@@ -6,7 +6,6 @@ async function routes(fastify, options) {
 
     fastify.get("/recipe", async (request, reply) => {
         // change GET from homePage to index
-        console.log(recipe)
         return reply.sendFile("./index.html");
     })
 }
