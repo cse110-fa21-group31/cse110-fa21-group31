@@ -1,7 +1,7 @@
 /**
- * Populates tags and binds search functionality 
- * to the search bar and tags.
+ * Filename: indexSearch.js
  * 
+ * @file Populates tags and binds search functionality to the search bar and tags.
  * @since 12.09.21
  */
 import { createNodeClone } from "./util.js";

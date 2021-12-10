@@ -1,7 +1,7 @@
 /**
- * Skeleton page to populate the user info page
- * based on user profile json object.
+ * Filename: userInfo.js
  * 
+ * @file Skeleton page to populate the user info page based on user profile json object.
  * @since 12.09.21
  */
 

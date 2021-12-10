@@ -1,9 +1,12 @@
 /**
+ * Filename: recipeDetail.js
+ * 
  * Populate the recipe details using a recipe data object,
  * render the save button on login and handle save api calls,
  * render delete and edit buttons if recipe belongs to user,
  * handle delete api calls or route to edit page on click.
  * 
+ * @file Displays recipe object on page, displays neccesary buttons with functions
  * @since 12.09.21
  */
 
