@@ -74,9 +74,8 @@ export const fillOutEditPage = (recipeObj) => {
 
     // get recipe info and fill it out
     // let response = await fetchRecipeById(recipeId);
-    //TODO: update the variable from response to recipeObj
     let response = recipeObj;
-    console.log(response);
+    // console.log(response);
     // get ingredients from data
     document.getElementById("editName").innerHTML =
         '<label for="name">Recipe Name: *</label><input type="text" name="name" id="name" value="' +
@@ -141,9 +140,9 @@ export const fillOutEditPage = (recipeObj) => {
         // console.log(key);
         appendEIngredient(key, fillIngredients[key]);
     }
-
-    //TODO: figure out a way to store/display image
-    imageSrc = recipeObj.image;
+    //
+    const currImage = document.getElementById("editPictureFile");
+    if (currImage.value) currImage.value = ''
 };
 
 /**
@@ -182,13 +181,12 @@ const onUpdateRecipe = async (event) => {
         stepsArr.push(formData.get("step" + i));
         // console.log(formData.get("step" + i));
     }
-
-    console.log(formData.get('picture'));
+    let newImageUpdate = formData.get("picture").size ? true : false;
     // CREATE NEW RECIPE
     let newRecipe = {
         name: formData.get("name"),
         datePosted: Date.now(),
-        image: formData.get("picture") ? formData.get("picture") : imageSrc,
+        image: formData.get("picture").size ? formData.get("picture") : imageSrc,
         // default to be 'admin' id
         author: userData ? userData._id : "MMAfv3oCQDiL4u10",
         description: formData.get("description"),
@@ -203,7 +201,7 @@ const onUpdateRecipe = async (event) => {
     };
     // console.log(newRecipe);
     // console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
-    const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
+    const updatedRecipe = await updateRecipeById(newImageUpdate, newRecipe);
     //update the userData
     if (userData && userData.myRecipe) {
         userData.myRecipe = userData.myRecipe.map(function (recipe) {

@@ -79,22 +79,22 @@
                     <input id="searchButton" type="button" name="submit" value="Search">
                 </form>
             </div>
-                <ul id="tagsTitles">
-                    <li class="tagsCategory">
-                        <p>Difficulty</p>
-                        <div id="tagsListDiff" class="tagsList"></div>
-                    </li>
-                    <li class="tagsCategory" id="middleCategory">
-                        <p>Meal Time</p>
-                        <div id="tagsListMt" class="tagsList"></div>
-                    </li>
-                    <li class="tagsCategory">
-                        <p>Dietary</p>
-                        <div id="tagsListDiet" class="tagsList"></div>
-                    </li>
+            <ul id="tagsTitles">
+                <li class="tagsCategory">
+                    <p>Difficulty</p>
+                    <div id="tagsListDiff" class="tagsList"></div>
+                </li>
+                <li class="tagsCategory" id="middleCategory">
+                    <p>Meal Time</p>
+                    <div id="tagsListMt" class="tagsList"></div>
+                </li>
+                <li class="tagsCategory">
+                    <p>Dietary</p>
+                    <div id="tagsListDiet" class="tagsList"></div>
+                </li>
 
-                    <!-- populated in indexSearch.js -->
-                </ul>
+                <!-- populated in indexSearch.js -->
+            </ul>
         </div>
 
         <!-- Recipe Section -->
@@ -238,7 +238,8 @@
 
                 <div id="name" class="formItem">
                     <label for="name">Recipe Name: *</label>
-                    <input type="text" name="name" id="name" placeholder="A creative name" data-cy="recipenamefield" required>
+                    <input type="text" name="name" id="name" placeholder="A creative name" data-cy="recipenamefield"
+                        required>
                 </div>
 
                 <div id="picture" class="formItem">
@@ -249,7 +250,8 @@
 
                 <div id="description" class="formItem">
                     <label for="description">Description:</label>
-                    <textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!" data-cy="recipedescfield"></textarea>
+                    <textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!"
+                        data-cy="recipedescfield"></textarea>
                 </div>
                 <!-- Tags will be sent to the backend as a big comma delimited string -->
                 <div id="tags" class="formItem">
@@ -265,7 +267,8 @@
 
                 <div id="servingSize" class="formItem">
                     <label for="servingSize">Serving Size:</label>
-                    <input type="text" name="servingSize" id="servingSize" placeholder="x people" data-cy="recipeservingsize">
+                    <input type="text" name="servingSize" id="servingSize" placeholder="x people"
+                        data-cy="recipeservingsize">
                 </div>
                 <!-- Users can select from 1 star or 5 stars of difficulty with a dropdown menu -->
                 <div id="difficulty" class="formItem">
@@ -330,13 +333,14 @@
 
                 <div id="editPicture" class="formItem">
                     <label for="picture">Picture:</label>
-                    <input type="file" name="picture" id="picture">
+                    <input type="file" name="picture" id="editPictureFile">
                 </div>
 
 
                 <div id="editDescription" class="formItem">
                     <label for="description">Description:</label>
-                    <textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!"></textarea>
+                    <textarea name="description" id="descriptionText"
+                        placeholder="Tell us about your recipe!"></textarea>
                 </div>
 
                 <div id="editTags" class="formItem">
