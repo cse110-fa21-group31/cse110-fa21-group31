@@ -1,3 +1,10 @@
+/**
+ * Filename: APICalls.js
+ * 
+ * @file Provides functions that calls backend API and returns the desired data.
+ * @since 11.18.21
+ */
+
 import { API_URL, USER_URL, IMAGE_UPLOAD_URL } from "./util.js";
 export default {
     insertRecipe,
@@ -17,9 +24,11 @@ export default {
  * Otherwise
  * (await) <api call>
  */
+
 /**
  * sends an HTTP request to the server to insert a single recipe to the database
  * @param {recipe} recipe the recipe object to insert
+ * @returns {recipe} The inserted recipe object
  */
 export async function insertRecipe(recipe) {
     // save image and convert to local relative path
@@ -48,6 +57,7 @@ export async function insertRecipe(recipe) {
 /**
  * sends an HTTP request to the server to delete a single recipe
  * @param {string} id the id of the desired recipe
+ * @returns {recipe} The updated recipe object
  */
 export async function deleteRecipe(id) {
     let queryURL = API_URL + "?id=" + id;
@@ -64,8 +74,10 @@ export async function deleteRecipe(id) {
 }
 
 /**
+ * @deprecated
  * sends an HTTP request to the server to fetch a single recipe
  * @param {string} id the id of the desired recipe
+ * @returns {Array<recipe>} Array of recipe objects of this page
  */
 export async function fetchRecipeByPage(page) {
     return await fetchResults(API_URL + "?", page);
@@ -74,6 +86,7 @@ export async function fetchRecipeByPage(page) {
 /**
  * sends an HTTP request to the server to fetch a single recipe
  * @param {string} id the id of the desired recipe
+ * @returns {recipe} The desired recipe object
  */
 export async function fetchRecipeById(id) {
     let queryURL = API_URL + "?id=" + id;
@@ -83,6 +96,7 @@ export async function fetchRecipeById(id) {
 /**
  * sends an HTTP request to the server to fetch recipes
  * @param {Array<string>} ids the ids of the desired recipes
+ * @returns Array of recipe objects of corresponding IDs
  */
 export async function fetchRecipesByIds(ids, page) {
     let queryURL = API_URL + "?ids=" + ids.join(",");
@@ -93,6 +107,7 @@ export async function fetchRecipesByIds(ids, page) {
  * sends an HTTP request to the server to update a single recipe
  * @param {string} id the id of the desired recipe
  * @param {object} update the fields and corresponding values of the recipe to change
+ * @returns {recipe} The updated recipe objct
  */
 export async function updateRecipeById(newImageUpdated, update) {
     let queryURL = API_URL;
@@ -168,6 +183,7 @@ export async function submitSearch(keywords, tags, page) {
 /**
  * sends an HTTP request to the server to fetch a single user
  * @param {string} id the id of the desired user
+ * @return {object} The user object
  */
 export async function fetchUserById(id) {
     let queryURL = USER_URL + "?id=" + id;
@@ -179,11 +195,17 @@ export async function fetchUserById(id) {
             return data;
         })
         .catch((err) => {
-            console.error("Error finding recipe: " + err.message);
+            console.error("Error finding user: " + err.message);
         });
     return response;
 }
 
+/**
+ * Adds a recipe id to user's savedRecipe array
+ * @param {string} userId The user id to save the recipe
+ * @param {string} recipeId The recipe id to be saved
+ * @returns The updated user object
+ */
 export async function addSavedRecipeById(userId, recipeId) {
     let queryURL =
         USER_URL + "/saved?userId=" + userId + "&recipeId=" + recipeId;
@@ -205,6 +227,12 @@ export async function addSavedRecipeById(userId, recipeId) {
     return response;
 }
 
+/**
+ * Remove a recipe id from user's savedRecipe array
+ * @param {string} userId The user id to unsave the recipe
+ * @param {string} recipeId The recipe id to be unsaved
+ * @returns The updated user object
+ */
 export async function deleteSavedRecipeById(userId, recipeId) {
     let queryURL =
         USER_URL + "/saved?userId=" + userId + "&recipeId=" + recipeId;
@@ -222,6 +250,11 @@ export async function deleteSavedRecipeById(userId, recipeId) {
     return response;
 }
 
+/**
+ * Gets the total page count of the current query. 
+ * @param {string} queryURL The query to recipes to count pages. 
+ * @returns page count
+ */
 export async function getPageCount(queryURL) {
     queryURL = queryURL + "&counts=1";
     let response = await fetch(queryURL, {
@@ -242,6 +275,7 @@ export async function getPageCount(queryURL) {
  * Returns the url of the image.
  * @param {string} recipeId the recipeId to be used as image filename.
  * @param {File} imageFile the image file to be saved.
+ * @returns {string} Image path to be saved in the recipe object
  */
 export async function uploadImage(imageFile) {
     const URL = IMAGE_UPLOAD_URL;
@@ -270,6 +304,7 @@ export async function uploadImage(imageFile) {
  * Sends an HTTP request to fetch the complete user profile by email. If user
  * doesn't exist in the database, create new user document and return the new object.
  * @param {object} userProfile
+ * @returns user object
  */
 export async function getUserData(userProfile) {
     let queryURL = USER_URL + "?email=" + userProfile.email;
@@ -292,6 +327,12 @@ export async function getUserData(userProfile) {
 
 /****************** Internal functions ************************/
 
+/**
+ * Fetch the result recipe array of the url on the specified page 
+ * @param {*} queryURL The url for querying the desired recipes
+ * @param {*} page The specific page of recipes to fetch
+ * @returns Array of recipes based on the query
+ */
 async function fetchResults(queryURL, page) {
     if (page) {
         queryURL = queryURL + "&page=" + page;
