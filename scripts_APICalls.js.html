@@ -27,13 +27,22 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import { API_URL, USER_URL, IMAGE_UPLOAD_URL } from "./util.js";
-export default { insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
-    updateRecipeById, submitSearch, uploadImage, getUserData, fetchRecipesByIds }
+export default {
+    insertRecipe,
+    deleteRecipe,
+    fetchRecipeByPage,
+    fetchRecipeById,
+    updateRecipeById,
+    submitSearch,
+    uploadImage,
+    getUserData,
+    fetchRecipesByIds,
+};
 /**
- * 
+ *
  * want the return json object from server:
  * const response = await &lt;api call>
- * Otherwise 
+ * Otherwise
  * (await) &lt;api call>
  */
 /**
@@ -42,18 +51,19 @@ export default { insertRecipe, deleteRecipe, fetchRecipeByPage, fetchRecipeById,
  */
 export async function insertRecipe(recipe) {
     // save image and convert to local relative path
-    if(recipe.image.size != 0){
+    if (recipe.image.size != 0) {
         const imageURL = await uploadImage(recipe.image);
         // console.log(imageURL);
         recipe.image = imageURL;
-    }else{
+    } else {
         recipe.image = "";
     }
     //for update, change the method of PUT
     const response = await fetch(API_URL, {
-        method: 'POST',
-        body: JSON.stringify(recipe)
-    }).then((response) => response.json())
+        method: "POST",
+        body: JSON.stringify(recipe),
+    })
+        .then((response) => response.json())
         .then((data) => {
             return data;
         })
@@ -70,13 +80,12 @@ export async function insertRecipe(recipe) {
 export async function deleteRecipe(id) {
     let queryURL = API_URL + "?id=" + id;
     let response = await fetch(queryURL, {
-        method: 'DELETE',
+        method: "DELETE",
         "Access-Control-Allow-Origin": "*",
         // "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    })
-        .catch((err) => {
-            console.error('Error deleting recipe: ' + err.message);
-        });
+    }).catch((err) => {
+        console.error("Error deleting recipe: " + err.message);
+    });
 
     // console.log("Step Return");
     return response;
@@ -103,7 +112,7 @@ export async function fetchRecipeById(id) {
  * sends an HTTP request to the server to fetch recipes
  * @param {Array&lt;string>} ids the ids of the desired recipes
  */
- export async function fetchRecipesByIds(ids, page) {
+export async function fetchRecipesByIds(ids, page) {
     let queryURL = API_URL + "?ids=" + ids.join(",");
     return await fetchResults(queryURL, page);
 }
@@ -116,32 +125,32 @@ export async function fetchRecipeById(id) {
 export async function updateRecipeById(id, update) {
     let queryURL = API_URL;
     // save image and convert to relative local path
-    if(update.image.size != 0){
+    if (update.image.size != 0) {
         const imageURL = await uploadImage(update.image);
         // console.log(imageURL);
         update.image = imageURL;
-    }else{
+    } else {
         update.image = "";
     }
     // console.log(update);
     // console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
-        method: 'PUT',
-        body: JSON.stringify(update)
+        method: "PUT",
+        body: JSON.stringify(update),
     })
-        .then((response) => { 
-            // console.log(response); 
-            return response.json() })
+        .then((response) => {
+            // console.log(response);
+            return response.json();
+        })
         .then((data) => {
             // console.log(data);
-            return data
-
+            return data;
         })
         .catch((err) => {
-            console.error('Error updating recipe: ' + err.message);
+            console.error("Error updating recipe: " + err.message);
         });
 
-    return response
+    return response;
 }
 
 /**
@@ -150,20 +159,20 @@ export async function updateRecipeById(id, update) {
  * @param {Array&lt;string>} tags tags to filter results by
  * @returns {Array&lt;recipe>} the recipes returned by the search engine
  */
- export async function submitInitialSearch(keywords, tags) {
+export async function submitInitialSearch(keywords, tags) {
     let query = "?";
     if (keywords) {
         query = query + "name=" + keywords;
     }
     if (tags) {
-        query = query + '&amp;' + "tags=" + tags.join(",");
+        query = query + "&amp;" + "tags=" + tags.join(",");
     }
     let queryURL = API_URL + query;
     let searchResults = await fetchResults(queryURL);
     let pageCount = await getPageCount(queryURL);
     return {
-        "results":searchResults,
-        "pages": pageCount
+        results: searchResults,
+        pages: pageCount,
     };
 }
 
@@ -180,7 +189,7 @@ export async function submitSearch(keywords, tags, page) {
         query = query + "name=" + keywords;
     }
     if (tags) {
-        query = query + '&amp;' + "tags=" + tags.join(",");
+        query = query + "&amp;" + "tags=" + tags.join(",");
     }
     let queryURL = API_URL + query;
     return await fetchResults(queryURL, page);
@@ -193,90 +202,94 @@ export async function submitSearch(keywords, tags, page) {
 export async function fetchUserById(id) {
     let queryURL = USER_URL + "?id=" + id;
     let response = await fetch(queryURL, {
-        method: 'GET',
+        method: "GET",
     })
         .then((response) => response.json())
         .then((data) => {
-            return data
+            return data;
         })
         .catch((err) => {
-            console.error('Error finding recipe: ' + err.message);
+            console.error("Error finding recipe: " + err.message);
         });
-    return response
+    return response;
 }
 
 export async function addSavedRecipeById(userId, recipeId) {
-let queryURL = USER_URL+ "/saved?userId=" + userId + "&amp;recipeId=" + recipeId;
+    let queryURL =
+        USER_URL + "/saved?userId=" + userId + "&amp;recipeId=" + recipeId;
     let response = await fetch(queryURL, {
-        method: 'PUT'
+        method: "PUT",
     })
-        .then((response) => { console.log(response); return response.json() })
+        .then((response) => {
+            console.log(response);
+            return response.json();
+        })
         .then((data) => {
             console.log(data);
             return data;
-
         })
         .catch((err) => {
-            console.error('Error updating recipe: ' + err.message);
+            console.error("Error updating recipe: " + err.message);
         });
 
     return response;
 }
 
 export async function deleteSavedRecipeById(userId, recipeId) {
-let queryURL = USER_URL + "/saved?userId=" + userId + "&amp;recipeId=" + recipeId;
+    let queryURL =
+        USER_URL + "/saved?userId=" + userId + "&amp;recipeId=" + recipeId;
     let response = await fetch(queryURL, {
-        method: 'DELETE',
-        "Access-Control-Allow-Origin": "*"
+        method: "DELETE",
+        "Access-Control-Allow-Origin": "*",
     })
         .then((response) => response.json())
         .then((data) => {
-            return data
+            return data;
         })
         .catch((err) => {
-            console.error('Error deleting recipe: ' + err.message);
+            console.error("Error deleting recipe: " + err.message);
         });
-    return response
+    return response;
 }
 
-export async function getPageCount(queryURL){
+export async function getPageCount(queryURL) {
     queryURL = queryURL + "&amp;counts=1";
     let response = await fetch(queryURL, {
-        method: 'GET',
+        method: "GET",
     })
         .then((response) => response.json())
         .then(async (data) => {
             return data;
         })
         .catch((err) => {
-            console.error('Error counting results: ' + err.message);
+            console.error("Error counting results: " + err.message);
         });
     return response;
 }
 
 /**
  * sends an HTTP request to the server to save an image to the images folder.
- * Returns the url of the image. 
- * @param {string} recipeId the recipeId to be used as image filename. 
- * @param {File} imageFile the image file to be saved. 
+ * Returns the url of the image.
+ * @param {string} recipeId the recipeId to be used as image filename.
+ * @param {File} imageFile the image file to be saved.
  */
- export async function uploadImage(imageFile) {
-
+export async function uploadImage(imageFile) {
     const URL = IMAGE_UPLOAD_URL;
-    let data = new FormData()
-    data.append('file', imageFile)
+    let data = new FormData();
+    data.append("file", imageFile);
     // let formData = new FormData();
     // for (const name in imageFile) {
     //     formData.append(name, imageFile[name]);
     // }
     //for update, change the method of PUT
     const response = await fetch(URL, {
-        method: 'POST',
+        method: "POST",
         // headers: {
         //     "Content-Type": "multipart/form-data; charset=utf-8; boundary='a very cool boundary'"
         // },
-        body: data
-    }).then((response) => response.json())
+        body: data,
+    })
+        .then((response) => response.json())
         .catch((err) => {
             console.error(err);
         });
@@ -284,37 +297,37 @@ export async function getPageCount(queryURL){
 }
 
 /**
- * Sends an HTTP request to fetch the complete user profile by email. If user 
- * doesn't exist in the database, create new user document and return the new object. 
- * @param {object} userProfile 
+ * Sends an HTTP request to fetch the complete user profile by email. If user
+ * doesn't exist in the database, create new user document and return the new object.
+ * @param {object} userProfile
  */
- export async function getUserData(userProfile) {
+export async function getUserData(userProfile) {
     let queryURL = USER_URL + "?email=" + userProfile.email;
     // console.log(update);
     // console.log(JSON.stringify(update));
     let response = await fetch(queryURL, {
-        method: 'POST',
-        body: JSON.stringify(userProfile)
+        method: "POST",
+        body: JSON.stringify(userProfile),
     })
-        .then((response) => { 
-            // console.log(response); 
-            return response.json() })
+        .then((response) => {
+            // console.log(response);
+            return response.json();
+        })
         .catch((err) => {
-            console.error('Error getting user data: ' + err.message);
+            console.error("Error getting user data: " + err.message);
         });
-    
-    return response
-    
+
+    return response;
 }
 
 /****************** Internal functions ************************/
 
-async function fetchResults(queryURL, page){
-    if(page){
+async function fetchResults(queryURL, page) {
+    if (page) {
         queryURL = queryURL + "&amp;page=" + page;
     }
     let response = await fetch(queryURL, {
-        method: 'GET',
+        method: "GET",
     })
         .then((response) => response.json())
         .then(async (data) => {
@@ -324,7 +337,7 @@ async function fetchResults(queryURL, page){
             return data;
         })
         .catch((err) => {
-            console.error('Error finding recipes: ' + err.message);
+            console.error("Error finding recipes: " + err.message);
         });
     return response;
 }
@@ -344,7 +357,7 @@ async function fetchResults(queryURL, page){
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Dec 10 2021 00:38:35 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Dec 10 2021 00:43:26 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
