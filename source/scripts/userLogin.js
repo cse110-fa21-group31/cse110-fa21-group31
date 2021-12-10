@@ -72,9 +72,9 @@ async function onSignIn(googleUser) {
     }
 
     // Since email is unique, we won't need ID token for identification
-    console.log("User login activity caught:");
+    //console.log("User login activity caught:");
     // console.log('ID token: ' + googleUser.getAuthResponse().id_token);
-    console.log(profile);
+    //console.log(profile);
 
     // When logged in, show profile image and sign-out button, remove sign-in
     // button
@@ -124,7 +124,7 @@ async function userSignedOut() {
     const auth2 = gapi.auth2.getAuthInstance();
     /* eslint-enable no-undef */
     auth2.signOut().then(function () {
-        console.log("User signed out.");
+        //console.log("User signed out.");
     });
     routerNavigateWrapper(HOME_ROUTER);
 }
