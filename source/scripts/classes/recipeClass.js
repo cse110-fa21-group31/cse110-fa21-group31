@@ -1,5 +1,9 @@
 // RecipeClass
 // Euvin Keel
+/**
+ * Filename: recipeClass.js
+ * Contains recipeClass, which creates the recipe-card(s)
+ */
 
 /*
     Based off of this schema: https://github.com/cse110-fa21-group31/cse110-fa21-group31/issues/22
@@ -25,17 +29,22 @@ const PLACEHOLDER_IMG =
     window.location.host +
     "/source/assets/Images/recipeCardPlaceholder.png";
 
+
 class RecipeClass extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
     }
 
-    // setters for all changable properties
+    
+    /**
+     * Sets all the data for RecipeClass
+     * @param {Object} data the JSON file with all necessary data
+     */
     set data(data) {
         if (!data) return;
 
-        // Used to access the actual data object
+        // Used to access the actual data object within JSON
         this.json = data;
         const style = document.createElement("style");
 
@@ -68,12 +77,10 @@ class RecipeClass extends HTMLElement {
             font-size: large;
             
         }
-        
         .recipeCard > img {
             width:200px;
             height:200px;
-        } 
-        
+        }
         ul {
             height: 50px;
         }
@@ -95,13 +102,9 @@ class RecipeClass extends HTMLElement {
             /* border-radius: 2cm; */
             overflow: hidden; 
         }
-        
         li.individualTag {
-            /* border-style:solid; */
-            /* for flexbox tags, add marging 4px to top and bottom */
             height: 40%;
             margin: 4px 10px;
-            /* border: #FCAF58; */
             border-radius: 0.1cm;
             padding-left: 10px;
             padding-right: 10px;
@@ -114,20 +117,16 @@ class RecipeClass extends HTMLElement {
         .myRecipeCardGridContainer {
             background-color: #ededed;
         }
-
         `;
 
         const card = document.createElement("div");
         card.classList.add("recipeCard");
 
-        //Grab image
         const imageData = getImage(data);
         const image = document.createElement("img");
         image.href = imageData;
 
-        // image.style.border - radius = 50 % ;
         // show placeholder image if imageData not availables
-        // TODO: change these conditions after figuring out how to upload and store image
         image.src =
             imageData == null || typeof imageData == "object" || imageData == ""
                 ? PLACEHOLDER_IMG
@@ -139,19 +138,15 @@ class RecipeClass extends HTMLElement {
         };
         image.style.borderRadius = "15px";
 
-        // console.log(image);
-
         // Grab the name
         const nameText = getName(data);
         const name = document.createElement("p");
         name.innerText = nameText;
-        // console.log(nameText);
 
-        //Get tagssss
+        //Get tags
         const tagsData = getTags(data);
         const tags = document.createElement("div");
         tags.classList.add("tags");
-        // console.log(tagsData);
 
         const tagsList = document.createElement("ul");
         tagsList.classList.add("tagsList");
@@ -174,180 +169,226 @@ class RecipeClass extends HTMLElement {
         this.shadowRoot.append(style, card);
     }
 
+    /**
+     * Sets all the name of the recipe
+     * @param {Object} name the name
+     */
     set name(name) {
         this.name = name;
     }
 
+    /**
+     * Sets all the author of the recipe
+     * @param {Object} authorID the author of recipe's ID
+     */
     set authorID(authorID) {
         this.authorID = authorID;
     }
 
+    /**
+     * Sets all the date posted of the recipe
+     * @param {Object} datePosted the date when recipe was posted
+     */
     set datePosted(datePosted) {
         this.datePosted = datePosted;
     }
 
+    /**
+     * Sets the user's custom image
+     * @param {Object} coverImage the image to replace placeholder
+     */
     set coverImage(coverImage) {
         this.coverImage = coverImage;
     }
 
+    /**
+     * Sets the cooking time
+     * @param {Object} cookingTime the time it'll take to cook recipe
+     */
     set cookingTime(cookingTime) {
         this.cookingTime = cookingTime;
     }
 
+    /**
+     * Sets the difficulty
+     * @param {Object} difficulty the recipe's difficulty
+     */
     set difficulty(difficulty) {
         this.difficulty = difficulty;
     }
 
+    /**
+     * Sets all the tags of the recipe
+     * @param {Object} tags the tags
+     */
     set tags(tags) {
         this.tags = tags;
     }
 
-    addTag(tag) {
-        this.tags.push(tag);
-    }
-    removeTag(tag) {
-        this.tags.splice(this.tags.indexOf(tag), 1);
-    }
-
+    /**
+     * Sets the ingredients of the recipe
+     * @param {Object} ingredients the ingredients
+     */
     set ingredients(ingredients) {
         this.ingredients = ingredients;
     }
 
+    /**
+     * Sets the ingredients amounts of the recipe
+     * @param {Object} ingredients the ingredients amounts
+     */
     set ingredientAmounts(ingredientAmounts) {
         this.ingredientAmounts = ingredientAmounts;
     }
 
+    /**
+     * Sets the steps of the recipe
+     * @param {Object} steps the steps/instructions
+     */
     set steps(steps) {
         this.steps = steps;
     }
+    
+    // GETTERS
 
-    insertStep(step, stepIndex = this.steps.length) {
-        this.steps.splice(stepIndex, 0, step);
-    }
-
-    removeStep(stepIndex) {
-        this.steps.splice(stepIndex, 1);
-    }
-
-    // TODO: unsure how we'll handle comments since we're not the ones storing them
-    // these are just placeholders
-    addComment(comment) {
-        this.comments.push(comment);
-    }
-    removeComment(commentIndex) {
-        this.comments.splice(commentIndex, 1);
-    }
-
-    // getters for all properties
+    /**
+     * Gets the name of the recipe
+     * @return name of recipe
+     */
     get name() {
         return this.name;
     }
 
+    /**
+     * Gets the author of the recipe
+     * @return author of recipe's ID
+     */
     get authorID() {
         return this.authorID;
     }
 
+    /**
+     * Gets the date posted of the recipe
+     * @return date posted
+     */
     get datePosted() {
         return this.datePosted;
     }
 
+    /**
+     * Gets the image of the recipe
+     * @return cover image
+     */
     get coverImage() {
         return this.coverImage;
     }
 
+    /**
+     * Gets the cooking time of the recipe
+     * @return cooking time of recipe
+     */
     get cookingTime() {
         return this.cookingTime;
     }
 
+    /**
+     * Gets the difficulty of the recipe
+     * @return difficulty of recipe
+     */
     get difficulty() {
         return this.difficulty;
     }
 
+    /**
+     * Gets the tags of the recipe
+     * @return tags of recipe
+     */
     get tags() {
         return this.tags;
     }
 
+    /**
+     * Gets the ingredients of the recipe
+     * @return ingredients of recipe
+     */
     get ingredients() {
         return this.ingredients;
     }
 
+    /**
+     * Gets the ingredient amounts of the recipe
+     * @return ingredient amounts of recipe
+     */
     get ingredientAmounts() {
         return this.ingredientAmounts;
     }
 
+    /**
+     * Gets the steps of the recipe
+     * @return steps of recipe
+     */
     get steps() {
         return this.steps;
     }
 
+    /**
+     * Gets the comments of the recipe
+     * @return comments of recipe
+     */
     get comments() {
         return this.comments;
     }
 
+    /**
+     * Gets the data of the recipe
+     * @return json data of recipe
+     */
     get data() {
         return this.json;
     }
-}
+    
+    /**
+     * Adds a tag to this.tags array
+     * @param tag to be added
+     */
+    addTag(tag) {
+        this.tags.push(tag);
+    }
 
-// Getters from lab
+    /**
+     * Removes a tag from this.tags array
+     * @param tag to be removed
+     */
+    removeTag(tag) {
+        this.tags.splice(this.tags.indexOf(tag), 1);
+    }
 
-/**
- * Recursively search for a key nested somewhere inside an object
- * @param {Object} object the object with which you'd like to search
- * @param {String} key the key that you are looking for in the object
- * @returns {*} the value of the found key
- */
-function searchForKey(object, key) {
-    var value;
-    Object.keys(object).some(function (k) {
-        if (k === key) {
-            value = object[k];
-            return true;
-        }
-        if (object[k] && typeof object[k] === "object") {
-            value = searchForKey(object[k], key);
-            return value !== undefined;
-        }
-    });
-    return value;
+    /**
+     * Adds a step to this.steps
+     * @param step to be added
+     * @param stepIndex the index to add it at
+     */
+    insertStep(step, stepIndex = this.steps.length) {
+        this.steps.splice(stepIndex, 0, step);
+    }
+
+    /**
+     * Removes a step
+     * @param stepIndex the index of the step to be removed
+     */
+    removeStep(stepIndex) {
+        this.steps.splice(stepIndex, 1);
+    }
 }
 
 /**
  * Extract the name of the recipe from the given recipe schema JSON obejct
- * @param {Object} data Raw recipe JSON to find the image of
+ * @param {Object} data Raw recipe JSON to find name
  * @returns {String} If found, returns the recipe title
  */
 function getName(data) {
     if (data.name) return data.name;
-    /*
-    if (data['@graph']) {
-      for (let i = 0; i < data['@graph'].length; i++) {
-        if (data['@graph'][i]['@type'] == 'Recipe') {
-          if (data['@graph'][i]['name']) return data['@graph'][i]['name'];
-        };
-      }
-    }
-    */
     return null;
-}
-
-/**
- * Extract the author of the recipe from the given recipe schema JSON obejct
- * @param {Object} data Raw recipe JSON to find the image of
- * @returns {String} If found, returns the recipe's author
- */
-function getAuthor(data) {
-    if (data["author"]) return data["author"];
-    else return null;
-}
-
-/**
- * Extract the description of the recipe from the given recipe schema JSON obejct
- * @param {Object} data Raw recipe JSON to find the image of
- * @returns {String} If found, returns the recipe description
- */
-function getDescription(data) {
-    if (data["description"]) return data["description"];
-    else return null;
 }
 
 /**
@@ -362,7 +403,7 @@ function getImage(data) {
 
 /**
  * Extract tags from the given recipe schema JSON object
- * @param {Object} data Raw recipe JSON to find the image of
+ * @param {Object} data Raw recipe JSON to find tags
  * @returns {String} If found, returns tags as a array, otherwise null
  */
 function getTags(data) {
@@ -370,74 +411,6 @@ function getTags(data) {
     else return null;
 }
 
-/**
- * Extract the ingredients of the recipe from the given recipe schema JSON obejct
- * @param {Object} data Raw recipe JSON to find the image of
- * @returns {Array} If found, returns the recipe ingredients
- */
-function getIngredients(data) {
-    if (data.recipeIngredient) {
-        if (typeof data.recipeIngredient == "string") {
-            return data.recipeIngredient.slit(". ");
-        }
-        return data.recipeIngredient;
-    }
-    if (data["@graph"]) {
-        for (let i = 0; i < data["@graph"].length; i++) {
-            if (data["@graph"][i]["@type"] == "Recipe") {
-                if (typeof data["@graph"][i]["recipeIngredient"] == "string") {
-                    return data["@graph"][i]["recipeIngredient"].slit(". ");
-                }
-                return data["@graph"][i]["recipeIngredient"];
-            }
-        }
-    }
-    return null;
-}
-
-/**
- * Extract the instructions of the recipe from the given recipe schema JSON obejct.
- * This ones a bit messy and optimally should be refactored but it works.
- * @param {Object} data Raw recipe JSON to find the image of
- * @returns {Array} If found, returns the recipe instructions
- */
-function getSteps(data) {
-    if (data.recipeInstructions) {
-        if (typeof data.recipeInstructions == "string") {
-            return data.recipeInstructions.split(". ");
-        }
-        return data.recipeInstructions;
-    }
-    if (data["@graph"]) {
-        for (let i = 0; i < data["@graph"].length; i++) {
-            if (data["@graph"][i]["@type"] == "Recipe") {
-                if (data["@graph"][i]["recipeInstructions"] == "string") {
-                    return data["@graph"][i]["recipeInstructions"].split(". ");
-                }
-                if (
-                    data["@graph"][i]["recipeInstructions"][0][
-                        "itemListElement"
-                    ]
-                ) {
-                    const instructionArr = [];
-                    data["@graph"][i]["recipeInstructions"].forEach(
-                        (instrObj) => {
-                            instrObj.itemListElement.forEach((instruction) => {
-                                instructionArr.push(instruction.text);
-                            });
-                        }
-                    );
-                    return instructionArr;
-                } else {
-                    return data["@graph"][i]["recipeInstructions"].map(
-                        (instr) => instr.text
-                    );
-                }
-            }
-        }
-    }
-    return null;
-}
 
 // export default RecipeClass;
 
