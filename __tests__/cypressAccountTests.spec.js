@@ -24,15 +24,75 @@ const clickSave = () => {
     cy.get("[data-cy=savebutton]").filter(":visible").click();
 };
 
+const waitForRecipeCard = (matchName) => {
+    return new Promise((resolve) => {
+        let retries = 0;
+        let maxRetries = 5;
+
+        const searchForCard = () => {
+            cy.get("recipe-card", shadowconfig).last().scrollIntoView();
+            return cy.get("recipe-card", shadowconfig).then((cards) => {
+                for (let i = 0; i < cards.length; i++) {
+                    const recipeName = cards[i].json.name;
+                    if (recipeName.includes(matchName)) {
+                        console.log(`Found recipe card for ${matchName}`);
+                        return cards[i];
+                    }
+                }
+                return null;
+            });
+        };
+
+        const searchRecursion = () => {
+            setTimeout(() => {
+                card = searchForCard();
+                if (card === null) {
+                    if (retries < maxRetries) {
+                        retries++;
+                        console.log(
+                            `Retrying search for card for ${matchName}`
+                        );
+                        searchRecursion();
+                    } else {
+                        console.log(`Giving up`);
+                        resolve(null);
+                    }
+                } else {
+                    resolve(card);
+                }
+            }, 500);
+        };
+
+        let card = searchForCard();
+        if (card === null) {
+            searchRecursion();
+        } else {
+            resolve(card);
+        }
+    });
+}
+
 const getRecipeCard = (matchName) => {
+    cy.get("recipe-card").should("have.length.greaterThan", 0);
+    cy.get("recipe-card", shadowconfig).last().scrollIntoView();
+
+    //waitForRecipeCard()
+
     return cy.get("recipe-card", shadowconfig).then((cards) => {
         for (let i = 0; i < cards.length; i++) {
             const recipeName = cards[i].json.name;
             if (recipeName.includes(matchName)) {
+                console.log(`Found recipe card for ${matchName}`);
                 return cards[i];
             }
         }
+        return null;
     });
+};
+
+const goHome = () => {
+    cy.get("#navLogo > .logo").click();
+    cy.get("recipe-card", shadowconfig).last().scrollIntoView();
 };
 
 describe("End to end test", () => {
@@ -55,18 +115,7 @@ describe("End to end test", () => {
     it("Can see recipes at the bottom", () => {
         cy.get("recipe-card").should("be.visible");
         cy.get("recipe-card").should("have.length.greaterThan", 0);
-        // get an element with class recipe-card that has the text "Edited" inside of it
-        cy.get("recipe-card", shadowconfig).last().scrollIntoView();
-
-        // cypress command to get the recipe card whose json property includes a title field that includes "Edited"
-        // not necessarily the last card, choose the first one that matches
-        getRecipeCard("Carrots").should("be.visible");
-        getRecipeCard("Carrots").then((card) => {
-            console.log("HAHAHAHHA", card);
-        });
-        /*cy.get("recipe-card", shadowconfig).its('json').should('include', {
-            title: "Test Recipe",
-        });*/
+        getRecipeCard("Carrots");
     });
 
     it("should log in with google api", () => {
@@ -89,6 +138,9 @@ describe("End to end test", () => {
         },
     };
 
+    // randomly generate a unique recipe name
+    const newFakeRecipeName = Math.random().toString(36).substring(7);
+
     it("should have assigned a custom function 'onSignIn' to the window object", () => {
         cy.window().then((win) => {
             expect(win.onSignIn).to.be.a("function");
@@ -110,7 +162,7 @@ describe("End to end test", () => {
         recipeCreatePageVisible();
     });
     it("should be able to input recipe info and successfully make a new recipe", () => {
-        cy.get("[data-cy=recipenamefield]").type("Test Recipe");
+        cy.get("[data-cy=recipenamefield]").type(newFakeRecipeName);
         cy.get("[data-cy=recipedescfield]").type("This is a test recipe");
         cy.get("[data-cy=recipetags]").type("testtag, testtag2, testtag3");
         cy.get("[data-cy=recipecooktime]").type("10");
@@ -187,6 +239,9 @@ describe("End to end test", () => {
     it("should be able to delete the recipe", () => {
         cy.get("#deleteRecipeButton").click();
         landingPageVisible();
+        // this should result in a null thing
+        getRecipeCard(newFakeRecipeName).should("not.exist");
+        cy.log(`deleted recipe ${newFakeRecipeName}`);
     });
 
     // DISQUS
