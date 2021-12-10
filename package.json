@@ -36,6 +36,75 @@
         "prettier": "npx prettier --write '**/*.js'",
         "lint": "npm run eslint && npm run stylelint && npm run htmlhint"
     },
+    "babel": {
+        "presets": [
+            "@babel/preset-env"
+        ],
+        "env": {
+            "test": {
+                "plugins": [
+                    "@babel/plugin-transform-modules-commonjs"
+                ]
+            }
+        }
+    },
+    "prettier": {
+        "tabWidth": 4
+    },
+    "stylelint": {
+        "extends": "stylelint-config-standard",
+        "rules": {
+            "selector-class-pattern": "^[a-z][a-zA-Z0-9\\-]+$",
+            "selector-id-pattern": "^[a-z][a-zA-Z0-9\\-]+$"
+        }
+    },
+    "eslintConfig": {
+        "env": {
+            "node": true,
+            "es6": true,
+            "browser": true,
+            "es2021": true,
+            "jest/globals": true,
+            "jest": true
+        },
+        "extends": [
+            "eslint:recommended",
+            "plugin:json/recommended",
+            "plugin:cypress/recommended"
+        ],
+        "overrides": [
+            {
+                "files": [
+                    "**/*.test.js",
+                    "**/*.test.jsx"
+                ],
+                "env": {
+                    "jest": true
+                }
+            }
+        ],
+        "parser": "@babel/eslint-parser",
+        "parserOptions": {
+            "ecmaVersion": 2020,
+            "requireConfigFile": false
+        },
+        "plugins": [
+            "jest"
+        ],
+        "rules": {
+            "no-unused-vars": 0
+        },
+        "ignorePatterns": [
+            "**/admin/*",
+            "**/cypress/*",
+            "**/specs/*",
+            "cypress/",
+            "node_modules/",
+            "specs/",
+            "admin/",
+            "source/service/server/jsons"
+        ]
+    },
     "jest": {
         "verbose": true,
         "testRegex": "__tests__/.*\\.test\\.js$",

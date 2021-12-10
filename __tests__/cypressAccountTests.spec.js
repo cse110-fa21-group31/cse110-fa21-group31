@@ -25,6 +25,10 @@ const clickSave = () => {
 };
 
 describe("End to end test", () => {
+    it("should pass this test", () => {
+        console.log("Hello");
+    });
+
     it("Loads home page by default", () => {
         cy.visit("http://localhost:3030");
     });
