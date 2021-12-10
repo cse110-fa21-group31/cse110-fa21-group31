@@ -1,20 +1,37 @@
-// This script will take the user's input with their recipe data in editCreate.html, and will send it to the server to be saved.
+/**
+ * Adds event listeners to the add and delete ingredint and save buttons,
+ * in order have ingredient and step form elements behave correctly.
+ * Adds event listeners and routers to cancel and save buttons.
+ * Handles recipe object creation and saving to database on form submit with save button.
+ * 
+ * @since 12.09.21
+ */
+
 import { insertRecipe } from "./APICalls.js";
 import {
     redirectRecipeDetail,
     routerNavigateWrapper,
     userData,
 } from "./index.js";
-import { RECIPE_ROUTE, HOME_ROUTER } from "./util.js";
+import {
+    RECIPE_ROUTE,
+    HOME_ROUTER,
+} from "./util.js";
 export default { setupCreatePage };
-export function setupCreatePage() {
-    // console.log("setupCreatePage() called");
 
-    // Submitting the entire recipe
+/**
+ * Adds event listeners to ingrent, step, cancel and save buttons,
+ * in order to tie corresponding functions.
+ */
+export function setupCreatePage() {
+
+    // Cancel button routes to home page
     const cancelBtn = document.getElementById("cancel");
     cancelBtn.addEventListener("click", () => {
         routerNavigateWrapper(HOME_ROUTER);
     });
+
+    
     const recipeForm = document.getElementById("recipeForm");
     recipeForm.onsubmit = onSubmitRecipe;
     clearRecipePage();
@@ -51,54 +68,52 @@ export function setupCreatePage() {
 
 let numSteps = 0;
 let numIngredients = 0;
+
+/**
+ * Gathers the input fromt the form into a formData object,
+ * and saves it to database.
+ * 
+ * @param event
+ */
 const onSubmitRecipe = async (event) => {
-    // console.log("SUBMITTED NEW RECIPE");
+
     event.preventDefault();
     const recipeF = document.getElementById("recipeForm");
     let formData = new FormData(recipeF);
 
-    // get ingredients from form
     let stepsArr = [];
-    //should be empty array if no input
+
+    //Pull tags from form
     let strTags = formData.get("tags")
         ? formData
               .get("tags")
               .replace(/\s+/g, "")
               .split(/[;,.]+/)
         : [];
-    //let tagsArr = strTags.split(',');
 
+    // Pull ingredients from form
     let ingWithAmountArr = {};
     for (let i = 0; i < numIngredients; i++) {
         ingWithAmountArr[formData.get("ingredient" + i)] = formData.get(
             "ingredientAmount" + i
         );
-        /** 
-        ingrArr.push(formData.get('ingredient'+i));
-        ingrAmountArr.push(formData.get('ingredientAmount'+i));
-        console.log(formData.get('ingredient'+i));
-        console.log(formData.get('ingredientAmount'+i));
-        */
     }
-    // console.log(ingArr);
 
-    // get steps from form
+    // Pull steps from form
     for (let i = 0; i < numSteps; i++) {
-        stepsArr.push(formData.get("step" + i));
-        console.log(formData.get("step" + i));
+        stepsArr.push(formData.get("step" + i ));
     }
 
-    // DANICA's attempt in uploading image
+    // Upload image
     const recipeCard = document.createElement("recipe-card");
-    //console.log(document.getElementsByName('picture')[0].files[0]);
+
     let pic = null;
     let img = null;
     if (document.getElementsByName("picture")[0].files.length > 0) {
         pic = document.getElementsByName("picture")[0].files[0];
-        // img = window.URL.createObjectURL(fileObj);
     }
 
-    // CREATE NEW RECIPE
+    // Create new recipe object
     let newRecipe = {
         name: formData.get("name"),
         datePosted: Date.now(),
@@ -112,8 +127,8 @@ const onSubmitRecipe = async (event) => {
         difficulty: formData.get("difficulty"),
         steps: stepsArr,
     };
-    console.log(newRecipe);
-    // get response from POST API, get the new recipe,
+    
+    // Get response from POST API, get the new recipe,
     const responseRecipe = await insertRecipe(newRecipe);
     responseRecipe.author = userData;
     redirectRecipeDetail(responseRecipe);
@@ -123,10 +138,11 @@ const onSubmitRecipe = async (event) => {
     routerNavigateWrapper(routeUrl);
 };
 
+/**
+ * Adds a new step form element.
+ * Increments numSteps.
+ */
 const appendStep = () => {
-    //let d = document.getElementById('steps');
-    // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
-    console.log("APPEND STEP");
     var newTextBox = document.createElement("div");
 
     newTextBox.innerHTML =
@@ -136,12 +152,15 @@ const appendStep = () => {
         numSteps +
         "'></textarea>";
     document.getElementById("newStepId").appendChild(newTextBox);
+    
     numSteps++;
 };
 
+/**
+ * Called when user deletes a step and reflects that on the page.
+ * Removes step element and decreases numSteps.
+ */
 const deleteStep = () => {
-    //newTextBox.classList.add('stepEntry');
-    console.log("DELETED STEP");
     if (document.getElementById("newStepId").lastChild != null) {
         document
             .getElementById("newStepId")
@@ -150,8 +169,12 @@ const deleteStep = () => {
     }
 };
 
+/**
+ * Adds a new ingredient and ingredient amounts form elements.
+ * Increments numIngredients.
+ */
 const appendIngredient = () => {
-    console.log("APPEND INGREDIENT");
+
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
         "<input type='text' id='newInputBox' name='ingredient" +
@@ -168,10 +191,14 @@ const appendIngredient = () => {
     numIngredients++;
 };
 
+/**
+ * Called when user deletes an ingredient and reflects that on the page.
+ * Removes ingredient and amount elements and decreases numIngredients.
+ */
 const deleteIngredient = () => {
-    console.log("DELETE INGREDIENT");
     if (document.getElementById("newIngredientId").lastChild != null) {
         numIngredients--;
+
         document
             .getElementById("newIngredientId")
             .removeChild(document.getElementById("newIngredientId").lastChild);
@@ -182,11 +209,13 @@ const deleteIngredient = () => {
             );
     }
 };
+
+/**
+ * Remove form entries, steps and ingredients from previous page visit.
+ */
 const clearRecipePage = () => {
-    console.log("CLEARED");
-
     document.getElementById("recipeForm").reset();
-
+    
     for (let i = 0; i <= numSteps; i++) {
         deleteStep();
     }
