@@ -1,52 +1,30 @@
-/**
- * Filename: editPage.js
- * 
- * Very similar to createPage.js:
- * Adds event listeners to the add and delete ingredint and save buttons,
- * in order have ingredient and step form elements behave correctly.
- * Adds event listeners and routers to cancel and save buttons.
- * Handles recipe object creation and saving to database on form submit with save button.
- * Additionally:
- * Populates page with pre-existing recipe by pre-filling form items and appending existing
- * steps and ingredient elements.
- * 
- * @file Populate form with recipe, tie api to save button, make form buttons funcitonal.
- * @since 12.09.21
- */
 import { updateRecipeById } from "./APICalls.js";
 import {
     redirectRecipeDetail,
     routerNavigateWrapper,
     userData,
 } from "./index.js";
-import {
-    createNodeClone,
-    HOME_ROUTER,
-    RECIPE_ROUTE,
-} from "./util.js";
-
+import { createNodeClone, HOME_ROUTER, RECIPE_ROUTE } from "./util.js";
+let imageSrc = "";
 let recipeId;
 export default { populateEditPage };
-
-/**
- * Adds event listeners to ingrent, step, and cancel buttons,
- * in order to tie corresponding functions.
- * 
- * @param recipeObj The recipe object to populate the form with
- */
 export function populateEditPage(recipeObj) {
     recipeId = recipeObj._id;
 
     fillOutEditPage(recipeObj);
-
-    // Configure cancel button
     createNodeClone("editCancel");
     const cancelBtn = document.getElementById("editCancel");
     cancelBtn.addEventListener("click", () => {
         routerNavigateWrapper(HOME_ROUTER);
     });
+    // Adding steps to the recipe
+    /* eslint-disable no-unused-vars*/
+    const addStepButton = document.querySelector("#addSteps button");
+    /* eslint-enable no-unused-vars*/
+    //addStepButton.addEventListener('click', appendRow);
 
-    // Configure ingredient, step and edit buttons
+    // Submitting the entire recipe
+
     const recipeForm = document.getElementById("editRecipeForm");
     recipeForm.onsubmit = onUpdateRecipe;
     if (
@@ -84,25 +62,27 @@ export function populateEditPage(recipeObj) {
     }
 }
 
+export const deleteRecipeButton = async (event) => {
+    // await deleteRecipe(pageId);
+};
+
 let numSteps = 0;
 let numIngredients = 0;
 
-/**
- * Removes any pre-existing items from previous sessions.
- * Fills form items with data from the recipe object.
- * 
- * @param recipeObj The recipe object to populate the form with
- */
 export const fillOutEditPage = (recipeObj) => {
+    console.log("EDITTED RECIPE");
 
+    // get recipe info and fill it out
+    // let response = await fetchRecipeById(recipeId);
+    //TODO: update the variable from response to recipeObj
     let response = recipeObj;
-
-    //Fill out form items with pre-existing values
+    console.log(response);
+    // get ingredients from data
     document.getElementById("editName").innerHTML =
         '<label for="name">Recipe Name: *</label><input type="text" name="name" id="name" value="' +
         response.name +
         '" placeholder="A creative name" required>';
-
+    //document.getElementById('picture').innerHTML = 'label for="picture">Picture:</label><input type="file" name="picture" id="picture" src="'+response.image+'">';
     document.getElementById("editDescription").innerHTML =
         '<label for="description">Description:</label><textarea name="description" id="descriptionText" placeholder="Tell us about your recipe!">' +
         response.description +
@@ -123,6 +103,7 @@ export const fillOutEditPage = (recipeObj) => {
         response.servingSize +
         '" placeholder="x people">';
 
+    //document.getElementById('difficulty').innerHTML = '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select>';
     let diff = response.difficulty.charAt(0);
     if (diff == "1") {
         document.getElementById("editDifficulty").innerHTML =
@@ -141,7 +122,7 @@ export const fillOutEditPage = (recipeObj) => {
             '<label for="difficulty">Difficulty:</label><select name="difficulty" id="difficulty"><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option selected value="5">5 stars</option></select>';
     }
 
-    // Remove any elements from previous page visits
+    // EUVIN: Added these so duplicate steps aren't added from previous sessions
     for (let i = 0; i <= numSteps; i++) {
         deleteStep();
     }
@@ -157,25 +138,27 @@ export const fillOutEditPage = (recipeObj) => {
 
     let fillIngredients = response.ingredients;
     for (let key in fillIngredients) {
+        console.log(key);
         appendEIngredient(key, fillIngredients[key]);
     }
 
+    //TODO: figure out a way to store/display image
     imageSrc = recipeObj.image;
 };
 
 /**
- * Gathers the input fromt the form into a formData object,
- * and saves it to database as an update.
- * 
+ *
  * @param {*} event
  */
 const onUpdateRecipe = async (event) => {
     event.preventDefault();
+    console.log("SUBMITTED NEW RECIPE");
 
     const recipeF = document.getElementById("editRecipeForm");
     let formData = new FormData(recipeF);
 
     // get ingredients from form
+    let ingrArr = [];
     let ingrAmountArr = [];
     let stepsArr = [];
     let strTags = formData.get("tags")
@@ -184,6 +167,7 @@ const onUpdateRecipe = async (event) => {
               .replace(/\s+/g, "")
               .split(/[;,.]+/)
         : [];
+    //let tagsArr = strTags.split(',');
 
     let ingArr = {};
     for (let i = 0; i < numIngredients; i++) {
@@ -191,18 +175,21 @@ const onUpdateRecipe = async (event) => {
             "ingredientAmount" + i
         );
     }
+    console.log(ingArr);
 
-    // Get steps from form
+    // get steps from form
     for (let i = 0; i < numSteps; i++) {
         stepsArr.push(formData.get("step" + i));
+        console.log(formData.get("step" + i));
     }
 
-    // Create new recipe
+    // console.log(formData.get('picture'));
+    // CREATE NEW RECIPE
     let newRecipe = {
         name: formData.get("name"),
         datePosted: Date.now(),
         image: formData.get("picture"),
-        // Default to be 'admin' id
+        // default to be 'admin' id
         author: userData ? userData._id : "MMAfv3oCQDiL4u10",
         description: formData.get("description"),
         tags: strTags,
@@ -214,9 +201,10 @@ const onUpdateRecipe = async (event) => {
         steps: stepsArr,
         _id: recipeId,
     };
-
+    // console.log(newRecipe);
+    // console.log("RECIPE ID AT UPDATERECIPE IS: " + recipeId);
     const updatedRecipe = await updateRecipeById(recipeId, newRecipe);
-    // Update the userData
+    //update the userData
     if (userData && userData.myRecipe) {
         userData.myRecipe = userData.myRecipe.map(function (recipe) {
             if (recipe._id == updatedRecipe._id) return updatedRecipe;
@@ -232,15 +220,18 @@ const onUpdateRecipe = async (event) => {
     const page = updatedRecipe._id;
     const routeUrl = RECIPE_ROUTE + page;
     routerNavigateWrapper(routeUrl);
+
+    // What does this function do overall?
+    // ANSWER: This function serves to
 };
 
-/**
- * Adds a new step form element.
- * Increments numSteps.
- */
 /* eslint-disable no-unused-vars*/
 const appendStep = () => {
+    //let d = document.getElementById('steps');
+    // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
+    console.log("append Step");
     var newTextBox = document.createElement("div");
+    console.log("add Step");
     newTextBox.innerHTML =
         "<textarea cols='40' rows='4' id='textAreaBox' name='step" +
         numSteps +
@@ -252,12 +243,10 @@ const appendStep = () => {
 };
 /* eslint-enable no-unused-vars*/
 
-/**
- * Called when user deletes a step and reflects that on the page.
- * Removes step element and decreases numSteps.
- */
 /* eslint-disable no-unused-vars*/
 const deleteStep = () => {
+    console.log("delete Step");
+    //newTextBox.classList.add('stepEntry');
     if (document.getElementById("editNewStepId").lastChild != null) {
         document
             .getElementById("editNewStepId")
@@ -265,13 +254,9 @@ const deleteStep = () => {
         numSteps--;
     }
 };
-
-/**
- * Adds a new ingredient and ingredient amounts form elements.
- * Increments numIngredients.
- */
 /* eslint-disable no-unused-vars*/
 const appendIngredient = () => {
+    console.log("add Ingredient");
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
         "<input type='text' id='newInputBox' name='ingredient" +
@@ -291,12 +276,9 @@ const appendIngredient = () => {
 };
 /* eslint-enable no-unused-vars*/
 
-/**
- * Called when user deletes an ingredient and reflects that on the page.
- * Removes ingredient and amount elements and decreases numIngredients.
- */
 /* eslint-disable no-unused-vars*/
 const deleteIngredient = () => {
+    console.log("delete ingredient");
     if (document.getElementById("editNewIngredientId").lastChild != null) {
         numIngredients--;
         document
@@ -312,12 +294,6 @@ const deleteIngredient = () => {
     }
 };
 
-/**
- * For appending a pre-existing ingredient to the form
- * 
- * @param {string} existingIngredient
- * @param {string} existingAmount
- */
 const appendEIngredient = (existingIngredient, existingAmount) => {
     var newTextBox = document.createElement("div");
     newTextBox.innerHTML =
@@ -342,12 +318,9 @@ const appendEIngredient = (existingIngredient, existingAmount) => {
 };
 /* eslint-enable no-unused-vars*/
 
-/**
- * For appending a pre-existing step to the form
- * 
- * @param {string} existingStep
- */
 const appendEStep = (existingStep) => {
+    //let d = document.getElementById('steps');
+    // d.innerHTML += "<input type='text' id='tst"+ x++ +"'><br >";
     var newTextBox = document.createElement("div");
 
     newTextBox.innerHTML =
