@@ -72,7 +72,7 @@ Date: 11/ 30
 **TeamLead:**
 
 **Eric:**
-(sick for much of this, updated what I did before 11.30 after as a consequence)
+(sick for much of this, updated what I did before 11.30 after that date as a consequence)
 * Acted as the team lead for the first part of this, but I got sick, so I had to cede some responsibilities to Celia
 * Determined which web framework would be in use, where we would host, that we could host in the way we do, established working local hosting and routing with fastify(before we switched from strict fastify SPA to a 110 lab-fastify hybrid in which fastify hosts home, else lab SPA, because Xin and Celia liked it better). 
 * Working on glitch integration of locally hosted work + managing comments API
