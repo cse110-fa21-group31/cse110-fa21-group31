@@ -68,6 +68,23 @@ Helped Celia & Xin implement the delete feature of CRUD
 
 
 **Xin:**
+ - Helped with Miro planning (feature research, user persona, competitor analysis). 
+ - Helped improve UI/UX design on Miro. 
+ - Researched how to integrate Google login API into the website. 
+ - Researched how to upload and store image in database or file system. 
+ - Constructed the database schema. 
+ - Wrote up a list of API calls with Celia. 
+ - Implemented navbar HTML,CSS,JavaScript with Google Login API. 
+ - Implemented backend APIs for user activity in the user database. 
+ - Migrated our app from multi-page to SPA with Celia. 
+ - Set up router and fixed bugs with Celia. 
+ - Hosted the HTML files on the server with Eric. 
+ - Helped writting JS for CRUD feature and debugging. 
+ - Implemented the complete image upload and storage progress on both frontend and backend. 
+ - Wrote frontend scripts for user activity upon login (account creation, data retrieval, data update, html element render). 
+ - Dynamically populated the recipe cards and user info with Celia. 
+ - Improved CSS layout and details. 
+ - Helped debugging, testing, code review, and conflict resolving. 
 
 
 **TeamLead:**
