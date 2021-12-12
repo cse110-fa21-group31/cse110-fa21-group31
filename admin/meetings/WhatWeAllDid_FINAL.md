@@ -90,7 +90,22 @@ Helped Celia & Xin implement the delete feature of CRUD
 **TeamLead:**
 
 **Eric:**
-
+- Held regular team meetings with frontend and backend in all possible combinations
+- Held regular meetings with TA (except when I got too sick to speak well) to update TA with team progress
+- Helped with project and feature planning, backend design and distribution and idea planning
+- Researched and came up with where we would be hosting our site
+- Determined the set of tools and how they would interact with our site, using the team's desire to use neDB and coming with using Fastify,
+  Glitch, Disqus along with it
+- Integrated Disqus comments into site, making them work dynamically per page
+- Designed all of our Fastify routing initially, post-sickness integrating with and fixing bugs in lab-inspired SPA from Celia and Xin to fully serve our SPA needs
+- Redesigned our routing in order to better serve certain frontend needs
+- Hosted HTML files on the server with Xin
+- Worked to sync Google login that Xin made with Disqus
+- Got page refresh to not yield 404s(outside of routing in the previous references)
+- Built multiple deployment demos for verification of work possibility
+- Handled many issues relating to both testing locally and deploying on Glitch and natural nodeJS-browser inconsistencies
+- Handled much debugging and testing on various features
+ 
 
 **Sarah:**
 
