@@ -99,12 +99,13 @@ Helped Celia & Xin implement the delete feature of CRUD
 - Integrated Disqus comments into site, making them work dynamically per page
 - Designed all of our Fastify routing initially, post-sickness integrating with and fixing bugs in lab-inspired SPA from Celia and Xin to fully serve our SPA needs
 - Redesigned our routing in order to better serve certain frontend needs
+- Worked to integrate API calls properly to be compatible with our design
 - Hosted HTML files on the server with Xin
 - Worked to sync Google login that Xin made with Disqus
 - Got page refresh to not yield 404s(outside of routing in the previous references)
 - Built multiple deployment demos for verification of work possibility
 - Handled many issues relating to both testing locally and deploying on Glitch and natural nodeJS-browser inconsistencies
-- Handled much debugging and testing on various features
+- Handled much debugging and end-to-end testing on various features
  
 
 **Sarah:**
