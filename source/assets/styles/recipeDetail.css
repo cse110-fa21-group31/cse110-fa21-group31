@@ -195,6 +195,7 @@ ol {
     font-size: 110%;
 }
 
+/* stylelint-disable-next-line */
 #disqus_thread {
     padding: 0px 10px;
 }
